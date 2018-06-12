@@ -3,7 +3,7 @@
 #include <SDL2/SDL_image.h>
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 800
-#define LUKA 1
+#define RPI 1
 
 int program;
 int sbarText;
@@ -13,16 +13,7 @@ int page_stage[3];
 int curr_page;
 
 char buff_reg[10][10];
-char keypadValues[40][10];
-char cell_values_buff[40][10];
-int cell_values[9];
-   
 
-char editText[10];
-int show;
-
-int edit_cell;
-int idBuff;
 int backgroundColor;
 
 FILE *fp_can_size;
@@ -75,13 +66,7 @@ void down_button(int x, int y, int *decrementee, int decrementor);
 void left_button(int x, int y);
 void right_button(int x, int y);
 void button(int x, int y, int w, int h, char *text, int id);
-
+void savebutton(int x, int y, int w, int h, char *text);
 void pageOne(void);
 void pageTwo(void);
 void pageThree(void);
-void pageFour(void);
-void pageFive(void);
-
-void cell(int x, int y, int w, int h, char *text, int id);
-void grid(int x, int y, int w, int h, int row, int columns, char** columnNames, int* cell_values);
-void keypad();

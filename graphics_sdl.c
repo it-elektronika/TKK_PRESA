@@ -76,6 +76,7 @@ int init()    /* things needed to start sdl2 properly */
 
 void initVars()
 {
+  /* color definitions  */
   whiteColor.r = 255;
   whiteColor.g = 255;
   whiteColor.b = 255;
@@ -83,65 +84,8 @@ void initVars()
   blackColor.r = 0;
   blackColor.g = 0;
   blackColor.b = 0;
-  /*keypadValues = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
-                    "q", "w", "e", "r", "t", "z", "u", "i", "o", "bckspace", 
-                    "p", "a", "s", "d", "f", "g", "h", "j", "k", "enter", 
-                    "l", "y", "x", "c", "v", "b", "n", "m", ".");
-*/
 
-  sprintf(keypadValues[0], "%s", "1");
-  sprintf(keypadValues[1], "%s", "2");
-  sprintf(keypadValues[2], "%s", "3");
-  sprintf(keypadValues[3], "%s", "4");
-  sprintf(keypadValues[4], "%s", "5");
-  sprintf(keypadValues[5], "%s", "6");
-  sprintf(keypadValues[6], "%s", "7");
-  sprintf(keypadValues[7], "%s", "8");
-  sprintf(keypadValues[8], "%s", "9");
-  sprintf(keypadValues[9], "%s", "0");
-  sprintf(keypadValues[10], "%s", "q");
-  sprintf(keypadValues[11], "%s", "w");
-  sprintf(keypadValues[12], "%s", "e");
-  sprintf(keypadValues[13], "%s", "r");
-  sprintf(keypadValues[14], "%s", "t");
-  sprintf(keypadValues[15], "%s", "z");
-  sprintf(keypadValues[16], "%s", "u");
-  sprintf(keypadValues[17], "%s", "i");
-  sprintf(keypadValues[18], "%s", "o");
-  sprintf(keypadValues[19], "%s", "bckspc");
-  sprintf(keypadValues[20], "%s", "p");
-  sprintf(keypadValues[21], "%s", "a");
-  sprintf(keypadValues[22], "%s", "s");
-  sprintf(keypadValues[23], "%s", "d");
-  sprintf(keypadValues[24], "%s", "f");
-  sprintf(keypadValues[25], "%s", "g");
-  sprintf(keypadValues[26], "%s", "h");
-  sprintf(keypadValues[27], "%s", "j");
-  sprintf(keypadValues[28], "%s", "k");
-  sprintf(keypadValues[29], "%s", "enter");
-  sprintf(keypadValues[30], "%s", "l");
-  sprintf(keypadValues[31], "%s", "y");
-  sprintf(keypadValues[32], "%s", "x");
-  sprintf(keypadValues[33], "%s", "c");
-  sprintf(keypadValues[34], "%s", "v");
-  sprintf(keypadValues[35], "%s", "b");
-  sprintf(keypadValues[36], "%s", "n");
-  sprintf(keypadValues[37], "%s", "m");
-  sprintf(keypadValues[38], "%s", ".");
-  sprintf(keypadValues[39], "%s", "space");
-
-  cell_values[0] = 10;
-  cell_values[1] = 20;
-  cell_values[2] = 30;
-  cell_values[3] = 40;
-  cell_values[4] = 50;
-  cell_values[5] = 60;
-  cell_values[6] = 70;
-  cell_values[7] = 80;
-  cell_values[8] = 90;
-
-
-
+  
 }
 
 void freeTexture(void)  
@@ -160,13 +104,13 @@ void renderBackground(void)
   switch(backgroundColor)
   {
     case 0:
-      SDL_SetRenderDrawColor(renderer, 0, 178, 0, 255);
-      break;
+      SDL_SetRenderDrawColor(renderer, 0, 178, 0, 255); /* green */
+      break; 
     case 1:
-      SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+      SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); /* yellow */
       break;
     case 2:
-      SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+      SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); /* red */
       break;
   }
   SDL_RenderClear(renderer);
@@ -267,7 +211,7 @@ void renderStatusBar()
       break;
 
     case 2:
-      renderText("NAPAKA", regularText, blackColor);
+      renderText("NAPAKA - ni povezave s krmilnikom", regularText, blackColor);
       break;
 
     case 3:
@@ -359,13 +303,13 @@ void renderContent()
   switch(page)
   {
     case 0:
-      pageOne();
+      pageOne(); /* main page */
       backgroundColor = 1;
       sbarText = 0;
       break;
     
     case 1:
-      pageTwo();
+      pageTwo(); /* can size selection */
       backgroundColor = 1;
       sbarText = 1;
       break;
@@ -374,17 +318,6 @@ void renderContent()
       pageThree();   /*error page */
       backgroundColor = 2;
       sbarText = 2;
-      break;
-
-    case 3:
-      pageFour();
-      backgroundColor = 0;
-      sbarText = 3;
-      break;
-
-    case 4:
-      pageFive();
-      backgroundColor = 0;
       break;
 
   }
@@ -600,6 +533,60 @@ void button(int x, int y, int w, int h, char *text, int id)
   }
 }
 
+void saveButton(int x, int y, int w, int h, char *text)
+{
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+  SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+  SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+  SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+    for(i = 0; i < 10; i++)
+    {
+      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+      SDL_RenderDrawLine(renderer, x, y+i, (x+w), y+i);
+      SDL_RenderDrawLine(renderer, (x+w+i), y, (x+w+i), (y+h)); 
+      SDL_RenderDrawLine(renderer, (x+w), (y+h-i), x, (y+h-i));
+      SDL_RenderDrawLine(renderer, x+i, (y+h), x+i, y);
+    }
+
+    #ifdef RPI   
+    fp_can_size = fopen("/home/pi/TKK_PRESA/data/can_size.txt", "w");
+    #endif
+    #ifdef LUKA
+    fp_can_size = fopen("/home/luka/TKK_PRESA/data/can_size.txt", "w");
+    #endif
+
+    /* writing position values to AKD registers and saving values to file */
+    if(selected[0])
+    {
+      fprintf(fp_can_size, "%d\n", 0);
+      nb = sizeof(regsSmall)/sizeof(int16_t); 
+      tc = modbus_write_registers(ctx, 1, nb, regsSmall);
+    }
+    else if(selected[1])
+    {
+      fprintf(fp_can_size, "%d\n", 1);   
+      nb = sizeof(regsMedium)/sizeof(int16_t);
+      tc = modbus_write_registers(ctx, 1, nb, regsMedium);
+    }  
+    else if(selected[2])
+    {  
+      fprintf(fp_can_size, "%d\n", 2);
+      nb = sizeof(regsLarge)/sizeof(int16_t); 
+      tc = modbus_write_registers(ctx, 1, nb, regsLarge);
+    }
+    fclose(fp_can_size);
+    printf("NB:%d\n", bb);
+
+  }
+  renderText(text, smallText,  blackColor);
+  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
+
+
+}
+
 void renderAdmin(int x, int y, int w, int h, int curr_page, int gotoNum) 
 {
   int i;
@@ -622,152 +609,4 @@ void renderAdmin(int x, int y, int w, int h, int curr_page, int gotoNum)
   }
 }
 
-void cell(int x, int y, int w, int h, char *text, int id)
-{
-  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp && cycleCounter != cycleCheck)
-  {
-    cycleCheck = cycleCounter;
-    page = 4;
-    idBuff = id;
-  }
-
-  for(i = 0; i < 10; i++)
-  {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-    SDL_RenderDrawLine(renderer, x, y+i, (x+w), y+i);
-    SDL_RenderDrawLine(renderer, (x+w+i), y, (x+w+i), (y+h)); 
-    SDL_RenderDrawLine(renderer, (x+w), (y+h-i), x, (y+h-i));
-    SDL_RenderDrawLine(renderer, x+i, (y+h), x+i, y);
-  }
-  renderText(text, smallText,  blackColor);
-  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE);
-}
-
-void grid(int x, int y, int w, int h, int rows, int columns, char** column_names, int * cell_values)
-{
-  int i;
-  int j;
-  int id;
-  int x_orig;
-  int y_orig;
-  i = 0;
-  j = 0;
-  id = 0;
-  
-  x_orig = x;
-  y_orig = y + h;
-  
-  for(i = 0; i < (rows*columns); i++)
-  {
-    sprintf(cell_values_buff[i], "%d", cell_values[i]);
-  }
-
-  for(i = 0; i < columns; i++)
-  {
-    cell(x, y, w, h, column_names[i], id);
-    x = x + w;
-  }
-
-  x = x_orig;
-  y = y + h;
-  y_orig = y;  
-  id = 0;
-
-  for(i = 0; i < columns; i++)
-  {
-    for(j = 0; j < rows; j++)
-    {
-      cell(x, y, w, h, cell_values_buff[id], id);
-      x = x + w;
-      id++;
-    }
-    x = x_orig;
-    y = y + h;
-  }
-  y = y_orig;
-}
-
-void keypad()
-{
-  int i;
-  int j;
-  int k;
-  int count;
-  
-  int x_orig;
-  int y_orig;
-  int x;
-  int y;
-  int w;
-  int h;
-  int stringLength;
-  stringLength = 0;
-  count = 0;
-
-  SDL_Rect keypadRect;
-  keypadRect.x = 0;
-  keypadRect.y = 200;
-  keypadRect.w = 1280;
-  keypadRect.h = 600;
-  
-  x = 10;
-  y = 220;
-
-  x_orig = x;
-  y_orig = y;
-  w = 125;
-  h = 120;
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-  SDL_RenderFillRect(renderer, &keypadRect);
-   
-  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
- 
-  for(i = 0; i < 10; i++)
-  {
-    SDL_RenderDrawLine(renderer, keypadRect.x, keypadRect.y + i, keypadRect.w, keypadRect.y + i);
-  }
-
-  for(i = 0; i < 4; i++)
-  {
-    for(j = 0; j < 10; j++)
-    {
-      for(k = 0; k < 5; k++)
-      {
-         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-         SDL_RenderDrawLine(renderer, x, y+k, (x+w), y+k);
-         SDL_RenderDrawLine(renderer, (x+w+k), y, (x+w+k), (y+h)); 
-         SDL_RenderDrawLine(renderer, (x+w), (y+h-k), x, (y+h-k));
-         SDL_RenderDrawLine(renderer, x+k, (y+h), x+k, y);
-      }
-      renderText(keypadValues[count], smallText,  whiteColor);
-      render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE);
-      if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp && cycleCounter != cycleCheck)
-      {
-        if(count != 19 && count != 29  && count != 39)
-        {
-          cycleCheck = cycleCounter;
-          strcat(editText, keypadValues[count]);
-        }
-        if(count == 19)
-        {
-          stringLength = strlen(editText);
-          printf("str len: %d\n", stringLength);
-          memset(&editText[stringLength-1], 0, 1); 
-        }
-        if(count == 29)
-        {
-          page_stage[4] = 2;
-          printf("page stage 4: %d\n", page_stage[4]);
-        }
-        printf("count:%d\n", count);
-      }
- 
-      x = x + w;
-      count++;
-    }
-    x = x_orig;
-    y = y + h;
-  }
-  y = y_orig;
-}
 

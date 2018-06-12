@@ -3,43 +3,48 @@
 #include "main.h"
 #include <errno.h>
 
-void errorCheck();
+
+
 
 int main()
 {
-  program = 1;
+  printf("MAIN\n");
   init();
+  printf("INIT\n");
+
+  initMain();
+  printf("initMain\n");
+
   initVars(); 
-  /*ctx = modbus_new_tcp("192.168.1.78", 1500);
-  if(modbus_connect(ctx) == -1) 
-  {
-    fprintf(stderr,"Connection failed: %s\n",modbus_strerror(errno));
-    modbus_free(ctx);
-    exit(101);
-  }
-  nb = sizeof(regs)/sizeof(int16_t);   
-  modbus_set_debug(ctx, FALSE);
- */
+  printf("initVars\n");
+
+  initComm(); 
+
+  printf("initComm\n");
+
+
   while(program == 1)
   {
-    /*rc = modbus_read_registers(ctx, 1, nb, regs);
+    if(connectiOn) /* read registers only if connected to controller */
+    {
+      rc = modbus_read_registers(ctx, 1, nb, regs);
+    }
+
     for(i = 0; i < 10; i++)
     {
       printf("REG%d:%d\n", i, regs[i]);
     }
     usleep(1000);
-    errorCheck();*/
+    /*errorCheck();*/
     touchUpdate();
     renderBackground();
-    if(page!=4)
-    {
-      renderStatusBar();
-    }
+    renderStatusBar();
     renderContent();
     SDL_RenderPresent(renderer);
   }
   return 0;
 }
+
 
 
 void errorCheck()
@@ -48,4 +53,58 @@ void errorCheck()
   {
     page = 2;
   }
+}
+
+void initComm()
+{
+  printf("FUNCTION CALLED\n");
+  ctx = modbus_new_tcp("191.168.1.76", 1500);  /* slave address */
+  if(modbus_connect(ctx) == -1) 
+  {
+    /* connection error */
+    fprintf(stderr,"Connection failed: %s\n",modbus_strerror(errno));
+    modbus_free(ctx);
+    /*exit(100);*/
+    page = 2; 
+    sbarText = 2;
+    connectiOn = 1;
+  }
+
+  nb = sizeof(regs)/sizeof(int16_t);   
+  modbus_set_debug(ctx, FALSE); 
+}
+
+void initMain()
+{
+  program = 1;
+  connectiOn = 1;
+
+  /* parameter values to be send to AKD */
+  regsSmall[0] = 7;
+  regsSmall[1] = 7;
+  regsSmall[2] = 7;
+  regsSmall[3] = 7;
+  regsSmall[4] = 6;
+  regsSmall[5] = 7;
+  regsSmall[6] = 7;
+  regsSmall[7] = 7;
+  regsSmall[8] = 7;
+  regsSmall[9] = 7;
+
+  regsMedium[0] = 7;
+  regsMedium[1] = 7;
+  regsMedium[2] = 7;
+  regsMedium[3] = 7;
+  regsMedium[4] = 7;
+  regsMedium[5] = 6;
+  regsMedium[6] = 7;
+
+  regsLarge[0] = 7;
+  regsLarge[1] = 7;
+  regsLarge[2] = 7;
+  regsLarge[3] = 7;
+  regsLarge[4] = 7;
+  regsLarge[5] = 6;
+  regsLarge[6] = 7;
+
 }

@@ -12,16 +12,16 @@ int init()    /* things needed to start sdl2 properly */
  
   flags = IMG_INIT_JPG|IMG_INIT_PNG;
   innited = IMG_Init(flags);
-  	
+	
   if((SDL_Init(SDL_INIT_VIDEO||SDL_INIT_EVENTS)) != 0)
   {
     SDL_Log("Unable to initialize SDL:%s ", SDL_GetError());
     return 1;                                                                               
   }  
 
-  window = SDL_CreateWindow("IT-Elektronika", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
-  SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS);
-  
+  window = SDL_CreateWindow("IT-Elektronika", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS);
+   
+
   if(window == NULL)
   {
     return 1;
@@ -44,7 +44,7 @@ int init()    /* things needed to start sdl2 properly */
   {
     printf("TTF ERROR: %s\n", TTF_GetError());
   }
-   
+
   #ifdef RPI
   smallText = TTF_OpenFont("/home/pi/TKK_PRESA/font/DejaVuSansMono.ttf", 30);
   if(smallText == NULL)
@@ -69,14 +69,14 @@ int init()    /* things needed to start sdl2 properly */
     printf("NO FONT FOUND\n");
   }
   #endif
-  
+
   return 15;
 }
 
 
 void initVars()
 {
-  /* color definitions  */
+ /* color definitions  */
   whiteColor.r = 255;
   whiteColor.g = 255;
   whiteColor.b = 255;

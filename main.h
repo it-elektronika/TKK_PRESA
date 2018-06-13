@@ -18,5 +18,8 @@ uint16_t regsLarge[10];
 
 void initComm();
 void initMain();
-void errorCheck();
 
+
+/*
+void errorCheck();
+*/

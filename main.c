@@ -3,37 +3,32 @@
 #include "main.h"
 #include <errno.h>
 
-
-
+void initMain();
+void initComm();
 
 int main()
 {
+  int cycle;
   printf("MAIN\n");
-  init();
-  printf("INIT\n");
-
   initMain();
-  printf("initMain\n");
-
-  initVars(); 
-  printf("initVars\n");
-
-  initComm(); 
-
-  printf("initComm\n");
-
-
+  init();
+  initVars();
+  initComm();
+   
   while(program == 1)
   {
+  
+    
     if(connectiOn) /* read registers only if connected to controller */
     {
       rc = modbus_read_registers(ctx, 1, nb, regs);
     }
-
+   
     for(i = 0; i < 10; i++)
     {
       printf("REG%d:%d\n", i, regs[i]);
     }
+    
     usleep(1000);
     /*errorCheck();*/
     touchUpdate();
@@ -41,6 +36,7 @@ int main()
     renderStatusBar();
     renderContent();
     SDL_RenderPresent(renderer);
+    cycle++;
   }
   return 0;
 }
@@ -58,21 +54,24 @@ void errorCheck()
 void initComm()
 {
   printf("FUNCTION CALLED\n");
-  ctx = modbus_new_tcp("191.168.1.76", 1500);  /* slave address */
+  ctx = modbus_new_tcp("192.168.1.76", 1500);  
   if(modbus_connect(ctx) == -1) 
   {
-    /* connection error */
+    
     fprintf(stderr,"Connection failed: %s\n",modbus_strerror(errno));
     modbus_free(ctx);
-    /*exit(100);*/
+    /*
+    exit(100);
+    */
     page = 2; 
     sbarText = 2;
-    connectiOn = 1;
+    connectiOn = 0;
   }
 
   nb = sizeof(regs)/sizeof(int16_t);   
   modbus_set_debug(ctx, FALSE); 
 }
+
 
 void initMain()
 {
@@ -106,5 +105,5 @@ void initMain()
   regsLarge[4] = 7;
   regsLarge[5] = 6;
   regsLarge[6] = 7;
-
 }
+

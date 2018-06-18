@@ -21,7 +21,7 @@ int main()
     
     if(connectiOn) /* read registers only if connected to controller */
     {
-      rc = modbus_read_registers(ctx, 1, nb, regs);
+      /*rc = modbus_read_registers(ctx, 1, nb, regs);*/
     }
    
     for(i = 0; i < 10; i++)
@@ -54,7 +54,7 @@ void errorCheck()
 void initComm()
 {
   printf("FUNCTION CALLED\n");
-  ctx = modbus_new_tcp("192.168.1.76", 1500);  
+  ctx = modbus_new_tcp("192.168.0.50", 502);  
   if(modbus_connect(ctx) == -1) 
   {
     

@@ -563,6 +563,26 @@ void saveButton(int x, int y, int w, int h, char *text)
     {
       for(i = 0; i < 2; ++i)
       {
+        int * clear1 =  (int*)(&obufCl[0]);
+        int * clear2 =  (int*)(&obufCl[2]);
+        int * clear3 =  (int*)(&obufCl[4]);
+        int * clear4 =  (int*)(&obufCl[6]);
+        int * clear5 =  (int*)(&obufCl[7]);
+        int * clear6 =  (int*)(&obufCl[8]);
+        int * clear7 =  (int*)(&obufCl[10]);
+        int * clear8 =  (int*)(&obufCl[12]);
+        int * clear9 =  (int*)(&obufCl[16]);
+        memset(obufCl, 0, 17);
+        * clear1 = transId;   
+        * clear2 = htons(0);
+        * clear3 = htons(11);
+        * clear4 = 1;
+        * clear5 = 16;
+        * clear6 = htons(530);
+        * clear7 = htons(2);
+        * clear8 = 4;
+        * clear9 = posCounter;           
+ 
         FD_ZERO(&fds);
         tv.tv_sec = 0;
         tv.tv_usec = 0;
@@ -572,31 +592,405 @@ void saveButton(int x, int y, int w, int h, char *text)
         printf("Message Sent!\n");
         FD_SET(s, &fds);
         x = select(32, &fds, NULL, NULL, &tv);
-        x = recv(s, ibufOne, 50 , 0);
+        x = recv(s, ibufCl, 50 , 0);
         transId++;
         posCounter++;
       }
-
+      
+  
+      int * posOneA1 = (int*)(&obufOneA[0]);
+      int * posOneA2 = (int*)(&obufOneA[2]);
+      int * posOneA3 = (int*)(&obufOneA[4]);
+      int * posOneA4 = (int*)(&obufOneA[6]);
+      int * posOneA5 = (int*)(&obufOneA[7]);
+      int * posOneA6 = (int*)(&obufOneA[8]);
+      int * posOneA7 = (int*)(&obufOneA[10]);
+      int * posOneA8 = (int*)(&obufOneA[12]);
+      int * posOneA9 =  (int*)(&obufOneA[16]);
+      int * posOneA10 = (int*)(&obufOneA[17]);    
+      int * posOneA11 = (int*)(&obufOneA[21]);
+      int * posOneA12 = (int*)(&obufOneA[28]);
+      int * posOneA13 = (int*)(&obufOneA[29]);
+      int * posOneA14 = (int*)(&obufOneA[33]);
+      int * posOneA15 = (int*)(&obufOneA[40]);
+      int * posOneA16 = (int*)(&obufOneA[44]);
+      int * posOneA17 = (int*)(&obufOneA[48]);
+      int * posOneA18 = (int*)(&obufOneA[52]);
+      
+      memset(obufOneA, 0, 58);
+      * posOneA1 = transId;   
+      * posOneA2 = htons(0);
+      * posOneA3 = htons(47);
+      * posOneA4 = 1;
+      * posOneA5 = 16;
+      * posOneA6 = htons(8192);
+      * posOneA7 = htons(20);
+      * posOneA8 = 40;
+      * posOneA9 = 0;                 
+      * posOneA10 = htonl(1000);  
+      * posOneA11 = htonl(1000);   
+      * posOneA12 = 16;           
+      * posOneA13 = htonl(1000);  
+      * posOneA14 = htonl(1000);  
+      * posOneA15 = 1;            
+      * posOneA16 = 0;            
+      * posOneA17 = 1;            
+      * posOneA18 = 1;  
+ 
 
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
     
       x = select(32, NULL, &fds, NULL, &tv);
-      x = send(s, obufOne, 53, 0);
+      x = send(s, obufOneA, 53, 0);
       printf("Message Sent!\n");
       FD_SET(s, &fds);
       x = select(32, &fds, NULL, NULL, &tv);
-      x = recv(s, ibufOne, 50 , 0);
+      x = recv(s, ibufOneA, 50 , 0);
+
+      int * posOneB1 = (int*)(&obufOneB[0]);
+      int * posOneB2 = (int*)(&obufOneB[2]);
+      int * posOneB3 = (int*)(&obufOneB[4]);
+      int * posOneB4 = (int*)(&obufOneB[6]);
+      int * posOneB5 = (int*)(&obufOneB[7]);
+      int * posOneB6 = (int*)(&obufOneB[8]);
+      int * posOneB7 = (int*)(&obufOneB[10]);
+      int * posOneB8 = (int*)(&obufOneB[12]);
+      int * posOneB9 =  (int*)(&obufOneB[16]);
+      int * posOneB10 = (int*)(&obufOneB[17]);    
+      int * posOneB11 = (int*)(&obufOneB[21]);
+      int * posOneB12 = (int*)(&obufOneB[28]);
+      int * posOneB13 = (int*)(&obufOneB[29]);
+      int * posOneB14 = (int*)(&obufOneB[33]);
+      int * posOneB15 = (int*)(&obufOneB[40]);
+      int * posOneB16 = (int*)(&obufOneB[44]);
+      int * posOneB17 = (int*)(&obufOneB[48]);
+      int * posOneB18 = (int*)(&obufOneB[52]);
+      
+      memset(obufOneB, 0, 58);
+      * posOneB1 = transId;   
+      * posOneB2 = htons(0);
+      * posOneB3 = htons(47);
+      * posOneB4 = 1;
+      * posOneB5 = 16;
+      * posOneB6 = htons(8192);
+      * posOneB7 = htons(20);
+      * posOneB8 = 40;
+      * posOneB9 = 1;                 
+      * posOneB10 = htonl(10000);  
+      * posOneB11 = htonl(10000);   
+      * posOneB12 = 16;           
+      * posOneB13 = htonl(10000);  
+      * posOneB14 = htonl(10000);  
+      * posOneB15 = 2;            
+      * posOneB16 = 0;            
+      * posOneB17 = 1;            
+      * posOneB18 = 1;  
+ 
+
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufOneB, 53, 0);
+      printf("Message Sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufOneB, 50 , 0);
 
       fprintf(fp_can_size, "%d\n", 0);
     }
     else if(selected[1])
     {
+      for(i = 0; i < 2; ++i)
+      {
+        int * clear1 =  (int*)(&obufCl[0]);
+        int * clear2 =  (int*)(&obufCl[2]);
+        int * clear3 =  (int*)(&obufCl[4]);
+        int * clear4 =  (int*)(&obufCl[6]);
+        int * clear5 =  (int*)(&obufCl[7]);
+        int * clear6 =  (int*)(&obufCl[8]);
+        int * clear7 =  (int*)(&obufCl[10]);
+        int * clear8 =  (int*)(&obufCl[12]);
+        int * clear9 =  (int*)(&obufCl[16]);
+        memset(obufCl, 0, 17);
+        * clear1 = transId;   
+        * clear2 = htons(0);
+        * clear3 = htons(11);
+        * clear4 = 1;
+        * clear5 = 16;
+        * clear6 = htons(530);
+        * clear7 = htons(2);
+        * clear8 = 4;
+        * clear9 = posCounter;           
+  
+        
+
+ 
+        FD_ZERO(&fds);
+        tv.tv_sec = 0;
+        tv.tv_usec = 0;
+    
+        x = select(32, NULL, &fds, NULL, &tv);
+        x = send(s, obufCl, 17, 0);
+        printf("Message Sent!\n");
+        FD_SET(s, &fds);
+        x = select(32, &fds, NULL, NULL, &tv);
+        x = recv(s, ibufCl, 50 , 0);
+        transId++;
+        posCounter++;
+      }
+      
+  
+      int * posTwoA1 = (int*)(&obufTwoA[0]);
+      int * posTwoA2 = (int*)(&obufTwoA[2]);
+      int * posTwoA3 = (int*)(&obufTwoA[4]);
+      int * posTwoA4 = (int*)(&obufTwoA[6]);
+      int * posTwoA5 = (int*)(&obufTwoA[7]);
+      int * posTwoA6 = (int*)(&obufTwoA[8]);
+      int * posTwoA7 = (int*)(&obufTwoA[10]);
+      int * posTwoA8 = (int*)(&obufTwoA[12]);
+      int * posTwoA9 =  (int*)(&obufTwoA[16]);
+      int * posTwoA10 = (int*)(&obufTwoA[17]);    
+      int * posTwoA11 = (int*)(&obufTwoA[21]);
+      int * posTwoA12 = (int*)(&obufTwoA[28]);
+      int * posTwoA13 = (int*)(&obufTwoA[29]);
+      int * posTwoA14 = (int*)(&obufTwoA[33]);
+      int * posTwoA15 = (int*)(&obufTwoA[40]);
+      int * posTwoA16 = (int*)(&obufTwoA[44]);
+      int * posTwoA17 = (int*)(&obufTwoA[48]);
+      int * posTwoA18 = (int*)(&obufTwoA[52]);
+      
+      memset(obufTwoA, 0, 58);
+      * posTwoA1 = transId;   
+      * posTwoA2 = htons(0);
+      * posTwoA3 = htons(47);
+      * posTwoA4 = 1;
+      * posTwoA5 = 16;
+      * posTwoA6 = htons(8192);
+      * posTwoA7 = htons(20);
+      * posTwoA8 = 40;
+      * posTwoA9 = 0;                 
+      * posTwoA10 = htonl(2000);  
+      * posTwoA11 = htonl(2000);   
+      * posTwoA12 = 16;           
+      * posTwoA13 = htonl(2000);  
+      * posTwoA14 = htonl(2000);  
+      * posTwoA15 = 1;            
+      * posTwoA16 = 0;            
+      * posTwoA17 = 1;            
+      * posTwoA18 = 1;  
+ 
+
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufTwoA, 53, 0);
+      printf("Message Sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufTwoA, 50 , 0);
+
+      int * posTwoB1 = (int*)(&obufTwoB[0]);
+      int * posTwoB2 = (int*)(&obufTwoB[2]);
+      int * posTwoB3 = (int*)(&obufTwoB[4]);
+      int * posTwoB4 = (int*)(&obufTwoB[6]);
+      int * posTwoB5 = (int*)(&obufTwoB[7]);
+      int * posTwoB6 = (int*)(&obufTwoB[8]);
+      int * posTwoB7 = (int*)(&obufTwoB[10]);
+      int * posTwoB8 = (int*)(&obufTwoB[12]);
+      int * posTwoB9 =  (int*)(&obufTwoB[16]);
+      int * posTwoB10 = (int*)(&obufTwoB[17]);    
+      int * posTwoB11 = (int*)(&obufTwoB[21]);
+      int * posTwoB12 = (int*)(&obufTwoB[28]);
+      int * posTwoB13 = (int*)(&obufTwoB[29]);
+      int * posTwoB14 = (int*)(&obufTwoB[33]);
+      int * posTwoB15 = (int*)(&obufTwoB[40]);
+      int * posTwoB16 = (int*)(&obufTwoB[44]);
+      int * posTwoB17 = (int*)(&obufTwoB[48]);
+      int * posTwoB18 = (int*)(&obufTwoB[52]);
+      
+      memset(obufTwoB, 0, 58);
+      * posTwoB1 = transId;   
+      * posTwoB2 = htons(0);
+      * posTwoB3 = htons(47);
+      * posTwoB4 = 1;
+      * posTwoB5 = 16;
+      * posTwoB6 = htons(8192);
+      * posTwoB7 = htons(20);
+      * posTwoB8 = 40;
+      * posTwoB9 = 1;                 
+      * posTwoB10 = htonl(20000);  
+      * posTwoB11 = htonl(20000);   
+      * posTwoB12 = 16;           
+      * posTwoB13 = htonl(20000);  
+      * posTwoB14 = htonl(20000);  
+      * posTwoB15 = 2;            
+      * posTwoB16 = 0;            
+      * posTwoB17 = 1;            
+      * posTwoB18 = 1;  
+ 
+
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufTwoB, 53, 0);
+      printf("Message Sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufTwoB, 50 , 0);
+
+
+
+
       fprintf(fp_can_size, "%d\n", 1);   
     }  
     else if(selected[2])
     {  
+      for(i = 0; i < 2; ++i)
+      {
+        int * clear1 =  (int*)(&obufCl[0]);
+        int * clear2 =  (int*)(&obufCl[2]);
+        int * clear3 =  (int*)(&obufCl[4]);
+        int * clear4 =  (int*)(&obufCl[6]);
+        int * clear5 =  (int*)(&obufCl[7]);
+        int * clear6 =  (int*)(&obufCl[8]);
+        int * clear7 =  (int*)(&obufCl[10]);
+        int * clear8 =  (int*)(&obufCl[12]);
+        int * clear9 =  (int*)(&obufCl[16]);
+        memset(obufCl, 0, 17);
+        * clear1 = transId;   
+        * clear2 = htons(0);
+        * clear3 = htons(11);
+        * clear4 = 1;
+        * clear5 = 16;
+        * clear6 = htons(530);
+        * clear7 = htons(2);
+        * clear8 = 4;
+        * clear9 = posCounter;           
+
+        FD_ZERO(&fds);
+        tv.tv_sec = 0;
+        tv.tv_usec = 0;
+    
+        x = select(32, NULL, &fds, NULL, &tv);
+        x = send(s, obufCl, 17, 0);
+        printf("Message Sent!\n");
+        FD_SET(s, &fds);
+        x = select(32, &fds, NULL, NULL, &tv);
+        x = recv(s, ibufCl, 50 , 0);
+        transId++;
+        posCounter++;
+      }
+        
+      int * posThreeA1 = (int*)(&obufThreeA[0]);
+      int * posThreeA2 = (int*)(&obufThreeA[2]);
+      int * posThreeA3 = (int*)(&obufThreeA[4]);
+      int * posThreeA4 = (int*)(&obufThreeA[6]);
+      int * posThreeA5 = (int*)(&obufThreeA[7]);
+      int * posThreeA6 = (int*)(&obufThreeA[8]);
+      int * posThreeA7 = (int*)(&obufThreeA[10]);
+      int * posThreeA8 = (int*)(&obufThreeA[12]);
+      int * posThreeA9 =  (int*)(&obufThreeA[16]);
+      int * posThreeA10 = (int*)(&obufThreeA[17]);    
+      int * posThreeA11 = (int*)(&obufThreeA[21]);
+      int * posThreeA12 = (int*)(&obufThreeA[28]);
+      int * posThreeA13 = (int*)(&obufThreeA[29]);
+      int * posThreeA14 = (int*)(&obufThreeA[33]);
+      int * posThreeA15 = (int*)(&obufThreeA[40]);
+      int * posThreeA16 = (int*)(&obufThreeA[44]);
+      int * posThreeA17 = (int*)(&obufThreeA[48]);
+      int * posThreeA18 = (int*)(&obufThreeA[52]);
+      
+      memset(obufThreeA, 0, 58);
+      * posThreeA1 = transId;   
+      * posThreeA2 = htons(0);
+      * posThreeA3 = htons(47);
+      * posThreeA4 = 1;
+      * posThreeA5 = 16;
+      * posThreeA6 = htons(8192);
+      * posThreeA7 = htons(20);
+      * posThreeA8 = 40;
+      * posThreeA9 = 0;                 
+      * posThreeA10 = htonl(3000);  
+      * posThreeA11 = htonl(3000);   
+      * posThreeA12 = 16;           
+      * posThreeA13 = htonl(3000);  
+      * posThreeA14 = htonl(3000);  
+      * posThreeA15 = 1;            
+      * posThreeA16 = 0;            
+      * posThreeA17 = 1;            
+      * posThreeA18 = 1;  
+ 
+
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufThreeA, 53, 0);
+      printf("Message Sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufThreeA, 50 , 0);
+
+      int * posThreeB1 = (int*)(&obufThreeB[0]);
+      int * posThreeB2 = (int*)(&obufThreeB[2]);
+      int * posThreeB3 = (int*)(&obufThreeB[4]);
+      int * posThreeB4 = (int*)(&obufThreeB[6]);
+      int * posThreeB5 = (int*)(&obufThreeB[7]);
+      int * posThreeB6 = (int*)(&obufThreeB[8]);
+      int * posThreeB7 = (int*)(&obufThreeB[10]);
+      int * posThreeB8 = (int*)(&obufThreeB[12]);
+      int * posThreeB9 =  (int*)(&obufThreeB[16]);
+      int * posThreeB10 = (int*)(&obufThreeB[17]);    
+      int * posThreeB11 = (int*)(&obufThreeB[21]);
+      int * posThreeB12 = (int*)(&obufThreeB[28]);
+      int * posThreeB13 = (int*)(&obufThreeB[29]);
+      int * posThreeB14 = (int*)(&obufThreeB[33]);
+      int * posThreeB15 = (int*)(&obufThreeB[40]);
+      int * posThreeB16 = (int*)(&obufThreeB[44]);
+      int * posThreeB17 = (int*)(&obufThreeB[48]);
+      int * posThreeB18 = (int*)(&obufThreeB[52]);
+      
+      memset(obufThreeB, 0, 58);
+      * posThreeB1 = transId;   
+      * posThreeB2 = htons(0);
+      * posThreeB3 = htons(47);
+      * posThreeB4 = 1;
+      * posThreeB5 = 16;
+      * posThreeB6 = htons(8192);
+      * posThreeB7 = htons(20);
+      * posThreeB8 = 40;
+      * posThreeB9 = 1;                 
+      * posThreeB10 = htonl(30000);  
+      * posThreeB11 = htonl(30000);   
+      * posThreeB12 = 16;           
+      * posThreeB13 = htonl(30000);  
+      * posThreeB14 = htonl(30000);  
+      * posThreeB15 = 2;            
+      * posThreeB16 = 0;            
+      * posThreeB17 = 1;            
+      * posThreeB18 = 1;  
+ 
+
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufThreeB, 53, 0);
+      printf("Message sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufThreeB, 50 , 0);
+   
       fprintf(fp_can_size, "%d\n", 2);
     }
     fclose(fp_can_size);

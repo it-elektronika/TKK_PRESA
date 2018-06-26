@@ -34,13 +34,28 @@ struct timeval tv;
 char obufCl[17];
 char ibufCl[17];
 
-char obufOne[58];
-char ibufOne[56];
- 
+char obufOneA[58];
+char ibufOneA[56];
+
+char obufOneB[58];
+char ibufOneB[56];
+
+char obufTwoA[58];
+char ibufTwoA[56];
+
+char obufTwoB[58];
+char ibufTwoB[56];
+
+char obufThreeA[58];
+char ibufThreeA[56];
+
+char obufThreeB[58];
+char ibufThreeB[56];
+
+
 
 void initComm();
 void initMain();
-
 
 /*
 void errorCheck();

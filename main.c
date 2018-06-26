@@ -54,7 +54,7 @@ void errorCheck()
 void initComm()
 {
   printf("FUNCTION CALLED\n");
-  ctx = modbus_new_tcp("192.168.0.50", 502);  
+  ctx = modbus_new_tcp("192.168.0.13", 502);  
   if(modbus_connect(ctx) == -1) 
   {
     

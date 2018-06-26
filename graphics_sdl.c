@@ -563,19 +563,19 @@ void saveButton(int x, int y, int w, int h, char *text)
     {
       fprintf(fp_can_size, "%d\n", 0);
       nb = sizeof(regsSmall)/sizeof(int16_t); 
-      tc = modbus_write_registers(ctx, 1, nb, regsSmall);
+      tc = modbus_write_registers(ctx, 8192, nb, regsSmall);
     }
     else if(selected[1])
     {
       fprintf(fp_can_size, "%d\n", 1);   
       nb = sizeof(regsMedium)/sizeof(int16_t);
-      tc = modbus_write_registers(ctx, 1, nb, regsMedium);
+      tc = modbus_write_registers(ctx, 8192, nb, regsMedium);
     }  
     else if(selected[2])
     {  
       fprintf(fp_can_size, "%d\n", 2);
       nb = sizeof(regsLarge)/sizeof(int16_t); 
-      tc = modbus_write_registers(ctx, 1, nb, regsLarge);
+      tc = modbus_write_registers(ctx, 8192, nb, regsLarge);
     }
     fclose(fp_can_size);
     printf("NB:%d\n", bb);

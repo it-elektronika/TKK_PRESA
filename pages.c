@@ -16,7 +16,7 @@ void pageOne()
     fp_can_size = fopen("/home/pi/TKK_PRESA/data/can_size.txt", "r");
     #endif
     #ifdef LUKA
-    fp_can_size = fopen("/home/luka/TKK_PRESA/data/can_size.txt", "r");
+    fp_can_size = fopen("/home/luka/TKK_PRESA_/data/can_size.txt", "r");
     #endif
  
     for(i = 0; i < 1; ++i)

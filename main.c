@@ -88,10 +88,11 @@ void initMain()
 {
   program = 1;
   connectiOn = 1;
-
+  transId = 1;
+  posCounter = 1;
   /* parameter values to be send to AKD */
 
-  memset(obufCl, 0, 58);
+  memset(obufCl, 0, 17);
   int * clear1 =  (int*)(&obufCl[0]);
   int * clear2 =  (int*)(&obufCl[2]);
   int * clear3 =  (int*)(&obufCl[4]);
@@ -100,7 +101,7 @@ void initMain()
   int * clear6 =  (int*)(&obufCl[8]);
   int * clear7 =  (int*)(&obufCl[10]);
   int * clear8 =  (int*)(&obufCl[12]);
-  int * clear9 =  (int*)(&obufCl[13]);
+  int * clear9 =  (int*)(&obufCl[16]);
   
   * clear1 = transId;  
   * clear2 = htons(0);

@@ -58,12 +58,12 @@ int init()    /* things needed to start sdl2 properly */
   }
   #endif
   #ifdef LUKA
-  smallText = TTF_OpenFont("/home/luka/TKK_PRESA/font/DejaVuSansMono.ttf", 30);
+  smallText = TTF_OpenFont("/home/luka/TKK_PRESA_/font/DejaVuSansMono.ttf", 30);
   if(smallText == NULL)
   {
     printf("NO FONT FOUND\n");
   }
-  regularText = TTF_OpenFont("/home/luka/TKK_PRESA/font/DejaVuSansMono.ttf", 45);
+  regularText = TTF_OpenFont("/home/luka/TKK_PRESA_/font/DejaVuSansMono.ttf", 45);
   if(regularText == NULL)
   {
     printf("NO FONT FOUND\n");
@@ -357,7 +357,7 @@ void up_button(int x,  int y, int *incrementee, int incrementor)
   imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/up_black.png");
   #endif
   #ifdef LUKA
-  imageSurface = IMG_Load("/home/luka/TKK_PRESA/images/up_black.png");
+  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/up_black.png");
   #endif
   if(imageSurface == NULL)
   {
@@ -394,7 +394,7 @@ void down_button(int x, int y, int *decrementee, int decrementor)
   imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/down_black.png");
   #endif
   #ifdef LUKA
-  imageSurface = IMG_Load("/home/luka/TKK_PRESA/images/down_black.png");
+  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/down_black.png");
   #endif
   if(imageSurface == NULL)
   {
@@ -430,7 +430,7 @@ void left_button(int x,  int y)
   imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/left_200.png");
   #endif
   #ifdef LUKA
-  imageSurface = IMG_Load("/home/luka/TKK_PRESA/images/left_200.png");
+  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/left_200.png");
   #endif
   
   if(imageSurface == NULL)
@@ -468,7 +468,7 @@ void right_button(int x,  int y)
   imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/right_200.png");
   #endif
   #ifdef LUKA
-  imageSurface = IMG_Load("/home/luka/TKK_PRESA/images/right_200.png");
+  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/right_200.png");
   #endif
   
   if(imageSurface == NULL)
@@ -555,7 +555,7 @@ void saveButton(int x, int y, int w, int h, char *text)
     fp_can_size = fopen("/home/pi/TKK_PRESA/data/can_size.txt", "w");
     #endif
     #ifdef LUKA
-    fp_can_size = fopen("/home/luka/TKK_PRESA/data/can_size.txt", "w");
+    fp_can_size = fopen("/home/luka/TKK_PRESA_/data/can_size.txt", "w");
     #endif
     posCounter = 0;
     /* writing position values to AKD registers and saving values to file */

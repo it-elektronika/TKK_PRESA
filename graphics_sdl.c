@@ -557,28 +557,49 @@ void saveButton(int x, int y, int w, int h, char *text)
     #ifdef LUKA
     fp_can_size = fopen("/home/luka/TKK_PRESA/data/can_size.txt", "w");
     #endif
-
+    posCounter = 0;
     /* writing position values to AKD registers and saving values to file */
     if(selected[0])
     {
+      for(i = 0; i < 2; ++i)
+      {
+        FD_ZERO(&fds);
+        tv.tv_sec = 0;
+        tv.tv_usec = 0;
+    
+        x = select(32, NULL, &fds, NULL, &tv);
+        x = send(s, obufCl, 17, 0);
+        printf("Message Sent!\n");
+        FD_SET(s, &fds);
+        x = select(32, &fds, NULL, NULL, &tv);
+        x = recv(s, ibufOne, 50 , 0);
+        transId++;
+        posCounter++;
+      }
+
+
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufOne, 53, 0);
+      printf("Message Sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufOne, 50 , 0);
+
       fprintf(fp_can_size, "%d\n", 0);
-      nb = sizeof(regsSmall)/sizeof(int16_t); 
-      tc = modbus_write_registers(ctx, 8192, nb, regsSmall);
     }
     else if(selected[1])
     {
       fprintf(fp_can_size, "%d\n", 1);   
-      nb = sizeof(regsMedium)/sizeof(int16_t);
-      tc = modbus_write_registers(ctx, 8192, nb, regsMedium);
     }  
     else if(selected[2])
     {  
       fprintf(fp_can_size, "%d\n", 2);
-      nb = sizeof(regsLarge)/sizeof(int16_t); 
-      tc = modbus_write_registers(ctx, 8192, nb, regsLarge);
     }
     fclose(fp_can_size);
-    printf("NB:%d\n", bb);
 
   }
   renderText(text, smallText,  blackColor);

@@ -35,10 +35,6 @@ void main()
 
   
   x = connect(s, (struct sockaddr *)&server, sizeof(struct sockaddr_in));
-
-
-
-
   printf("X=%d\n",x);
 
   if(x < 0)

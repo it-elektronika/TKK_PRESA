@@ -53,9 +53,7 @@ void pageOne()
   }
   else if(page_stage[0] == 1)
   {
-      
     renderAdmin(1200, 0, 80, 80, 0, 1);
-    
 
     if(selected[0])
     {
@@ -78,13 +76,9 @@ void pageOne()
       render(30, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
       y = y + 50;
     }
-    
-    
   }
   else if(page_stage[0] == 2)
   {
-
-
     page_stage[0] = 0;
   }
 }

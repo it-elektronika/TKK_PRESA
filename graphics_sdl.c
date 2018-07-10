@@ -371,95 +371,43 @@ void saveButton(int x, int y, int w, int h, char *text)
     fp_can_size = fopen("/home/luka/TKK_PRESA_/data/can_size.txt", "w");
     #endif
     posCounter = 0;
+
     /* writing position values to AKD registers and saving values to file */
     if(selected[0])
     {
-      for(i = 0; i < 2; ++i)
-      {
-        int * clear1 =  (int*)(&obufCl[0]);
-        int * clear2 =  (int*)(&obufCl[2]);
-        int * clear3 =  (int*)(&obufCl[4]);
-        int * clear4 =  (int*)(&obufCl[6]);
-        int * clear5 =  (int*)(&obufCl[7]);
-        int * clear6 =  (int*)(&obufCl[8]);
-        int * clear7 =  (int*)(&obufCl[10]);
-        int * clear8 =  (int*)(&obufCl[12]);
-        int * clear9 =  (int*)(&obufCl[16]);
-        memset(obufCl, 0, 17);
-        * clear1 = transId;   
-        * clear2 = htons(0);
-        * clear3 = htons(11);
-        * clear4 = 1;
-        * clear5 = 16;
-        * clear6 = htons(530);
-        * clear7 = htons(2);
-        * clear8 = 4;
-        * clear9 = posCounter;           
- 
-        FD_ZERO(&fds);
-        tv.tv_sec = 0;
-        tv.tv_usec = 0;
-    
-        x = select(32, NULL, &fds, NULL, &tv);
-        x = send(s, obufCl, 17, 0);
-        printf("Message Sent!\n");
-        FD_SET(s, &fds);
-        x = select(32, &fds, NULL, NULL, &tv);
-        x = recv(s, ibufCl, 50 , 0);
-        transId++;
-        posCounter++;
-      }
-  
-      int * posOneA1 = (int*)(&obufOneA[0]);
-      int * posOneA2 = (int*)(&obufOneA[2]);
-      int * posOneA3 = (int*)(&obufOneA[4]);
-      int * posOneA4 = (int*)(&obufOneA[6]);
-      int * posOneA5 = (int*)(&obufOneA[7]);
-      int * posOneA6 = (int*)(&obufOneA[8]);
-      int * posOneA7 = (int*)(&obufOneA[10]);
-      int * posOneA8 = (int*)(&obufOneA[12]);
-      int * posOneA9 =  (int*)(&obufOneA[16]);
-      int * posOneA10 = (int*)(&obufOneA[17]);    
-      int * posOneA11 = (int*)(&obufOneA[21]);
-      int * posOneA12 = (int*)(&obufOneA[28]);
-      int * posOneA13 = (int*)(&obufOneA[29]);
-      int * posOneA14 = (int*)(&obufOneA[33]);
-      int * posOneA15 = (int*)(&obufOneA[40]);
-      int * posOneA16 = (int*)(&obufOneA[44]);
-      int * posOneA17 = (int*)(&obufOneA[48]);
-      int * posOneA18 = (int*)(&obufOneA[52]);
-      
-      memset(obufOneA, 0, 58);
-      * posOneA1 = transId;   
-      * posOneA2 = htons(0);
-      * posOneA3 = htons(47);
-      * posOneA4 = 1;
-      * posOneA5 = 16;
-      * posOneA6 = htons(8192);
-      * posOneA7 = htons(20);
-      * posOneA8 = 40;
-      * posOneA9 = 0;                 
-      * posOneA10 = htonl(1000);  
-      * posOneA11 = htonl(1000);   
-      * posOneA12 = 16;           
-      * posOneA13 = htonl(1000);  
-      * posOneA14 = htonl(1000);  
-      * posOneA15 = 1;            
-      * posOneA16 = 0;            
-      * posOneA17 = 1;            
-      * posOneA18 = 1;  
+      int * clear1 =  (int*)(&obufCl[0]);
+      int * clear2 =  (int*)(&obufCl[2]);
+      int * clear3 =  (int*)(&obufCl[4]);
+      int * clear4 =  (int*)(&obufCl[6]);
+      int * clear5 =  (int*)(&obufCl[7]);
+      int * clear6 =  (int*)(&obufCl[8]);
+      int * clear7 =  (int*)(&obufCl[10]);
+      int * clear8 =  (int*)(&obufCl[12]);
+      int * clear9 =  (int*)(&obufCl[16]);
 
+      memset(obufCl, 0, 17);
+      * clear1 = transId;   
+      * clear2 = htons(0);
+      * clear3 = htons(11);
+      * clear4 = 1;
+      * clear5 = 16;
+      * clear6 = htons(530);
+      * clear7 = htons(2);
+      * clear8 = 4;
+      * clear9 = 2;  /*position to be cleared*/            
+ 
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
     
       x = select(32, NULL, &fds, NULL, &tv);
-      x = send(s, obufOneA, 53, 0);
+      x = send(s, obufCl, 17, 0);
       printf("Message Sent!\n");
       FD_SET(s, &fds);
       x = select(32, &fds, NULL, NULL, &tv);
-      x = recv(s, ibufOneA, 50 , 0);
-
+      x = recv(s, ibufCl, 50 , 0);
+      transId++;
+      
       int * posOneB1 = (int*)(&obufOneB[0]);
       int * posOneB2 = (int*)(&obufOneB[2]);
       int * posOneB3 = (int*)(&obufOneB[4]);
@@ -488,13 +436,13 @@ void saveButton(int x, int y, int w, int h, char *text)
       * posOneB6 = htons(8192);
       * posOneB7 = htons(20);
       * posOneB8 = 40;
-      * posOneB9 = 1;                 
-      * posOneB10 = htonl(10000);  
-      * posOneB11 = htonl(10000);   
+      * posOneB9 = 2;                 
+      * posOneB10 = htonl((AKD_frame_posSmall+modifier)*1000);  
+      * posOneB11 = htonl(5000000);   
       * posOneB12 = 16;           
-      * posOneB13 = htonl(10000);  
-      * posOneB14 = htonl(10000);  
-      * posOneB15 = 2;            
+      * posOneB13 = htonl(10000000);  
+      * posOneB14 = htonl(10000000);  
+      * posOneB15 = 100;            
       * posOneB16 = 0;            
       * posOneB17 = 1;            
       * posOneB18 = 1;  
@@ -509,97 +457,110 @@ void saveButton(int x, int y, int w, int h, char *text)
       FD_SET(s, &fds);
       x = select(32, &fds, NULL, NULL, &tv);
       x = recv(s, ibufOneB, 50 , 0);
+      transId++;
 
-      fprintf(fp_can_size, "%d\n", 0);
-    }
-    else if(selected[1])
-    {
-      for(i = 0; i < 2; ++i)
-      {
-        int * clear1 =  (int*)(&obufCl[0]);
-        int * clear2 =  (int*)(&obufCl[2]);
-        int * clear3 =  (int*)(&obufCl[4]);
-        int * clear4 =  (int*)(&obufCl[6]);
-        int * clear5 =  (int*)(&obufCl[7]);
-        int * clear6 =  (int*)(&obufCl[8]);
-        int * clear7 =  (int*)(&obufCl[10]);
-        int * clear8 =  (int*)(&obufCl[12]);
-        int * clear9 =  (int*)(&obufCl[16]);
-        memset(obufCl, 0, 17);
-        * clear1 = transId;   
-        * clear2 = htons(0);
-        * clear3 = htons(11);
-        * clear4 = 1;
-        * clear5 = 16;
-        * clear6 = htons(530);
-        * clear7 = htons(2);
-        * clear8 = 4;
-        * clear9 = posCounter;           
- 
-        FD_ZERO(&fds);
-        tv.tv_sec = 0;
-        tv.tv_usec = 0;
-    
-        x = select(32, NULL, &fds, NULL, &tv);
-        x = send(s, obufCl, 17, 0);
-        printf("Message Sent!\n");
-        FD_SET(s, &fds);
-        x = select(32, &fds, NULL, NULL, &tv);
-        x = recv(s, ibufCl, 50 , 0);
-        transId++;
-        posCounter++;
-      }
-  
-      int * posTwoA1 = (int*)(&obufTwoA[0]);
-      int * posTwoA2 = (int*)(&obufTwoA[2]);
-      int * posTwoA3 = (int*)(&obufTwoA[4]);
-      int * posTwoA4 = (int*)(&obufTwoA[6]);
-      int * posTwoA5 = (int*)(&obufTwoA[7]);
-      int * posTwoA6 = (int*)(&obufTwoA[8]);
-      int * posTwoA7 = (int*)(&obufTwoA[10]);
-      int * posTwoA8 = (int*)(&obufTwoA[12]);
-      int * posTwoA9 =  (int*)(&obufTwoA[16]);
-      int * posTwoA10 = (int*)(&obufTwoA[17]);    
-      int * posTwoA11 = (int*)(&obufTwoA[21]);
-      int * posTwoA12 = (int*)(&obufTwoA[28]);
-      int * posTwoA13 = (int*)(&obufTwoA[29]);
-      int * posTwoA14 = (int*)(&obufTwoA[33]);
-      int * posTwoA15 = (int*)(&obufTwoA[40]);
-      int * posTwoA16 = (int*)(&obufTwoA[44]);
-      int * posTwoA17 = (int*)(&obufTwoA[48]);
-      int * posTwoA18 = (int*)(&obufTwoA[52]);
-      
-      memset(obufTwoA, 0, 58);
-      * posTwoA1 = transId;   
-      * posTwoA2 = htons(0);
-      * posTwoA3 = htons(47);
-      * posTwoA4 = 1;
-      * posTwoA5 = 16;
-      * posTwoA6 = htons(8192);
-      * posTwoA7 = htons(20);
-      * posTwoA8 = 40;
-      * posTwoA9 = 0;                 
-      * posTwoA10 = htonl(2000);  
-      * posTwoA11 = htonl(2000);   
-      * posTwoA12 = 16;           
-      * posTwoA13 = htonl(2000);  
-      * posTwoA14 = htonl(2000);  
-      * posTwoA15 = 1;            
-      * posTwoA16 = 0;            
-      * posTwoA17 = 1;            
-      * posTwoA18 = 1;  
+      int * moveTask1 =  (int*)(&obufMT[0]);
+      int * moveTask2 =  (int*)(&obufMT[2]);
+      int * moveTask3 =  (int*)(&obufMT[4]);
+      int * moveTask4 =  (int*)(&obufMT[6]);
+      int * moveTask5 =  (int*)(&obufMT[7]);
+      int * moveTask6 =  (int*)(&obufMT[8]);
+      int * moveTask7 =  (int*)(&obufMT[10]);
+      int * moveTask8 =  (int*)(&obufMT[12]);
+      int * moveTask9 =  (int*)(&obufMT[13]);
+
+      memset(obufMT, 0, 17);
+      * moveTask1 = transId;   
+      * moveTask2 = htons(0);
+      * moveTask3 = htons(11);
+      * moveTask4 = 1;
+      * moveTask5 = 16;
+      * moveTask6 = htons(2014);
+      * moveTask7 = htons(2);
+      * moveTask8 = 4;
+      * moveTask9 = htonl(1); /* starting task */           
  
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
     
       x = select(32, NULL, &fds, NULL, &tv);
-      x = send(s, obufTwoA, 53, 0);
+      x = send(s, obufMT, 17, 0);
       printf("Message Sent!\n");
       FD_SET(s, &fds);
       x = select(32, &fds, NULL, NULL, &tv);
-      x = recv(s, ibufTwoA, 50 , 0);
+      x = recv(s, ibufMT, 50 , 0);
+      transId++;
 
+      int * drvSave1 =  (int*)(&obufDS[0]);
+      int * drvSave2 =  (int*)(&obufDS[2]);
+      int * drvSave3 =  (int*)(&obufDS[4]);
+      int * drvSave4 =  (int*)(&obufDS[6]);
+      int * drvSave5 =  (int*)(&obufDS[7]);
+      int * drvSave6 =  (int*)(&obufDS[8]);
+      int * drvSave7 =  (int*)(&obufDS[10]);
+      int * drvSave8 =  (int*)(&obufDS[12]);
+      int * drvSave9 =  (int*)(&obufDS[13]);
+
+      memset(obufDS, 0, 17);
+      * drvSave1 = transId;   
+      * drvSave2 = htons(0);
+      * drvSave3 = htons(11);
+      * drvSave4 = 1;
+      * drvSave5 = 16;
+      * drvSave6 = htons(8210);
+      * drvSave7 = htons(2);
+      * drvSave8 = 4;
+      * drvSave9 = htonl(1);            
+ 
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufDS, 17, 0);
+      printf("Message Sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufDS, 50 , 0);
+      transId++;
+
+      fprintf(fp_can_size, "%d\n", 0);
+    }
+    else if(selected[1])
+    {
+      int * clear1 =  (int*)(&obufCl[0]);
+      int * clear2 =  (int*)(&obufCl[2]);
+      int * clear3 =  (int*)(&obufCl[4]);
+      int * clear4 =  (int*)(&obufCl[6]);
+      int * clear5 =  (int*)(&obufCl[7]);
+      int * clear6 =  (int*)(&obufCl[8]);
+      int * clear7 =  (int*)(&obufCl[10]);
+      int * clear8 =  (int*)(&obufCl[12]);
+      int * clear9 =  (int*)(&obufCl[16]);
+      memset(obufCl, 0, 17);
+      * clear1 = transId;   
+      * clear2 = htons(0);
+      * clear3 = htons(11);
+      * clear4 = 1;
+      * clear5 = 16;
+      * clear6 = htons(530);
+      * clear7 = htons(2);
+      * clear8 = 4;
+      * clear9 = 4;           
+ 
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufCl, 17, 0);
+      printf("Message Sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufCl, 50 , 0);
+      transId++;
+      
       int * posTwoB1 = (int*)(&obufTwoB[0]);
       int * posTwoB2 = (int*)(&obufTwoB[2]);
       int * posTwoB3 = (int*)(&obufTwoB[4]);
@@ -628,13 +589,13 @@ void saveButton(int x, int y, int w, int h, char *text)
       * posTwoB6 = htons(8192);
       * posTwoB7 = htons(20);
       * posTwoB8 = 40;
-      * posTwoB9 = 1;                 
-      * posTwoB10 = htonl(20000);  
-      * posTwoB11 = htonl(20000);   
+      * posTwoB9 = 4;                 
+      * posTwoB10 = htonl((AKD_frame_posMedium+modifier)*1000);  
+      * posTwoB11 = htonl(5000000);   
       * posTwoB12 = 16;           
-      * posTwoB13 = htonl(20000);  
-      * posTwoB14 = htonl(20000);  
-      * posTwoB15 = 2;            
+      * posTwoB13 = htonl(10000000);  
+      * posTwoB14 = htonl(10000000);  
+      * posTwoB15 = 100;            
       * posTwoB16 = 0;            
       * posTwoB17 = 1;            
       * posTwoB18 = 1;  
@@ -649,97 +610,110 @@ void saveButton(int x, int y, int w, int h, char *text)
       FD_SET(s, &fds);
       x = select(32, &fds, NULL, NULL, &tv);
       x = recv(s, ibufTwoB, 50 , 0);
+      transId++;
+
+      int * moveTask1 =  (int*)(&obufMT[0]);
+      int * moveTask2 =  (int*)(&obufMT[2]);
+      int * moveTask3 =  (int*)(&obufMT[4]);
+      int * moveTask4 =  (int*)(&obufMT[6]);
+      int * moveTask5 =  (int*)(&obufMT[7]);
+      int * moveTask6 =  (int*)(&obufMT[8]);
+      int * moveTask7 =  (int*)(&obufMT[10]);
+      int * moveTask8 =  (int*)(&obufMT[12]);
+      int * moveTask9 =  (int*)(&obufMT[16]);
+
+      memset(obufMT, 0, 17);
+      * moveTask1 = transId;   
+      * moveTask2 = htons(0);
+      * moveTask3 = htons(11);
+      * moveTask4 = 1;
+      * moveTask5 = 16;
+      * moveTask6 = htons(2014);
+      * moveTask7 = htons(2);
+      * moveTask8 = 4;
+      * moveTask9 = 3; /* starting task */           
+ 
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufMT, 17, 0);
+      printf("Message Sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufMT, 50 , 0);
+      transId++;
+
+      int * drvSave1 =  (int*)(&obufDS[0]);
+      int * drvSave2 =  (int*)(&obufDS[2]);
+      int * drvSave3 =  (int*)(&obufDS[4]);
+      int * drvSave4 =  (int*)(&obufDS[6]);
+      int * drvSave5 =  (int*)(&obufDS[7]);
+      int * drvSave6 =  (int*)(&obufDS[8]);
+      int * drvSave7 =  (int*)(&obufDS[10]);
+      int * drvSave8 =  (int*)(&obufDS[12]);
+      int * drvSave9 =  (int*)(&obufDS[16]);
+
+      memset(obufDS, 0, 17);
+      * drvSave1 = transId;   
+      * drvSave2 = htons(0);
+      * drvSave3 = htons(11);
+      * drvSave4 = 1;
+      * drvSave5 = 16;
+      * drvSave6 = htons(8210);
+      * drvSave7 = htons(2);
+      * drvSave8 = 4;
+      * drvSave9 = 1;            
+ 
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufDS, 17, 0);
+      printf("Message Sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufDS, 50 , 0);
+      transId++;
 
       fprintf(fp_can_size, "%d\n", 1);   
     }  
     else if(selected[2])
     {  
-      for(i = 0; i < 2; ++i)
-      {
-        int * clear1 =  (int*)(&obufCl[0]);
-        int * clear2 =  (int*)(&obufCl[2]);
-        int * clear3 =  (int*)(&obufCl[4]);
-        int * clear4 =  (int*)(&obufCl[6]);
-        int * clear5 =  (int*)(&obufCl[7]);
-        int * clear6 =  (int*)(&obufCl[8]);
-        int * clear7 =  (int*)(&obufCl[10]);
-        int * clear8 =  (int*)(&obufCl[12]);
-        int * clear9 =  (int*)(&obufCl[16]);
-        memset(obufCl, 0, 17);
-        * clear1 = transId;   
-        * clear2 = htons(0);
-        * clear3 = htons(11);
-        * clear4 = 1;
-        * clear5 = 16;
-        * clear6 = htons(530);
-        * clear7 = htons(2);
-        * clear8 = 4;
-        * clear9 = posCounter;           
-
-        FD_ZERO(&fds);
-        tv.tv_sec = 0;
-        tv.tv_usec = 0;
-    
-        x = select(32, NULL, &fds, NULL, &tv);
-        x = send(s, obufCl, 17, 0);
-        printf("Message Sent!\n");
-        FD_SET(s, &fds);
-        x = select(32, &fds, NULL, NULL, &tv);
-        x = recv(s, ibufCl, 50 , 0);
-        transId++;
-        posCounter++;
-      }
-        
-      int * posThreeA1 = (int*)(&obufThreeA[0]);
-      int * posThreeA2 = (int*)(&obufThreeA[2]);
-      int * posThreeA3 = (int*)(&obufThreeA[4]);
-      int * posThreeA4 = (int*)(&obufThreeA[6]);
-      int * posThreeA5 = (int*)(&obufThreeA[7]);
-      int * posThreeA6 = (int*)(&obufThreeA[8]);
-      int * posThreeA7 = (int*)(&obufThreeA[10]);
-      int * posThreeA8 = (int*)(&obufThreeA[12]);
-      int * posThreeA9 =  (int*)(&obufThreeA[16]);
-      int * posThreeA10 = (int*)(&obufThreeA[17]);    
-      int * posThreeA11 = (int*)(&obufThreeA[21]);
-      int * posThreeA12 = (int*)(&obufThreeA[28]);
-      int * posThreeA13 = (int*)(&obufThreeA[29]);
-      int * posThreeA14 = (int*)(&obufThreeA[33]);
-      int * posThreeA15 = (int*)(&obufThreeA[40]);
-      int * posThreeA16 = (int*)(&obufThreeA[44]);
-      int * posThreeA17 = (int*)(&obufThreeA[48]);
-      int * posThreeA18 = (int*)(&obufThreeA[52]);
-      
-      memset(obufThreeA, 0, 58);
-      * posThreeA1 = transId;   
-      * posThreeA2 = htons(0);
-      * posThreeA3 = htons(47);
-      * posThreeA4 = 1;
-      * posThreeA5 = 16;
-      * posThreeA6 = htons(8192);
-      * posThreeA7 = htons(20);
-      * posThreeA8 = 40;
-      * posThreeA9 = 0;                 
-      * posThreeA10 = htonl(3000);  
-      * posThreeA11 = htonl(3000);   
-      * posThreeA12 = 16;           
-      * posThreeA13 = htonl(3000);  
-      * posThreeA14 = htonl(3000);  
-      * posThreeA15 = 1;            
-      * posThreeA16 = 0;            
-      * posThreeA17 = 1;            
-      * posThreeA18 = 1;  
+      int * clear1 =  (int*)(&obufCl[0]);
+      int * clear2 =  (int*)(&obufCl[2]);
+      int * clear3 =  (int*)(&obufCl[4]);
+      int * clear4 =  (int*)(&obufCl[6]);
+      int * clear5 =  (int*)(&obufCl[7]);
+      int * clear6 =  (int*)(&obufCl[8]);
+      int * clear7 =  (int*)(&obufCl[10]);
+      int * clear8 =  (int*)(&obufCl[12]);
+      int * clear9 =  (int*)(&obufCl[16]);
+      memset(obufCl, 0, 17);
+      * clear1 = transId;   
+      * clear2 = htons(0);
+      * clear3 = htons(11);
+      * clear4 = 1;
+      * clear5 = 16;
+      * clear6 = htons(530);
+      * clear7 = htons(2);
+      * clear8 = 4;
+      * clear9 = 6;           
 
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
     
       x = select(32, NULL, &fds, NULL, &tv);
-      x = send(s, obufThreeA, 53, 0);
+      x = send(s, obufCl, 17, 0);
       printf("Message Sent!\n");
       FD_SET(s, &fds);
       x = select(32, &fds, NULL, NULL, &tv);
-      x = recv(s, ibufThreeA, 50 , 0);
-
+      x = recv(s, ibufCl, 50 , 0);
+      transId++;
+    
       int * posThreeB1 = (int*)(&obufThreeB[0]);
       int * posThreeB2 = (int*)(&obufThreeB[2]);
       int * posThreeB3 = (int*)(&obufThreeB[4]);
@@ -768,13 +742,13 @@ void saveButton(int x, int y, int w, int h, char *text)
       * posThreeB6 = htons(8192);
       * posThreeB7 = htons(20);
       * posThreeB8 = 40;
-      * posThreeB9 = 1;                 
-      * posThreeB10 = htonl(30000);  
-      * posThreeB11 = htonl(30000);   
+      * posThreeB9 = 6;                 
+      * posThreeB10 = htonl((AKD_frame_posBig+modifier)*1000);  
+      * posThreeB11 = htonl(5000000);   
       * posThreeB12 = 16;           
-      * posThreeB13 = htonl(30000);  
-      * posThreeB14 = htonl(30000);  
-      * posThreeB15 = 2;            
+      * posThreeB13 = htonl(10000000);  
+      * posThreeB14 = htonl(10000000);  
+      * posThreeB15 = 100;            
       * posThreeB16 = 0;            
       * posThreeB17 = 1;            
       * posThreeB18 = 1;  
@@ -789,7 +763,74 @@ void saveButton(int x, int y, int w, int h, char *text)
       FD_SET(s, &fds);
       x = select(32, &fds, NULL, NULL, &tv);
       x = recv(s, ibufThreeB, 50 , 0);
-   
+      transId++;
+      
+      int * moveTask1 =  (int*)(&obufMT[0]);
+      int * moveTask2 =  (int*)(&obufMT[2]);
+      int * moveTask3 =  (int*)(&obufMT[4]);
+      int * moveTask4 =  (int*)(&obufMT[6]);
+      int * moveTask5 =  (int*)(&obufMT[7]);
+      int * moveTask6 =  (int*)(&obufMT[8]);
+      int * moveTask7 =  (int*)(&obufMT[10]);
+      int * moveTask8 =  (int*)(&obufMT[12]);
+      int * moveTask9 =  (int*)(&obufMT[16]);
+
+      memset(obufMT, 0, 17);
+      * moveTask1 = transId;   
+      * moveTask2 = htons(0);
+      * moveTask3 = htons(11);
+      * moveTask4 = 1;
+      * moveTask5 = 16;
+      * moveTask6 = htons(2014);
+      * moveTask7 = htons(2);
+      * moveTask8 = 4;
+      * moveTask9 = 5; /* starting task */           
+ 
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufMT, 17, 0);
+      printf("Message Sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufMT, 50 , 0);
+      transId++;  
+ 
+      int * drvSave1 =  (int*)(&obufDS[0]);
+      int * drvSave2 =  (int*)(&obufDS[2]);
+      int * drvSave3 =  (int*)(&obufDS[4]);
+      int * drvSave4 =  (int*)(&obufDS[6]);
+      int * drvSave5 =  (int*)(&obufDS[7]);
+      int * drvSave6 =  (int*)(&obufDS[8]);
+      int * drvSave7 =  (int*)(&obufDS[10]);
+      int * drvSave8 =  (int*)(&obufDS[12]);
+      int * drvSave9 =  (int*)(&obufDS[16]);
+
+      memset(obufDS, 0, 17);
+      * drvSave1 = transId;   
+      * drvSave2 = htons(0);
+      * drvSave3 = htons(11);
+      * drvSave4 = 1;
+      * drvSave5 = 16;
+      * drvSave6 = htons(8210);
+      * drvSave7 = htons(2);
+      * drvSave8 = 4;
+      * drvSave9 = 1;            
+ 
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      x = select(32, NULL, &fds, NULL, &tv);
+      x = send(s, obufDS, 17, 0);
+      printf("Message Sent!\n");
+      FD_SET(s, &fds);
+      x = select(32, &fds, NULL, NULL, &tv);
+      x = recv(s, ibufDS, 50 , 0);
+      transId++;
+
       fprintf(fp_can_size, "%d\n", 2);
     }
     fclose(fp_can_size);
@@ -821,7 +862,7 @@ void renderAdmin(int x, int y, int w, int h, int curr_page, int gotoNum)
   }
 }
 
-void up_button(int x,  int y, int *incrementee, int incrementor)   
+void up_button(int x,  int y, int *incrementee, int incrementor, int max)   
 {
   SDL_Surface *imageSurface;
   freeTexture();
@@ -854,11 +895,14 @@ void up_button(int x,  int y, int *incrementee, int incrementor)
 
   if(touchLocation.x > x && touchLocation.x < x+imageSurface->w && touchLocation.y > y && touchLocation.y < y + imageSurface->h && timestamp > oldtimestamp)
   {
-    incrementee = incrementee + incrementor;
+    if(*incrementee < max)
+    {
+      *incrementee = *incrementee + incrementor;
+    }
   }
 }
 
-void down_button(int x, int y, int *decrementee, int decrementor)     
+void down_button(int x, int y, int *decrementee, int decrementor, int min)     
 {
   SDL_Surface *imageSurface;
   freeTexture();
@@ -890,7 +934,10 @@ void down_button(int x, int y, int *decrementee, int decrementor)
 
   if(touchLocation.x > x && touchLocation.x < x+imageSurface->w && touchLocation.y > y && touchLocation.y < y + imageSurface->h && timestamp > oldtimestamp)
   {
-    decrementee = decrementee - decrementor;
+    if(*decrementee > min)
+    {
+      *decrementee = *decrementee - decrementor;
+    }
   }
 }
 

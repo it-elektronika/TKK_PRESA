@@ -7,6 +7,11 @@
 #include <stdlib.h>
 #include <arpa/inet.h>
 
+#define AKD_frame_posSmall 50
+#define AKD_frame_posMedium 100
+#define AKD_frame_posBig 150
+
+
 
 
 modbus_t *ctx;
@@ -31,6 +36,12 @@ struct sockaddr_in server;
 fd_set fds;
 struct timeval tv;
 
+char obufMT[17];
+char ibufMT[17];
+
+char obufDS[17];
+char ibufDS[17];
+
 char obufCl[17];
 char ibufCl[17];
 
@@ -52,6 +63,9 @@ char ibufThreeA[56];
 char obufThreeB[58];
 char ibufThreeB[56];
 
+
+char modifierBuff[20];
+int modifier;
 
 
 void initComm();

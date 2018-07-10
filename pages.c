@@ -95,6 +95,17 @@ void pageTwo()
     button(200, 200, 200, 100, "MALA", 0);
     button(200, 400, 200, 100, "SREDNJA", 1);
     button(200, 600, 200, 100, "VELIKA", 2);
+
+    renderText("POPRAVEK:", smallText, blackColor);
+    render(550, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
+   
+    sprintf(modifierBuff, "%d mm", modifier);
+    renderText(modifierBuff, smallText, blackColor);
+    render(800, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    
+    up_button(1000, 200, &modifier, 1, 5);
+    down_button(1100, 200, &modifier, 1, -5);
+
     saveButton(500, 600, 200, 100, "SHRANI");
   }
   if(page_stage[1] == 2)

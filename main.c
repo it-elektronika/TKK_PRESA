@@ -26,7 +26,6 @@ int main()
     {
       printf("REG%d:%d\n", i, regs[i]);
     }
-    
     usleep(1000);
     /*errorCheck();*/
     touchUpdate();
@@ -50,15 +49,16 @@ void errorCheck()
 
 void initComm()
 {
+  /*
   printf("FUNCTION CALLED\n");
   ctx = modbus_new_tcp("192.168.0.13", 502);  
   if(modbus_connect(ctx) == -1) 
   {
     fprintf(stderr,"Connection failed: %s\n",modbus_strerror(errno));
     modbus_free(ctx);
-    /*
+    
     exit(100);
-    */
+    
     page = 2; 
     sbarText = 2;
     connectiOn = 0;
@@ -66,6 +66,7 @@ void initComm()
 
   nb = sizeof(regs)/sizeof(int16_t);   
   modbus_set_debug(ctx, FALSE); 
+  */
 
   /* AKD CONN */
   ip_adrs = "192.168.0.13";
@@ -85,6 +86,7 @@ void initMain()
   connectiOn = 1;
   transId = 1;
   posCounter = 1;
+  modifier = 0;
 }
 
 

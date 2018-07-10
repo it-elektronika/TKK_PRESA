@@ -458,39 +458,6 @@ void saveButton(int x, int y, int w, int h, char *text)
       x = select(32, &fds, NULL, NULL, &tv);
       x = recv(s, ibufOneB, 50 , 0);
       transId++;
-      
-      int * dinMode1 =  (int*)(&obufDM[0]);
-      int * dinMode2 =  (int*)(&obufDM[2]);
-      int * dinMode3 =  (int*)(&obufDM[4]);
-      int * dinMode4 =  (int*)(&obufDM[6]);
-      int * dinMode5 =  (int*)(&obufDM[7]);
-      int * dinMode6 =  (int*)(&obufDM[8]);
-      int * dinMode7 =  (int*)(&obufDM[10]);
-      int * dinMode8 =  (int*)(&obufDM[12]);
-      int * dinMode9 =  (int*)(&obufDM[13]);
-
-      memset(obufDM, 0, 17);
-      * dinMode1 = transId;   
-      * dinMode2 = htons(0);
-      * dinMode3 = htons(11);
-      * dinMode4 = 1;
-      * dinMode5 = 16;
-      * dinMode6 = htons(122);
-      * dinMode7 = htons(2);
-      * dinMode8 = 4;
-      * dinMode9 = htonl(2);            
- 
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      x = select(32, NULL, &fds, NULL, &tv);
-      x = send(s, obufDM, 17, 0);
-      printf("Message Sent!\n");
-      FD_SET(s, &fds);
-      x = select(32, &fds, NULL, NULL, &tv);
-      x = recv(s, ibufDM, 50 , 0);
-      transId++;
 
       int * moveTask1 =  (int*)(&obufMT[0]);
       int * moveTask2 =  (int*)(&obufMT[2]);
@@ -501,18 +468,18 @@ void saveButton(int x, int y, int w, int h, char *text)
       int * moveTask7 =  (int*)(&obufMT[10]);
       int * moveTask8 =  (int*)(&obufMT[12]);
       int * moveTask9 =  (int*)(&obufMT[13]);
-      
+
       memset(obufMT, 0, 17);
       * moveTask1 = transId;   
       * moveTask2 = htons(0);
       * moveTask3 = htons(11);
       * moveTask4 = 1;
       * moveTask5 = 16;
-      * moveTask6 = htons(2014);
+      * moveTask6 = htons(2018);
       * moveTask7 = htons(2);
       * moveTask8 = 4;
-      * moveTask9 = htonl(1000); /* starting task */           
-      
+      * moveTask9 = htonl(1); /* starting task */           
+ 
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
@@ -645,39 +612,6 @@ void saveButton(int x, int y, int w, int h, char *text)
       x = recv(s, ibufTwoB, 50 , 0);
       transId++;
 
-      int * dinMode1 =  (int*)(&obufDM[0]);
-      int * dinMode2 =  (int*)(&obufDM[2]);
-      int * dinMode3 =  (int*)(&obufDM[4]);
-      int * dinMode4 =  (int*)(&obufDM[6]);
-      int * dinMode5 =  (int*)(&obufDM[7]);
-      int * dinMode6 =  (int*)(&obufDM[8]);
-      int * dinMode7 =  (int*)(&obufDM[10]);
-      int * dinMode8 =  (int*)(&obufDM[12]);
-      int * dinMode9 =  (int*)(&obufDM[13]);
-
-      memset(obufDM, 0, 17);
-      * dinMode1 = transId;   
-      * dinMode2 = htons(0);
-      * dinMode3 = htons(11);
-      * dinMode4 = 1;
-      * dinMode5 = 16;
-      * dinMode6 = htons(122);
-      * dinMode7 = htons(2);
-      * dinMode8 = 4;
-      * dinMode9 = htonl(2);            
- 
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      x = select(32, NULL, &fds, NULL, &tv);
-      x = send(s, obufDM, 17, 0);
-      printf("Message Sent!\n");
-      FD_SET(s, &fds);
-      x = select(32, &fds, NULL, NULL, &tv);
-      x = recv(s, ibufDM, 50 , 0);
-      transId++;
-
       int * moveTask1 =  (int*)(&obufMT[0]);
       int * moveTask2 =  (int*)(&obufMT[2]);
       int * moveTask3 =  (int*)(&obufMT[4]);
@@ -686,8 +620,8 @@ void saveButton(int x, int y, int w, int h, char *text)
       int * moveTask6 =  (int*)(&obufMT[8]);
       int * moveTask7 =  (int*)(&obufMT[10]);
       int * moveTask8 =  (int*)(&obufMT[12]);
-      int * moveTask9 =  (int*)(&obufMT[13]);
-      
+      int * moveTask9 =  (int*)(&obufMT[16]);
+
       memset(obufMT, 0, 17);
       * moveTask1 = transId;   
       * moveTask2 = htons(0);
@@ -697,7 +631,8 @@ void saveButton(int x, int y, int w, int h, char *text)
       * moveTask6 = htons(2014);
       * moveTask7 = htons(2);
       * moveTask8 = 4;
-      * moveTask9 = htonl(3000); /* starting task */
+      * moveTask9 = 3; /* starting task */           
+ 
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
@@ -829,40 +764,7 @@ void saveButton(int x, int y, int w, int h, char *text)
       x = select(32, &fds, NULL, NULL, &tv);
       x = recv(s, ibufThreeB, 50 , 0);
       transId++;
-     
-      int * dinMode1 =  (int*)(&obufDM[0]);
-      int * dinMode2 =  (int*)(&obufDM[2]);
-      int * dinMode3 =  (int*)(&obufDM[4]);
-      int * dinMode4 =  (int*)(&obufDM[6]);
-      int * dinMode5 =  (int*)(&obufDM[7]);
-      int * dinMode6 =  (int*)(&obufDM[8]);
-      int * dinMode7 =  (int*)(&obufDM[10]);
-      int * dinMode8 =  (int*)(&obufDM[12]);
-      int * dinMode9 =  (int*)(&obufDM[13]);
-
-      memset(obufDM, 0, 17);
-      * dinMode1 = transId;   
-      * dinMode2 = htons(0);
-      * dinMode3 = htons(11);
-      * dinMode4 = 1;
-      * dinMode5 = 16;
-      * dinMode6 = htons(122);
-      * dinMode7 = htons(2);
-      * dinMode8 = 4;
-      * dinMode9 = htonl(2);            
- 
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      x = select(32, NULL, &fds, NULL, &tv);
-      x = send(s, obufDM, 17, 0);
-      printf("Message Sent!\n");
-      FD_SET(s, &fds);
-      x = select(32, &fds, NULL, NULL, &tv);
-      x = recv(s, ibufDM, 50 , 0);
-      transId++;
-
+      
       int * moveTask1 =  (int*)(&obufMT[0]);
       int * moveTask2 =  (int*)(&obufMT[2]);
       int * moveTask3 =  (int*)(&obufMT[4]);
@@ -871,7 +773,8 @@ void saveButton(int x, int y, int w, int h, char *text)
       int * moveTask6 =  (int*)(&obufMT[8]);
       int * moveTask7 =  (int*)(&obufMT[10]);
       int * moveTask8 =  (int*)(&obufMT[12]);
-      int * moveTask9 =  (int*)(&obufMT[13]);
+      int * moveTask9 =  (int*)(&obufMT[16]);
+
       memset(obufMT, 0, 17);
       * moveTask1 = transId;   
       * moveTask2 = htons(0);
@@ -881,7 +784,8 @@ void saveButton(int x, int y, int w, int h, char *text)
       * moveTask6 = htons(2014);
       * moveTask7 = htons(2);
       * moveTask8 = 4;
-      * moveTask9 = htonl(5000); /* starting task */
+      * moveTask9 = 5; /* starting task */           
+ 
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
@@ -892,9 +796,8 @@ void saveButton(int x, int y, int w, int h, char *text)
       FD_SET(s, &fds);
       x = select(32, &fds, NULL, NULL, &tv);
       x = recv(s, ibufMT, 50 , 0);
-      transId++;
-
-
+      transId++;  
+ 
       int * drvSave1 =  (int*)(&obufDS[0]);
       int * drvSave2 =  (int*)(&obufDS[2]);
       int * drvSave3 =  (int*)(&obufDS[4]);

@@ -36,8 +36,12 @@ struct sockaddr_in server;
 fd_set fds;
 struct timeval tv;
 
-char obufMT[17];
-char ibufMT[17];
+char obufDM[17];
+char ibufDM[17];
+
+
+char obufMT[21];
+char ibufMT[21];
 
 char obufDS[17];
 char ibufDS[17];

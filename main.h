@@ -12,8 +12,6 @@
 #define AKD_frame_posBig 150
 
 
-
-
 modbus_t *ctx;
 int i;
 int nb;
@@ -25,7 +23,7 @@ int connectiOn;
 uint16_t regs[10];
 
 
-int x;
+int conn;
 int s;
 int transId;
 int posCounter;
@@ -36,10 +34,6 @@ struct sockaddr_in server;
 fd_set fds;
 struct timeval tv;
 
-char obufDM[17];
-char ibufDM[17];
-
-
 char obufMT[21];
 char ibufMT[21];
 
@@ -49,24 +43,8 @@ char ibufDS[17];
 char obufCl[17];
 char ibufCl[17];
 
-char obufOneA[58];
-char ibufOneA[56];
-
 char obufOneB[58];
 char ibufOneB[56];
-
-char obufTwoA[58];
-char ibufTwoA[56];
-
-char obufTwoB[58];
-char ibufTwoB[56];
-
-char obufThreeA[58];
-char ibufThreeA[56];
-
-char obufThreeB[58];
-char ibufThreeB[56];
-
 
 char modifierBuff[20];
 int modifier;

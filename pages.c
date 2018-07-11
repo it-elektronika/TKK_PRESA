@@ -21,9 +21,7 @@ void pageOne()
  
     for(i = 0; i < 1; ++i)
     {
-      printf("HERE\n");
       getline(&line, &len, fp_can_size);
-      printf("pageone\n");
 
       if(i==0)
       {
@@ -130,4 +128,45 @@ void pageThree()
   }
 }
 
+void pageFour() /* waiting for drives to connect */
+{
+  if(page_stage[3] == 0)
+  {
+    page_stage[3] = 1;
+  }
+  else if(page_stage[3] == 1)
+  {
+    if(connectiOn)
+    {
+      renderText("DRIVE PRESA: OK", regularText, blackColor);
+    }
+    else
+    {
+      renderText("DRIVE PRESA: NOK", regularText, blackColor);
+    }
+    render(50, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
+    if(connectiOn)
+    {
+      renderText("DRIVE OGRODJE: OK", regularText, blackColor);
+    }
+    else
+    {
+      renderText("DRIVE OGRODJE: NOK", regularText, blackColor);
+    }
+    render(50, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    if(connectiOn)
+    {
+      renderText("DRIVE MIZA: OK", regularText, blackColor);
+    }
+    else
+    {
+      renderText("DRIVE MIZA: NOK", regularText, blackColor);
+    }
+    render(50, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
+  }
+  else if(page_stage[3] == 2)
+  {
+    page_stage[3] = 0;
+  }
+}

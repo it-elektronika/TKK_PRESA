@@ -3,7 +3,7 @@
 #include <SDL2/SDL_image.h>
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 800
-#define RPI 1
+#define LUKA 1
 
 int program;
 int sbarText;
@@ -72,3 +72,4 @@ void saveButton(int x, int y, int w, int h, char *text);
 void pageOne(void);
 void pageTwo(void);
 void pageThree(void);
+void pageFour(void);

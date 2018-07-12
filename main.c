@@ -107,6 +107,12 @@ void initMain()
   posCounter = 1;
   modifier = 0;
 
+  year = 2018;
+  month = 1;
+  day = 1;
+  hour = 0;
+  minute = 0;
+
   int * clear1 =  (int*)(&obufCl[0]);
   int * clear2 =  (int*)(&obufCl[2]);
   int * clear3 =  (int*)(&obufCl[4]);

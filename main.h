@@ -23,6 +23,7 @@ int connectiOn;
 uint16_t regs[10];
 
 
+
 int conn;
 int s;
 int transId;
@@ -33,6 +34,21 @@ struct sockaddr_in server;
 
 fd_set fds;
 struct timeval tv;
+
+int year;
+int month;
+int day;
+int hour;
+int minute;
+
+char yearBuff[20];
+char monthBuff[20];
+char dayBuff[20];
+char hourBuff[20];
+char minuteBuff[20];
+
+
+char setTBuff[100];
 char tmBuff[10];
 char obufMT[21];
 char ibufMT[21];

@@ -293,13 +293,9 @@ void renderStatusBar()
       break;
   } 
   render(30, 10, NULL, 0.0, NULL, SDL_FLIP_NONE);
-
+  clockButton(1050, 20, 50, 100, tmBuff); 
   
-  time_t t = time(NULL);
-  struct tm tm = *localtime(&t);
-  sprintf(tmBuff, "%02d:%02d", tm.tm_hour, tm.tm_min);
-  renderText(tmBuff, smallText, blackColor);
-  render(1050, 23, NULL, 0.0, NULL, SDL_FLIP_NONE);
+  
 }
 
 void renderContent()
@@ -328,6 +324,10 @@ void renderContent()
       pageFour();   /*error page */
       /*backgroundColor = 2;
       sbarText = 2;*/
+      break;
+    
+    case 4:
+      pageFive();
       break;
   }
   oldtimestamp=timestamp;
@@ -815,3 +815,34 @@ void button(int x, int y, int w, int h, char *text, int id)
 }
 
 
+void saveTime(int x, int y, int w, int h, char *text)
+{
+  renderText(text, smallText,  blackColor);
+  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE);
+  
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+    sprintf(setTBuff, "echo ine36dun2f1 | sudo -S timedatectl set-time '%04d-%02d-%02d %02d:%02d:00'", year, month, day, hour, minute);
+    system("timedatectl set-ntp 0");
+    system(setTBuff);
+    system("timedatectl set-ntp 1");
+  } 
+}
+
+
+void clockButton(int x, int y, int h, int w, char *tmBuff)
+{
+
+  time_t t = time(NULL);
+  struct tm tm = *localtime(&t);
+  sprintf(tmBuff, "%02d:%02d", tm.tm_hour, tm.tm_min);
+  renderText(tmBuff, smallText, blackColor);
+  render(1050, 23, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+  
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+    page = 4;
+    page_stage[page] = 0;
+  }
+}

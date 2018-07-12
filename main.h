@@ -6,7 +6,7 @@
 #include <netinet/in.h>
 #include <stdlib.h>
 #include <arpa/inet.h>
-
+#include <time.h>
 #define AKD_frame_posSmall 50
 #define AKD_frame_posMedium 100
 #define AKD_frame_posBig 150
@@ -33,7 +33,7 @@ struct sockaddr_in server;
 
 fd_set fds;
 struct timeval tv;
-
+char tmBuff[10];
 char obufMT[21];
 char ibufMT[21];
 

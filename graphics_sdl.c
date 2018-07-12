@@ -1,4 +1,4 @@
-#include <stdio.h>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
@@ -293,6 +293,13 @@ void renderStatusBar()
       break;
   } 
   render(30, 10, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+  
+  time_t t = time(NULL);
+  struct tm tm = *localtime(&t);
+  sprintf(tmBuff, "%02d:%02d", tm.tm_hour, tm.tm_min);
+  renderText(tmBuff, smallText, blackColor);
+  render(1050, 23, NULL, 0.0, NULL, SDL_FLIP_NONE);
 }
 
 void renderContent()
@@ -806,3 +813,5 @@ void button(int x, int y, int w, int h, char *text, int id)
     selected[id] = 1;
   }
 }
+
+

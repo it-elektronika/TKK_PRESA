@@ -823,9 +823,9 @@ void saveTime(int x, int y, int w, int h, char *text)
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
     sprintf(setTBuff, "echo ine36dun2f1 | sudo -S timedatectl set-time '%04d-%02d-%02d %02d:%02d:00'", year, month, day, hour, minute);
-    system("timedatectl set-ntp 0");
+    system("echo ine36dun2f1 | sudo -S timedatectl set-ntp 0");
     system(setTBuff);
-    system("timedatectl set-ntp 1");
+    system("echo ine36dun2f1 | sudo -S timedatectl set-ntp 1");
   } 
 }
 

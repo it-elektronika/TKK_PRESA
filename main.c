@@ -13,6 +13,10 @@ int main()
   initMain();
   init();
   initVars();
+  for(i = 0; i < 10; i++)
+  {
+    printf("%d\n", regs[i]);
+  }
   while(connectiOn == 0)
   {
     renderBackground();

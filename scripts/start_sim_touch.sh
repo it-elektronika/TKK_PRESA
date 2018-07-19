@@ -1,4 +1,4 @@
 !#bin/bash
-sleep 5
-cd TKK_TRESENJE/scripts/
+sleep 3
+cd TKK_PRESA/scripts/
 ./sim_touch

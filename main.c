@@ -13,10 +13,6 @@ int main()
   initMain();
   init();
   initVars();
-  for(i = 0; i < 10; i++)
-  {
-    printf("%d\n", regs[i]);
-  }
   while(connectiOn == 0)
   {
     renderBackground();
@@ -96,7 +92,7 @@ void initComm()
     page = 0;
   }
   printf("%d\n", conn);
-  usleep(5000);
+  usleep(3000);
 }
 
 void initMain()
@@ -173,7 +169,6 @@ void initMain()
   * posOneB17 = 1;            
   * posOneB18 = 1;  
 
-
   int * moveTask1 =  (int*)(&obufMT[0]);
   int * moveTask2 =  (int*)(&obufMT[2]);
   int * moveTask3 =  (int*)(&obufMT[4]);
@@ -215,7 +210,6 @@ void initMain()
   * drvSave7 = htons(2);
   * drvSave8 = 4;
   * drvSave9 = htonl(1);
-       
 }
 
 

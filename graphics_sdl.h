@@ -3,7 +3,7 @@
 #include <SDL2/SDL_image.h>
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 800
-#define RPI 1
+#define LUKA 1
 
 int program;
 int sbarText;
@@ -11,8 +11,6 @@ int page;
 
 int page_stage[3];
 int curr_page;
-
-char buff_reg[10][10];
 
 int backgroundColor;
 
@@ -52,7 +50,6 @@ int selected[9];
 int noButtonSelected;
 int id;
 
-
 int init();
 void initVars();
 void freeTexture();
@@ -71,8 +68,14 @@ void button(int x, int y, int w, int h, char *text, int id);
 void saveButton(int x, int y, int w, int h, char *text);
 void saveTime(int x, int y, int w, int h, char *text);
 void clockButton(int x, int y, int w, int h, char *text);
-void pageOne(void);
-void pageTwo(void);
-void pageThree(void);
-void pageFour(void);
-void pageFive(void);
+void goToButton(int x, int y, int w, int h, char *text, int curr_page, int goToNum);
+
+void pageZero(int pageNum);
+void pageOne(int pageNum);
+void pageTwo(int pageNum);
+void pageThree(int pageNum);
+void pageFour(int pageNum);
+void pageFive(int pageNum);
+void pageSix(int pageNum);
+void pageSeven(int pageNum);
+void pageEight(int pageNum);

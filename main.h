@@ -21,7 +21,9 @@ int tc;
 int connectiOn;
  
 uint16_t regs[10];
+char buff_reg[10][10];
 
+char buff_inputs[28][2];
 
 
 int conn;

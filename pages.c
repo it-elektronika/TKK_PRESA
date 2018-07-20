@@ -5,11 +5,11 @@
 #include "graphics_sdl.h"
 #include "main.h"
 
-void pageOne()
+void pageZero(int pageNum)  /* LANDING PAGE */
 {
   int i;
   int y = 250;
-  if(page_stage[0] == 0) /* loading page */
+  if(page_stage[pageNum] == 0) /* loading page */
   {
     
     #ifdef RPI   
@@ -47,11 +47,11 @@ void pageOne()
     }
     fclose(fp_can_size);
     
-    page_stage[0] = 1;
+    page_stage[pageNum] = 1;
   }
-  else if(page_stage[0] == 1)
+  else if(page_stage[pageNum] == 1)
   {
-    renderAdmin(1200, 0, 80, 80, 0, 1);
+    renderAdmin(1200, 0, 80, 80, pageNum, 1);
 
     if(selected[0])
     {
@@ -75,21 +75,40 @@ void pageOne()
       y = y + 50;
     }
   }
-  else if(page_stage[0] == 2)
+  else if(page_stage[pageNum] == 2)
   {
-    page_stage[0] = 0;
+    page_stage[pageNum] = 0;
   }
 }
 
-void pageTwo()
+void pageOne(int pageNum) /* MAIN MENU */
 {
-  if(page_stage[1] == 0)
+  if(page_stage[pageNum] == 0)
   {
-    page_stage[1] = 1;
+    page_stage[pageNum] = 1;
   }
-  if(page_stage[1] == 1)
+  else if(page_stage[pageNum] == 1)
   {
-    renderAdmin(1200, 0, 80, 80, 1, 0);
+    renderAdmin(1200, 0, 80, 80, pageNum, 0);
+    goToButton(100, 200, 300, 100, "IZBIRA DOZE", pageNum, 2);
+    goToButton(100, 400, 300, 100, "I/O STATUS", pageNum, 3);
+    goToButton(100, 600, 300, 100, "DIAGNOSTIKA", pageNum, 4);
+  }
+  else if(page_stage[pageNum] == 2)
+  {
+    page_stage[pageNum] = 0;
+  }
+}
+
+void pageTwo(int pageNum) /* CAN SIZE SELECTION */
+{
+  if(page_stage[pageNum] == 0)
+  {
+    page_stage[pageNum] = 1;
+  }
+  if(page_stage[pageNum] == 1)
+  {
+    renderAdmin(1200, 0, 80, 80, pageNum, 1);
     button(200, 200, 200, 100, "MALA", 0);
     button(200, 400, 200, 100, "SREDNJA", 1);
     button(200, 600, 200, 100, "VELIKA", 2);
@@ -106,35 +125,124 @@ void pageTwo()
 
     saveButton(500, 600, 200, 100, "SHRANI");
   }
-  if(page_stage[1] == 2)
+  if(page_stage[pageNum] == 2)
   {
-    page_stage[1] = 0;
+    page_stage[pageNum] = 0;
   }
 }
 
-void pageThree()
+void pageThree(int pageNum)  /* I/O STATUS */
 {
-  if(page_stage[2] == 0)
+  int y;
+  y = 100;
+  if(page_stage[pageNum] == 0)
   {
-    page_stage[2] = 1;
+    page_stage[pageNum] = 1;
   }
-  else if(page_stage[2] == 1)
+  else if(page_stage[pageNum] == 1)
   {
-    renderAdmin(1200, 0, 80, 80, 2, 0);
+    renderAdmin(1200, 0, 80, 80, pageNum, 1);
+    for(i = 0; i < 28; i++)
+    {
+      sprintf(buff_inputs[i], "I_%d:%d", i, 1); /* values need to be added later */
+      renderText(buff_inputs[i], regularText, blackColor);
+      render(30, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
+      y = y + 50;
+    }
   }
-  else if(page_stage[2] == 2)
+  else if(page_stage[pageNum] == 2)
   {
-    page_stage[2] = 0;
+    page_stage[pageNum] = 0;
   }
 }
 
-void pageFour() /* waiting for drives to connect */
+void pageFour(int pageNum)  /* DIAGNOSTICS */
 {
-  if(page_stage[3] == 0)
+  if(page_stage[pageNum] == 0)
   {
-    page_stage[3] = 1;
+    page_stage[pageNum] = 1;
   }
-  else if(page_stage[3] == 1)
+  else if(page_stage[pageNum] == 1)
+  {
+    renderAdmin(1200, 0, 80, 80, pageNum, 1);
+  }
+  else if(page_stage[pageNum] == 2)
+  {
+    page_stage[pageNum] = 0;
+  }
+}
+
+void pageFive(int pageNum) /* TIME */
+{
+  if(page_stage[pageNum] == 0)
+  {
+    page_stage[pageNum] = 1;
+  }
+  else if(page_stage[pageNum] == 1)
+  {
+    sprintf(yearBuff, "LETO: %04d", year);
+    sprintf(monthBuff, "MESEC: %02d", month);
+    sprintf(dayBuff, "DAN: %02d", day);
+    sprintf(hourBuff, "URE: %02d", hour);
+    sprintf(minuteBuff, "MINUTE: %02d", minute);
+
+    renderText(yearBuff, regularText, blackColor);
+    render(50, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(400, 200, &year, 1, 2100);
+    down_button(500, 200, &year, 1, 2018);
+
+    renderText(monthBuff, regularText, blackColor);
+    render(50, 300, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(400, 300, &month, 1, 12);
+    down_button(500, 300, &month, 1, 1);
+
+    renderText(dayBuff, regularText, blackColor);
+    render(50, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(400, 400, &day, 1, 31);
+    down_button(500, 400, &day, 1, 1);
+
+    renderText(hourBuff, regularText, blackColor);
+    render(50, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(400, 500, &hour, 1, 24);
+    down_button(500, 500, &hour, 1, 0);
+
+    renderText(minuteBuff, regularText, blackColor);
+    render(50, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(400, 600, &minute, 1, 60);
+    down_button(500, 600, &minute, 1, 0);
+
+    saveTime(50, 700, 100, 100, "SHRANI");
+    renderAdmin(1200, 0, 80, 80, pageNum, 0);
+  }
+  else if(page_stage[pageNum] == 2)
+  {
+    page_stage[pageNum] = 0;
+  }
+}
+
+void pageSix(int pageNum) /* CONNECTING */
+{
+  if(page_stage[pageNum] == 0)
+  {
+    page_stage[pageNum] = 1;
+  }
+  else if(page_stage[pageNum] == 1)
+  {
+    renderAdmin(1200, 0, 80, 80, pageNum, 1); 
+  }
+  else if(page_stage[pageNum] == 2)
+  {
+    page_stage[pageNum] = 0;
+  }
+}
+
+void pageSeven(int pageNum) /* ERROR DRIVES */
+{
+  if(page_stage[pageNum] == 0)
+  {
+    page_stage[pageNum] = 1;
+  }
+  else if(page_stage[pageNum] == 1)
   {
     if(connectiOn)
     {
@@ -165,57 +273,25 @@ void pageFour() /* waiting for drives to connect */
     }
     render(50, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
   }
-  else if(page_stage[3] == 2)
+  else if(page_stage[pageNum] == 2)
   {
-    page_stage[3] = 0;
+    page_stage[pageNum] = 0;
   }
 }
 
-void pageFive() /* set time */
+void pageEight(int pageNum)  /* ERROR */
 {
-  if(page_stage[3] == 0)
+  if(page_stage[pageNum] == 0)
   {
-    page_stage[3] = 1;
+    page_stage[pageNum] = 1;
   }
-  else if(page_stage[3] == 1)
+  else if(page_stage[pageNum] == 1)
   {
-    sprintf(yearBuff, "LETO: %04d", year);
-    sprintf(monthBuff, "MESEC: %02d", month);
-    sprintf(dayBuff, "DAN: %02d", day);
-    sprintf(hourBuff, "URE: %02d", hour);
-    sprintf(minuteBuff, "MINUTE: %02d", minute);
-
-    renderText(yearBuff, regularText, blackColor);
-    render(50, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(400, 200, &year, 1, 2100);
-    down_button(500, 200, &year, 1, 2018);
-
-
-    renderText(monthBuff, regularText, blackColor);
-    render(50, 300, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(400, 300, &month, 1, 12);
-    down_button(500, 300, &month, 1, 1);
-
-    renderText(dayBuff, regularText, blackColor);
-    render(50, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(400, 400, &day, 1, 31);
-    down_button(500, 400, &day, 1, 1);
-
-    renderText(hourBuff, regularText, blackColor);
-    render(50, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(400, 500, &hour, 1, 24);
-    down_button(500, 500, &hour, 1, 0);
-
-    renderText(minuteBuff, regularText, blackColor);
-    render(50, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(400, 600, &minute, 1, 60);
-    down_button(500, 600, &minute, 1, 0);
-
-    saveTime(50, 700, 100, 100, "SHRANI");
-    renderAdmin(1200, 0, 80, 80, 4, 0);
+    renderAdmin(1200, 0, 80, 80, pageNum, 0);
   }
-  else if(page_stage[3] == 2)
+  else if(page_stage[pageNum] == 2)
   {
-    page_stage[3] = 0;
+    page_stage[pageNum] = 0;
   }
 }
+

@@ -1,4 +1,3 @@
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
@@ -205,43 +204,43 @@ void renderStatusBar()
       break;
 
     case 1:
-      renderText("IZBIRANJE VELIKOSTI DOZE", regularText, blackColor);
+      renderText("MENU", regularText, blackColor);
       break;
     
     case 2:
-      renderText("POVEZOVANJE", regularText, blackColor);
+      renderText("IZBIRA VELIKOSTI DOZE", regularText, blackColor);
       break;
     
     case 3:
-      renderText("NAPAKA - ni povezave", regularText, blackColor);
+      renderText("I / O STATUS", regularText, blackColor);
       break;
 
     case 4: 
-      renderText("IZBIRA SMERI VRTENJA", regularText, blackColor);
+      renderText("DIAGNOSTIKA", regularText, blackColor);
       break;
 
     case 5: 
-      renderText("IZBIRA NACINA DELOVANJA", regularText, blackColor);
+      renderText("NASTAVLJANJE CASA", regularText, blackColor);
       break;    
 
     case 6: 
-      renderText("NASTAVITVE", regularText, blackColor);
+      renderText("POVEZOVANJE", regularText, blackColor);
       break;    
     
     case 7: 
-      renderText("IZVIJAC IZVEN POZICIJE", regularText, blackColor);
+      renderText("NAPAKA - ", regularText, blackColor);
       break;    
  
     case 8:
-      renderText("SMET NA SENZORJU", regularText, blackColor);
+      renderText("NAPAKA - ", regularText, blackColor);
       break;
 
     case 9:
-      renderText("SENZORJI - IZVIJAC", regularText, blackColor);
+      renderText("NAPAKA - ", regularText, blackColor);
       break;
 
     case 10:
-      renderText("SENZORJI - SMET", regularText, blackColor);
+      renderText("NAPAKA - ", regularText, blackColor);
       break;
 
     case 11:
@@ -303,31 +302,56 @@ void renderContent()
   switch(page)
   {
     case 0:
-      pageOne(); /* main page */
+      pageZero(0); /* main - landing page */
       backgroundColor = 1;
       sbarText = 0;
       break;
     
     case 1:
-      pageTwo(); /* can size selection */
+      pageOne(1); /* menu */
       backgroundColor = 1;
       sbarText = 1;
       break;
    
     case 2:
-      pageThree();   /*error page */
-      backgroundColor = 2;
+      pageTwo(2);   /* can size */
+      backgroundColor = 1;
       sbarText = 2;
       break;
     
     case 3:
-      pageFour();   /*error page */
-      /*backgroundColor = 2;
-      sbarText = 2;*/
+      pageThree(3);   /*error page */
+      backgroundColor = 1;
+      sbarText = 3;
       break;
     
     case 4:
-      pageFive();
+      pageFour(4);
+      backgroundColor = 1;
+      sbarText = 4;
+      break;
+
+    case 5:
+      pageFive(5);
+      backgroundColor = 1;
+      sbarText = 5;
+      break;
+
+    case 6:
+      pageSix(6);
+      backgroundColor = 1;
+      sbarText = 6;
+      break;
+
+    case 7:
+      pageFive(7);
+      backgroundColor = 1;
+      sbarText = 7;
+      break;
+
+    case 8:
+      pageEight(8);
+      backgroundColor = 2;
       break;
   }
   oldtimestamp=timestamp;
@@ -814,6 +838,24 @@ void button(int x, int y, int w, int h, char *text, int id)
   }
 }
 
+void goToButton(int x, int y, int w, int h, char *text, int curr_page, int goToNum)
+{
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+  SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+  SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+  SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+  renderText(text, regularText,  blackColor);
+  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
+ 
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+    cycleCheck = cycleCounter;
+    page = goToNum;
+    page_stage[curr_page] = 2;
+  }
+}
+
 
 void saveTime(int x, int y, int w, int h, char *text)
 {
@@ -842,7 +884,7 @@ void clockButton(int x, int y, int h, int w, char *tmBuff)
   
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
-    page = 4;
+    page = 5;
     page_stage[page] = 0;
   }
 }

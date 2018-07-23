@@ -133,13 +133,11 @@ void pageTwo(int pageNum) /* CAN SIZE SELECTION */
 
 void pageThree(int pageNum)  /* I/O STATUS */
 {
-  int y;
   int i;
-  
- 
+  int y;
+  y = 100;
   if(page_stage[pageNum] == 0)
   {
-    y = 100;
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -152,27 +150,36 @@ void pageThree(int pageNum)  /* I/O STATUS */
       SDL_RenderDrawLine(renderer, 1200, 180+i, 1280, 180+i);
       SDL_RenderDrawLine(renderer, 1200, 700+i, 1280, 700+i);
     }
-
-    up_button(1220, 120, &y, 100, 10000);
-    down_button(1220, 720, &y, 100, -10000);
-
     for(i = 0; i < 28; i++)
     {
-      sprintf(buff_inputs[i], "I_%d:%d", i, 1); /* values need to be added later */
-      renderText(buff_inputs[i], regularText, blackColor);
-      render(30, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
+      if((y + modY >= 100))
+      {
+        scrollArr[i] = 0;
+      } 
+      else if((y + modY) < 100)
+      {
+        scrollArr[i] = 1;
+      }
+ 
+      if(scrollArr[i] < 1)
+      {
+        sprintf(buff_inputs[i], "I_%d:%d", i, 1); /* values need to be added later */
+        renderText(buff_inputs[i], regularText, blackColor);
+        render(30, y+modY, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
-      outputButton(300, y, 50, 50, i);
-
+        outputButton(300, y+modY, 50, 50, i);
+        
+      }
       y = y + 70;
-
     }
+    
+    up_button(1220, 120, &modY, 100, 0);
+    down_button(1220, 720, &modY, 100, -1300);
   }
   else if(page_stage[pageNum] == 2)
   {
     page_stage[pageNum] = 0;
   }
-  printf("y:%d\n", y);
 }
 
 void pageFour(int pageNum)  /* DIAGNOSTICS */

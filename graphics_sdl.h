@@ -18,6 +18,7 @@ FILE *fp_can_size;
 char *line;
 size_t len;
 
+int modY;
 
 SDL_Window *window;
 SDL_Renderer *renderer;

@@ -52,7 +52,6 @@ int noButtonSelected;
 int id;
 
 int init();
-void initVars();
 void freeTexture();
 void renderBackground();
 void render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip);

@@ -11,7 +11,6 @@ void pageZero(int pageNum)  /* LANDING PAGE */
   int y = 250;
   if(page_stage[pageNum] == 0) /* loading page */
   {
-    
     #ifdef RPI   
     fp_can_size = fopen("/home/pi/TKK_PRESA/data/can_size.txt", "r");
     #endif
@@ -22,7 +21,6 @@ void pageZero(int pageNum)  /* LANDING PAGE */
     for(i = 0; i < 1; ++i)
     {
       getline(&line, &len, fp_can_size);
-
       if(i==0)
       {
         if(atoi(line) == 0)
@@ -230,18 +228,17 @@ void pageFour(int pageNum)  /* DIAGNOSTICS */
     renderText(stepCond[step][2], smallText, blackColor);
     render(30, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
+    if(step != lastStep)
+    {
+      renderText(stepCond[step+1][0], smallText, blackColor);
+      render(700, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
-    renderText(stepCond[step+1][0], smallText, blackColor);
-    render(700, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
+      renderText(stepCond[step+1][1], smallText, blackColor);
+      render(700, 550, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
-    renderText(stepCond[step+1][1], smallText, blackColor);
-    render(700, 550, NULL, 0.0, NULL, SDL_FLIP_NONE);
-
-    renderText(stepCond[step+1][2], smallText, blackColor);
-    render(700, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
-
-
-
+      renderText(stepCond[step+1][2], smallText, blackColor);
+      render(700, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    }
   }
   else if(page_stage[pageNum] == 2)
   {

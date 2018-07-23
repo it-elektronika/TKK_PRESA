@@ -10,7 +10,7 @@
 #define AKD_frame_posSmall 50
 #define AKD_frame_posMedium 100
 #define AKD_frame_posBig 150
-
+#define lastStep 9
 
 modbus_t *ctx;
 int i;
@@ -55,7 +55,6 @@ char dayBuff[20];
 char hourBuff[20];
 char minuteBuff[20];
 
-
 char setTBuff[100];
 char tmBuff[10];
 char obufMT[21];
@@ -73,10 +72,5 @@ char ibufOneB[56];
 char modifierBuff[20];
 int modifier;
 
-
 void initComm();
 void initMain();
-
-/*
-void errorCheck();
-*/

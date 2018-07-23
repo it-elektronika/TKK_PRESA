@@ -20,3 +20,11 @@ xserver-command = X -nocursor                                    #disable mouse 
 
 4. Change tty=1 to tty=3 and following lines to end of line /boot/cmdline.txt:   #disable boot messages 
 quiet splash loglevel=0 logo.nologo vt.global_cursor_default=0 plymouth.ignore-serial-consoles 
+
+5. In /usr/share/plymouth/themes/pix/pix.script comment out
+
+message_sprite = Sprite();
+message_sprite.SetPosition(screen_width * 0.1, screen_height * 0.9, 10000);
+
+my_image = Image.Text(text, 1, 1, 1);
+message_sprite.SetImage(my_image);

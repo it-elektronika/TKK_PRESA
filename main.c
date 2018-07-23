@@ -10,9 +10,11 @@ int main()
 {
   int cycle;
   printf("MAIN\n");
+  /* initializing */
   initMain();
   init();
-  initVars();
+
+  /* connecting to DRIVEs */
   while(connectiOn == 0)
   {
     renderBackground();
@@ -23,15 +25,10 @@ int main()
     initComm();
     touchUpdate();
   } 
+  
+  /* main program loop */
   while(program == 1)
   {
-    /*
-    if(connectiOn)  read registers only if connected to controller 
-    {
-      rc = modbus_read_registers(ctx, 1, nb, regs);
-    }
-    usleep(1000);
-    errorCheck();*/
     touchUpdate();
     renderBackground();
     renderStatusBar();
@@ -43,13 +40,6 @@ int main()
 }
 
 
-void errorCheck()
-{
-  if(regs[5] == 7)
-  {
-    page = 2;
-  }
-}
 
 void initComm()
 {
@@ -253,16 +243,6 @@ void initMain()
   strcpy(stepName[7], "KORAK8");
   strcpy(stepName[8], "KORAK9");
   strcpy(stepName[9], "KORAK10");
-
-
-
-
-
-
-
-
-
-
 
   for(int i = 0; i < 10; i++)
   {

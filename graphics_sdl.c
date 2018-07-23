@@ -72,19 +72,6 @@ int init()    /* things needed to start sdl2 properly */
   return 15;
 }
 
-
-void initVars()
-{
- /* color definitions  */
-  whiteColor.r = 255;
-  whiteColor.g = 255;
-  whiteColor.b = 255;
-  
-  blackColor.r = 0;
-  blackColor.g = 0;
-  blackColor.b = 0;
-}
-
 void freeTexture(void)  
 {
   if(texture != NULL)
@@ -244,57 +231,55 @@ void renderStatusBar()
       break;
 
     case 11:
-      renderText("NAPAKA PREOBREMENITEV PRESE", regularText, blackColor);
+      renderText("NAPAKA - ", regularText, blackColor);
       break;
 
     case 12:
-      renderText("KOT ZAZNAVANJA", regularText, blackColor);
+      renderText("NAPAKA -", regularText, blackColor);
       break;
   
     case 13: 
-      renderText("NAPAKA VARNOSTNA ZAVESA", regularText, blackColor);
+      renderText("NAPAKA -", regularText, blackColor);
       break;
     
     case 14:
-      renderText("STOP TOTAL", regularText, blackColor);
+      renderText("NAPAKA -", regularText, blackColor);
       break;
 
     case 15:
-      renderText("NAPAKA DRIVERJA MOTORJA", regularText, blackColor);
+      renderText("NAPAKA -", regularText, blackColor);
       break;
 
     case 16:
-      renderText("NAPAKA SKLOPKE", regularText, blackColor);
+      renderText("NAPAKA -", regularText, blackColor);
       break;
 
     case 17:
-      renderText("NAPAKA POZICIJE", regularText, blackColor);
+      renderText("NAPAKA -", regularText, blackColor);
       break;
     
     case 18:
-      renderText("NAPAKA OLJE", regularText, blackColor);
+      renderText("NAPAKA -", regularText, blackColor);
       break;
 
     case 19:
-      renderText("NAPAKA ZRAK", regularText, blackColor);
+      renderText("NAPAKA -", regularText, blackColor);
       break;
 
     case 20:
-      renderText("NAPAKA HORIZONTALNI POMIK", regularText, blackColor);
+      renderText("NAPAKA -", regularText, blackColor);
       break;
 
     case 21:
-      renderText("NAPAKA VERTIKALNI POMIK", regularText, blackColor);
+      renderText("NAPAKA -", regularText, blackColor);
       break;
    
     case 22:
-      renderText("USTAVLJANJE MOTORJA", regularText, blackColor);
+      renderText("NAPAKA -", regularText, blackColor);
       break;
   } 
   render(30, 10, NULL, 0.0, NULL, SDL_FLIP_NONE);
   clockButton(1050, 20, 50, 100, tmBuff); 
-  
-  
 }
 
 void renderContent()
@@ -320,37 +305,37 @@ void renderContent()
       break;
     
     case 3:
-      pageThree(3);   /* */
+      pageThree(3);   /*i/o status */
       backgroundColor = 1;
       sbarText = 3;
       break;
     
     case 4:
-      pageFour(4);
+      pageFour(4);  /* diagnostics */
       backgroundColor = 1;
       sbarText = 4;
       break;
 
     case 5:
-      pageFive(5);
+      pageFive(5);  /* clock */
       backgroundColor = 1;
       sbarText = 5;
       break;
 
-    case 6:
-      pageSix(6);
+    case 6:  
+      pageSix(6);  /* connecting */
       backgroundColor = 1;
       sbarText = 6;
       break;
 
     case 7:
-      pageSeven(7);
+      pageSeven(7); /* error connecting */
       backgroundColor = 2;
       sbarText = 7;
       break;
 
     case 8:
-      pageEight(8);
+      pageEight(8); /* error */
       backgroundColor = 2;
       break;
   }
@@ -397,9 +382,7 @@ void touchUpdate()   /* handling touch events */
   }  
 }
 
-
-
-void saveButton(int x, int y, int w, int h, char *text)
+void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD drive */
 {
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
   SDL_RenderDrawLine(renderer, x, y, (x+w), y);
@@ -887,7 +870,6 @@ void saveTime(int x, int y, int w, int h, char *text)
   } 
 }
 
-
 void clockButton(int x, int y, int h, int w, char *tmBuff)
 {
 
@@ -896,7 +878,6 @@ void clockButton(int x, int y, int h, int w, char *tmBuff)
   sprintf(tmBuff, "%02d:%02d", tm.tm_hour, tm.tm_min);
   renderText(tmBuff, smallText, blackColor);
   render(1050, 23, NULL, 0.0, NULL, SDL_FLIP_NONE);
-
   
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
@@ -905,13 +886,11 @@ void clockButton(int x, int y, int h, int w, char *tmBuff)
   }
 }
 
-
 void outputButton(int x, int y, int w, int h, int id)
 {
   sprintf(buff_outputs[id], "O_%d: %d",id, buff_outputs_val[id]);
   renderText(buff_outputs[id], regularText, blackColor);
   render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
-
 
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
@@ -925,7 +904,6 @@ void outputButton(int x, int y, int w, int h, int id)
     }
   }
 }
-
 
 void start_button(int x, int y, int w, int h)
 {
@@ -944,7 +922,6 @@ void start_button(int x, int y, int w, int h)
   }
   renderText("START", regularText, blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
-
 }
 
 void stop_button(int x, int y, int w, int h)
@@ -961,7 +938,6 @@ void stop_button(int x, int y, int w, int h)
   }
   renderText("STOP", regularText, blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
-
 }
 
 void continue_button(int x, int y, int w, int h, int stepMax)

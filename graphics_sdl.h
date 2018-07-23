@@ -69,6 +69,7 @@ void saveButton(int x, int y, int w, int h, char *text);
 void saveTime(int x, int y, int w, int h, char *text);
 void clockButton(int x, int y, int w, int h, char *text);
 void goToButton(int x, int y, int w, int h, char *text, int curr_page, int goToNum);
+void outputButton(int x, int y, int h, int w, int id);
 
 void pageZero(int pageNum);
 void pageOne(int pageNum);

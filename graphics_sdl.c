@@ -18,7 +18,7 @@ int init()    /* things needed to start sdl2 properly */
     return 1;                                                                               
   }  
 
-  window = SDL_CreateWindow("IT-Elektronika", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS);
+  window = SDL_CreateWindow("IT-Elektronika", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
    
 
   if(window == NULL)
@@ -228,7 +228,7 @@ void renderStatusBar()
       break;    
     
     case 7: 
-      renderText("NAPAKA - ", regularText, blackColor);
+      renderText("NAPAKA - povezovanje", regularText, blackColor);
       break;    
  
     case 8:
@@ -320,7 +320,7 @@ void renderContent()
       break;
     
     case 3:
-      pageThree(3);   /*error page */
+      pageThree(3);   /* */
       backgroundColor = 1;
       sbarText = 3;
       break;
@@ -344,8 +344,8 @@ void renderContent()
       break;
 
     case 7:
-      pageFive(7);
-      backgroundColor = 1;
+      pageSeven(7);
+      backgroundColor = 2;
       sbarText = 7;
       break;
 
@@ -369,6 +369,14 @@ void touchUpdate()   /* handling touch events */
       touchLocation.x = event.tfinger.x;
       touchLocation.y = event.tfinger.y;
     }
+    if(event.type == SDL_KEYDOWN)
+    {
+      if(event.key.keysym.sym == SDLK_ESCAPE)
+      {
+        program = 0;        
+      }
+      
+    }
     #endif
     #ifdef LUKA
     if(event.type == SDL_MOUSEBUTTONDOWN)
@@ -376,6 +384,14 @@ void touchUpdate()   /* handling touch events */
       timestamp = event.button.timestamp;
       touchLocation.x = event.button.x;
       touchLocation.y = event.button.y;
+    }
+    if(event.type == SDL_KEYDOWN)
+    {
+      if(event.key.keysym.sym == SDLK_ESCAPE)
+      {
+        program = 0;        
+      }
+      
     }
     #endif
   }  
@@ -886,5 +902,26 @@ void clockButton(int x, int y, int h, int w, char *tmBuff)
   {
     page = 5;
     page_stage[page] = 0;
+  }
+}
+
+
+void outputButton(int x, int y, int w, int h, int id)
+{
+  sprintf(buff_outputs[id], "O_%d: %d",id, buff_outputs_val[id]);
+  renderText(buff_outputs[id], regularText, blackColor);
+  render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+    if(buff_outputs_val[id] == 0)
+    {
+      buff_outputs_val[id] = 1;
+    }
+    else
+    {
+      buff_outputs_val[id] = 0;
+    }
   }
 }

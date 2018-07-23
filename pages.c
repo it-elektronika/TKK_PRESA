@@ -90,9 +90,9 @@ void pageOne(int pageNum) /* MAIN MENU */
   else if(page_stage[pageNum] == 1)
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 0);
-    goToButton(100, 200, 300, 100, "IZBIRA DOZE", pageNum, 2);
-    goToButton(100, 400, 300, 100, "I/O STATUS", pageNum, 3);
-    goToButton(100, 600, 300, 100, "DIAGNOSTIKA", pageNum, 4);
+    goToButton(30, 200, 350, 100, "IZBIRA DOZE", pageNum, 2);
+    goToButton(30, 400, 350, 100, "I/O STATUS", pageNum, 3);
+    goToButton(30, 600, 350, 100, "DIAGNOSTIKA", pageNum, 4);
   }
   else if(page_stage[pageNum] == 2)
   {
@@ -109,21 +109,21 @@ void pageTwo(int pageNum) /* CAN SIZE SELECTION */
   if(page_stage[pageNum] == 1)
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 1);
-    button(200, 200, 200, 100, "MALA", 0);
-    button(200, 400, 200, 100, "SREDNJA", 1);
-    button(200, 600, 200, 100, "VELIKA", 2);
+    button(30, 200, 200, 100, "MALA", 0);
+    button(30, 400, 200, 100, "SREDNJA", 1);
+    button(30, 600, 200, 100, "VELIKA", 2);
 
     renderText("POPRAVEK:", smallText, blackColor);
-    render(550, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(400, 220, NULL, 0.0, NULL, SDL_FLIP_NONE);
    
     sprintf(modifierBuff, "%d mm", modifier);
     renderText(modifierBuff, smallText, blackColor);
-    render(800, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(650, 220, NULL, 0.0, NULL, SDL_FLIP_NONE);
     
-    up_button(1000, 200, &modifier, 1, 5);
-    down_button(1100, 200, &modifier, 1, -5);
+    up_button(800, 210, &modifier, 1, 5);
+    down_button(900, 210, &modifier, 1, -5);
 
-    saveButton(500, 600, 200, 100, "SHRANI");
+    saveButton(400, 600, 200, 100, "SHRANI");
   }
   if(page_stage[pageNum] == 2)
   {
@@ -134,26 +134,45 @@ void pageTwo(int pageNum) /* CAN SIZE SELECTION */
 void pageThree(int pageNum)  /* I/O STATUS */
 {
   int y;
-  y = 100;
+  int i;
+  
+ 
   if(page_stage[pageNum] == 0)
   {
+    y = 100;
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 1);
+    
+    for(i = 0; i < 5; i++)
+    {
+      SDL_RenderDrawLine(renderer, 1200+i, 75, 1200+i, 800);
+      SDL_RenderDrawLine(renderer, 1200, 180+i, 1280, 180+i);
+      SDL_RenderDrawLine(renderer, 1200, 700+i, 1280, 700+i);
+    }
+
+    up_button(1220, 120, &y, 100, 10000);
+    down_button(1220, 720, &y, 100, -10000);
+
     for(i = 0; i < 28; i++)
     {
       sprintf(buff_inputs[i], "I_%d:%d", i, 1); /* values need to be added later */
       renderText(buff_inputs[i], regularText, blackColor);
       render(30, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
-      y = y + 50;
+
+      outputButton(300, y, 50, 50, i);
+
+      y = y + 70;
+
     }
   }
   else if(page_stage[pageNum] == 2)
   {
     page_stage[pageNum] = 0;
   }
+  printf("y:%d\n", y);
 }
 
 void pageFour(int pageNum)  /* DIAGNOSTICS */

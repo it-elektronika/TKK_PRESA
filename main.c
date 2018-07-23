@@ -21,6 +21,7 @@ int main()
     SDL_RenderPresent(renderer);
     cycle++;
     initComm();
+    touchUpdate();
   } 
   while(program == 1)
   {
@@ -83,12 +84,13 @@ void initComm()
   if(conn == -1)
   {
     backgroundColor = 2;
-    sbarText = 3; 
+    sbarText = 7; 
+    page = 7;
   }
   else
   {
     connectiOn = 1; 
-    page_stage[3] = 0;
+    page_stage[6] = 0;
     page = 0;
   }
   printf("%d\n", conn);
@@ -97,10 +99,9 @@ void initComm()
 
 void initMain()
 {
-  sbarText = 2;
   backgroundColor = 1;
-  page = 3;
-
+  page = 6;
+  sbarText = 6;
   program = 1;
   connectiOn = 0;
   transId = 1;

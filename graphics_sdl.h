@@ -71,6 +71,9 @@ void saveTime(int x, int y, int w, int h, char *text);
 void clockButton(int x, int y, int w, int h, char *text);
 void goToButton(int x, int y, int w, int h, char *text, int curr_page, int goToNum);
 void outputButton(int x, int y, int h, int w, int id);
+void start_button(int x, int y, int h, int w);
+void stop_button(int x, int y, int h, int w);
+void continue_button(int x, int y, int h, int w, int stepMax);
 
 void pageZero(int pageNum);
 void pageOne(int pageNum);

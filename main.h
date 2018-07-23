@@ -27,8 +27,10 @@ char buff_inputs[28][2];
 char buff_outputs[28][2];
 int buff_outputs_val[28];
 int scrollArr[28];
-
-
+char stepCounter[10];
+char stepCond[10][3][50];
+char stepName[10][50];
+int step;
 
 int conn;
 int s;

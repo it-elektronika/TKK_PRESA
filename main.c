@@ -211,6 +211,71 @@ void initMain()
   * drvSave7 = htons(2);
   * drvSave8 = 4;
   * drvSave9 = htonl(1);
+
+  strcpy(stepCond[0][0], "POGOJ 0.1");
+  strcpy(stepCond[0][1], "POGOJ 0.2");
+  strcpy(stepCond[0][2], "POGOJ 0.3");
+  strcpy(stepCond[1][0], "POGOJ 1.1");
+  strcpy(stepCond[1][1], "POGOJ 1.2");
+  strcpy(stepCond[1][2], "POGOJ 1.3");
+  strcpy(stepCond[2][0], "POGOJ 2.1");
+  strcpy(stepCond[2][1], "POGOJ 2.2");
+  strcpy(stepCond[2][2], "POGOJ 2.3");
+  strcpy(stepCond[3][0], "POGOJ 3.1");
+  strcpy(stepCond[3][1], "POGOJ 3.2");
+  strcpy(stepCond[3][2], "POGOJ 3.3");
+  strcpy(stepCond[4][0], "POGOJ 4.1");
+  strcpy(stepCond[4][1], "POGOJ 4.2");
+  strcpy(stepCond[4][2], "POGOJ 4.3");
+  strcpy(stepCond[5][0], "POGOJ 5.1");
+  strcpy(stepCond[5][1], "POGOJ 5.2");
+  strcpy(stepCond[5][2], "POGOJ 5.3");
+  strcpy(stepCond[6][0], "POGOJ 6.1");
+  strcpy(stepCond[6][1], "POGOJ 6.2");
+  strcpy(stepCond[6][2], "POGOJ 6.3");
+  strcpy(stepCond[7][0], "POGOJ 7.1");
+  strcpy(stepCond[7][1], "POGOJ 7.2");
+  strcpy(stepCond[7][2], "POGOJ 7.3");
+  strcpy(stepCond[8][0], "POGOJ 8.1");
+  strcpy(stepCond[8][1], "POGOJ 8.2");
+  strcpy(stepCond[8][2], "POGOJ 8.3");
+  strcpy(stepCond[9][0], "POGOJ 9.1");
+  strcpy(stepCond[9][1], "POGOJ 9.2");
+  strcpy(stepCond[9][2], "POGOJ 9.3");
+  
+  strcpy(stepName[0], "KORAK1");
+  strcpy(stepName[1], "KORAK2");
+  strcpy(stepName[2], "KORAK3");
+  strcpy(stepName[3], "KORAK4");
+  strcpy(stepName[4], "KORAK5");
+  strcpy(stepName[5], "KORAK6");
+  strcpy(stepName[6], "KORAK7");
+  strcpy(stepName[7], "KORAK8");
+  strcpy(stepName[8], "KORAK9");
+  strcpy(stepName[9], "KORAK10");
+
+
+
+
+
+
+
+
+
+
+
+  for(int i = 0; i < 10; i++)
+  {
+    for(int j = 0; j < 3; j++)
+    {
+      printf("stepCond[%d][%d]:%s\n", i, j, stepCond[i][j]);
+    }
+  }
+  
+  for(int i = 0; i < 10; i++)
+  {
+    printf("stepName[%d]:%s\n", i, stepName[i]);
+  }
 }
 
 

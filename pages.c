@@ -184,6 +184,7 @@ void pageThree(int pageNum)  /* I/O STATUS */
 
 void pageFour(int pageNum)  /* DIAGNOSTICS */
 {
+  int i;
   if(page_stage[pageNum] == 0)
   {
     page_stage[pageNum] = 1;
@@ -191,6 +192,56 @@ void pageFour(int pageNum)  /* DIAGNOSTICS */
   else if(page_stage[pageNum] == 1)
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 1);
+    continue_button(30, 200, 350, 100, 9);
+    start_button(700, 200, 250, 100);
+    stop_button(1000, 200, 250, 100);
+         
+    sprintf(stepCounter, "%d/9", step); 
+    renderText(stepCounter, regularText, blackColor);
+    render(430, 230, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+    for(i = 0; i < 10; i++)
+    {
+      SDL_RenderDrawLine(renderer, 0, 400+i, 1280, 400+i);
+    }
+    for(i = 0; i < 5; i++)
+    {
+      SDL_RenderDrawLine(renderer, 0, 450+i, 1280, 450+i);
+    }
+
+    for(i = 0; i < 10; i++)
+    {
+      SDL_RenderDrawLine(renderer, 640+i, 400, 640+i, 800);
+    }
+
+    renderText("TRENUTNI KORAK", smallText, blackColor);
+    render(30, 415, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+    renderText("NASLEDNJI KORAK", smallText, blackColor);
+    render(680, 415, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+    
+    renderText(stepCond[step][0], smallText, blackColor);
+    render(30, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+    renderText(stepCond[step][1], smallText, blackColor);
+    render(30, 550, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+    renderText(stepCond[step][2], smallText, blackColor);
+    render(30, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+
+    renderText(stepCond[step+1][0], smallText, blackColor);
+    render(700, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+    renderText(stepCond[step+1][1], smallText, blackColor);
+    render(700, 550, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+    renderText(stepCond[step+1][2], smallText, blackColor);
+    render(700, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+
+
   }
   else if(page_stage[pageNum] == 2)
   {

@@ -18,7 +18,7 @@ int init()    /* things needed to start sdl2 properly */
     return 1;                                                                               
   }  
 
-  window = SDL_CreateWindow("IT-Elektronika", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+  window = SDL_CreateWindow("IT-Elektronika", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS);
    
 
   if(window == NULL)
@@ -925,3 +925,61 @@ void outputButton(int x, int y, int w, int h, int id)
     }
   }
 }
+
+
+void start_button(int x, int y, int w, int h)
+{
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+  SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+  SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+  SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+    if(step == 0)
+    {
+      step = 1;  
+    } 
+  }
+  renderText("START", regularText, blackColor);
+  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
+
+}
+
+void stop_button(int x, int y, int w, int h)
+{
+   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+   SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+   SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+   SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+   SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+    step = 0;
+  }
+  renderText("STOP", regularText, blackColor);
+  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
+
+}
+
+void continue_button(int x, int y, int w, int h, int stepMax)
+{
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+  SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+  SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+  SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+    if(step > 0 && step < stepMax)
+    {
+      step = step + 1;
+    }
+  }
+  renderText("NADALJUJ", regularText, blackColor);
+  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
+}
+

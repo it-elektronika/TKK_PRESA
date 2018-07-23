@@ -35,10 +35,10 @@ int main()
     renderContent();
     SDL_RenderPresent(renderer);
     cycle++;
+    printf("s:%d m:%d b:%d\n", firstPosSmall, firstPosMedium, firstPosBig);
   }
   return 0;
 }
-
 
 
 void initComm()
@@ -97,6 +97,10 @@ void initMain()
   transId = 1;
   posCounter = 1;
   modifier = 0;
+
+  firstPosSmall = 0;
+  firstPosMedium = 0;
+  firstPosBig = 0;
 
   year = 2018;
   month = 1;
@@ -202,6 +206,63 @@ void initMain()
   * drvSave8 = 4;
   * drvSave9 = htonl(1);
 
+  /* first position */
+  //int * firstClear1 =  (int*)(&obufClFirst[0]);
+  //int * firstClear2 =  (int*)(&obufClFirst[2]);
+  int * firstClear3 =  (int*)(&obufClFirst[4]);
+  int * firstClear4 =  (int*)(&obufClFirst[6]);
+  int * firstClear5 =  (int*)(&obufClFirst[7]);
+  int * firstClear6 =  (int*)(&obufClFirst[8]);
+  int * firstClear7 =  (int*)(&obufClFirst[10]);
+  int * firstClear8 =  (int*)(&obufClFirst[12]);
+  int * firstClear9 =  (int*)(&obufClFirst[16]);
+
+  memset(obufClFirst, 0, 17);
+  //* firstClear1 = transId;   
+  //* firstClear2 = htons(0);
+  * firstClear3 = htons(11);
+  * firstClear4 = 1;
+  * firstClear5 = 16;
+  * firstClear6 = htons(530);
+  * firstClear7 = htons(2);
+  * firstClear8 = 4;
+  * firstClear9 = 2; 
+
+  //int * posOneA1 = (int*)(&obufOneA[0]);
+  int * posOneA2 = (int*)(&obufOneA[2]);
+  int * posOneA3 = (int*)(&obufOneA[4]);
+  int * posOneA4 = (int*)(&obufOneA[6]);
+  int * posOneA5 = (int*)(&obufOneA[7]);
+  int * posOneA6 = (int*)(&obufOneA[8]);
+  int * posOneA7 = (int*)(&obufOneA[10]);
+  int * posOneA8 = (int*)(&obufOneA[12]);
+  int * posOneA11 = (int*)(&obufOneA[21]);
+  int * posOneA12 = (int*)(&obufOneA[28]);
+  int * posOneA13 = (int*)(&obufOneA[29]);
+  int * posOneA14 = (int*)(&obufOneA[33]);
+  //int * posOneA15 = (int*)(&obufOneA[40]);
+  int * posOneA16 = (int*)(&obufOneA[44]);
+  int * posOneA17 = (int*)(&obufOneA[48]);
+  int * posOneA18 = (int*)(&obufOneA[52]);
+      
+  memset(obufOneA, 0, 58);
+  //* posOneA1 = transId;   
+  * posOneA2 = htons(0);
+  * posOneA3 = htons(47);
+  * posOneA4 = 1;
+  * posOneA5 = 16;
+  * posOneA6 = htons(8192);
+  * posOneA7 = htons(20);
+  * posOneA8 = 40;
+  * posOneA11 = htonl(5000000);   
+  * posOneA12 = 16;           
+  * posOneA13 = htonl(10000000);  
+  * posOneA14 = htonl(10000000);  
+  //* posOneA15 = 100;            
+  * posOneA16 = 0;            
+  * posOneA17 = 1;            
+  * posOneA18 = 1;  
+  
   strcpy(stepCond[0][0], "POGOJ 0.1");
   strcpy(stepCond[0][1], "POGOJ 0.2");
   strcpy(stepCond[0][2], "POGOJ 0.3");
@@ -256,6 +317,31 @@ void initMain()
   {
     printf("stepName[%d]:%s\n", i, stepName[i]);
   }
+
+  #ifdef RPI   
+  fp_first_pos = fopen("/home/pi/TKK_PRESA/data/first_pos.txt", "r");
+  #endif
+  #ifdef LUKA
+  fp_first_pos = fopen("/home/luka/TKK_PRESA_/data/first_pos.txt", "r");
+  #endif
+
+  for(i = 0; i < 3; ++i)
+  {
+    getline(&line, &len, fp_first_pos);
+    if(i==0)
+    {
+      firstPosSmall = atoi(line);
+    }
+    else if(i==1)
+    {
+      firstPosMedium = atoi(line);
+    }
+    else if(i==2)
+    {
+      firstPosBig = atoi(line);
+    }
+  }
+ 
 }
 
 

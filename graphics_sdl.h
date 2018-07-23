@@ -15,6 +15,8 @@ int curr_page;
 int backgroundColor;
 
 FILE *fp_can_size;
+FILE *fp_first_pos;
+
 char *line;
 size_t len;
 
@@ -66,6 +68,7 @@ void left_button(int x, int y);
 void right_button(int x, int y);
 void button(int x, int y, int w, int h, char *text, int id);
 void saveButton(int x, int y, int w, int h, char *text);
+void savePos(int x, int y, int w, int h);
 void saveTime(int x, int y, int w, int h, char *text);
 void clockButton(int x, int y, int w, int h, char *text);
 void goToButton(int x, int y, int w, int h, char *text, int curr_page, int goToNum);
@@ -83,3 +86,4 @@ void pageFive(int pageNum);
 void pageSix(int pageNum);
 void pageSeven(int pageNum);
 void pageEight(int pageNum);
+void pageNine(int pageNum);

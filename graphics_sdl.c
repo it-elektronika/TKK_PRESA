@@ -338,6 +338,11 @@ void renderContent()
       pageEight(8); /* error */
       backgroundColor = 2;
       break;
+    
+    case 9:
+      pageNine(9);
+      backgroundColor = 1;
+      break;
   }
   oldtimestamp=timestamp;
   cycleCounter++;
@@ -959,3 +964,182 @@ void continue_button(int x, int y, int w, int h, int stepMax)
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
 }
 
+
+void savePos(int x, int y, int w, int h)
+{
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+  SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+  SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+  SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+    for(i = 0; i < 10; i++)
+    {
+      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+      SDL_RenderDrawLine(renderer, x, y+i, (x+w), y+i);
+      SDL_RenderDrawLine(renderer, (x+w+i), y, (x+w+i), (y+h)); 
+      SDL_RenderDrawLine(renderer, (x+w), (y+h-i), x, (y+h-i));
+      SDL_RenderDrawLine(renderer, x+i, (y+h), x+i, y);
+    }
+
+    posCounter = 0;
+
+    /* writing position values to AKD registers and saving values to file */
+    int * firstClear1 =  (int*)(&obufClFirst[0]);
+    int * firstClear9 =  (int*)(&obufClFirst[16]);
+    int * posOneA1 = (int*)(&obufOneA[0]);
+    int * posOneA9 =  (int*)(&obufOneA[16]);
+    int * posOneA10 = (int*)(&obufOneA[17]);
+    int * posOneA15 = (int*)(&obufOneA[40]);
+    int * drvSave1 = (int*)(&obufDS[0]);
+   
+    /* small */
+    * firstClear1 = transId;
+    * firstClear9 = 1;      
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn = select(32, NULL, &fds, NULL, &tv);
+    conn = send(s, obufClFirst, 17, 0);
+    printf("Message Sent! - clear position - small\n");
+    FD_SET(s, &fds);
+    conn = select(32, &fds, NULL, NULL, &tv);
+    conn = recv(s, ibufClFirst, 50 , 0);
+    transId++;
+	  
+    * posOneA1 = transId;       
+    * posOneA9 = 1;       
+    * posOneA10 = htonl((firstPosSmall)*1000);
+    * posOneA15 = 2;
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn = select(32, NULL, &fds, NULL, &tv);
+    conn = send(s, obufOneA, 53, 0);
+    printf("Message Sent! - position parameter - small\n");
+    FD_SET(s, &fds);
+    conn = select(32, &fds, NULL, NULL, &tv);
+    conn = recv(s, ibufOneA, 50 , 0);
+    transId++;
+       
+    * drvSave1 = transId;
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn = select(32, NULL, &fds, NULL, &tv);
+    conn = send(s, obufDS, 17, 0);
+    printf("Message Sent! - save to drive - small\n");
+    FD_SET(s, &fds);
+    conn = select(32, &fds, NULL, NULL, &tv);
+    conn = recv(s, ibufDS, 50 , 0);
+    transId++;
+
+    /* medium */
+
+    * firstClear1 = transId;           
+    * firstClear9 = 3;           
+ 
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn = select(32, NULL, &fds, NULL, &tv);
+    conn = send(s, obufClFirst, 17, 0);
+    printf("Message Sent! - clear position - medium\n");
+    FD_SET(s, &fds);
+    conn = select(32, &fds, NULL, NULL, &tv);
+    conn = recv(s, ibufClFirst, 50 , 0);
+    transId++;
+   
+    * posOneA1 = transId; 
+    * posOneA9 = 3;
+    * posOneA10 = htonl((firstPosMedium)*1000); 
+    * posOneA15 = 4;
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn = select(32, NULL, &fds, NULL, &tv);
+    conn = send(s, obufOneA, 53, 0);
+    printf("Message Sent! - position parameter - medium\n");
+    FD_SET(s, &fds);
+    conn = select(32, &fds, NULL, NULL, &tv);
+    conn = recv(s, ibufOneA, 50 , 0);
+    transId++;
+    
+    * drvSave1 = transId;
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn = select(32, NULL, &fds, NULL, &tv);
+    conn = send(s, obufDS, 17, 0);
+    printf("Message Sent! - save to drive - medium\n");
+    FD_SET(s, &fds);
+    conn = select(32, &fds, NULL, NULL, &tv);
+    conn = recv(s, ibufDS, 50 , 0);
+    transId++;
+    
+    /* big */  
+    * firstClear1 = transId;           
+    * firstClear9 = 5;           
+
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn = select(32, NULL, &fds, NULL, &tv);
+    conn = send(s, obufClFirst, 17, 0);
+    printf("Message Sent! - clear position - big\n");
+    FD_SET(s, &fds);
+    conn = select(32, &fds, NULL, NULL, &tv);
+    conn = recv(s, ibufClFirst, 50 , 0);
+    transId++;
+    
+    * posOneA1 = transId;  
+    * posOneA9 = 5;  
+    * posOneA10 = htonl((firstPosBig)*1000);  
+    * posOneA15 = 6;
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn = select(32, NULL, &fds, NULL, &tv);
+    conn = send(s, obufOneA, 53, 0);
+    printf("Message sent! - position parameter - big\n");
+    FD_SET(s, &fds);
+    conn = select(32, &fds, NULL, NULL, &tv);
+    conn = recv(s, ibufOneA, 50 , 0);
+    transId++;
+   
+    * drvSave1 = transId;
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn = select(32, NULL, &fds, NULL, &tv);
+    conn = send(s, obufDS, 17, 0);
+    printf("Message Sent! - save to drive - big\n");
+    FD_SET(s, &fds);
+    conn = select(32, &fds, NULL, NULL, &tv);
+    conn = recv(s, ibufDS, 50 , 0);
+    transId++;
+   
+    #ifdef RPI   
+    fp_first_pos = fopen("/home/pi/TKK_PRESA/data/first_pos.txt", "w");
+    #endif
+    #ifdef LUKA
+    fp_first_pos = fopen("/home/luka/TKK_PRESA_/data/first_pos.txt", "w");
+    #endif
+ 
+    fprintf(fp_first_pos, "%d\n", firstPosSmall);
+    fprintf(fp_first_pos, "%d\n", firstPosMedium);
+    fprintf(fp_first_pos, "%d\n", firstPosBig);
+  }
+  renderText("SAVE", smallText,  blackColor);
+  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
+}

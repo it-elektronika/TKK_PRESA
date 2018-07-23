@@ -32,10 +32,18 @@ char stepCond[10][3][50];
 char stepName[10][50];
 int step;
 
+char smallBuff[20];
+char mediumBuff[20];
+char bigBuff[20];
+
 int conn;
 int s;
 int transId;
 int posCounter;
+
+int firstPosSmall;
+int firstPosMedium;
+int firstPosBig;
 
 char *ip_adrs;
 struct sockaddr_in server;
@@ -57,6 +65,16 @@ char minuteBuff[20];
 
 char setTBuff[100];
 char tmBuff[10];
+
+char obufNT[21];
+char ibufNT[21];
+
+char obufClFirst[17];
+char ibufClFirst[17];
+
+char obufOneA[58];
+char ibufOneA[56];
+
 char obufMT[21];
 char ibufMT[21];
 

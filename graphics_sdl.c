@@ -1195,7 +1195,7 @@ void startButton(int x, int y, int w, int h)
   SDL_RenderDrawLine(renderer, x, (y+h), x, y);
 
   renderText("START", smallText, blackColor);
-  render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
+  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
   
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {

@@ -449,13 +449,13 @@ void pageEleven(int pageNum)
    
     sprintf(posManBuff, "POZICIJA:%d mm", posMan);
     renderText(posManBuff, smallText, blackColor);
-    render(600, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(600, 210, NULL, 0.0, NULL, SDL_FLIP_NONE);
   
     up_button(900, 200, &posMan, 1, 150);
     down_button(1000, 200, &posMan, 1, 0);
 
-    enableButton(600, 300, 200, 100);
-    startButton(600, 500, 200, 100);
+    enableButton(600, 400, 200, 100);
+    startButton(600, 600, 200, 100);
   }
   else if(page_stage[pageNum] == 2)
   {

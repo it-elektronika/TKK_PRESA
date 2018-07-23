@@ -89,9 +89,9 @@ void pageOne(int pageNum) /* MAIN MENU */
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 0);
     goToButton(30, 200, 350, 100, "IZBIRA DOZE", pageNum, 2);
-    goToButton(30, 400, 350, 100, "I/O STATUS", pageNum, 3);
+    goToButton(30, 400, 500, 100, "ROCNO NASTAVLJANJE", pageNum, 10);
     goToButton(30, 600, 350, 100, "DIAGNOSTIKA", pageNum, 4);
-    goToButton(30, 700, 350, 100, "NASTAVITVE", pageNum, 9);
+    
   }
   else if(page_stage[pageNum] == 2)
   {
@@ -141,7 +141,7 @@ void pageThree(int pageNum)  /* I/O STATUS */
   }
   else if(page_stage[pageNum] == 1)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 1);
+    renderAdmin(1200, 0, 80, 80, pageNum, 10);
     
     for(i = 0; i < 5; i++)
     {
@@ -379,7 +379,7 @@ void pageNine(int pageNum)  /* ERROR */
   }
   else if(page_stage[pageNum] == 1)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 1);
+    renderAdmin(1200, 0, 80, 80, pageNum, 10);
     
     sprintf(smallBuff, "MALA:%d mm", firstPosSmall);
     renderText(smallBuff, smallText, blackColor);
@@ -401,9 +401,61 @@ void pageNine(int pageNum)  /* ERROR */
     up_button(500, 420, &firstPosBig, 1, 100);
     down_button(700, 420, &firstPosBig, 1, 0);
 
+    savePos(30, 600, 200, 100);
+  }
+  else if(page_stage[pageNum] == 2)
+  {
+    page_stage[pageNum] = 0;
+  }
+}
 
+void pageTen(int pageNum)
+{
+  if(page_stage[pageNum] == 0)
+  {
+    page_stage[pageNum] = 1;
+  }
+  else if(page_stage[pageNum] == 1)
+  {
+    renderAdmin(1200, 0, 80, 80, pageNum, 1);
+    goToButton(30, 200, 500, 100, "NASTAVITVE POZICIJ" , pageNum, 9); 
+    goToButton(30, 400, 350, 100, "DRIVE ROCNO", pageNum, 11);
+    goToButton(30, 600, 350, 100, "I / O ", pageNum, 3);
+    
+  }
+  else if(page_stage[pageNum] == 2)
+  {
+    page_stage[pageNum] = 0;
+  }
+}
 
-    savePos(30, 700, 200, 100);
+void pageEleven(int pageNum)
+{
+  if(page_stage[pageNum] == 0)
+  {
+    page_stage[pageNum] = 1;
+  }
+  else if(page_stage[pageNum] == 1)
+  {
+    renderAdmin(1200, 0, 80, 80, pageNum, 10);
+    posButton(30, 200, 200, 100, "MALA", firstPosSmall);
+    posButton(30, 400, 200, 100, "SREDNJA", firstPosMedium);
+    posButton(30, 600, 200, 100, "VELIKA", firstPosBig);
+  
+    posButton(200, 200, 500, 100, "", AKD_frame_posSmall);
+    posButton(200, 400, 500, 100, "", AKD_frame_posMedium);
+    posButton(200, 600, 500, 100, "", AKD_frame_posBig);
+   
+   
+    sprintf(posManBuff, "POZICIJA:%d mm", posMan);
+    renderText(posManBuff, smallText, blackColor);
+    render(600, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
+  
+    up_button(900, 200, &posMan, 1, 150);
+    down_button(1000, 200, &posMan, 1, 0);
+
+    enableButton(600, 300, 200, 100);
+    startButton(600, 500, 200, 100);
   }
   else if(page_stage[pageNum] == 2)
   {

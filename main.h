@@ -31,10 +31,12 @@ char stepCounter[10];
 char stepCond[10][3][50];
 char stepName[10][50];
 int step;
-
+int posMan;
 char smallBuff[20];
 char mediumBuff[20];
 char bigBuff[20];
+
+char posManBuff[20]; 
 
 int conn;
 int s;

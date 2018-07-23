@@ -223,15 +223,15 @@ void renderStatusBar()
       break;
 
     case 9:
-      renderText("NAPAKA - ", regularText, blackColor);
+      renderText("POZICIJE", regularText, blackColor);
       break;
 
     case 10:
-      renderText("NAPAKA - ", regularText, blackColor);
+      renderText("ROCNO NASTAVLJANJE", regularText, blackColor);
       break;
 
     case 11:
-      renderText("NAPAKA - ", regularText, blackColor);
+      renderText("DRIVE ROCNO ", regularText, blackColor);
       break;
 
     case 12:
@@ -337,11 +337,25 @@ void renderContent()
     case 8:
       pageEight(8); /* error */
       backgroundColor = 2;
+      sbarText = 8;
       break;
     
     case 9:
       pageNine(9);
       backgroundColor = 1;
+      sbarText = 9;
+      break;
+    
+    case 10:  
+      pageTen(10);
+      backgroundColor = 1;
+      sbarText = 10;
+      break;
+
+    case 11:
+      pageEleven(11);
+      backgroundColor = 1;
+      sbarText = 11;
       break;
   }
   oldtimestamp=timestamp;
@@ -1142,4 +1156,48 @@ void savePos(int x, int y, int w, int h)
   }
   renderText("SAVE", smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
+}
+
+
+void posButton(int x, int y, int w, int h, char *text, int firstPos)
+{
+  sprintf(tmBuff, "%s:%d", text, firstPos);
+  renderText(tmBuff, smallText, blackColor);
+  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+    posMan = firstPos;
+  }
+}
+
+
+void enableButton(int x, int y, int w, int h)
+{
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+  SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+  SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+  SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+
+  renderText("ENABLE", smallText, blackColor);
+  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+  }
+}
+
+void startButton(int x, int y, int w, int h)
+{
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+  SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+  SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+  SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+
+  renderText("START", smallText, blackColor);
+  render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
+  
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  {
+  }
 }

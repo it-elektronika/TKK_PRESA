@@ -438,24 +438,40 @@ void pageEleven(int pageNum)
   else if(page_stage[pageNum] == 1)
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 10);
-    posButton(30, 200, 200, 100, "MALA", firstPosSmall);
-    posButton(30, 400, 200, 100, "SREDNJA", firstPosMedium);
-    posButton(30, 600, 200, 100, "VELIKA", firstPosBig);
+    
+    renderText("MALA", smallText, blackColor);
+    render(30, 230, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    renderText("SREDNJA", smallText, blackColor);
+    render(30, 430, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    renderText("VELIKA", smallText, blackColor);
+    render(30, 630, NULL, 0.0, NULL, SDL_FLIP_NONE);
+ 
+    renderText("1.", smallText, blackColor);
+    render(220, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    renderText("2.", smallText, blackColor);
+    render(450, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
+ 
+
+    posButton(200, 200, 150, 100, "", firstPosSmall);
+    posButton(200, 400, 150, 100, "", firstPosMedium);
+    posButton(200, 600, 150, 100, "", firstPosBig);
   
-    posButton(200, 200, 500, 100, "", AKD_frame_posSmall);
-    posButton(200, 400, 500, 100, "", AKD_frame_posMedium);
-    posButton(200, 600, 500, 100, "", AKD_frame_posBig);
+    posButton(400, 200, 150, 100, "", secondPosSmall);
+    posButton(400, 400, 150, 100, "", secondPosMedium);
+    posButton(400, 600, 150, 100, "", secondPosBig);
    
    
     sprintf(posManBuff, "POZICIJA:%d mm", posMan);
     renderText(posManBuff, smallText, blackColor);
-    render(600, 210, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(800, 210, NULL, 0.0, NULL, SDL_FLIP_NONE);
   
-    up_button(900, 200, &posMan, 1, 150);
-    down_button(1000, 200, &posMan, 1, 0);
+    up_button(1100, 200, &posMan, 1, 150);
+    down_button(1200, 200, &posMan, 1, 0);
 
-    enableButton(600, 400, 200, 100);
-    startButton(600, 600, 200, 100);
+    enableButton(800, 400, 200, 100);
+    disableButton(1000, 400, 200, 100);
+    
+    startButton(800, 600, 200, 100);
   }
   else if(page_stage[pageNum] == 2)
   {

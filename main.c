@@ -155,10 +155,10 @@ void initMain()
   * posOneB6 = htons(8192);
   * posOneB7 = htons(20);
   * posOneB8 = 40;
-  * posOneB11 = htonl(5000000);   
+  * posOneB11 = htonl(2000000);   
   * posOneB12 = 16;           
-  * posOneB13 = htonl(10000000);  
-  * posOneB14 = htonl(10000000);  
+  * posOneB13 = htonl(5000000);  
+  * posOneB14 = htonl(5000000);  
   * posOneB15 = 100;            
   * posOneB16 = 0;            
   * posOneB17 = 1;            
@@ -184,6 +184,28 @@ void initMain()
   * moveTask7 = htons(2);
   * moveTask8 = 4;
   * moveTask9 = 2;
+ 
+  int * moveTask1Next =  (int*)(&obufMTN[0]);
+  int * moveTask2Next =  (int*)(&obufMTN[2]);
+  int * moveTask3Next =  (int*)(&obufMTN[4]);
+  int * moveTask4Next =  (int*)(&obufMTN[6]);
+  int * moveTask5Next =  (int*)(&obufMTN[7]);
+  int * moveTask6Next =  (int*)(&obufMTN[8]);
+  int * moveTask7Next =  (int*)(&obufMTN[10]);
+  int * moveTask8Next =  (int*)(&obufMTN[12]);
+  int * moveTask9Next =  (int*)(&obufMTN[13]);
+  
+  memset(obufMTN, 0, 17);
+  * moveTask1Next = transId;   
+  * moveTask2Next = htons(0);
+  * moveTask3Next = htons(11);
+  * moveTask4Next = 1;
+  * moveTask5Next = 16;
+  * moveTask6Next = htons(2016);
+  * moveTask7Next = htons(2);
+  * moveTask8Next = 4;
+  * moveTask9Next = 2;
+
 
   int * drvSave1 =  (int*)(&obufDS[0]);
   int * drvSave2 =  (int*)(&obufDS[2]);
@@ -240,7 +262,7 @@ void initMain()
   int * posOneA12 = (int*)(&obufOneA[28]);
   int * posOneA13 = (int*)(&obufOneA[29]);
   int * posOneA14 = (int*)(&obufOneA[33]);
-  //int * posOneA15 = (int*)(&obufOneA[40]);
+  int * posOneA15 = (int*)(&obufOneA[40]);
   int * posOneA16 = (int*)(&obufOneA[44]);
   int * posOneA17 = (int*)(&obufOneA[48]);
   int * posOneA18 = (int*)(&obufOneA[52]);
@@ -254,11 +276,11 @@ void initMain()
   * posOneA6 = htons(8192);
   * posOneA7 = htons(20);
   * posOneA8 = 40;
-  * posOneA11 = htonl(5000000);   
+  * posOneA11 = htonl(2000000);   
   * posOneA12 = 16;           
-  * posOneA13 = htonl(10000000);  
-  * posOneA14 = htonl(10000000);  
-  //* posOneA15 = 100;            
+  * posOneA13 = htonl(5000000);  
+  * posOneA14 = htonl(5000000);  
+  * posOneA15 = 100;            
   * posOneA16 = 0;            
   * posOneA17 = 1;            
   * posOneA18 = 1;  
@@ -304,19 +326,6 @@ void initMain()
   strcpy(stepName[7], "KORAK8");
   strcpy(stepName[8], "KORAK9");
   strcpy(stepName[9], "KORAK10");
-
-  for(int i = 0; i < 10; i++)
-  {
-    for(int j = 0; j < 3; j++)
-    {
-      printf("stepCond[%d][%d]:%s\n", i, j, stepCond[i][j]);
-    }
-  }
-  
-  for(int i = 0; i < 10; i++)
-  {
-    printf("stepName[%d]:%s\n", i, stepName[i]);
-  }
 
   #ifdef RPI   
   fp_first_pos = fopen("/home/pi/TKK_PRESA/data/first_pos.txt", "r");

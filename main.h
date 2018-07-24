@@ -23,8 +23,10 @@ int connectiOn;
 uint16_t regs[10];
 char buff_reg[10][10];
 
-char buff_inputs[28][2];
-char buff_outputs[28][2];
+
+
+char buff_inputs[28][10];
+char buff_outputs[28][10];
 int buff_outputs_val[28];
 int scrollArr[28];
 char stepCounter[10];
@@ -38,6 +40,7 @@ char bigBuff[20];
 
 char posManBuff[20]; 
 
+int moveTask;
 int conn;
 int s;
 int transId;
@@ -46,6 +49,10 @@ int posCounter;
 int firstPosSmall;
 int firstPosMedium;
 int firstPosBig;
+
+int secondPosSmall;
+int secondPosMedium;
+int secondPosBig;
 
 char *ip_adrs;
 struct sockaddr_in server;
@@ -79,6 +86,9 @@ char ibufOneA[56];
 
 char obufMT[21];
 char ibufMT[21];
+char obufMTN[21];
+char ibufMTN[21];
+
 
 char obufDS[17];
 char ibufDS[17];
@@ -88,6 +98,9 @@ char ibufCl[17];
 
 char obufOneB[58];
 char ibufOneB[56];
+
+char obufEd[17];
+char ibufEd[17];
 
 char modifierBuff[20];
 int modifier;

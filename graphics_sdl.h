@@ -78,9 +78,8 @@ void stop_button(int x, int y, int h, int w);
 void continue_button(int x, int y, int h, int w, int stepMax);
 void posButton(int x, int y, int w, int h, char *text, int firstPos);
 void enableButton(int x, int y, int w, int h);
+void disableButton(int x, int y, int w, int h);
 void startButton(int x, int y, int w, int h);
-
-
 
 void pageZero(int pageNum);
 void pageOne(int pageNum);

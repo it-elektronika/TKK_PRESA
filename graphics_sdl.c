@@ -185,7 +185,7 @@ void renderStatusBar()
     SDL_RenderDrawLine(renderer, x2_1, y2_1, x2_2, y2_2);
     SDL_RenderDrawLine(renderer, x3_1, y3_1, x3_2, y3_2);
   }
-
+ 
   switch(sbarText)
   {
     case 0:

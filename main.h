@@ -32,6 +32,7 @@ char recvBuff[256];
 
 char inputs[28][20];
 char outputs[28][20];
+
 char buff_inputs[28][10];
 char buff_outputs[28][10];
 

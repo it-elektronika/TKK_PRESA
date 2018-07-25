@@ -938,7 +938,7 @@ void clockButton(int x, int y, int h, int w, char *tmBuff)
 
 void outputButton(int x, int y, int w, int h, int id)
 {
-  sprintf(buff_outputs[id], "O_%d: %d",id, buff_outputs_val[id]);
+  sprintf(buff_outputs[id], "O_%d: %d",id, buff_outputs_val[id-1]);
   renderText(buff_outputs[id], regularText, blackColor);
   render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
 

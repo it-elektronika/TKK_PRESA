@@ -162,11 +162,10 @@ void pageThree(int pageNum)  /* I/O STATUS */
  
       if(scrollArr[i] < 1)
       {
-        sprintf(buff_inputs[i], "I_%d:%d", i, 1); /* values need to be added later */
+        sprintf(buff_inputs[i], "I_%d:%s", i+1, inputs[i]);
         renderText(buff_inputs[i], regularText, blackColor);
         render(30, y+modY, NULL, 0.0, NULL, SDL_FLIP_NONE);
-
-        outputButton(300, y+modY, 50, 50, i);
+        outputButton(300, y+modY, 50, 50, i+1);
         
       }
       y = y + 70;

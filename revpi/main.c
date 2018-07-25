@@ -136,20 +136,20 @@ void sendReadVar()
   int * send55 = (int*)(&sendBuff[55]);
  */
   memset(sendBuff, 0, 256);
-  * send0 = readVariableValue("I_1");
-  * send1 = readVariableValue("I_2");
-  * send2 = readVariableValue("I_3");
-  * send3 = readVariableValue("I_4");
-  * send4 = readVariableValue("I_5");
-  * send5 = readVariableValue("I_6");
-  * send6 = readVariableValue("I_7");
-  * send7 = readVariableValue("I_8");
-  * send8 = readVariableValue("I_9");
-  * send9 = readVariableValue("I_10");
-  * send10 = readVariableValue("I_11");
-  * send11 = readVariableValue("I_12");
-  * send12 = readVariableValue("I_13");
-  * send13 = readVariableValue("I_14");
+  * send0 = 1//readVariableValue("I_1");
+  * send1 = 2//readVariableValue("I_2");
+  * send2 = 3//readVariableValue("I_3");
+  * send3 = 4//readVariableValue("I_4");
+  * send4 = 5//readVariableValue("I_5");
+  * send5 = 6//readVariableValue("I_6");
+  * send6 = 7//readVariableValue("I_7");
+  * send7 = 8//readVariableValue("I_8");
+  * send8 = 9//readVariableValue("I_9");
+  * send9 = 10//readVariableValue("I_10");
+  * send10 = 11//readVariableValue("I_11");
+  * send11 = 12//readVariableValue("I_12");
+  * send12 = 13//readVariableValue("I_13");
+  * send13 = 14//readVariableValue("I_14");
  /* * send14 = readVariableValue("I_15");
   * send15 = readVariableValue("I_16");
   * send16 = readVariableValue("I_17");
@@ -204,7 +204,7 @@ void sendReadVar()
     {
       error("ERROR reading from socket");
     }
-    n = send(newsockfd, sendBuff, 28, 0);
+    n = send(newsockfd, sendBuff, 14, 0);
     if (n < 0) 
     { 
       error("ERROR writing to socket");
@@ -222,6 +222,7 @@ void readOutVar()
     printf("recvbuff2:%d\n", recvBuff[2]); 
     
     writeVariableValue(outputWriteBuff, recvBuff[2]);
+    memset(recvBuff, 0, 256);
   }
   memset(sendBuff, 0, 256);
   int * send0 = (int*)(&sendBuff[0]);

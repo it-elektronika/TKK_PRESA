@@ -16,6 +16,7 @@
 void initServer();
 void initMain();
 void sendReadVar();
+void readOutVar();
 
 void error(const char *msg)
 {
@@ -32,7 +33,8 @@ int main()
   while(program == 1)
   {
     printf("I_2:%d\n", readVariableValue("I_2"));
-    sendReadVar();
+    sendReadVar(); 
+    readOutVar();
   }    
   close(newsockfd);
   close(sockfd);
@@ -143,11 +145,25 @@ void sendReadVar()
     {
       error("ERROR reading from socket");
     }
-    n = send(newsockfd, sendBuff, 28, 0);
+    n = send(newsockfd, sendBuff, 1, 0);
     if (n < 0) 
     { 
       error("ERROR writing to socket");
     }
   }
+}
+
+
+void readOutVar()
+{
+  int * send0 = (int*)(&sendBuff[0]);
+  * send0 = 1;
+
   
+  if(recvBuff[0] == 2) 
+  {
+    sprintf(outputWriteBuff, "O_%d",  recvBuff[1]);
+    writeVariableValue(outputWriteBuff, recvBuff[2]);
+  }
+
 }

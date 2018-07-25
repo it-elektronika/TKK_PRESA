@@ -947,10 +947,38 @@ void outputButton(int x, int y, int w, int h, int id)
     if(buff_outputs_val[id] == 0)
     {
       buff_outputs_val[id] = 1;
+     
+      memset(sendBuff, 0, 256);
+      * send0 = 2;
+      * send1 = id;
+      * send2 = 1;  
+ 
+      n = send(sockfd,sendBuff,1, 0); /* send read request */
+
+      if(n < 0)
+      {
+        error("ERROR writing to socket");
+      }
+      memset(recvBuff, 0, 256);
+      n = recv(sockfd, recvBuff, 28, 0); /* recieve read data */
     }
     else
     {
       buff_outputs_val[id] = 0;
+
+      memset(sendBuff, 0, 256);
+      * send0 = 2;
+      * send1 = id;
+      * send2 = 0;  
+ 
+      n = send(sockfd,sendBuff,1, 0); /* send read request */
+
+      if(n < 0)
+      {
+        error("ERROR writing to socket");
+      }
+      memset(recvBuff, 0, 256);
+      n = recv(sockfd, recvBuff, 28, 0); /* recieve read data */
     }
   }
 }

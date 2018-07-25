@@ -92,6 +92,7 @@ void sendReadVar()
     {
       error("ERROR reading from socket");
     }
+    printf("in here\n");
     n = send(newsockfd, regs, 3, 0);
     if (n < 0) 
     { 

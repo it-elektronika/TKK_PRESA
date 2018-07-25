@@ -955,7 +955,7 @@ void outputButton(int x, int y, int w, int h, int id)
       int * send2 = (int*)(&sendBuff[2]);
   
       * send0 = 2;
-      * send1 = id;
+      * send1 = id+1;
       * send2 = 1;  
  
       n = send(sockfd,sendBuff,3, 0); /* send read request */

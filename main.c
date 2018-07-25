@@ -6,6 +6,7 @@
 void initMain();
 void initCommAKDPress();
 void initCommTCP();
+void readVarTCP();
 void error(const char *msg);
 
 int main()
@@ -37,15 +38,12 @@ int main()
     renderStatusBar();
     renderContent();
     SDL_RenderPresent(renderer);
+    readVarTCP();
     cycle++;
     printf("s:%d m:%d b:%d\n", firstPosSmall, firstPosMedium, firstPosBig);
   }
   return 0;
 }
-
-
-
-
 
 void initCommAKDPress() 
 {

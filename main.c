@@ -127,9 +127,8 @@ void readVarTCP()
     sprintf(inputs[i],"%d\0\n", recvBuff[i]);
     printf("%d: %d\n", i, recvBuff[i]);
     
-    sprintf(outputs[i],"%d\0'\n", recvBuff[i+27]); 
-    printf("%d: %d\n", i, recvBuff[i+27]);
-    
+    sprintf(outputs[i],"%d\0'\n", recvBuff[i]); 
+    printf("%d: %d\n", i, recvBuff[i]);
   }
 }
 

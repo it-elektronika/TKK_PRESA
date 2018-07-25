@@ -33,7 +33,7 @@ int main()
   while(program == 1)
   {
     sendReadVar(); 
-    //readOutVar();
+    readOutVar();
   }    
   close(newsockfd);
   close(sockfd);
@@ -105,7 +105,8 @@ void sendReadVar()
   int * send25 = (int*)(&sendBuff[25]);
   int * send26 = (int*)(&sendBuff[26]);
   int * send27 = (int*)(&sendBuff[27]);
-  int * send28 = (int*)(&sendBuff[28]);
+/*  int * send28 = (int*)(&sendBuff[28]);
+
   int * send29 = (int*)(&sendBuff[29]);
   int * send30 = (int*)(&sendBuff[30]);
   int * send31 = (int*)(&sendBuff[31]);
@@ -133,6 +134,7 @@ void sendReadVar()
   int * send53 = (int*)(&sendBuff[53]);
   int * send54 = (int*)(&sendBuff[54]);
   int * send55 = (int*)(&sendBuff[55]);
+ */
   memset(sendBuff, 0, 256);
   * send0 = readVariableValue("I_1");
   * send1 = readVariableValue("I_2");
@@ -163,20 +165,20 @@ void sendReadVar()
   * send26 = readVariableValue("I_27");
   * send27 = readVariableValue("I_28");
 */
-  * send28 = readVariableValue("O_1");
-  * send29 = readVariableValue("O_2");
-  * send30 = readVariableValue("O_3");
-  * send31 = readVariableValue("O_4");
-  * send32 = readVariableValue("O_5");
-  * send33 = readVariableValue("O_6");
-  * send34 = readVariableValue("O_7");
-  * send35 = readVariableValue("O_8");
-  * send36 = readVariableValue("O_9");
-  * send37 = readVariableValue("O_10");
-  * send38 = readVariableValue("O_11");
-  * send39 = readVariableValue("O_12");
-  * send40 = readVariableValue("O_13");
-  * send41 = readVariableValue("O_14");
+  * send14 = readVariableValue("O_1");
+  * send15 = readVariableValue("O_2");
+  * send16 = readVariableValue("O_3");
+  * send17 = readVariableValue("O_4");
+  * send18 = readVariableValue("O_5");
+  * send19 = readVariableValue("O_6");
+  * send20 = readVariableValue("O_7");
+  * send21 = readVariableValue("O_8");
+  * send22 = readVariableValue("O_9");
+  * send23 = readVariableValue("O_10");
+  * send24 = readVariableValue("O_11");
+  * send25 = readVariableValue("O_12");
+  * send26 = readVariableValue("O_13");
+  * send27 = readVariableValue("O_14");
 /*  * send42 = readVariableValue("O_15");
   * send43 = readVariableValue("O_16");
   * send44 = readVariableValue("O_17");

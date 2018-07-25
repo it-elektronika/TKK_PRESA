@@ -48,7 +48,7 @@ int main()
 void initCommAKDPress() 
 {
   
-  ip_adrs = "192.168.0.13";
+  ip_adrs = "192.168.1.13";
   s = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 
   server.sin_family = AF_INET;
@@ -75,7 +75,7 @@ void initCommAKDPress()
 
 void initCommTCP()
 {
-  serv_addr.sin_addr.s_addr = inet_addr("192.168.1.67"); /* 192.168.0.12 - the actual one */
+  serv_addr.sin_addr.s_addr = inet_addr("192.168.1.12"); /* 192.168.0.12 - the actual one */
   serv_addr.sin_port = htons(PORTNO);
   serv_addr.sin_family = AF_INET;
 

@@ -11,7 +11,7 @@
 #define AKD_frame_posMedium 100
 #define AKD_frame_posBig 150
 #define lastStep 9
-#define PORTNO 1502
+#define PORTNO 1500
 modbus_t *ctx;
 
 int sockfd;

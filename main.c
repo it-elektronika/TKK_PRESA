@@ -85,10 +85,10 @@ void initCommTCP()
     error("ERROR opening socket");
   }
  
-  if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
+  if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(struct sockaddr_in)) < 0) 
   {   
     error("ERROR connecting");
-    connectiOn = -2;
+    connectiOn = 0;
   }
   else
   {

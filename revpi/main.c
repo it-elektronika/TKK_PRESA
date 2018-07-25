@@ -132,6 +132,8 @@ void sendReadVar()
   * send24 = readVariableValue("I_25");
   * send25 = readVariableValue("I_26");
   * send26 = readVariableValue("I_27");
+  * send27 = readVariableValue("I_28");
+
 
   n = recv(newsockfd, recvBuff, 255,0);     
   

@@ -126,22 +126,7 @@ void readVarTCP()
   }
 }
 
-void sendVarTCP()
-{
-  memset(sendBuff, 0, 256);
-  * send0 = 2;
-  * send1 = outputNumber;
-  * send2 = value;  
- 
-  n = send(sockfd,sendBuff,1, 0); /* send read request */
 
-  if(n < 0)
-  {
-    error("ERROR writing to socket");
-  }
-  memset(recvBuff, 0, 256);
-  n = recv(sockfd, recvBuff, 28, 0); /* recieve read data */
-}
 
 void initMain()
 {

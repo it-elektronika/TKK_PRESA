@@ -3,6 +3,8 @@
 #include <SDL2/SDL_image.h>
 #include "graphics_sdl.h"
 #include "main.h"
+void error(const char *msg);
+
 
 int init()    /* things needed to start sdl2 properly */
 {
@@ -938,7 +940,7 @@ void clockButton(int x, int y, int h, int w, char *tmBuff)
 
 void outputButton(int x, int y, int w, int h, int id)
 {
-  sprintf(buff_outputs[id], "O_%d: %d",id, buff_outputs_val[id-1]);
+  sprintf(buff_outputs[id], "O_%d: %d",id, buff_outputs_val[id+1]);
   renderText(buff_outputs[id], regularText, blackColor);
   render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
@@ -948,23 +950,31 @@ void outputButton(int x, int y, int w, int h, int id)
     {
       buff_outputs_val[id] = 1;
      
-      memset(sendBuff, 0, 256);
+      int * send0 = (int*)(&sendBuff[0]);
+      int * send1 = (int*)(&sendBuff[1]);
+      int * send2 = (int*)(&sendBuff[2]);
+  
       * send0 = 2;
       * send1 = id;
       * send2 = 1;  
  
       n = send(sockfd,sendBuff,1, 0); /* send read request */
-
+      printf("DATA SENT\n");
       if(n < 0)
       {
         error("ERROR writing to socket");
       }
       memset(recvBuff, 0, 256);
       n = recv(sockfd, recvBuff, 28, 0); /* recieve read data */
+      printf("DATA RECEIVED\n");
     }
     else
     {
       buff_outputs_val[id] = 0;
+ 
+      int * send0 = (int*)(&sendBuff[0]);
+      int * send1 = (int*)(&sendBuff[1]);
+      int * send2 = (int*)(&sendBuff[2]);
 
       memset(sendBuff, 0, 256);
       * send0 = 2;

@@ -156,14 +156,16 @@ void sendReadVar()
 
 void readOutVar()
 {
-  int * send0 = (int*)(&sendBuff[0]);
-  * send0 = 1;
-
-  
   if(recvBuff[0] == 2) 
   {
     sprintf(outputWriteBuff, "O_%d",  recvBuff[1]);
     writeVariableValue(outputWriteBuff, recvBuff[2]);
   }
+  memset(sendBuff, 0, 256);
+  int * send0 = (int*)(&sendBuff[0]);
+  * send0 = 1;
+
+
+  n = send(newsockfd, sendBuff, 1, 0);
 
 }

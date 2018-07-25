@@ -166,7 +166,6 @@ void pageThree(int pageNum)  /* I/O STATUS */
         renderText(buff_inputs[i], regularText, blackColor);
         render(30, y+modY, NULL, 0.0, NULL, SDL_FLIP_NONE);
         outputButton(300, y+modY, 50, 50, i);
-        
       }
       y = y + 70;
     }

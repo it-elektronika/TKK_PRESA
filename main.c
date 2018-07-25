@@ -29,6 +29,7 @@ int main()
     initCommAKDPress();
     initCommTCP();
     touchUpdate();
+    printf("after touch in first loop:%d\n", connectiOn);
   } 
   
   /* main program loop */
@@ -104,8 +105,8 @@ void readVarTCP()
   memset(sendBuff, 0, 256);
   int i;
   int * send0 = (int*)(&sendBuff[0]);
-  * send0 = 2;  /* 1 - read data */
-
+  * send0 = 1;  /* 1 - read data */
+  printf("SEND READ REQUEST\n");
   n = send(sockfd,sendBuff,1, 0); /* send read request */
 
   if(n < 0)
@@ -113,8 +114,9 @@ void readVarTCP()
     error("ERROR writing to socket");
   }
   memset(recvBuff, 0, 256);
-  n = recv(sockfd, recvBuff, 56, 0); /* recieve read data */
-
+  n = recv(sockfd, recvBuff, 28, 0); /* recieve read data */
+  printf("RECEIVE READ DATA\n");
+  
   if (n < 0)
   {
     error("ERROR reading from socket");
@@ -122,9 +124,9 @@ void readVarTCP()
   
   for(i=0; i < 28; i++)
   {
-    sprintf(inputs[i],"%d\0'\n", recvBuff[i]);
+    sprintf(inputs[i],"%d\0\n", recvBuff[i]);
     printf("%d: %d\n", i, recvBuff[i]);
-   
+    
     sprintf(outputs[i],"%d\0'\n", recvBuff[i+27]); 
     printf("%d: %d\n", i, recvBuff[i+27]);
     

@@ -33,7 +33,7 @@ int main()
   while(program == 1)
   {
     sendReadVar(); 
-    readOutVar();
+    //readOutVar();
   }    
   close(newsockfd);
   close(sockfd);
@@ -148,7 +148,7 @@ void sendReadVar()
   * send11 = readVariableValue("I_12");
   * send12 = readVariableValue("I_13");
   * send13 = readVariableValue("I_14");
-  * send14 = readVariableValue("I_15");
+ /* * send14 = readVariableValue("I_15");
   * send15 = readVariableValue("I_16");
   * send16 = readVariableValue("I_17");
   * send17 = readVariableValue("I_18");
@@ -162,7 +162,7 @@ void sendReadVar()
   * send25 = readVariableValue("I_26");
   * send26 = readVariableValue("I_27");
   * send27 = readVariableValue("I_28");
-
+*/
   * send28 = readVariableValue("O_1");
   * send29 = readVariableValue("O_2");
   * send30 = readVariableValue("O_3");
@@ -177,7 +177,7 @@ void sendReadVar()
   * send39 = readVariableValue("O_12");
   * send40 = readVariableValue("O_13");
   * send41 = readVariableValue("O_14");
-  * send42 = readVariableValue("O_15");
+/*  * send42 = readVariableValue("O_15");
   * send43 = readVariableValue("O_16");
   * send44 = readVariableValue("O_17");
   * send45 = readVariableValue("O_18");
@@ -191,17 +191,18 @@ void sendReadVar()
   * send53 = readVariableValue("O_26");
   * send54 = readVariableValue("O_27");
   * send55 = readVariableValue("O_28");
-  memset(recvBuff, 0, 256);
-
+*/memset(recvBuff, 0, 256);
+  printf("waiting to receieve request\n");
   n = recv(newsockfd, recvBuff, 255,0);     
   
   if(recvBuff[0] == 1)
   {
+    printf("request to read data\n");
     if(n < 0) 
     {
       error("ERROR reading from socket");
     }
-    n = send(newsockfd, sendBuff, 56, 0);
+    n = send(newsockfd, sendBuff, 28, 0);
     if (n < 0) 
     { 
       error("ERROR writing to socket");

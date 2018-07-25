@@ -133,7 +133,7 @@ void sendReadVar()
   int * send53 = (int*)(&sendBuff[53]);
   int * send54 = (int*)(&sendBuff[54]);
   int * send55 = (int*)(&sendBuff[55]);
-
+  memset(sendBuff, 0, 256);
   * send0 = readVariableValue("I_1");
   * send1 = readVariableValue("I_2");
   * send2 = readVariableValue("I_3");
@@ -191,8 +191,7 @@ void sendReadVar()
   * send53 = readVariableValue("O_26");
   * send54 = readVariableValue("O_27");
   * send55 = readVariableValue("O_28");
-
-
+  memset(recvBuff, 0, 256);
 
   n = recv(newsockfd, recvBuff, 255,0);     
   

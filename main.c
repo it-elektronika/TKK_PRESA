@@ -34,17 +34,13 @@ int main()
   /* main program loop */
   while(program == 1)
   {
- 
     touchUpdate();
-
     renderBackground();
     renderStatusBar();
- 
     renderContent();
-    SDL_RenderPresent(renderer);
     readVarTCP();
+    SDL_RenderPresent(renderer);
     cycle++;
-    printf("s:%d m:%d b:%d\n", firstPosSmall, firstPosMedium, firstPosBig);
   }
   return 0;
 }
@@ -106,9 +102,8 @@ void initCommTCP()
 void readVarTCP()
 {
   memset(sendBuff, 0, 256);
+  int i;
   int * send0 = (int*)(&sendBuff[0]);
-  int o_c;
-  o_c = 0;
   * send0 = 2;  /* 1 - read data */
 
   n = send(sockfd,sendBuff,1, 0); /* send read request */
@@ -117,8 +112,7 @@ void readVarTCP()
   {
     error("ERROR writing to socket");
   }
-  memset(sendBuff, 0, 256);
-  printf("RECEIEVE REQUESTED DATA\n");
+  memset(recvBuff, 0, 256);
   n = recv(sockfd, recvBuff, 56, 0); /* recieve read data */
 
   if (n < 0)
@@ -129,16 +123,13 @@ void readVarTCP()
   for(i=0; i < 28; i++)
   {
     sprintf(inputs[i],"%d\0'\n", recvBuff[i]);
-  }
-  
-  for(i=28; i < 56; ++i)
-  {
-    sprintf(outputs[o_c],"%d\0'\n", recvBuff[i]); 
-    o_c++;
+    printf("%d: %d\n", i, recvBuff[i]);
+   
+    sprintf(outputs[i],"%d\0'\n", recvBuff[i+27]); 
+    printf("%d: %d\n", i, recvBuff[i+27]);
+    
   }
 }
-
-
 
 void initMain()
 {

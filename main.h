@@ -24,6 +24,7 @@ int rc;
 int tc;
 int connectiOn;
 int n; 
+
 uint16_t regs[10];
 char buff_reg[10][10];
 

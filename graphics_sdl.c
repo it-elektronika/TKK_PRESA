@@ -956,14 +956,14 @@ void outputButton(int x, int y, int w, int h, int id)
       * send1 = id+1;
       * send2 = 1;  
  
-      n = send(sockfd,sendBuff,3, 0); /* send read request */
+      n = send(sockfd,sendBuff, 3, 0); /* send read request */
       printf("DATA SENT\n");
       if(n < 0)
       {
         error("ERROR writing to socket");
       }
       memset(recvBuff, 0, 256);
-      n = recv(sockfd, recvBuff, 28, 0); /* recieve read data */
+      n = recv(sockfd, recvBuff, 56, 0); /* recieve read data */
       printf("DATA RECEIVED\n");
     }
     else
@@ -977,14 +977,14 @@ void outputButton(int x, int y, int w, int h, int id)
       * send1 = id+1;
       * send2 = 0;  
  
-      n = send(sockfd,sendBuff,3, 0); /* send read request */
+      n = send(sockfd,sendBuff, 3, 0); /* send read request */
 
       if(n < 0)
       {
         error("ERROR writing to socket");
       }
       memset(recvBuff, 0, 256);
-      n = recv(sockfd, recvBuff, 28, 0); /* recieve read data */
+      n = recv(sockfd, recvBuff, 56, 0); /* recieve read data */
     }
   }
 }

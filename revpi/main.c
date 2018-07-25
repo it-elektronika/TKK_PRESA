@@ -105,6 +105,34 @@ void sendReadVar()
   int * send25 = (int*)(&sendBuff[25]);
   int * send26 = (int*)(&sendBuff[26]);
   int * send27 = (int*)(&sendBuff[27]);
+  int * send28 = (int*)(&sendBuff[28]);
+  int * send29 = (int*)(&sendBuff[29]);
+  int * send30 = (int*)(&sendBuff[30]);
+  int * send31 = (int*)(&sendBuff[31]);
+  int * send32 = (int*)(&sendBuff[32]);
+  int * send33 = (int*)(&sendBuff[33]);
+  int * send34 = (int*)(&sendBuff[34]);
+  int * send35 = (int*)(&sendBuff[35]);
+  int * send36 = (int*)(&sendBuff[36]);
+  int * send37 = (int*)(&sendBuff[37]);
+  int * send38 = (int*)(&sendBuff[38]);
+  int * send39 = (int*)(&sendBuff[39]);
+  int * send40 = (int*)(&sendBuff[40]);
+  int * send41 = (int*)(&sendBuff[41]);
+  int * send42 = (int*)(&sendBuff[42]);
+  int * send43 = (int*)(&sendBuff[43]);
+  int * send44 = (int*)(&sendBuff[44]);
+  int * send45 = (int*)(&sendBuff[45]);
+  int * send46 = (int*)(&sendBuff[46]);
+  int * send47 = (int*)(&sendBuff[47]);
+  int * send48 = (int*)(&sendBuff[48]);
+  int * send49 = (int*)(&sendBuff[49]);
+  int * send50 = (int*)(&sendBuff[50]);
+  int * send51 = (int*)(&sendBuff[51]);
+  int * send52 = (int*)(&sendBuff[52]);
+  int * send53 = (int*)(&sendBuff[53]);
+  int * send54 = (int*)(&sendBuff[54]);
+  int * send55 = (int*)(&sendBuff[55]);
 
   * send0 = readVariableValue("I_1");
   * send1 = readVariableValue("I_2");
@@ -135,6 +163,36 @@ void sendReadVar()
   * send26 = readVariableValue("I_27");
   * send27 = readVariableValue("I_28");
 
+  * send28 = readVariableValue("O_1");
+  * send29 = readVariableValue("O_2");
+  * send30 = readVariableValue("O_3");
+  * send31 = readVariableValue("O_4");
+  * send32 = readVariableValue("O_5");
+  * send33 = readVariableValue("O_6");
+  * send34 = readVariableValue("O_7");
+  * send35 = readVariableValue("O_8");
+  * send36 = readVariableValue("O_9");
+  * send37 = readVariableValue("O_10");
+  * send38 = readVariableValue("O_11");
+  * send39 = readVariableValue("O_12");
+  * send40 = readVariableValue("O_13");
+  * send41 = readVariableValue("O_14");
+  * send42 = readVariableValue("O_15");
+  * send43 = readVariableValue("O_16");
+  * send44 = readVariableValue("O_17");
+  * send45 = readVariableValue("O_18");
+  * send46 = readVariableValue("O_19");
+  * send47 = readVariableValue("O_20");
+  * send48 = readVariableValue("O_21");
+  * send49 = readVariableValue("O_22");
+  * send50 = readVariableValue("O_23");
+  * send51 = readVariableValue("O_24");
+  * send52 = readVariableValue("O_25");
+  * send53 = readVariableValue("O_26");
+  * send54 = readVariableValue("O_27");
+  * send55 = readVariableValue("O_28");
+
+
 
   n = recv(newsockfd, recvBuff, 255,0);     
   
@@ -144,7 +202,7 @@ void sendReadVar()
     {
       error("ERROR reading from socket");
     }
-    n = send(newsockfd, sendBuff, 1, 0);
+    n = send(newsockfd, sendBuff, 56, 0);
     if (n < 0) 
     { 
       error("ERROR writing to socket");

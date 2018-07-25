@@ -940,16 +940,14 @@ void clockButton(int x, int y, int h, int w, char *tmBuff)
 
 void outputButton(int x, int y, int w, int h, int id)
 {
-  sprintf(buff_outputs[id], "O_%d: %d",id+1, buff_outputs_val[id]);
+  sprintf(buff_outputs[id], "O_%d: %s",id+1, outputs[id]);
   renderText(buff_outputs[id], regularText, blackColor);
   render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
-    if(buff_outputs_val[id] == 0)
+    if(outputs[id] == 0)
     {
-      buff_outputs_val[id] = 1;
-     
       int * send0 = (int*)(&sendBuff[0]);
       int * send1 = (int*)(&sendBuff[1]);
       int * send2 = (int*)(&sendBuff[2]);
@@ -970,15 +968,13 @@ void outputButton(int x, int y, int w, int h, int id)
     }
     else
     {
-      buff_outputs_val[id] = 0;
- 
       int * send0 = (int*)(&sendBuff[0]);
       int * send1 = (int*)(&sendBuff[1]);
       int * send2 = (int*)(&sendBuff[2]);
 
       memset(sendBuff, 0, 256);
       * send0 = 2;
-      * send1 = id;
+      * send1 = id+1;
       * send2 = 0;  
  
       n = send(sockfd,sendBuff,3, 0); /* send read request */

@@ -31,10 +31,10 @@ char sendBuff[256];
 char recvBuff[256];
 
 char inputs[28][20];
-
+char outputs[28][20];
 char buff_inputs[28][10];
 char buff_outputs[28][10];
-int buff_outputs_val[28];
+
 int scrollArr[28];
 char stepCounter[10];
 char stepCond[10][3][50];

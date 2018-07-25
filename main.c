@@ -113,7 +113,7 @@ void readVarTCP()
     error("ERROR writing to socket");
   }
   memset(sendBuff, 0, 256);
-  n = recv(sockfd, recvBuff, 28, 0); /* recieve read data */
+  n = recv(sockfd, recvBuff, 56, 0); /* recieve read data */
 
   if (n < 0)
   {
@@ -123,6 +123,10 @@ void readVarTCP()
   for(i=0; i < 28; i++)
   {
     sprintf(inputs[i],"%d\0'\n", recvBuff[i]);
+  }
+  for(i=28; i < 56; ++i)
+  {
+    sprintf(outputs[i],"%d\0'\n", recvBuff[i]);
   }
 }
 

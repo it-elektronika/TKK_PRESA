@@ -75,7 +75,7 @@ void initCommAKDPress()
 
 void initCommTCP()
 {
-  serv_addr.sin_addr.s_addr = inet_addr("192.168.0.12");
+  serv_addr.sin_addr.s_addr = inet_addr("192.168.1.67"); /* 192.168.0.12 - the actual one */
   serv_addr.sin_port = htons(PORTNO);
   serv_addr.sin_family = AF_INET;
 

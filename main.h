@@ -11,19 +11,24 @@
 #define AKD_frame_posMedium 100
 #define AKD_frame_posBig 150
 #define lastStep 9
-
+#define PORTNO 1502
 modbus_t *ctx;
+
+int sockfd;
+struct sockaddr_in serv_addr;
+ 
 int i;
 int nb;
 int bb;
 int rc;
 int tc;
 int connectiOn;
- 
+int n; 
 uint16_t regs[10];
 char buff_reg[10][10];
 
-
+char sendBuff[256];
+char recvBuff[256];
 
 char buff_inputs[28][10];
 char buff_outputs[28][10];
@@ -105,5 +110,6 @@ char ibufEd[17];
 char modifierBuff[20];
 int modifier;
 
-void initComm();
+void initCommTCP();
+void initCommAKDPress();
 void initMain();

@@ -2,9 +2,11 @@
 #include "graphics_sdl.h"
 #include "main.h"
 #include <errno.h>
-
+#include <unistd.h>
 void initMain();
-void initComm();
+void initCommAKDPress();
+void initCommTCP();
+void error(const char *msg);
 
 int main()
 {
@@ -22,7 +24,8 @@ int main()
     renderContent();
     SDL_RenderPresent(renderer);
     cycle++;
-    initComm();
+    initCommAKDPress();
+    initCommTCP();
     touchUpdate();
   } 
   
@@ -41,28 +44,12 @@ int main()
 }
 
 
-void initComm()
+
+
+
+void initCommAKDPress() 
 {
-  /*
-  printf("FUNCTION CALLED\n");
-  ctx = modbus_new_tcp("192.168.0.13", 502);  
-  if(modbus_connect(ctx) == -1) 
-  {
-    fprintf(stderr,"Connection failed: %s\n",modbus_strerror(errno));
-    modbus_free(ctx);
-    
-    exit(100);
-    
-    page = 2; 
-    sbarText = 2;
-    connectiOn = 0;
-  }
-
-  nb = sizeof(regs)/sizeof(int16_t);   
-  modbus_set_debug(ctx, FALSE); 
-  */
-
-  /* AKD CONN */
+  
   ip_adrs = "192.168.0.13";
   s = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 
@@ -76,6 +63,7 @@ void initComm()
     backgroundColor = 2;
     sbarText = 7; 
     page = 7;
+    connectiOn = -1; 
   }
   else
   {
@@ -84,7 +72,59 @@ void initComm()
     page = 0;
   }
   printf("%d\n", conn);
-  usleep(3000);
+  sleep(3);
+}
+
+void initCommTCP()
+{
+  serv_addr.sin_addr.s_addr = inet_addr("192.168.0.12");
+  serv_addr.sin_port = htons(PORTNO);
+  serv_addr.sin_family = AF_INET;
+
+  sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  if (sockfd < 0) 
+  {
+    error("ERROR opening socket");
+  }
+ 
+  if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
+  {   
+    error("ERROR connecting");
+    connectiOn = -2;
+  }
+  else
+  {
+    if(connectiOn == 1)
+    {
+      connectiOn = 1;
+    }
+  }
+}
+
+void readVarTCP()
+{
+  memset(sendBuff, 0, 256);
+  int * send0 = (int*)(&sendBuff[0]);
+  * send0 = 1;  /* 1 - read data */
+
+  n = send(sockfd,sendBuff,1, 0); /* send read request */
+
+  if(n < 0)
+  {
+    error("ERROR writing to socket");
+  }
+  memset(sendBuff, 0, 256);
+  n = recv(sockfd, recvBuff, 3, 0); /* recieve read data */
+
+  if (n < 0)
+  {
+    error("ERROR reading from socket");
+  }
+  
+  for(i=0; i < 3; i++)
+  {
+    printf("%d\n", recvBuff[i]);
+  }
 }
 
 void initMain()
@@ -97,7 +137,6 @@ void initMain()
   transId = 1;
   posCounter = 1;
   modifier = 0;
-
   firstPosSmall = 0;
   firstPosMedium = 0;
   firstPosBig = 0;
@@ -353,5 +392,9 @@ void initMain()
  
 }
 
-
+void error(const char *msg)
+{
+  perror(msg);
+  exit(1);
+}
 

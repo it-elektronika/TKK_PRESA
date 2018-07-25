@@ -104,7 +104,7 @@ void readVarTCP()
 {
   memset(sendBuff, 0, 256);
   int * send0 = (int*)(&sendBuff[0]);
-  * send0 = 1;  /* 1 - read data */
+  * send0 = 2;  /* 1 - read data */
 
   n = send(sockfd,sendBuff,1, 0); /* send read request */
 

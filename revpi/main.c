@@ -32,7 +32,6 @@ int main()
  
   while(program == 1)
   {
-    printf("I_2:%d\n", readVariableValue("I_2"));
     sendReadVar(); 
     readOutVar();
   }    

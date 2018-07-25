@@ -981,7 +981,7 @@ void outputButton(int x, int y, int w, int h, int id)
       * send1 = id;
       * send2 = 0;  
  
-      n = send(sockfd,sendBuff,1, 0); /* send read request */
+      n = send(sockfd,sendBuff,3, 0); /* send read request */
 
       if(n < 0)
       {

@@ -159,6 +159,7 @@ void readOutVar()
   if(recvBuff[0] == 2) 
   {
     sprintf(outputWriteBuff, "O_%d",  recvBuff[1]);
+    printf("recvbuff2:%d\n", recvBuff[2]); 
     writeVariableValue(outputWriteBuff, recvBuff[2]);
   }
   memset(sendBuff, 0, 256);

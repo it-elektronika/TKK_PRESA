@@ -940,7 +940,7 @@ void clockButton(int x, int y, int h, int w, char *tmBuff)
 
 void outputButton(int x, int y, int w, int h, int id)
 {
-  sprintf(buff_outputs[id], "O_%d: %d",id, buff_outputs_val[id+1]);
+  sprintf(buff_outputs[id], "O_%d: %d",id+1, buff_outputs_val[id]);
   renderText(buff_outputs[id], regularText, blackColor);
   render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
@@ -958,7 +958,7 @@ void outputButton(int x, int y, int w, int h, int id)
       * send1 = id;
       * send2 = 1;  
  
-      n = send(sockfd,sendBuff,1, 0); /* send read request */
+      n = send(sockfd,sendBuff,3, 0); /* send read request */
       printf("DATA SENT\n");
       if(n < 0)
       {

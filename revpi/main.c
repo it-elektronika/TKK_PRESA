@@ -79,7 +79,7 @@ void initMain()
 void readLine(int fd, char data[], size_t maxlen)
 {
    size_t len = 0;
-   while (len < maxlen)
+   while (len <=maxlen)
    {
       printf("LEN:%ld, DATA[%ld]:%d\n", len, len, data[len]);
       char c;

@@ -36,7 +36,7 @@ int main()
   {
     touchUpdate();
     sendRequest(1, 0);
-    receieveResponse();
+    receiveResponse();
 
     renderBackground();
     renderStatusBar();
@@ -103,10 +103,8 @@ void initCommTCP()
 
 void sendRequest(int reqId, int outputId)
 {
-  printf("SEND REQUEST reqId:%d outputId:%d\n", reqId, outputId);
-  /* READ VARIABLES */
+   /* READ VARIABLES */
   if(reqId == 1)  
-  
   {
     int * sendRead0 = (int*)(&sendReadBuff[0]);
     memset(sendReadBuff, 0, 256);
@@ -114,6 +112,7 @@ void sendRequest(int reqId, int outputId)
     * sendRead0 = 1;  
     n = send(sockfd,sendReadBuff, 1, 0);  
     memset(sendReadBuff, 0, 1);
+    printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
   }
   /* WRITE OUTPUT VARIABLES */
   else
@@ -129,6 +128,7 @@ void sendRequest(int reqId, int outputId)
       * sendWrite2 = 1;  
       n = send(sockfd,sendWriteBuff, 3, 0); 
       memset(sendWriteBuff, 0, 3);
+      printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
     else
     {
@@ -141,15 +141,16 @@ void sendRequest(int reqId, int outputId)
       * sendWrite2 = 0;  
       n = send(sockfd,sendWriteBuff, 3, 0); 
       memset(sendWriteBuff, 0, 3);
+      printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
   }
 }
 
-void receieveResponse()
+void receiveResponse()
 {
   int i;
-  printf("RECEIEVE RESPONSE\n");
   readLine(sockfd, recvReadBuff, 28);
+  printf("RESPONSE RECEIVED\n");
   if(recvReadBuff[0] != 2)
   {
     for(i=0; i < 14; i++)

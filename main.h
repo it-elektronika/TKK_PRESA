@@ -120,7 +120,7 @@ int modifier;
 
 void readLine(int fd, char data[], size_t maxlen);
 void sendRequest(int reqId, int outputId);
-void receieveResponse();
+void receiveResponse();
 
 void initCommTCP();
 void initCommAKDPress();

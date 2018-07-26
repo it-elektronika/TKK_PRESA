@@ -18,7 +18,7 @@ void initMain();
 void sendReadVar();
 void readOutVar();
 void readLine(int fd, char data[], size_t maxlen);
-void receieveRequest();
+void receiveRequest();
 void sendResponse(int reqId);
 void error(const char *msg)
 {
@@ -33,7 +33,7 @@ int main()
  
   while(program == 1)
   {
-    receieveRequest();
+    receiveRequest();
   }    
   close(newsockfd);
   close(sockfd);
@@ -95,10 +95,10 @@ void readLine(int fd, char data[], size_t maxlen)
    }
 }
 
-void receieveRequest()
+void receiveRequest()
 {
-  printf("RECEIEVE REQUEST\n");
   readLine(newsockfd, recvReadBuff, 3);
+  printf("REQUEST RECEIVED\n");
   if(recvReadBuff[0] == 1)
   {
     sendResponse(1);
@@ -112,7 +112,6 @@ void receieveRequest()
 
 void sendResponse(int reqId)
 {
-  printf("SEND RESPONSE reqId:%d\n", reqId);
   if(reqId == 1)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
@@ -175,6 +174,8 @@ void sendResponse(int reqId)
     
     n = send(newsockfd, sendWriteBuff, 28, 0);
     memset(sendWriteBuff, 0, 28);
+    printf("RESPONSE SENT reqId:%d\n", reqId);
+
   }
   else
   {
@@ -183,6 +184,8 @@ void sendResponse(int reqId)
    
     n = send(newsockfd, sendReadBuff, 1, 0);
     memset(sendReadBuff, 0, 256);
+    printf("RESPONSE SENT reqId:%d\n", reqId);
+
     /*
     sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
     printf("recvbuff1:%d\n", recvReadBuff[1]); 

@@ -950,12 +950,12 @@ void outputButton(int x, int y, int w, int h, int id)
     if(outputs[id] == 0)
     {
       sendRequest(2,0);
-      receieveResponse(); 
+      receiveResponse(); 
     }
     else
     {
       sendRequest(2, 1);
-      receieveResponse();
+      receiveResponse();
     }
   }
 }

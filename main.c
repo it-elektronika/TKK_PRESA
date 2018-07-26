@@ -37,7 +37,7 @@ int main()
     touchUpdate();
     sendRequest(1, 0);
     receiveResponse();
-
+    program = 0;
     renderBackground();
     renderStatusBar();
     renderContent();
@@ -107,7 +107,7 @@ void sendRequest(int reqId, int outputId)
   if(reqId == 1)  
   {
     int * sendRead0 = (int*)(&sendReadBuff[0]);
-    memset(sendReadBuff, 0, 256);
+    memset(sendReadBuff, 0, 28);
  
     * sendRead0 = 1;  
     n = send(sockfd,sendReadBuff, 28, 0);  

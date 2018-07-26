@@ -15,9 +15,7 @@
 
 void initServer();
 void initMain();
-void sendReadVar();
-void readOutVar();
-void readLine(int fd, char data[], size_t maxlen);
+int readLine(int fd, char data[], size_t maxlen);
 void receiveRequest();
 void sendResponse(int reqId);
 void error(const char *msg)
@@ -76,25 +74,25 @@ void initMain()
   PiControlHandle_g = -1; 
 }
 
-void readLine(int fd, char data[], size_t maxlen)
+int readLine(int fd, char data[], size_t maxlen)
 {
    size_t len = 0;
    while (len <=maxlen)
    {
-      printf("LEN:%ld, DATA[%ld]:%d\n", len, len, data[len]);
       char c;
       int ret = recv(fd, &c, 1, 0);
       if (ret < 0)
       {
           data[len] = 0;
-          //return len; // EOF reached
+          return len; // EOF reached
       }
       if (c == '\n')
       {
           data[len] = 0;
-          //return len; // EOF reached
+          return len; // EOF reached
       }
       data[len++] = c;
+      printf("LEN:%ld, DATA[%ld]:%d\n", len, len, data[len]);
    }
 }
 

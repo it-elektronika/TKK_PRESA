@@ -110,7 +110,7 @@ void sendRequest(int reqId, int outputId)
     memset(sendReadBuff, 0, 256);
  
     * sendRead0 = 1;  
-    n = send(sockfd,sendReadBuff, 1, 0);  
+    n = send(sockfd,sendReadBuff, 28, 0);  
     memset(sendReadBuff, 0, 1);
     printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
   }
@@ -126,8 +126,8 @@ void sendRequest(int reqId, int outputId)
       * sendWrite0 = 2;
       * sendWrite1 = id+1;
       * sendWrite2 = 1;  
-      n = send(sockfd,sendWriteBuff, 3, 0); 
-      memset(sendWriteBuff, 0, 3);
+      n = send(sockfd,sendWriteBuff, 28, 0); 
+      memset(sendWriteBuff, 0, 28);
       printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
     else
@@ -139,7 +139,7 @@ void sendRequest(int reqId, int outputId)
       * sendWrite0 = 2;
       * sendWrite1 = id+1;
       * sendWrite2 = 0;  
-      n = send(sockfd,sendWriteBuff, 3, 0); 
+      n = send(sockfd,sendWriteBuff, 28, 0); 
       memset(sendWriteBuff, 0, 3);
       printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }

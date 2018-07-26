@@ -100,7 +100,7 @@ void readLine(int fd, char data[], size_t maxlen)
 void receiveRequest()
 {
   printf("RECEIVING REQUEST\n");
-  readLine(newsockfd, recvReadBuff, 3);
+  readLine(newsockfd, recvReadBuff, 28);
   printf("REQUEST RECEIVED\n");
   if(recvReadBuff[0] == 1)
   {
@@ -185,8 +185,8 @@ void sendResponse(int reqId)
     int * sendRead0 = (int*)(&sendReadBuff[0]);
     * sendRead0 = 2;
    
-    n = send(newsockfd, sendReadBuff, 1, 0);
-    memset(sendReadBuff, 0, 256);
+    n = send(newsockfd, sendReadBuff, 28, 0);
+    memset(sendReadBuff, 0, 28);
     printf("RESPONSE SENT reqId:%d\n", reqId);
 
     /*

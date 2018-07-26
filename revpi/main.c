@@ -110,7 +110,7 @@ void receiveRequest()
   {
     sendResponse(1);
   } 
-  else
+  else if(recvReadBuff[0] == 1)
   {
     sendResponse(2);
   }
@@ -190,7 +190,7 @@ void sendResponse(int reqId)
     printf("RESPONSE SENT reqId:%d\n", reqId);
 
   }
-  else
+  else if(reqId == 2)
   {
     int * sendRead0 = (int*)(&sendReadBuff[0]);
     * sendRead0 = 2;

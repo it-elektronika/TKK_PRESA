@@ -971,7 +971,7 @@ void outputButton(int x, int y, int w, int h, int id)
     }
     else
     {
-      touched = 2;
+      touched = 2; 
     }
   }
 }

@@ -27,8 +27,12 @@ int n;
 uint16_t regs[10];
 char buff_reg[10][10];
 
-char sendBuff[256];
-char recvBuff[256];
+char sendReadBuff[256];
+char recvReadBuff[256];
+
+char sendWriteBuff[256];
+char recvWriteBuff[256];
+
 
 char inputs[28][20];
 char outputs[28][20];

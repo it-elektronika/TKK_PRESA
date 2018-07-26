@@ -949,43 +949,43 @@ void outputButton(int x, int y, int w, int h, int id)
   {
     if(outputs[id] == 0)
     {
-      int * send0 = (int*)(&sendBuff[0]);
-      int * send1 = (int*)(&sendBuff[1]);
-      int * send2 = (int*)(&sendBuff[2]);
+      int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+      int * sendWrite1 = (int*)(&sendWriteBuff[1]);
+      int * sendWrite2 = (int*)(&sendWriteBuff[2]);
   
-      * send0 = 2;
-      * send1 = id+1;
-      * send2 = 1;  
+      * sendWrite0 = 2;
+      * sendWrite1 = id+1;
+      * sendWrite2 = 1;  
  
-      n = send(sockfd,sendBuff, 3, 0); /* send read request */
+      n = send(sockfd,sendWriteBuff, 3, 0); /* send read request */
       printf("DATA SENT\n");
       if(n < 0)
       {
         error("ERROR writing to socket");
       }
-      memset(recvBuff, 0, 256);
-      n = recv(sockfd, recvBuff, 1, 0); /* recieve read data */
+      memset(recvWriteBuff, 0, 256);
+      n = recv(sockfd, recvWriteBuff, 1, 0); /* recieve read data */
       printf("DATA RECEIVED\n");
     }
     else
     {
-      int * send0 = (int*)(&sendBuff[0]);
-      int * send1 = (int*)(&sendBuff[1]);
-      int * send2 = (int*)(&sendBuff[2]);
+      int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+      int * sendWrite1 = (int*)(&sendWriteBuff[1]);
+      int * sendWrite2 = (int*)(&sendWriteBuff[2]);
 
-      memset(sendBuff, 0, 256);
-      * send0 = 2;
-      * send1 = id+1;
-      * send2 = 0;  
+      memset(sendWriteBuff, 0, 256);
+      * sendWrite0 = 2;
+      * sendWrite1 = id+1;
+      * sendWrite2 = 0;  
  
-      n = send(sockfd,sendBuff, 3, 0); /* send read request */
+      n = send(sockfd,sendWriteBuff, 3, 0); /* send read request */
 
       if(n < 0)
       {
         error("ERROR writing to socket");
       }
-      memset(recvBuff, 0, 256);
-      n = recv(sockfd, recvBuff, 1, 0); /* recieve read data */
+      memset(recvWriteBuff, 0, 256);
+      n = recv(sockfd, recvWriteBuff, 1, 0); /* recieve read data */
     }
   }
 }

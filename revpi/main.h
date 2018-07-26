@@ -7,6 +7,11 @@ int n;
 int program;
 int PiControlHandle_g;
 
-char sendBuff[256];
-char recvBuff[256];
+char sendReadBuff[256];
+char recvReadBuff[256];
+
+char sendWriteBuff[256];
+char recvWriteBuff[256];
+
+
 char outputWriteBuff[256];

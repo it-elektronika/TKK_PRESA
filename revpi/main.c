@@ -66,6 +66,8 @@ void initServer()
   {
     error("ERROR on accept");
   }
+  printf("Connection Accepted\n");
+
 }
 
 void initMain()

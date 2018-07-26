@@ -36,13 +36,13 @@ int main()
   {
     touchUpdate();
  
-    sendRequest(1, 0);
+    //sendRequest(1, 0);
     renderBackground();
     renderStatusBar();
     renderContent();
     SDL_RenderPresent(renderer);
     cycle++;
-    receiveResponse();
+    //receiveResponse();
  
   }
   return 0;

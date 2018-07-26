@@ -103,8 +103,8 @@ void receiveRequest()
   printf("RECEIVING REQUEST\n");
   FD_SET(newsockfd, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);
- 
-  readLine(newsockfd, recvReadBuff, 28);
+  n = recv(newsockfd, recvReadBuff, 28, 0);
+  //readLine(newsockfd, recvReadBuff, 28);
   printf("REQUEST RECEIVED\n");
   if(recvReadBuff[0] == 1)
   {

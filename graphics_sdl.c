@@ -945,8 +945,6 @@ void outputButton(int x, int y, int w, int h, int id)
   renderText(buff_outputs[id], regularText, blackColor);
   render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
   
-
-
   if(touched == 0)
   {
     sendRequest(1,0);

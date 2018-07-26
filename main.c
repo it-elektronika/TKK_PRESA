@@ -43,14 +43,12 @@ int main()
     SDL_RenderPresent(renderer);
     cycle++;
     //receiveResponse();
- 
   }
   return 0;
 }
 
 void initCommAKDPress() 
 {
-  
   ip_adrs = "192.168.1.13";
   s = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 
@@ -102,7 +100,7 @@ void initCommTCP()
   }
 }
 
-void sendRequest(int reqId, int outputId)
+void sendRequest(int reqId, int outputId, int id)
 {
    /* READ VARIABLES */
   if(reqId == 1)  
@@ -111,7 +109,6 @@ void sendRequest(int reqId, int outputId)
     memset(sendReadBuff, 0, 28);
  
     * sendRead0 = 1;  
-    
 
     FD_ZERO(&fdsTCP);
     tv.tv_sec = 0;
@@ -120,7 +117,7 @@ void sendRequest(int reqId, int outputId)
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
     n = send(sockfd,sendReadBuff, 28, 0);  
     memset(sendReadBuff, 0, 28);
-    printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
+    //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
 
   }
   /* WRITE OUTPUT VARIABLES */
@@ -137,7 +134,7 @@ void sendRequest(int reqId, int outputId)
       * sendWrite2 = 1;  
       n = send(sockfd,sendWriteBuff, 28, 0); 
       memset(sendWriteBuff, 0, 28);
-      printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
+      ///printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
     else if(outputId == 0)
     {
@@ -150,7 +147,7 @@ void sendRequest(int reqId, int outputId)
       * sendWrite2 = 0;  
       n = send(sockfd,sendWriteBuff, 28, 0); 
       memset(sendWriteBuff, 0, 3);
-      printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
+      //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
   }
 }
@@ -158,25 +155,25 @@ void sendRequest(int reqId, int outputId)
 void receiveResponse()
 {
   int i;
-  printf("RECEIVING RESPONSE\n");
+  //printf("RECEIVING RESPONSE\n");
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);
     
 
   //readLine(sockfd, recvReadBuff, 28);
   n = recv(sockfd, recvReadBuff, 28, 0);
-  printf("RESPONSE RECEIVED\n");
+  //printf("RESPONSE RECEIVED\n");
   if(recvReadBuff[0] != 2)
   {
     for(i=0; i < 14; i++)
     {
       sprintf(inputs[i],"%d\0\n", recvReadBuff[i]);
-      printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
+      //printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
     }
     for(i=0; i < 14; i++)
     {
       sprintf(outputs[i],"%d\0\n", recvReadBuff[i+14]);
-      printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
+      //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
   }
   memset(recvReadBuff, 0, 28);

@@ -941,40 +941,35 @@ void clockButton(int x, int y, int h, int w, char *tmBuff)
 
 void outputButton(int x, int y, int w, int h, int id)
 {
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+  SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+  SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+  SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+ 
   sprintf(buff_outputs[id], "O_%d: %s",id+1, outputs[id]);
   renderText(buff_outputs[id], regularText, blackColor);
   render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
-  
-  if(touched == 0)
-  {
-    sendRequest(1,0);
-    receiveResponse(); 
-  }
-  else if(touched == 1)
-  {
-    sendRequest(2, 0);
-    receiveResponse();
-    touched = 0;
-  }
-  else if(touched == 2)
-  {
-    sendRequest(2, 1);
-    receiveResponse();
-    touched = 0;
-  }
 
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
-    touched = 1;
-    /*
-    if(outputs[id] == 0)
+    if(strcmp(outputs[id], "0") == 0)
     {
-      touched = 1;
+      sendRequest(2, 0, id);
+      receiveResponse();
+      printf("00000000000000000000\n");
     }
-    else if(outputs[id] == 1)
+    else if(strcmp(outputs[id], "1") == 0)
     {
-      touched = 2; 
-    }*/
+      printf("1111111111111111111111\n");
+      sendRequest(2, 1, id);
+      receiveResponse();
+    }
+  }
+  else
+  {
+    sendRequest(1,0, id);
+    receiveResponse(); 
   }
 }
 

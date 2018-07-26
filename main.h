@@ -24,9 +24,8 @@ int tc;
 int connectiOn;
 int n; 
 
-uint16_t regs[10];
 char buff_reg[10][10];
-
+char regs[10];
 char sendReadBuff[256];
 char recvReadBuff[256];
 
@@ -37,8 +36,8 @@ char recvWriteBuff[256];
 char inputs[28][20];
 char outputs[28][20];
 
-char buff_inputs[28][10];
-char buff_outputs[28][10];
+char buff_inputs[28][20];
+char buff_outputs[28][20];
 
 int scrollArr[28];
 char stepCounter[10];
@@ -122,7 +121,7 @@ int modifier;
 
 
 void readLine(int fd, char data[], size_t maxlen);
-void sendRequest(int reqId, int outputId);
+void sendRequest(int reqId, int outputId, int id);
 void receiveResponse();
 
 void initCommTCP();

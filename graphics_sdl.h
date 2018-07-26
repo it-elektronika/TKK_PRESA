@@ -41,17 +41,9 @@ int timestamp;
 int oldtimestamp;
 int cycleCounter;
 int cycleCheck;
-int left_button_selected;
-int right_button_selected;
 int pageNumber;
 
-int pageLoadCount;
-int blinkCounter;
-int blinkerCounter;
-
 int selected[9];
-int noButtonSelected;
-int id;
 
 int init();
 void freeTexture();

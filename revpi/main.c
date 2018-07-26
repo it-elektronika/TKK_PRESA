@@ -97,6 +97,7 @@ void readLine(int fd, char data[], size_t maxlen)
 
 void receieveRequest()
 {
+  printf("RECEIEVE REQUEST\n");
   readLine(newsockfd, recvReadBuff, 3);
   if(recvReadBuff[0] == 1)
   {
@@ -111,6 +112,7 @@ void receieveRequest()
 
 void sendResponse(int reqId)
 {
+  printf("SEND RESPONSE reqId:%d\n", reqId);
   if(reqId == 1)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);

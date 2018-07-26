@@ -29,7 +29,6 @@ int main()
     initCommAKDPress();
     initCommTCP();
     touchUpdate();
-    printf("after touch in first loop:%d\n", connectiOn);
   } 
   
   /* main program loop */
@@ -104,8 +103,10 @@ void initCommTCP()
 
 void sendRequest(int reqId, int outputId)
 {
+  printf("SEND REQUEST reqId:%d outputId:%d\n", reqId, outputId);
   /* READ VARIABLES */
   if(reqId == 1)  
+  
   {
     int * sendRead0 = (int*)(&sendReadBuff[0]);
     memset(sendReadBuff, 0, 256);
@@ -147,6 +148,7 @@ void sendRequest(int reqId, int outputId)
 void receieveResponse()
 {
   int i;
+  printf("RECEIEVE RESPONSE\n");
   readLine(sockfd, recvReadBuff, 28);
   if(recvReadBuff[0] != 2)
   {

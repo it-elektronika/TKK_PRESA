@@ -17,7 +17,6 @@ modbus_t *ctx;
 int sockfd;
 struct sockaddr_in serv_addr;
  
-int i;
 int nb;
 int bb;
 int rc;

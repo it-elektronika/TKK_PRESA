@@ -106,15 +106,16 @@ void readVarTCP()
   int i;
   int * send0 = (int*)(&sendBuff[0]);
   * send0 = 1;  /* 1 - read data */
+  
   printf("SEND READ REQUEST\n");
-  n = send(sockfd,sendBuff,1, 0); /* send read request */
+  n = send(sockfd,sendBuff, 1, 0); /* send read request */
 
   if(n < 0)
   {
     error("ERROR writing to socket");
   }
   memset(recvBuff, 0, 256);
-  n = recv(sockfd, recvBuff, 14, 0); /* recieve read data */
+  n = recv(sockfd, recvBuff, 3, 0); /* recieve read data */
   printf("RECEIVE READ DATA\n");
   
   if (n < 0)
@@ -122,15 +123,16 @@ void readVarTCP()
     error("ERROR reading from socket");
   }
   
-  for(i=0; i < 14; i++)
+  for(i=0; i < 3; i++)
   {
-    sprintf(inputs[i],"%d\0\n", recvBuff[i]);
-    printf("%d: %d\n", i, recvBuff[i]);
+    sprintf(inputs[i],"%d\0\n", recvBuff[0]);
+    printf("INPUTs:%d: %d\n", i, recvBuff[0]);
   }
 }
 
 void initMain()
 {
+  int i;
   backgroundColor = 1;
   page = 6;
   sbarText = 6;

@@ -36,10 +36,10 @@ int main()
   while(program == 1)
   {
     touchUpdate();
+    readVarTCP();
     renderBackground();
     renderStatusBar();
     renderContent();
-  //  readVarTCP();
     SDL_RenderPresent(renderer);
     cycle++;
   }

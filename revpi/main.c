@@ -31,7 +31,7 @@ int main()
  
   while(program == 1)
   {
-    //sendReadVar(); 
+    sendReadVar(); 
     readOutVar();
   }    
   close(newsockfd);

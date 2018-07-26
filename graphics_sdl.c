@@ -977,7 +977,7 @@ void outputButton(int x, int y, int w, int h, int id)
       memset(sendWriteBuff, 0, 256);
       * sendWrite0 = 2;
       * sendWrite1 = id+1;
-      * sendWrite2 = 0;  
+      * sendWrite2 = 2;  
  
       n = send(sockfd,sendWriteBuff, 3, 0); /* send read request */
 

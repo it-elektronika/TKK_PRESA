@@ -17,11 +17,11 @@ void initServer();
 void initMain();
 void sendReadVar();
 void readOutVar();
-void readLine(int fd, char data[], size_t len);
+void readLine(int fd, char data[], size_t maxlen);
 void error(const char *msg)
 {
-    perror(msg);
-    exit(1);
+  perror(msg);
+  exit(1);
 }
 
 int main()
@@ -31,7 +31,7 @@ int main()
  
   while(program == 1)
   {
-    sendReadVar(); 
+    //sendReadVar(); 
     readOutVar();
   }    
   close(newsockfd);
@@ -197,8 +197,8 @@ void sendReadVar()
   memset(recvWriteBuff, 0, 256);
   printf("waiting to receieve request\n");
   
-  n = recv(newsockfd, recvWriteBuff, 1, 0);     
-  
+  //n = recv(newsockfd, recvWriteBuff, 1, 0);     
+  readLine(newsockfd, recvWriteBuff, 13:);
   if(recvWriteBuff[0] == 1)
   {
     printf("request to read data\n");
@@ -217,7 +217,9 @@ void sendReadVar()
 
 void readOutVar()
 {
+  int i;
   int * sendRead0 = (int*)(&sendReadBuff[0]);
+  readLine(newsockfd, recvWriteBuff, 3);
   if(recvReadBuff[0] == 2) 
   {
     sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
@@ -231,6 +233,20 @@ void readOutVar()
     * sendRead0 = 1;
     n = send(newsockfd, sendReadBuff, 1, 0);
   }
+  
+  printf("O_1:%d\n",readVariableValue("O_1");
+  printf("O_2:%d\n",readVariableValue("O_2");
+  printf("O_3:%d\n",readVariableValue("O_3");
+  printf("O_4:%d\n",readVariableValue("O_4");
+  printf("O_5:%d\n",readVariableValue("O_5");
+  printf("O_6:%d\n",readVariableValue("O_6");
+  printf("O_7:%d\n",readVariableValue("O_7");
+  printf("O_8:%d\n",readVariableValue("O_8");
+  printf("O_9:%d\n",readVariableValue("O_9");
+  printf("O_10:%d\n",readVariableValue("O_10");
+  printf("O_11:%d\n",readVariableValue("O_11");
+  printf("O_12:%d\n",readVariableValue("O_12");
+  printf("O_13:%d\n",readVariableValue("O_13");
 }
 
 void readLine(int fd, char data[], size_t maxlen)

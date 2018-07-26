@@ -39,7 +39,7 @@ int main()
     renderBackground();
     renderStatusBar();
     renderContent();
-    readVarTCP();
+  //  readVarTCP();
     SDL_RenderPresent(renderer);
     cycle++;
   }

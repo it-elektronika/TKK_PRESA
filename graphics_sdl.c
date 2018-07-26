@@ -964,7 +964,7 @@ void outputButton(int x, int y, int w, int h, int id)
         error("ERROR writing to socket");
       }
       memset(recvBuff, 0, 256);
-      n = recv(sockfd, recvBuff, 56, 0); /* recieve read data */
+      n = recv(sockfd, recvBuff, 1, 0); /* recieve read data */
       printf("DATA RECEIVED\n");
     }
     else
@@ -985,7 +985,7 @@ void outputButton(int x, int y, int w, int h, int id)
         error("ERROR writing to socket");
       }
       memset(recvBuff, 0, 256);
-      n = recv(sockfd, recvBuff, 56, 0); /* recieve read data */
+      n = recv(sockfd, recvBuff, 1, 0); /* recieve read data */
     }
   }
 }

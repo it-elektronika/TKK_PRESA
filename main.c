@@ -103,11 +103,11 @@ void initCommTCP()
 void readVarTCP()
 {
   int i;
-  memset(sendBuff, 0, 256);
   int * send0 = (int*)(&sendBuff[0]);
+  memset(sendBuff, 0, 256);
+ 
   * send0 = 1;  /* 1 - read data */
   
-  printf("SEND READ REQUEST\n");
   n = send(sockfd,sendBuff, 1, 0); /* send read request */
 
   if(n < 0)
@@ -116,7 +116,6 @@ void readVarTCP()
   }
   memset(recvBuff, 0, 256);
   n = recv(sockfd, recvBuff, 28, 0); /* recieve read data */
-  printf("RECEIVE READ DATA\n");
   
   if (n < 0)
   {
@@ -128,7 +127,6 @@ void readVarTCP()
     sprintf(inputs[i],"%d\0\n", recvBuff[i]);
     printf("INPUTs:%d: %d\n", i, recvBuff[i]);
   }
-
   for(i=0; i < 14; i++)
   {
     sprintf(outputs[i],"%d\0\n", recvBuff[i+14]);

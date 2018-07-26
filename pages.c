@@ -149,7 +149,7 @@ void pageThree(int pageNum)  /* I/O STATUS */
       SDL_RenderDrawLine(renderer, 1200, 180+i, 1280, 180+i);
       SDL_RenderDrawLine(renderer, 1200, 700+i, 1280, 700+i);
     }
-    for(i = 0; i < 28; i++)
+    for(i = 0; i < 14; i++)
     {
       if((y + modY >= 100))
       {

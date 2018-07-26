@@ -111,7 +111,7 @@ void sendRequest(int reqId, int outputId)
  
     * sendRead0 = 1;  
     n = send(sockfd,sendReadBuff, 28, 0);  
-    memset(sendReadBuff, 0, 1);
+    memset(sendReadBuff, 0, 28);
     printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
   }
   /* WRITE OUTPUT VARIABLES */

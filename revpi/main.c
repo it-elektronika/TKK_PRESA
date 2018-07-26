@@ -81,6 +81,7 @@ void readLine(int fd, char data[], size_t maxlen)
    size_t len = 0;
    while (len < maxlen)
    {
+      printf("LEN:%ld, DATA[%ld]:%d\n", len, len, data[len]);
       char c;
       int ret = recv(fd, &c, 1, 0);
       if (ret < 0)

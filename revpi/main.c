@@ -163,7 +163,7 @@ void sendReadVar()
   * send25 = readVariableValue("I_26");
   * send26 = readVariableValue("I_27");
   * send27 = readVariableValue("I_28");
-
+*/
   * send14 = readVariableValue("O_1");
   * send15 = readVariableValue("O_2");
   * send16 = readVariableValue("O_3");
@@ -178,7 +178,7 @@ void sendReadVar()
   * send25 = readVariableValue("O_12");
   * send26 = readVariableValue("O_13");
   * send27 = readVariableValue("O_14");
-  *  * send42 = readVariableValue("O_15");
+ /* * send42 = readVariableValue("O_15");
   * send43 = readVariableValue("O_16");
   * send44 = readVariableValue("O_17");
   * send45 = readVariableValue("O_18");
@@ -206,7 +206,7 @@ void sendReadVar()
     {
       error("ERROR reading from socket");
     }
-    n = send(newsockfd, sendBuff, 14, 0);
+    n = send(newsockfd, sendBuff, 28, 0);
     if (n < 0) 
     { 
       error("ERROR writing to socket");

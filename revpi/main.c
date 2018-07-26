@@ -205,13 +205,13 @@ void sendResponse(int reqId)
     memset(sendReadBuff, 0, 28);
     printf("RESPONSE SENT reqId:%d\n", reqId);
 
-    /*
+    
     sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
     printf("recvbuff1:%d\n", recvReadBuff[1]); 
     printf("recvbuff2:%d\n", recvReadBuff[2]); 
     
     writeVariableValue(outputWriteBuff, recvReadBuff[2]);
-    */
+    
   }
   printf("O_1:%d\n",readVariableValue("O_1"));
   printf("O_2:%d\n",readVariableValue("O_2"));

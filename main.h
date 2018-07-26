@@ -52,6 +52,8 @@ char bigBuff[20];
 
 char posManBuff[20]; 
 
+int touched;
+
 int moveTask;
 int conn;
 int s;

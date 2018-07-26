@@ -163,18 +163,19 @@ void receiveResponse()
   n = select(32, &fdsTCP, NULL, NULL, &tv);
     
 
-  readLine(sockfd, recvReadBuff, 28);
+  //readLine(sockfd, recvReadBuff, 28);
+  n = recv(sockfd, recvReadBuff, 28, 0);
   printf("RESPONSE RECEIVED\n");
   if(recvReadBuff[0] != 2)
   {
     for(i=0; i < 14; i++)
     {
-      sprintf(inputs[i],"%d\n", recvReadBuff[i]);
+      sprintf(inputs[i],"%d\0\n", recvReadBuff[i]);
       printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
     }
     for(i=0; i < 14; i++)
     {
-      sprintf(outputs[i],"%d\n", recvReadBuff[i+14]);
+      sprintf(outputs[i],"%d\0\n", recvReadBuff[i+14]);
       printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
   }
@@ -207,6 +208,7 @@ void readLine(int fd, char data[], size_t maxlen)
 void initMain()
 {
   int i;
+  touched = 0;
   backgroundColor = 1;
   page = 6;
   sbarText = 6;

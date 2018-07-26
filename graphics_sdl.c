@@ -944,18 +944,36 @@ void outputButton(int x, int y, int w, int h, int id)
   sprintf(buff_outputs[id], "O_%d: %s",id+1, outputs[id]);
   renderText(buff_outputs[id], regularText, blackColor);
   render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
+  
+
+
+  if(touched == 0)
+  {
+    sendRequest(1,0);
+    receiveResponse(); 
+  }
+  else if(touched == 1)
+  {
+    sendRequest(2, 0);
+    receiveResponse();
+    touched = 0;
+  }
+  else if(touched == 2)
+  {
+    sendRequest(2, 1);
+    receiveResponse();
+    touched = 0;
+  }
 
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
     if(outputs[id] == 0)
     {
-      sendRequest(2,0);
-      receiveResponse(); 
+      touched = 1;
     }
     else
     {
-      sendRequest(2, 1);
-      receiveResponse();
+      touched = 2;
     }
   }
 }

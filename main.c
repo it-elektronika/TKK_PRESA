@@ -124,7 +124,7 @@ void sendRequest(int reqId, int outputId)
 
   }
   /* WRITE OUTPUT VARIABLES */
-  else
+  else if(reqId == 2)
   {
     if(outputId == 0)
     {
@@ -139,7 +139,7 @@ void sendRequest(int reqId, int outputId)
       memset(sendWriteBuff, 0, 28);
       printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
-    else
+    else if(outputId == 0)
     {
       int * sendWrite0 = (int*)(&sendWriteBuff[0]);
       int * sendWrite1 = (int*)(&sendWriteBuff[1]);

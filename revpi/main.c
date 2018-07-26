@@ -32,7 +32,7 @@ int main()
   while(program == 1)
   {
     sendReadVar(); 
-    //readOutVar();
+    readOutVar();
   }    
   close(newsockfd);
   close(sockfd);
@@ -229,8 +229,6 @@ void readOutVar()
   memset(sendBuff, 0, 256);
   int * send0 = (int*)(&sendBuff[0]);
   * send0 = 1;
-
-
   n = send(newsockfd, sendBuff, 1, 0);
 
 }

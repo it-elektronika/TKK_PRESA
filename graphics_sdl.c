@@ -405,6 +405,7 @@ void touchUpdate()   /* handling touch events */
 
 void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD drive */
 {
+  int i;
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
   SDL_RenderDrawLine(renderer, x, y, (x+w), y);
   SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
@@ -1046,6 +1047,7 @@ void continue_button(int x, int y, int w, int h, int stepMax)
 
 void savePos(int x, int y, int w, int h)
 {
+  int i;
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
   SDL_RenderDrawLine(renderer, x, y, (x+w), y);
   SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 

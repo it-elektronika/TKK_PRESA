@@ -3,6 +3,10 @@ socklen_t clilen;
 
 struct sockaddr_in serv_addr, cli_addr;
 
+fd_set fdsTCP;
+struct timeval tv;
+
+
 int n;
 int program;
 int PiControlHandle_g;

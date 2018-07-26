@@ -70,6 +70,7 @@ char *ip_adrs;
 struct sockaddr_in server;
 
 fd_set fds;
+fd_set fdsTCP;
 struct timeval tv;
 
 int year;

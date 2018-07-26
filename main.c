@@ -36,7 +36,7 @@ int main()
   {
     touchUpdate();
     sendRequest(1, 0);
-    receiveResponse();
+    //receiveResponse();
     program = 0;
     renderBackground();
     renderStatusBar();
@@ -110,9 +110,17 @@ void sendRequest(int reqId, int outputId)
     memset(sendReadBuff, 0, 28);
  
     * sendRead0 = 1;  
+    
+
+    FD_ZERO(&fdsTCP);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    n = select(32, NULL, &fdsTCP, NULL, &tv); 
     n = send(sockfd,sendReadBuff, 28, 0);  
     memset(sendReadBuff, 0, 28);
     printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
+
   }
   /* WRITE OUTPUT VARIABLES */
   else
@@ -150,6 +158,10 @@ void receiveResponse()
 {
   int i;
   printf("RECEIVING RESPONSE\n");
+  FD_SET(s, &fdsTCP);
+  n = select(32, &fdsTCP, NULL, NULL, &tv);
+    
+
   readLine(sockfd, recvReadBuff, 28);
   printf("RESPONSE RECEIVED\n");
   if(recvReadBuff[0] != 2)

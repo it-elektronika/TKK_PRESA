@@ -99,6 +99,9 @@ int readLine(int fd, char data[], size_t maxlen)
 void receiveRequest()
 {
   printf("RECEIVING REQUEST\n");
+  FD_SET(newsockfd, &fdsTCP);
+  n = select(32, &fdsTCP, NULL, NULL, &tv);
+ 
   readLine(newsockfd, recvReadBuff, 28);
   printf("REQUEST RECEIVED\n");
   if(recvReadBuff[0] == 1)
@@ -173,7 +176,13 @@ void sendResponse(int reqId)
     * sendWrite25 = readVariableValue("O_12");
     * sendWrite26 = readVariableValue("O_13");
     * sendWrite27 = readVariableValue("O_14");
-    
+   
+    FD_ZERO(&fdsTCP);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    n = select(32, NULL, &fdsTCP, NULL, &tv); 
+  
     n = send(newsockfd, sendWriteBuff, 28, 0);
     memset(sendWriteBuff, 0, 28);
     printf("RESPONSE SENT reqId:%d\n", reqId);
@@ -183,6 +192,12 @@ void sendResponse(int reqId)
   {
     int * sendRead0 = (int*)(&sendReadBuff[0]);
     * sendRead0 = 2;
+    
+    FD_ZERO(&fdsTCP);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    n = select(32, NULL, &fdsTCP, NULL, &tv); 
    
     n = send(newsockfd, sendReadBuff, 28, 0);
     memset(sendReadBuff, 0, 28);

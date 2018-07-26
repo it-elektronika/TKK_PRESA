@@ -79,20 +79,22 @@ int readLine(int fd, char data[], size_t maxlen)
    size_t len = 0;
    while (len < (maxlen+1))
    {
-      char c;
-      int ret = recv(fd, &c, 1, 0);
-      if (ret < 0)
-      {
-          data[len] = 0;
-          return len; // EOF reached
-      }
-      if (c == '\n')
-      {
-          data[len] = 0;
-          return len; // EOF reached
-      }
-      data[len++] = c;
-      printf("LEN:%ld, DATA[%ld]:%d\n", len, len, data[len]);
+     char c;
+     int ret = recv(fd, &c, 1, 0);
+     if (ret < 0)
+     {
+       printf("ret < 0\n");
+       data[len] = 0;
+       return len; // EOF reached
+     }
+     if (c == '\n')
+     {
+       printf("C=='\n'\n");
+       data[len] = 0;
+       return len; // EOF reached
+     }
+     data[len++] = c;
+     printf("LEN:%ld, DATA[%ld]:%d C:%c\n", len, len, data[len], c);
    }
 }
 

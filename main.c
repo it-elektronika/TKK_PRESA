@@ -35,14 +35,15 @@ int main()
   while(program == 1)
   {
     touchUpdate();
+ 
     sendRequest(1, 0);
-    //receiveResponse();
-    program = 0;
     renderBackground();
     renderStatusBar();
     renderContent();
     SDL_RenderPresent(renderer);
     cycle++;
+    receiveResponse();
+ 
   }
   return 0;
 }

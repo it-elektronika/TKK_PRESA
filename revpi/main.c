@@ -77,7 +77,7 @@ void initMain()
 int readLine(int fd, char data[], size_t maxlen)
 {
    size_t len = 0;
-   while (len <=maxlen)
+   while (len < (maxlen+1))
    {
       char c;
       int ret = recv(fd, &c, 1, 0);

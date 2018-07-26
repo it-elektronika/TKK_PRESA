@@ -965,14 +965,16 @@ void outputButton(int x, int y, int w, int h, int id)
 
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
+    touched = 1;
+    /*
     if(outputs[id] == 0)
     {
       touched = 1;
     }
-    else
+    else if(outputs[id] == 1)
     {
       touched = 2; 
-    }
+    }*/
   }
 }
 

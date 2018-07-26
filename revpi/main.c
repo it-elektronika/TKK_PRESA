@@ -100,18 +100,25 @@ int readLine(int fd, char data[], size_t maxlen)
 
 void receiveRequest()
 {
-  printf("RECEIVING REQUEST\n");
+  int i;
+  //printf("RECEIVING REQUEST\n");
   FD_SET(newsockfd, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);
   n = recv(newsockfd, recvReadBuff, 28, 0);
   //readLine(newsockfd, recvReadBuff, 28);
-  printf("REQUEST RECEIVED\n");
+  //printf("REQUEST RECEIVED\n");
+  for(i = 0; i < 28; ++i)
+  {
+    printf("recvReadBuff_%d:%d\n",i, recvReadBuff[i]); 
+  }
   if(recvReadBuff[0] == 1)
   {
     sendResponse(1);
   } 
-  else if(recvReadBuff[0] == 1)
+  else if(recvReadBuff[0] == 2)
   {
+    sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
+    writeVariableValue(outputWriteBuff, recvReadBuff[2]);
     sendResponse(2);
   }
 }
@@ -187,7 +194,7 @@ void sendResponse(int reqId)
   
     n = send(newsockfd, sendWriteBuff, 28, 0);
     memset(sendWriteBuff, 0, 28);
-    printf("RESPONSE SENT reqId:%d\n", reqId);
+    //printf("RESPONSE SENT reqId:%d\n", reqId);
 
   }
   else if(reqId == 2)
@@ -203,16 +210,10 @@ void sendResponse(int reqId)
    
     n = send(newsockfd, sendReadBuff, 28, 0);
     memset(sendReadBuff, 0, 28);
-    printf("RESPONSE SENT reqId:%d\n", reqId);
+    //printf("RESPONSE SENT reqId:%d\n", reqId);
 
-    
-    sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
-    printf("recvbuff1:%d\n", recvReadBuff[1]); 
-    printf("recvbuff2:%d\n", recvReadBuff[2]); 
-    
-    writeVariableValue(outputWriteBuff, recvReadBuff[2]);
-    
-  }
+   
+  }/*
   printf("O_1:%d\n",readVariableValue("O_1"));
   printf("O_2:%d\n",readVariableValue("O_2"));
   printf("O_3:%d\n",readVariableValue("O_3"));
@@ -225,7 +226,7 @@ void sendResponse(int reqId)
   printf("O_10:%d\n",readVariableValue("O_10"));
   printf("O_11:%d\n",readVariableValue("O_11"));
   printf("O_12:%d\n",readVariableValue("O_12"));
-  printf("O_13:%d\n",readVariableValue("O_13"));
+  printf("O_13:%d\n",readVariableValue("O_13"));*/
 }
 
 

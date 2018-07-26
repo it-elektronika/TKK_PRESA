@@ -949,45 +949,13 @@ void outputButton(int x, int y, int w, int h, int id)
   {
     if(outputs[id] == 0)
     {
-      int * sendWrite0 = (int*)(&sendWriteBuff[0]);
-      int * sendWrite1 = (int*)(&sendWriteBuff[1]);
-      int * sendWrite2 = (int*)(&sendWriteBuff[2]);
-  
-      * sendWrite0 = 2;
-      * sendWrite1 = id+1;
-      * sendWrite2 = 1;  
- 
-      n = send(sockfd,sendWriteBuff, 3, 0); /* send read request */
-      printf("DATA SENT\n");
-      if(n < 0)
-      {
-        error("ERROR writing to socket");
-      }
-      memset(recvWriteBuff, 0, 256);
-      //n = recv(sockfd, recvWriteBuff, 1, 0); /* recieve read data */
-      readLine(sockfd, recvWriteBuff, 1);     
-      printf("DATA RECEIVED\n");
+      sendRequest(2,0);
+      receieveResponse(); 
     }
     else
     {
-      int * sendWrite0 = (int*)(&sendWriteBuff[0]);
-      int * sendWrite1 = (int*)(&sendWriteBuff[1]);
-      int * sendWrite2 = (int*)(&sendWriteBuff[2]);
-
-      memset(sendWriteBuff, 0, 256);
-      * sendWrite0 = 2;
-      * sendWrite1 = id+1;
-      * sendWrite2 = 2;  
- 
-      n = send(sockfd,sendWriteBuff, 3, 0); /* send read request */
-
-      if(n < 0)
-      {
-        error("ERROR writing to socket");
-      }
-      memset(recvWriteBuff, 0, 256);
-      //n = recv(sockfd, recvWriteBuff, 1, 0); /* recieve read data */
-      readLine(sockfd, recvWriteBuff, 1);
+      sendRequest(2, 1);
+      receieveResponse();
     }
   }
 }

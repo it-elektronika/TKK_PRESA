@@ -36,7 +36,9 @@ int main()
   while(program == 1)
   {
     touchUpdate();
-    readVarTCP();
+    sendRequest(1, 0);
+    receieveResponse();
+
     renderBackground();
     renderStatusBar();
     renderContent();
@@ -100,39 +102,68 @@ void initCommTCP()
   }
 }
 
-void readVarTCP()
+void sendRequest(int reqId, int outputId)
 {
-  int i;
-  int * sendRead0 = (int*)(&sendReadBuff[0]);
-  memset(sendReadBuff, 0, 256);
+  /* READ VARIABLES */
+  if(reqId == 1)  
+  {
+    int * sendRead0 = (int*)(&sendReadBuff[0]);
+    memset(sendReadBuff, 0, 256);
  
-  * sendRead0 = 1;  /* 1 - read data */
+    * sendRead0 = 1;  
+    n = send(sockfd,sendReadBuff, 1, 0);  
+    memset(sendReadBuff, 0, 1);
+  }
+  /* WRITE OUTPUT VARIABLES */
+  else
+  {
+    if(outputId == 0)
+    {
+      int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+      int * sendWrite1 = (int*)(&sendWriteBuff[1]);
+      int * sendWrite2 = (int*)(&sendWriteBuff[2]);
   
-  n = send(sockfd,sendReadBuff, 1, 0); /* send read request */
-
-  if(n < 0)
-  {
-    error("ERROR writing to socket");
-  }
-  memset(recvReadBuff, 0, 256);
-  //n = recv(sockfd, recvReadBuff, 28, 0); /* recieve read data */
-  readLine(sockfd, recvReadBuff, 28);
-  if (n < 0)
-  {
-    error("ERROR reading from socket");
-  }
+      * sendWrite0 = 2;
+      * sendWrite1 = id+1;
+      * sendWrite2 = 1;  
+      n = send(sockfd,sendWriteBuff, 3, 0); 
+      memset(sendWriteBuff, 0, 3);
+    }
+    else
+    {
+      int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+      int * sendWrite1 = (int*)(&sendWriteBuff[1]);
+      int * sendWrite2 = (int*)(&sendWriteBuff[2]);
   
-  for(i=0; i < 14; i++)
-  {
-    sprintf(inputs[i],"%d\n", recvReadBuff[i]);
-    printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
-  }
-  for(i=0; i < 14; i++)
-  {
-    sprintf(outputs[i],"%d\n", recvReadBuff[i+14]);
-    printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
+      * sendWrite0 = 2;
+      * sendWrite1 = id+1;
+      * sendWrite2 = 0;  
+      n = send(sockfd,sendWriteBuff, 3, 0); 
+      memset(sendWriteBuff, 0, 3);
+    }
   }
 }
+
+void receieveResponse()
+{
+  int i;
+  readLine(sockfd, recvReadBuff, 28);
+  if(recvReadBuff[0] != 2)
+  {
+    for(i=0; i < 14; i++)
+    {
+      sprintf(inputs[i],"%d\n", recvReadBuff[i]);
+      printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
+    }
+    for(i=0; i < 14; i++)
+    {
+      sprintf(outputs[i],"%d\n", recvReadBuff[i+14]);
+      printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
+    }
+  }
+  memset(recvReadBuff, 0, 28);
+}
+
 
 void readLine(int fd, char data[], size_t maxlen)
 {

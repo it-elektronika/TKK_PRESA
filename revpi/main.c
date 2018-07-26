@@ -226,8 +226,9 @@ void readOutVar()
     
     writeVariableValue(outputWriteBuff, recvReadBuff[2]);
     memset(recvReadBuff, 0, 256);
+
+    memset(sendReadBuff, 0, 256);
+    * sendRead0 = 1;
+    n = send(newsockfd, sendReadBuff, 1, 0);
   }
-  memset(sendReadBuff, 0, 256);
-  * sendRead0 = 1;
-  n = send(newsockfd, sendReadBuff, 1, 0);
 }

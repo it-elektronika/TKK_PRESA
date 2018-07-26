@@ -117,6 +117,10 @@ char ibufEd[17];
 char modifierBuff[20];
 int modifier;
 
+
+void readLine(int fd, char data[], size_t maxlen);
+
+
 void initCommTCP();
 void initCommAKDPress();
 void initMain();

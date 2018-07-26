@@ -17,7 +17,7 @@ void initServer();
 void initMain();
 void sendReadVar();
 void readOutVar();
-
+void readLine(int fd, char data[], size_t len);
 void error(const char *msg)
 {
     perror(msg);
@@ -231,4 +231,25 @@ void readOutVar()
     * sendRead0 = 1;
     n = send(newsockfd, sendReadBuff, 1, 0);
   }
+}
+
+void readLine(int fd, char data[], size_t maxlen)
+{
+   size_t len = 0;
+   while (len < maxlen)
+   {
+      char c;
+      int ret = recv(fd, &c, 1, 0);
+      if (ret < 0)
+      {
+          data[len] = 0;
+          //return len; // EOF reached
+      }
+      if (c == '\n')
+      {
+          data[len] = 0;
+          //return len; // EOF reached
+      }
+      data[len++] = c;
+   }
 }

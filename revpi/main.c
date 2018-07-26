@@ -99,6 +99,7 @@ void readLine(int fd, char data[], size_t maxlen)
 
 void receiveRequest()
 {
+  printf("RECEIVING REQUEST\n");
   readLine(newsockfd, recvReadBuff, 3);
   printf("REQUEST RECEIVED\n");
   if(recvReadBuff[0] == 1)

@@ -149,6 +149,7 @@ void sendRequest(int reqId, int outputId)
 void receiveResponse()
 {
   int i;
+  printf("RECEIVING RESPONSE\n");
   readLine(sockfd, recvReadBuff, 28);
   printf("RESPONSE RECEIVED\n");
   if(recvReadBuff[0] != 2)

@@ -107,16 +107,17 @@ void receiveRequest()
   n = recv(newsockfd, recvReadBuff, 28, 0);
   //readLine(newsockfd, recvReadBuff, 28);
   //printf("REQUEST RECEIVED\n");
-  for(i = 0; i < 28; ++i)
-  {
-    printf("recvReadBuff_%d:%d\n",i, recvReadBuff[i]); 
-  }
+  
   if(recvReadBuff[0] == 1)
   {
     sendResponse(1);
   } 
   else if(recvReadBuff[0] == 2)
   {
+    for(i = 0; i < 28; ++i)
+    {
+      printf("recvReadBuff_%d:%d\n",i, recvReadBuff[i]); 
+    }
     sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
     writeVariableValue(outputWriteBuff, recvReadBuff[2]);
     sendResponse(2);

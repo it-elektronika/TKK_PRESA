@@ -65,7 +65,7 @@ void pageZero(int pageNum)  /* LANDING PAGE */
     }
     render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
-    for(i = 0; i < 10; i++)
+    for(i = 0; i < 10; ++i)
     {
       sprintf(buff_reg[i], "REG%d:%d", i, regs[i]);
       renderText(buff_reg[i], regularText, blackColor);
@@ -143,13 +143,13 @@ void pageThree(int pageNum)  /* I/O STATUS */
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 10);
     
-    for(i = 0; i < 5; i++)
+    for(i = 0; i < 5; ++i)
     {
       SDL_RenderDrawLine(renderer, 1200+i, 75, 1200+i, 800);
       SDL_RenderDrawLine(renderer, 1200, 180+i, 1280, 180+i);
       SDL_RenderDrawLine(renderer, 1200, 700+i, 1280, 700+i);
     }
-    for(i = 0; i < 14; i++)
+    for(i = 0; i < 14; ++i)
     {
       if((y + modY >= 100))
       {
@@ -165,7 +165,7 @@ void pageThree(int pageNum)  /* I/O STATUS */
         sprintf(buff_inputs[i], "I_%d:%s", i+1, inputs[i]);
         renderText(buff_inputs[i], regularText, blackColor);
         render(30, y+modY, NULL, 0.0, NULL, SDL_FLIP_NONE);
-        outputButton(300, y+modY, 50, 50, i);
+        outputButton(300, y+modY, 100, 50, i);
       }
       y = y + 70;
     }
@@ -197,16 +197,16 @@ void pageFour(int pageNum)  /* DIAGNOSTICS */
     renderText(stepCounter, regularText, blackColor);
     render(430, 230, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
-    for(i = 0; i < 10; i++)
+    for(i = 0; i < 10; ++i)
     {
       SDL_RenderDrawLine(renderer, 0, 400+i, 1280, 400+i);
     }
-    for(i = 0; i < 5; i++)
+    for(i = 0; i < 5; ++i)
     {
       SDL_RenderDrawLine(renderer, 0, 450+i, 1280, 450+i);
     }
 
-    for(i = 0; i < 10; i++)
+    for(i = 0; i < 10; ++i)
     {
       SDL_RenderDrawLine(renderer, 640+i, 400, 640+i, 800);
     }

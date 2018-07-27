@@ -136,7 +136,7 @@ void sendRequest(int reqId, int outputId, int id)
       memset(sendWriteBuff, 0, 28);
       ///printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
-    else if(outputId == 0)
+    else if(outputId == 1)
     {
       int * sendWrite0 = (int*)(&sendWriteBuff[0]);
       int * sendWrite1 = (int*)(&sendWriteBuff[1]);
@@ -165,14 +165,14 @@ void receiveResponse()
   //printf("RESPONSE RECEIVED\n");
   if(recvReadBuff[0] != 2)
   {
-    for(i=0; i < 14; i++)
+    for(i=0; i < 14; ++i)
     {
-      sprintf(inputs[i],"%d\0\n", recvReadBuff[i]);
+      sprintf(inputs[i], "%d\0\n", recvReadBuff[i]);
       //printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
     }
-    for(i=0; i < 14; i++)
+    for(i=0; i < 14; ++i)
     {
-      sprintf(outputs[i],"%d\0\n", recvReadBuff[i+14]);
+      sprintf(outputs[i], "%d\0\n", recvReadBuff[i+14]);
       //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
   }
@@ -205,7 +205,6 @@ void readLine(int fd, char data[], size_t maxlen)
 void initMain()
 {
   int i;
-  touched = 0;
   backgroundColor = 1;
   page = 6;
   sbarText = 6;
@@ -223,7 +222,7 @@ void initMain()
   day = 1;
   hour = 0;
   minute = 0;
-
+  memset(regs, 0, 10);
   int * clear1 =  (int*)(&obufCl[0]);
   int * clear2 =  (int*)(&obufCl[2]);
   int * clear3 =  (int*)(&obufCl[4]);
@@ -475,3 +474,18 @@ void error(const char *msg)
   exit(1);
 }
 
+void timer(float measure) /* CASOVNI ZAMIK */
+{
+  struct timespec start, stop;
+  double accum;
+    
+  clock_gettime(CLOCK_REALTIME, &start);    
+  while(accum < measure)
+  {
+    clock_gettime(CLOCK_REALTIME, &stop);
+
+    accum = ( stop.tv_sec - start.tv_sec )
+     + ( stop.tv_nsec - start.tv_nsec )
+     / BILLION;
+  }
+}

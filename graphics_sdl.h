@@ -9,7 +9,7 @@ int program;
 int sbarText;
 int page;
 
-int page_stage[3];
+int page_stage[13];
 int curr_page;
 
 int backgroundColor;

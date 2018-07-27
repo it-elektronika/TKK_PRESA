@@ -3,6 +3,8 @@
 #include <SDL2/SDL_image.h>
 #include "graphics_sdl.h"
 #include "main.h"
+#include <unistd.h>
+#include <time.h>
 void error(const char *msg);
 
 
@@ -178,7 +180,7 @@ void renderStatusBar()
   x3_2 = 0;
   y3_2 = 80;
  
-  for(i = 0; i < 10; i++)
+  for(i = 0; i < 10; ++i)
   {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderDrawLine(renderer, x1_1, y1_1+i, x1_2, y1_2+i);
@@ -413,7 +415,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
   SDL_RenderDrawLine(renderer, x, (y+h), x, y);
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
-    for(i = 0; i < 10; i++)
+    for(i = 0; i < 10; ++i)
     {
       SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
       SDL_RenderDrawLine(renderer, x, y+i, (x+w), y+i);
@@ -870,7 +872,7 @@ void button(int x, int y, int w, int h, char *text, int id)
   }
   else if(selected[id]==1)
   {
-    for(i = 0; i < 10; i++)
+    for(i = 0; i < 10; ++i)
     {
       SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
       SDL_RenderDrawLine(renderer, x, y+i, (x+w), y+i);
@@ -957,11 +959,9 @@ void outputButton(int x, int y, int w, int h, int id)
     {
       sendRequest(2, 0, id);
       receiveResponse();
-      printf("00000000000000000000\n");
     }
     else if(strcmp(outputs[id], "1") == 0)
     {
-      printf("1111111111111111111111\n");
       sendRequest(2, 1, id);
       receiveResponse();
     }
@@ -969,7 +969,7 @@ void outputButton(int x, int y, int w, int h, int id)
   else
   {
     sendRequest(1,0, id);
-    receiveResponse(); 
+    receiveResponse();
   }
 }
 

@@ -1320,6 +1320,7 @@ void savePos(int x, int y, int w, int h)
     fprintf(fp_first_pos, "%d\n", firstPosSmall);
     fprintf(fp_first_pos, "%d\n", firstPosMedium);
     fprintf(fp_first_pos, "%d\n", firstPosBig);
+    fprintf(fp_first_pos, "%d\n", firstPosSmall2);
   }
   renderText("SAVE", smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 

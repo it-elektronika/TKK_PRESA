@@ -41,6 +41,13 @@ void pageZero(int pageNum)  /* LANDING PAGE */
           selected[1]=0;
           selected[2]=1;  
         }
+        else if(atoi(line) == 3)
+        {
+          selected[0]=0;
+          selected[1]=0;
+          selected[2]=0;
+          selected[3]=1;  
+        }
       }
     }
     fclose(fp_can_size);

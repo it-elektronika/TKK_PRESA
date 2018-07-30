@@ -465,7 +465,6 @@ void initMain()
       firstPosSmall2 = atoi(line);
     }
   }
- 
 }
 
 void error(const char *msg)

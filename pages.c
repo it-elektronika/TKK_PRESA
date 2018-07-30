@@ -109,7 +109,7 @@ void pageOne(int pageNum) /* MAIN MENU */
 
 void pageTwo(int pageNum) /* CAN SIZE SELECTION */
 {
-  if(page_stage[pageNum] == 0)
+ if(page_stage[pageNum] == 0)
   {
     page_stage[pageNum] = 1;
   }
@@ -473,9 +473,9 @@ void pageEleven(int pageNum)
     render(30, 630, NULL, 0.0, NULL, SDL_FLIP_NONE);
  
     renderText("1.", smallText, blackColor);
-    render(220, 100, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(265, 100, NULL, 0.0, NULL, SDL_FLIP_NONE);
     renderText("2.", smallText, blackColor);
-    render(450, 100, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(465, 100, NULL, 0.0, NULL, SDL_FLIP_NONE);
  
 
     posButton(200, 150, 150, 100, "", firstPosSmall);
@@ -495,8 +495,8 @@ void pageEleven(int pageNum)
     renderText(posManBuff, smallText, blackColor);
     render(800, 210, NULL, 0.0, NULL, SDL_FLIP_NONE);
   
-    up_button(1100, 200, &posMan, 1, 150);
-    down_button(1200, 200, &posMan, 1, 0);
+    up_button(1075, 200, &posMan, 1, 150);
+    down_button(1150, 200, &posMan, 1, 0);
 
     enableButton(800, 400, 200, 100);
     disableButton(1000, 400, 200, 100);
@@ -508,8 +508,6 @@ void pageEleven(int pageNum)
     page_stage[pageNum] = 0;
   }
 }
-
-
 
 void pageTwelve(int pageNum)
 {

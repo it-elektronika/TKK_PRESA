@@ -45,14 +45,11 @@ int main()
   {
     printf("MAIN LOOP\n");
     touchUpdate();
- 
-    //sendRequest(1, 0);
     renderBackground();
     renderStatusBar();
     renderContent();
     SDL_RenderPresent(renderer);
     cycle++;
-    //receiveResponse();
   }
   return 0;
 }
@@ -128,7 +125,7 @@ void sendRequest(int reqId, int outputId, int id)
       * sendWrite2 = 1;  
       n = send(sockfd,sendWriteBuff, 28, 0); 
       memset(sendWriteBuff, 0, 28);
-      ///printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
+      //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
     else if(outputId == 1)
     {

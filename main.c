@@ -471,7 +471,7 @@ void initMain()
 void error(const char *msg)
 {
   perror(msg);
-  exit(1);
+  /*exit(1);*/
 }
 
 void timer(float measure) /* CASOVNI ZAMIK */

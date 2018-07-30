@@ -22,8 +22,6 @@ int main()
   /* connecting to DRIVEs */
   while(connectiOn == 0)
   {
-    printf("connPresa[0]:%d\n", conn_presa);
-    printf("connHmi[1]:%d\n", conn_hmi);
     renderBackground();
     renderStatusBar();
     renderContent();
@@ -73,7 +71,7 @@ void initCommAKDPress()
   {   
     error("ERROR connecting");
   }
-
+  printf("connPresa[0]:%d\n", conn_presa);
 }  
 
 void initCommTCP()
@@ -93,7 +91,7 @@ void initCommTCP()
   {   
     error("ERROR connecting");
   }
-  
+  printf("connHmi[1]:%d\n", conn_hmi);
 }
 
 void sendRequest(int reqId, int outputId, int id)
@@ -447,7 +445,7 @@ void initMain()
   fp_first_pos = fopen("/home/luka/TKK_PRESA_/data/first_pos.txt", "r");
   #endif
 
-  for(i = 0; i < 3; ++i)
+  for(i = 0; i < 4; ++i)
   {
     getline(&line, &len, fp_first_pos);
     if(i==0)
@@ -461,6 +459,10 @@ void initMain()
     else if(i==2)
     {
       firstPosBig = atoi(line);
+    }
+    else if(i==3)
+    {
+      firstPosSmall2 = atoi(line);
     }
   }
  

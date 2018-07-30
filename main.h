@@ -7,7 +7,8 @@
 #include <stdlib.h>
 #include <arpa/inet.h>
 #include <time.h>
-#define AKD_frame_posSmall 50
+#define AKD_frame_posSmall 30
+#define AKD_frame_posSmall2 50
 #define AKD_frame_posMedium 100
 #define AKD_frame_posBig 150
 #define lastStep 9
@@ -55,16 +56,28 @@ char stepCond[10][3][50];
 char stepName[10][50];
 int step;
 int posMan;
+int posUp;
+int posDown;
+
 char smallBuff[20];
+char small2Buff[20];
+
+
 char mediumBuff[20];
 char bigBuff[20];
 char posManBuff[20]; 
+char posUpBuff[30]; 
+char posDownBuff[30]; 
+
+
 
 int firstPosSmall;
+int firstPosSmall2;
 int firstPosMedium;
 int firstPosBig;
 
 int secondPosSmall;
+int secondPosSmall2;
 int secondPosMedium;
 int secondPosBig;
 

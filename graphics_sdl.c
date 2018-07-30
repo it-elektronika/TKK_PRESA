@@ -239,7 +239,7 @@ void renderStatusBar()
       break;
 
     case 12:
-      renderText("NAPAKA -", regularText, blackColor);
+      renderText("UREJEVALNIK", regularText, blackColor);
       break;
   
     case 13: 
@@ -361,6 +361,13 @@ void renderContent()
       backgroundColor = 1;
       sbarText = 11;
       break;
+   
+    case 12:
+      pageTwelve(12);
+      backgroundColor = 1;
+      sbarText = 12;
+      break;
+  
   }
   oldtimestamp=timestamp;
   cycleCounter++;
@@ -491,7 +498,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       transId++;
 
       * moveTask1Next = transId;
-      * moveTask9Next = htonl(2000); /* starting task */                 
+      * moveTask9Next = htonl(2000);                 
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
@@ -503,7 +510,6 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       conn_presa = select(32, &fds, NULL, NULL, &tv);
       conn_presa = recv(s, ibufMTN, 50 , 0);
       transId++;
-
 
       * drvSave1 = transId;
       FD_ZERO(&fds);
@@ -672,6 +678,82 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       transId++;
 
       fprintf(fp_can_size, "%d\n", 2);
+    }    
+    else if(selected[3]) /* added last small2 */
+    {
+      * clear1 = transId;
+      * clear9 = 8;      
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_presa = select(32, NULL, &fds, NULL, &tv);
+      conn_presa = send(s, obufCl, 17, 0);
+      printf("Message Sent! - clear position - small\n");
+      FD_SET(s, &fds);
+      conn_presa = select(32, &fds, NULL, NULL, &tv);
+      conn_presa = recv(s, ibufCl, 50 , 0);
+      transId++;
+            
+      * posOneB1 = transId;       
+      * posOneB9 = 8;       
+      * posOneB10 = htonl((AKD_frame_posSmall2+modifier)*1000);
+      secondPosSmall2 = AKD_frame_posSmall2+modifier;
+      
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_presa = select(32, NULL, &fds, NULL, &tv);
+      conn_presa = send(s, obufOneB, 53, 0);
+      printf("Message Sent! - position parameter - small\n");
+      FD_SET(s, &fds);
+      conn_presa = select(32, &fds, NULL, NULL, &tv);
+      conn_presa = recv(s, ibufOneB, 50 , 0);
+      transId++;
+      
+      * moveTask1 = transId;
+      * moveTask9 = htonl(7000); /* starting task */                 
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_presa = select(32, NULL, &fds, NULL, &tv);
+      conn_presa = send(s, obufMT, 17, 0);
+      printf("Message Sent! - start task - small\n");
+      FD_SET(s, &fds);
+      conn_presa = select(32, &fds, NULL, NULL, &tv);
+      conn_presa = recv(s, ibufMT, 50 , 0);
+      transId++;
+
+      * moveTask1Next = transId;
+      * moveTask9Next = htonl(8000); /* starting task */                 
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_presa = select(32, NULL, &fds, NULL, &tv);
+      conn_presa = send(s, obufMTN, 17, 0);
+      printf("Message Sent! - start task - small\n");
+      FD_SET(s, &fds);
+      conn_presa = select(32, &fds, NULL, NULL, &tv);
+      conn_presa = recv(s, ibufMTN, 50 , 0);
+      transId++;
+
+      * drvSave1 = transId;
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_presa = select(32, NULL, &fds, NULL, &tv);
+      conn_presa = send(s, obufDS, 17, 0);
+      printf("Message Sent! - save to drive - small\n");
+      FD_SET(s, &fds);
+      conn_presa = select(32, &fds, NULL, NULL, &tv);
+      conn_presa = recv(s, ibufDS, 50 , 0);
+      transId++;
+
+      fprintf(fp_can_size, "%d\n", 3);
     }
     fclose(fp_can_size);
 
@@ -888,6 +970,7 @@ void button(int x, int y, int w, int h, char *text, int id)
     selected[0] = 0;
     selected[1] = 0;
     selected[2] = 0;
+    selected[3] = 0;
     selected[id] = 1;
   }
 }
@@ -1093,6 +1176,50 @@ void savePos(int x, int y, int w, int h)
     conn_presa = select(32, &fds, NULL, NULL, &tv);
     conn_presa = recv(s, ibufDS, 50 , 0);
     transId++;
+ 
+    /* small 2 */
+    * firstClear1 = transId;
+    * firstClear9 = 7;      
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufClFirst, 17, 0);
+    printf("Message Sent! - clear position - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufClFirst, 50 , 0);
+    transId++;
+	  
+    * posOneA1 = transId;       
+    * posOneA9 = 7;       
+    * posOneA10 = htonl((firstPosSmall2)*1000);
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufOneA, 53, 0);
+    printf("Message Sent! - position parameter - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufOneA, 50 , 0);
+    transId++;
+       
+    * drvSave1 = transId;
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufDS, 17, 0);
+    printf("Message Sent! - save to drive - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufDS, 50 , 0);
+    transId++;
+
 
     /* medium */
 
@@ -1334,9 +1461,9 @@ void startButton(int x, int y, int w, int h)
     int * posOneA15 = (int*)(&obufOneA[40]);
     int * drvSave1 = (int*)(&obufDS[0]);
    
-    /* small */
+    
     * firstClear1 = transId;
-    * firstClear9 = 7;      
+    * firstClear9 = 9;      
     FD_ZERO(&fds);
     tv.tv_sec = 0;
     tv.tv_usec = 0;
@@ -1350,7 +1477,7 @@ void startButton(int x, int y, int w, int h)
     transId++;
 	  
     * posOneA1 = transId;       
-    * posOneA9 = 7;       
+    * posOneA9 = 9;       
     * posOneA10 = htonl((posMan)*1000);
     * posOneA15 = 100;
     FD_ZERO(&fds);
@@ -1396,7 +1523,7 @@ void startButton(int x, int y, int w, int h)
     * intloc6_ed = htons(544);
     * intloc7_ed = htons(2);
     * intloc8_ed = 4;
-    * intloc9_ed = htonl(7);
+    * intloc9_ed = htonl(9);
             
     FD_ZERO(&fds);
     tv.tv_sec = 0;
@@ -1409,7 +1536,5 @@ void startButton(int x, int y, int w, int h)
     x = select(32, &fds, NULL, NULL, &tv);
     x = recv(s, ibufEd, 50 , 0);
     transId++;        
-            
-    printf("Drive Disabled\n" );
   }
 }

@@ -89,9 +89,10 @@ void pageOne(int pageNum) /* MAIN MENU */
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 0);
     goToButton(30, 200, 350, 100, "IZBIRA DOZE", pageNum, 2);
-    goToButton(30, 400, 500, 100, "ROCNO NASTAVLJANJE", pageNum, 10);
-    goToButton(30, 600, 350, 100, "DIAGNOSTIKA", pageNum, 4);
-    
+    goToButton(30, 350, 500, 100, "ROCNO NASTAVLJANJE", pageNum, 10);
+    goToButton(30, 500, 350, 100, "DIAGNOSTIKA", pageNum, 4);
+    goToButton(30, 650, 350, 100, "UREJEVALNIK", pageNum, 12);
+ 
   }
   else if(page_stage[pageNum] == 2)
   {
@@ -108,19 +109,20 @@ void pageTwo(int pageNum) /* CAN SIZE SELECTION */
   if(page_stage[pageNum] == 1)
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 1);
-    button(30, 200, 200, 100, "MALA", 0);
-    button(30, 400, 200, 100, "SREDNJA", 1);
+    button(30, 150, 200, 100, "MALA", 0);
+    button(30, 300, 200, 100, "MALA2", 3);
+    button(30, 450, 200, 100, "SREDNJA", 1);
     button(30, 600, 200, 100, "VELIKA", 2);
 
     renderText("POPRAVEK:", smallText, blackColor);
-    render(400, 220, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(400, 180, NULL, 0.0, NULL, SDL_FLIP_NONE);
    
     sprintf(modifierBuff, "%d mm", modifier);
     renderText(modifierBuff, smallText, blackColor);
-    render(650, 220, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(650, 180, NULL, 0.0, NULL, SDL_FLIP_NONE);
     
-    up_button(800, 210, &modifier, 1, 5);
-    down_button(900, 210, &modifier, 1, -5);
+    up_button(800,180, &modifier, 1, 5);
+    down_button(900, 180, &modifier, 1, -5);
 
     saveButton(400, 600, 200, 100, "SHRANI");
   }
@@ -394,23 +396,27 @@ void pageNine(int pageNum)  /* ERROR */
     
     sprintf(smallBuff, "MALA:%d mm", firstPosSmall);
     renderText(smallBuff, smallText, blackColor);
-    render(30, 220, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 220, &firstPosSmall, 1, 100);
-    down_button(700, 220, &firstPosSmall, 1, 0);
+    render(30, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(500, 200, &firstPosSmall, 1, 100);
+    down_button(700, 200, &firstPosSmall, 1, 0);
 
- 
+    sprintf(smallBuff, "MALA2:%d mm", firstPosSmall2);
+    renderText(smallBuff, smallText, blackColor);
+    render(30, 300, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(500, 300, &firstPosSmall2, 1, 100);
+    down_button(700, 300, &firstPosSmall2, 1, 0);
+
     sprintf(smallBuff, "SREDNJA:%d mm", firstPosMedium);
     renderText(smallBuff, smallText, blackColor);
-    render(30, 320, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 320, &firstPosMedium, 1, 100);
-    down_button(700, 320, &firstPosMedium, 1, 0);
-
+    render(30, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(500, 400, &firstPosMedium, 1, 100);
+    down_button(700, 400, &firstPosMedium, 1, 0);
 
     sprintf(smallBuff, "VELIKA:%d mm", firstPosBig);
     renderText(smallBuff, smallText, blackColor);
-    render(30, 420, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 420, &firstPosBig, 1, 100);
-    down_button(700, 420, &firstPosBig, 1, 0);
+    render(30, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(500, 500, &firstPosBig, 1, 100);
+    down_button(700, 500, &firstPosBig, 1, 0);
 
     savePos(30, 600, 200, 100);
   }
@@ -451,24 +457,30 @@ void pageEleven(int pageNum)
     renderAdmin(1200, 0, 80, 80, pageNum, 10);
     
     renderText("MALA", smallText, blackColor);
-    render(30, 230, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(30, 180, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    renderText("MALA2", smallText, blackColor);
+    render(30, 330, NULL, 0.0, NULL, SDL_FLIP_NONE);
     renderText("SREDNJA", smallText, blackColor);
-    render(30, 430, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(30, 480, NULL, 0.0, NULL, SDL_FLIP_NONE);
     renderText("VELIKA", smallText, blackColor);
     render(30, 630, NULL, 0.0, NULL, SDL_FLIP_NONE);
  
     renderText("1.", smallText, blackColor);
-    render(220, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(220, 100, NULL, 0.0, NULL, SDL_FLIP_NONE);
     renderText("2.", smallText, blackColor);
-    render(450, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(450, 100, NULL, 0.0, NULL, SDL_FLIP_NONE);
  
 
-    posButton(200, 200, 150, 100, "", firstPosSmall);
-    posButton(200, 400, 150, 100, "", firstPosMedium);
+    posButton(200, 150, 150, 100, "", firstPosSmall);
+    posButton(200, 300, 150, 100, "", firstPosSmall2);
+   
+    posButton(200, 450, 150, 100, "", firstPosMedium);
     posButton(200, 600, 150, 100, "", firstPosBig);
   
-    posButton(400, 200, 150, 100, "", secondPosSmall);
-    posButton(400, 400, 150, 100, "", secondPosMedium);
+    posButton(400, 150, 150, 100, "", secondPosSmall);
+    posButton(400, 300, 150, 100, "", secondPosSmall2);
+   
+    posButton(400, 450, 150, 100, "", secondPosMedium);
     posButton(400, 600, 150, 100, "", secondPosBig);
    
    
@@ -483,6 +495,37 @@ void pageEleven(int pageNum)
     disableButton(1000, 400, 200, 100);
     
     startButton(800, 600, 200, 100);
+  }
+  else if(page_stage[pageNum] == 2)
+  {
+    page_stage[pageNum] = 0;
+  }
+}
+
+
+
+void pageTwelve(int pageNum)
+{
+  if(page_stage[pageNum] == 0)
+  {
+    page_stage[pageNum] = 1;
+  }
+  else if(page_stage[pageNum] == 1)
+  {
+    renderAdmin(1200, 0, 80, 80, pageNum, 1);
+    sprintf(posUpBuff, "ZGORNJA POZICIJA: %d mm", posUp);
+    renderText(posUpBuff, smallText, blackColor);
+    render(30, 160, NULL, 0.0, NULL, SDL_FLIP_NONE);
+  
+    up_button(600, 150, &posUp, 1, 150);
+    down_button(700, 150, &posUp, 1, 0);
+
+    sprintf(posDownBuff, "SPODNJA POZICIJA: %d mm", posDown);
+    renderText(posDownBuff, smallText, blackColor);
+    render(30, 260, NULL, 0.0, NULL, SDL_FLIP_NONE);
+  
+    up_button(600, 250, &posDown, 1, 150);
+    down_button(700, 250, &posDown, 1, 0);
   }
   else if(page_stage[pageNum] == 2)
   {

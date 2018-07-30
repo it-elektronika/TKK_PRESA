@@ -8,6 +8,7 @@ void initMain();
 void initCommAKDPress();
 void initCommTCP();
 void readVarTCP();
+void checkConn();
 void error(const char *msg);
 
 int main()
@@ -21,19 +22,30 @@ int main()
   /* connecting to DRIVEs */
   while(connectiOn == 0)
   {
+    printf("connPresa[0]:%d\n", conn_presa);
+    printf("connHmi[1]:%d\n", conn_hmi);
     renderBackground();
     renderStatusBar();
     renderContent();
     SDL_RenderPresent(renderer);
     cycle++;
-    initCommAKDPress();
-    initCommTCP();
+    if(conn_presa != 0)
+    {
+      initCommAKDPress();
+    }
+    if(conn_hmi != 0)
+    {
+      initCommTCP();
+    }
+    checkConn();
+    sleep(3);
     touchUpdate();
   } 
   
   /* main program loop */
   while(program == 1)
   {
+    printf("MAIN LOOP\n");
     touchUpdate();
  
     //sendRequest(1, 0);
@@ -56,23 +68,13 @@ void initCommAKDPress()
   server.sin_port = htons(502);
   server.sin_addr.s_addr = inet_addr(ip_adrs);
   printf("connecting to press drive\n");
-  conn = connect(s, (struct sockaddr *)&server, sizeof(struct sockaddr_in));
-  if(conn == -1)
-  {
-    backgroundColor = 2;
-    sbarText = 7; 
-    page = 7;
-    connectiOn = -1; 
+  conn_presa = connect(s, (struct sockaddr *)&server, sizeof(struct sockaddr_in));
+  if (conn_hmi < 0) 
+  {   
+    error("ERROR connecting");
   }
-  else
-  {
-    connectiOn = 1; 
-    page_stage[6] = 0;
-    page = 0;
-  }
-  printf("%d\n", conn);
-  sleep(3);
-}
+
+}  
 
 void initCommTCP()
 {
@@ -86,18 +88,12 @@ void initCommTCP()
     error("ERROR opening socket");
   }
  
-  if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(struct sockaddr_in)) < 0) 
+  conn_hmi = connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(struct sockaddr_in));
+  if (conn_hmi < 0) 
   {   
     error("ERROR connecting");
-    connectiOn = 0;
   }
-  else
-  {
-    if(connectiOn == 1)
-    {
-      connectiOn = 1;
-    }
-  }
+  
 }
 
 void sendRequest(int reqId, int outputId, int id)
@@ -205,6 +201,8 @@ void readLine(int fd, char data[], size_t maxlen)
 void initMain()
 {
   int i;
+  conn_presa = -99;
+  conn_hmi = -99;
   backgroundColor = 1;
   page = 6;
   sbarText = 6;
@@ -487,5 +485,23 @@ void timer(float measure) /* CASOVNI ZAMIK */
     accum = ( stop.tv_sec - start.tv_sec )
      + ( stop.tv_nsec - start.tv_nsec )
      / BILLION;
+  }
+}
+
+void checkConn()
+{
+  if(conn_presa == 0 && conn_hmi == 0)
+  {
+    connectiOn = 1;
+    page_stage[6] = 0;
+    page = 0;
+
+  }
+  else
+  {
+    backgroundColor = 2;
+    sbarText = 7; 
+    page = 7;
+    connectiOn = 0;
   }
 }

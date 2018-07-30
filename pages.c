@@ -317,7 +317,7 @@ void pageSeven(int pageNum) /* ERROR DRIVES */
   }
   else if(page_stage[pageNum] == 1)
   {
-    if(connectiOn)
+    if(conn_presa == 0)
     {
       renderText("DRIVE PRESA: OK", regularText, blackColor);
     }
@@ -326,7 +326,18 @@ void pageSeven(int pageNum) /* ERROR DRIVES */
       renderText("DRIVE PRESA: NOK", regularText, blackColor);
     }
     render(50, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
-
+    
+    if(conn_hmi == 0)
+    {
+      renderText("HMI: OK", regularText, blackColor);
+    }
+    else
+    {
+      renderText("HMI: NOK", regularText, blackColor);
+    }
+    render(50, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    
+/*
     if(connectiOn)
     {
       renderText("DRIVE OGRODJE: OK", regularText, blackColor);
@@ -344,7 +355,9 @@ void pageSeven(int pageNum) /* ERROR DRIVES */
     {
       renderText("DRIVE MIZA: NOK", regularText, blackColor);
     }
-    render(50, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(50, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);*/
+   
+
   }
   else if(page_stage[pageNum] == 2)
   {

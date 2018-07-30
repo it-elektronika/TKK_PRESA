@@ -25,8 +25,10 @@ fd_set fdsTCP;
 struct timeval tv;
 
 int connectiOn;
+char connStat[2][2];
 int n; 
-int conn;
+int conn_presa;
+int conn_hmi;
 int s;
 
 int moveTask;

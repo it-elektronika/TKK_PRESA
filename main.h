@@ -62,14 +62,11 @@ int posDown;
 char smallBuff[20];
 char small2Buff[20];
 
-
 char mediumBuff[20];
 char bigBuff[20];
 char posManBuff[20]; 
 char posUpBuff[30]; 
 char posDownBuff[30]; 
-
-
 
 int firstPosSmall;
 int firstPosSmall2;

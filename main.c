@@ -97,7 +97,7 @@ void sendRequest(int reqId, int outputId, int id)
   if(reqId == 1)  
   {
     int * sendRead0 = (int*)(&sendReadBuff[0]);
-    memset(sendReadBuff, 0, 28);
+    memset(sendReadBuff, 0, 29);
  
     * sendRead0 = 1;  
 
@@ -106,8 +106,8 @@ void sendRequest(int reqId, int outputId, int id)
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
-    n = send(sockfd,sendReadBuff, 28, 0);  
-    memset(sendReadBuff, 0, 28);
+    n = send(sockfd,sendReadBuff, 29, 0);  
+    memset(sendReadBuff, 0, 29);
     //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
 
   }
@@ -123,8 +123,8 @@ void sendRequest(int reqId, int outputId, int id)
       * sendWrite0 = 2;
       * sendWrite1 = id+1;
       * sendWrite2 = 1;  
-      n = send(sockfd,sendWriteBuff, 28, 0); 
-      memset(sendWriteBuff, 0, 28);
+      n = send(sockfd,sendWriteBuff, 29, 0); 
+      memset(sendWriteBuff, 0, 29);
       //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
     else if(outputId == 1)
@@ -136,7 +136,7 @@ void sendRequest(int reqId, int outputId, int id)
       * sendWrite0 = 2;
       * sendWrite1 = id+1;
       * sendWrite2 = 0;  
-      n = send(sockfd,sendWriteBuff, 28, 0); 
+      n = send(sockfd,sendWriteBuff, 29, 0); 
       memset(sendWriteBuff, 0, 3);
       //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
@@ -152,46 +152,27 @@ void receiveResponse()
     
 
   //readLine(sockfd, recvReadBuff, 28);
-  n = recv(sockfd, recvReadBuff, 28, 0);
+  n = recv(sockfd, recvReadBuff, 29, 0);
   //printf("RESPONSE RECEIVED\n");
-  if(recvReadBuff[0] != 2)
+  if(recvReadBuff[0] != 2 && recvReadBuff[0] != 3 && recvReadBuff[0] != 4)
   {
-    for(i=0; i < 14; ++i)
+    for(i=1; i < 15; ++i)
     {
       sprintf(inputs[i], "%d\0\n", recvReadBuff[i]);
       //printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
     }
-    for(i=0; i < 14; ++i)
+    for(i=1; i < 15; ++i)
     {
-      sprintf(outputs[i], "%d\0\n", recvReadBuff[i+14]);
+      sprintf(outputs[i], "%d\0\n", recvReadBuff[i+15]);
       //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
   }
-  memset(recvReadBuff, 0, 28);
+  else if(recvReadBuff[0] != 4)
+  {
+    step = recvReadBuff[1];
+  }
+  memset(recvReadBuff, 0, 29);
 }
-
-
-void readLine(int fd, char data[], size_t maxlen)
-{
-   size_t len = 0;
-   while (len < maxlen)
-   {
-      char c;
-      int ret = recv(fd, &c, 1, 0);
-      if (ret < 0)
-      {
-          data[len] = 0;
-          //return len; // EOF reached
-      }
-      if (c == '\n')
-      {
-          data[len] = 0;
-          //return len; // EOF reached
-      }
-      data[len++] = c;
-   }
-}
-
 
 void initMain()
 {

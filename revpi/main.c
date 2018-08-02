@@ -15,7 +15,7 @@
 
 void initServer();
 void initMain();
-void stepTree();
+void diagnostics();
 void receiveRequest();
 void sendResponse(int reqId);
 void error(const char *msg)
@@ -32,7 +32,7 @@ int main()
   while(program == 1)
   {
     receiveRequest();
-    stepTree();
+    diagnostics();
   }    
   close(newsockfd);
   close(sockfd);
@@ -83,8 +83,7 @@ void receiveRequest()
   //printf("RECEIVING REQUEST\n");
   FD_SET(newsockfd, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);
-  n = recv(newsockfd, recvReadBuff, 28, 0);
-  //readLine(newsockfd, recvReadBuff, 28);
+  n = recv(newsockfd, recvReadBuff, 29, 0);
   //printf("REQUEST RECEIVED\n");
   
   if(recvReadBuff[0] == 1)
@@ -93,7 +92,7 @@ void receiveRequest()
   } 
   else if(recvReadBuff[0] == 2)
   {
-    for(i = 0; i < 28; ++i)
+    for(i = 1; i < 29; ++i)
     {
       printf("recvReadBuff_%d:%d\n",i, recvReadBuff[i]); 
     }
@@ -101,6 +100,16 @@ void receiveRequest()
     writeVariableValue(outputWriteBuff, recvReadBuff[2]);
     sendResponse(2);
   }
+  else if(recvReadBuff[0] == 3)
+  {
+    step=1;
+    sendResponse(3);
+  }
+  else if(recvReadBuff[0] == 4)
+  {
+    sendResponse(4);
+  }
+  
 }
 
 
@@ -136,44 +145,45 @@ void sendResponse(int reqId)
     int * sendWrite25 = (int*)(&sendWriteBuff[25]);
     int * sendWrite26 = (int*)(&sendWriteBuff[26]);
     int * sendWrite27 = (int*)(&sendWriteBuff[27]);
+    int * sendWrite28 = (int*)(&sendWriteBuff[27]);
     
-    * sendWrite0 = readVariableValue("I_1");
-    * sendWrite1 = readVariableValue("I_2");
-    * sendWrite2 = readVariableValue("I_3");
-    * sendWrite3 = readVariableValue("I_4");
-    * sendWrite4 = readVariableValue("I_5");
-    * sendWrite5 = readVariableValue("I_6");
-    * sendWrite6 = readVariableValue("I_7");
-    * sendWrite7 = readVariableValue("I_8");
-    * sendWrite8 = readVariableValue("I_9");
-    * sendWrite9 = readVariableValue("I_10");
-    * sendWrite10 = readVariableValue("I_11");
-    * sendWrite11 = readVariableValue("I_12");
-    * sendWrite12 = readVariableValue("I_13");
-    * sendWrite13 = readVariableValue("I_14");
-    * sendWrite14 = readVariableValue("O_1");
-    * sendWrite15 = readVariableValue("O_2");
-    * sendWrite16 = readVariableValue("O_3");
-    * sendWrite17 = readVariableValue("O_4");
-    * sendWrite18 = readVariableValue("O_5");
-    * sendWrite19 = readVariableValue("O_6");
-    * sendWrite20 = readVariableValue("O_7");
-    * sendWrite21 = readVariableValue("O_8");
-    * sendWrite22 = readVariableValue("O_9");
-    * sendWrite23 = readVariableValue("O_10");
-    * sendWrite24 = readVariableValue("O_11");
-    * sendWrite25 = readVariableValue("O_12");
-    * sendWrite26 = readVariableValue("O_13");
-    * sendWrite27 = readVariableValue("O_14");
-   
+    * sendWrite0 = 1;
+    * sendWrite1 = readVariableValue("I_1");
+    * sendWrite2 = readVariableValue("I_2");
+    * sendWrite3 = readVariableValue("I_3");
+    * sendWrite4 = readVariableValue("I_4");
+    * sendWrite5 = readVariableValue("I_5");
+    * sendWrite6 = readVariableValue("I_6");
+    * sendWrite7 = readVariableValue("I_7");
+    * sendWrite8 = readVariableValue("I_8");
+    * sendWrite9 = readVariableValue("I_9");
+    * sendWrite10 = readVariableValue("I_10");
+    * sendWrite11 = readVariableValue("I_11");
+    * sendWrite12 = readVariableValue("I_12");
+    * sendWrite13 = readVariableValue("I_13");
+    * sendWrite14 = readVariableValue("I_14");
+    * sendWrite15 = readVariableValue("O_1");
+    * sendWrite16 = readVariableValue("O_2");
+    * sendWrite17 = readVariableValue("O_3");
+    * sendWrite18 = readVariableValue("O_4");
+    * sendWrite19 = readVariableValue("O_5");
+    * sendWrite20 = readVariableValue("O_6");
+    * sendWrite21 = readVariableValue("O_7");
+    * sendWrite22 = readVariableValue("O_8");
+    * sendWrite23 = readVariableValue("O_9");
+    * sendWrite24 = readVariableValue("O_10");
+    * sendWrite25 = readVariableValue("O_11");
+    * sendWrite26 = readVariableValue("O_12");
+    * sendWrite27 = readVariableValue("O_13");
+    * sendWrite28 = readVariableValue("O_14");
     FD_ZERO(&fdsTCP);
     tv.tv_sec = 0;
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
   
-    n = send(newsockfd, sendWriteBuff, 28, 0);
-    memset(sendWriteBuff, 0, 28);
+    n = send(newsockfd, sendWriteBuff, 29, 0);
+    memset(sendWriteBuff, 0, 29);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
 
   }
@@ -188,57 +198,93 @@ void sendResponse(int reqId)
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
    
-    n = send(newsockfd, sendReadBuff, 28, 0);
-    memset(sendReadBuff, 0, 28);
+    n = send(newsockfd, sendReadBuff, 29, 0);
+    memset(sendReadBuff, 0, 29);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
-
+  }
+  else if(reqId == 3)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 3;
+    
+    FD_ZERO(&fdsTCP);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    n = select(32, NULL, &fdsTCP, NULL, &tv); 
    
-  }/*
-  printf("O_1:%d\n",readVariableValue("O_1"));
-  printf("O_2:%d\n",readVariableValue("O_2"));
-  printf("O_3:%d\n",readVariableValue("O_3"));
-  printf("O_4:%d\n",readVariableValue("O_4"));
-  printf("O_5:%d\n",readVariableValue("O_5"));
-  printf("O_6:%d\n",readVariableValue("O_6"));
-  printf("O_7:%d\n",readVariableValue("O_7"));
-  printf("O_8:%d\n",readVariableValue("O_8"));
-  printf("O_9:%d\n",readVariableValue("O_9"));
-  printf("O_10:%d\n",readVariableValue("O_10"));
-  printf("O_11:%d\n",readVariableValue("O_11"));
-  printf("O_12:%d\n",readVariableValue("O_12"));
-  printf("O_13:%d\n",readVariableValue("O_13"));*/
+    n = send(newsockfd, sendWriteBuff, 29, 0);
+    memset(sendWriteBuff, 0, 29);
+    //printf("RESPONSE SENT reqId:%d\n", reqId);
+  }
+  
+  else if(reqId == 4)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = step;
+    
+    FD_ZERO(&fdsTCP);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    n = select(32, NULL, &fdsTCP, NULL, &tv); 
+   
+    n = send(newsockfd, sendWriteBuff, 29, 0);
+    memset(sendWriteBuff, 0, 29);
+    //printf("RESPONSE SENT reqId:%d\n", reqId);
+  }
 }
 
 
-void stepTree()
+void diagnostics()
 {
-  if(readVariableValue("I_7")==1)
-  {
-    if(step == 0)
-    {
-      step = 1;
-    }
-  }
   switch(step)
   {
     case 0:
-      
       break;
-    
+
     case 1:
       writeVariableValue("O_1", 1);
+      step = 2;
       break;
-    
+
     case 2:
-      writeVariableValue("0_10", 1);
-      writeVariableValue("0_10", 0);
-      writeVariableValue("0_9", 1);
-      writeVariableValue("0_9", 0);
+      writeVariableValue("O_10", 1);
+      step = 3;
       break;
     
     case 3:
+      if(readVariableValue("I_8")==1)
+      {
+        step = 4;
+      }
+      break;
+    case 4:
+      writeVariableValue("O_10", 0);
+      step = 5;
+      break;
+
+    case 5:
+      writeVariableValue("O_9", 1);
+      step = 6;
+      break;
+
+    case 6:
+      if(readVariableValue("I_8")==1)
+      {
+        step = 7;
+      }
+       break;
+
+    case 7:
+      writeVariableValue("O_9", 0);
+      step = 8;
+      break;
+   
+    case 8:
       writeVariableValue("O_1", 0);
       step = 0;
       break;
-  }
+   }
 }
+

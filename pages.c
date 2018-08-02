@@ -422,7 +422,7 @@ void pageNine(int pageNum)  /* ERROR */
     sprintf(smallBuff, "VELIKA:%d mm", firstPosBig);
     renderText(smallBuff, smallText, blackColor);
     render(30, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 500, &firstPosBig, 1, 100);
+    up_button(500, 500, &firstPosBig, 1, 170);
     down_button(700, 500, &firstPosBig, 1, 0);
 
     savePos(30, 600, 200, 100);

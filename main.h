@@ -10,7 +10,7 @@
 #define AKD_frame_posSmall 30
 #define AKD_frame_posSmall2 50
 #define AKD_frame_posMedium 100
-#define AKD_frame_posBig 150
+#define AKD_frame_posBig 167.2
 #define lastStep 9
 #define PORTNO 1500
 #define BILLION 1000000000L;

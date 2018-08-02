@@ -5,7 +5,7 @@ struct sockaddr_in serv_addr, cli_addr;
 
 fd_set fdsTCP;
 struct timeval tv;
-
+int step;
 
 int n;
 int program;

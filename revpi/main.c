@@ -15,7 +15,7 @@
 
 void initServer();
 void initMain();
-int readLine(int fd, char data[], size_t maxlen);
+void stepTree();
 void receiveRequest();
 void sendResponse(int reqId);
 void error(const char *msg)
@@ -32,6 +32,7 @@ int main()
   while(program == 1)
   {
     receiveRequest();
+    stepTree();
   }    
   close(newsockfd);
   close(sockfd);
@@ -74,29 +75,7 @@ void initMain()
   PiControlHandle_g = -1; 
 }
 
-int readLine(int fd, char data[], size_t maxlen)
-{
-   size_t len = 0;
-   while (len < (maxlen+1))
-   {
-     char c;
-     int ret = recv(fd, &c, 1, 0);
-     if (ret < 0)
-     {
-       printf("ret < 0\n");
-       data[len] = 0;
-       return len; // EOF reached
-     }
-     if (c == '\n')
-     {
-       printf("C=='\n'\n");
-       data[len] = 0;
-       return len; // EOF reached
-     }
-     data[len++] = c;
-     printf("LEN:%ld, DATA[%ld]:%d C:%c\n", len, len, data[len], c);
-   }
-}
+
 
 void receiveRequest()
 {
@@ -231,3 +210,35 @@ void sendResponse(int reqId)
 }
 
 
+void stepTree()
+{
+  if(readVariableValue("I_7")==1)
+  {
+    if(step == 0)
+    {
+      step = 1;
+    }
+  }
+  switch(step)
+  {
+    case 0:
+      
+      break;
+    
+    case 1:
+      writeVariableValue("O_1", 1);
+      break;
+    
+    case 2:
+      writeVariableValue("0_10", 1);
+      writeVariableValue("0_10", 0);
+      writeVariableValue("0_9", 1);
+      writeVariableValue("0_9", 0);
+      break;
+    
+    case 3:
+      writeVariableValue("O_1", 0);
+      step = 0;
+      break;
+  }
+}

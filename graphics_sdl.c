@@ -437,6 +437,15 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
     #ifdef LUKA
     fp_can_size = fopen("/home/luka/TKK_PRESA_/data/can_size.txt", "w");
     #endif
+    
+    #ifdef RPI   
+    fp_second_pos = fopen("/home/pi/TKK_PRESA/data/second_pos.txt", "w");
+    #endif
+    #ifdef LUKA
+    fp_second_pos = fopen("/home/luka/TKK_PRESA_/data/second_pos.txt", "w");
+    #endif
+ 
+
     posCounter = 0;
     int * clear1 =  (int*)(&obufCl[0]);
     int * clear9 =  (int*)(&obufCl[16]);
@@ -470,7 +479,8 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       * posOneB9 = 2;       
       * posOneB10 = htonl((AKD_frame_posSmall+modifier)*1000);
       secondPosSmall = AKD_frame_posSmall+modifier;
-      
+      fprintf(fp_second_pos, "%d\n", secondPosSmall);
+
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
@@ -547,7 +557,9 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       * posOneB9 = 4;
       * posOneB10 = htonl((AKD_frame_posMedium+modifier)*1000); 
       secondPosMedium = AKD_frame_posMedium+modifier;
-     
+      fprintf(fp_second_pos, "%d\n", secondPosMedium);
+
+
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
@@ -624,7 +636,9 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       * posOneB9 = 6;  
       * posOneB10 = htonl((AKD_frame_posBig+modifier)*1000);  
       secondPosBig = AKD_frame_posBig+modifier;
-     
+      fprintf(fp_second_pos, "%d\n", secondPosBig);
+
+
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
@@ -699,7 +713,9 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       * posOneB9 = 8;       
       * posOneB10 = htonl((AKD_frame_posSmall2+modifier)*1000);
       secondPosSmall2 = AKD_frame_posSmall2+modifier;
-      
+      fprintf(fp_second_pos, "%d\n", secondPosSmall2);
+
+
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
@@ -756,7 +772,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       fprintf(fp_can_size, "%d\n", 3);
     }
     fclose(fp_can_size);
-
+    fclose(fp_second_pos);
   }
   renderText(text, smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
@@ -1327,6 +1343,7 @@ void savePos(int x, int y, int w, int h)
     fprintf(fp_first_pos, "%d\n", firstPosMedium);
     fprintf(fp_first_pos, "%d\n", firstPosBig);
     fprintf(fp_first_pos, "%d\n", firstPosSmall2);
+    fclose(fp_first_pos);
   }
   renderText("SAVE", smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 

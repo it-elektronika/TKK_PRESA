@@ -459,7 +459,38 @@ void initMain()
     {
       firstPosSmall2 = atoi(line);
     }
+    printf("line:%s\n", line);
   }
+  fclose(fp_first_pos);
+  #ifdef RPI   
+  fp_second_pos = fopen("/home/pi/TKK_PRESA/data/second_pos.txt", "r");
+  #endif
+  #ifdef LUKA
+  fp_second_pos = fopen("/home/luka/TKK_PRESA_/data/second_pos.txt", "r");
+  #endif
+
+  for(i = 0; i < 4; ++i)
+  {
+    getline(&line, &len, fp_second_pos);
+    if(i==0)
+    {
+      secondPosSmall = atoi(line);
+    }
+    else if(i==1)
+    {
+      secondPosMedium = atoi(line);
+    }
+    else if(i==2)
+    {
+      secondPosBig = atoi(line);
+    }
+    else if(i==3)
+    {
+      secondPosSmall2 = atoi(line);
+    }
+    printf("line:%s\n", line);
+  }
+  fclose(fp_second_pos);
 }
 
 void error(const char *msg)

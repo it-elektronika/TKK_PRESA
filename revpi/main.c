@@ -253,6 +253,7 @@ void diagnostics()
 
     case 2:
       writeVariableValue("O_10", 1);
+      usleep(10000);
       step = 3;
       break;
     

@@ -1066,9 +1066,11 @@ void start_button(int x, int y, int w, int h)
       receiveResponse();  
     } 
   }
-  sendRequest(4, 0, 0);
-  receiveResponse();  
-  
+  else
+  {
+    sendRequest(4, 0, 0);
+    receiveResponse();  
+  }
   renderText("START", regularText, blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
 }

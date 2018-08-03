@@ -141,6 +141,23 @@ void sendRequest(int reqId, int outputId, int id)
       //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
   }
+  else if(reqId == 3)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 3;
+    n = send(sockfd,sendWriteBuff, 29, 0); 
+    memset(sendWriteBuff, 0, 3);
+  }
+  else if(reqId == 4)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 4;
+    n = send(sockfd,sendWriteBuff, 29, 0); 
+    memset(sendWriteBuff, 0, 3);
+  }
+
+
+  
 }
 
 void receiveResponse()
@@ -154,20 +171,20 @@ void receiveResponse()
   //readLine(sockfd, recvReadBuff, 28);
   n = recv(sockfd, recvReadBuff, 29, 0);
   //printf("RESPONSE RECEIVED\n");
-  if(recvReadBuff[0] != 2 && recvReadBuff[0] != 3 && recvReadBuff[0] != 4)
+  if(recvReadBuff[0] == 1)
   {
-    for(i=1; i < 15; ++i)
+    for(i=0; i < 14; ++i)
     {
-      sprintf(inputs[i], "%d\0\n", recvReadBuff[i]);
+      sprintf(inputs[i], "%d\0\n", recvReadBuff[i+1]);
       //printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
     }
-    for(i=1; i < 15; ++i)
+    for(i=0; i < 14; ++i)
     {
       sprintf(outputs[i], "%d\0\n", recvReadBuff[i+15]);
       //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
   }
-  else if(recvReadBuff[0] != 4)
+  else if(recvReadBuff[0] == 4)
   {
     step = recvReadBuff[1];
   }

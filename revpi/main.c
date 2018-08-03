@@ -212,7 +212,7 @@ void sendResponse(int reqId)
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
-   
+    
     n = send(newsockfd, sendWriteBuff, 29, 0);
     memset(sendWriteBuff, 0, 29);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
@@ -254,7 +254,7 @@ void diagnostics()
       break;
     
     case 3:
-      if(readVariableValue("I_8")==1)
+      if(readVariableValue("I_7")==1)
       {
         step = 4;
       }
@@ -274,7 +274,7 @@ void diagnostics()
       {
         step = 7;
       }
-       break;
+      break;
 
     case 7:
       writeVariableValue("O_9", 0);

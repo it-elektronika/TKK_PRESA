@@ -33,6 +33,7 @@ int main()
   {
     receiveRequest();
     diagnostics();
+    printf("STEP:%d\n", step);
   }    
   close(newsockfd);
   close(sockfd);
@@ -221,6 +222,8 @@ void sendResponse(int reqId)
   else if(reqId == 4)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    int * sendWrite1 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 4;
     * sendWrite0 = step;
     
     FD_ZERO(&fdsTCP);

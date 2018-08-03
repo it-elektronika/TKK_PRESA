@@ -43,7 +43,7 @@ int main()
   /* main program loop */
   while(program == 1)
   {
-    printf("MAIN LOOP\n");
+    printf("STEP:%d\n", step);
     touchUpdate();
     renderBackground();
     renderStatusBar();

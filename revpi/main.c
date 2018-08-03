@@ -270,7 +270,7 @@ void diagnostics()
       break;
 
     case 6:
-      if(readVariableValue("I_8")==1)
+      if(readVariableValue("I_7")==1)
       {
         step = 7;
       }

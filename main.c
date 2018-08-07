@@ -187,6 +187,7 @@ void receiveResponse()
   else if(recvReadBuff[0] == 4)
   {
     step = recvReadBuff[1];
+    printf("STEP from request 4:%d\n", step);
   }
   memset(recvReadBuff, 0, 29);
 }

@@ -108,6 +108,7 @@ void receiveRequest()
   }
   else if(recvReadBuff[0] == 4)
   {
+    printf("received response 4\n");
     sendResponse(4);
   }
   
@@ -224,7 +225,7 @@ void sendResponse(int reqId)
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     int * sendWrite1 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 4;
-    * sendWrite0 = step;
+    * sendWrite1 = step;
     
     FD_ZERO(&fdsTCP);
     tv.tv_sec = 0;

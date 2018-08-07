@@ -223,7 +223,7 @@ void sendResponse(int reqId)
   else if(reqId == 4)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
-    int * sendWrite1 = (int*)(&sendWriteBuff[0]);
+    int * sendWrite1 = (int*)(&sendWriteBuff[1]);
     * sendWrite0 = 4;
     * sendWrite1 = step;
     

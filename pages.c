@@ -51,7 +51,68 @@ void pageZero(int pageNum)  /* LANDING PAGE */
       }
     }
     fclose(fp_can_size);
-    
+
+
+    #ifdef RPI   
+    fp_first_pos = fopen("/home/pi/TKK_PRESA/data/first_pos.txt", "r");
+    #endif
+    #ifdef LUKA
+    fp_first_pos = fopen("/home/luka/TKK_PRESA_/data/first_pos.txt", "r");
+    #endif
+
+    for(i = 0; i < 4; ++i)
+    {
+      getline(&line, &len, fp_first_pos);
+      if(i==0)
+      {
+	firstPosSmall = atoi(line);
+      }
+      else if(i==1)
+      {
+	firstPosMedium = atoi(line);
+      }
+      else if(i==2)
+      {
+	firstPosBig = atoi(line);
+      }
+      else if(i==3)
+      {
+	firstPosSmall2 = atoi(line);
+      }
+      printf("line:%s\n", line);
+    }
+    fclose(fp_first_pos);
+
+    #ifdef RPI   
+    AKD_pos = fopen("/home/pi/TKK_PRESA/data/AKD_pos.txt", "r");
+    #endif
+    #ifdef LUKA
+    AKD_pos = fopen("/home/luka/TKK_PRESA_/data/AKD_pos.txt", "r");
+    #endif
+
+    for(i = 0; i < 4; ++i)
+    {
+      getline(&line, &len, AKD_pos);
+      if(i==0)
+      {
+	AKD_frame_posSmall = atoi(line);
+      }
+      else if(i==1)
+      {
+	AKD_frame_posMedium = atoi(line);
+      }
+      else if(i==2)
+      {
+	AKD_frame_posBig = atoi(line);
+      }
+      else if(i==3)
+      {
+	AKD_frame_posSmall2 = atoi(line);
+      }
+      printf("line:%s\n", line);
+    }
+    fclose(AKD_pos);
+   
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -98,8 +159,6 @@ void pageOne(int pageNum) /* MAIN MENU */
     goToButton(30, 200, 350, 100, "IZBIRA DOZE", pageNum, 2);
     goToButton(30, 350, 500, 100, "ROCNO NASTAVLJANJE", pageNum, 10);
     goToButton(30, 500, 350, 100, "DIAGNOSTIKA", pageNum, 4);
-    goToButton(30, 650, 350, 100, "UREJEVALNIK", pageNum, 12);
- 
   }
   else if(page_stage[pageNum] == 2)
   {
@@ -403,29 +462,72 @@ void pageNine(int pageNum)  /* ERROR */
     
     sprintf(smallBuff, "MALA:%d mm", firstPosSmall);
     renderText(smallBuff, smallText, blackColor);
+    render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(500, 140, &firstPosSmall, 1, 100);
+    down_button(700, 140, &firstPosSmall, 1, 0);
+    renderText("ZGORAJ", smallText, blackColor);
+    render(800, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
+  
+    sprintf(AKD_smallBuff, "MALA:%d mm", AKD_frame_posSmall);
+    renderText(AKD_smallBuff, smallText, blackColor);
     render(30, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 200, &firstPosSmall, 1, 100);
-    down_button(700, 200, &firstPosSmall, 1, 0);
+    up_button(500, 190, &AKD_frame_posSmall, 1, 100);
+    down_button(700, 190, &AKD_frame_posSmall, 1, 0);
+    renderText("SPODAJ", smallText, blackColor);
+    render(800, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
+  
 
-    sprintf(smallBuff, "MALA2:%d mm", firstPosSmall2);
-    renderText(smallBuff, smallText, blackColor);
+    sprintf(small2Buff, "MALA2:%d mm", firstPosSmall2);
+    renderText(small2Buff, smallText, blackColor);
     render(30, 300, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 300, &firstPosSmall2, 1, 100);
-    down_button(700, 300, &firstPosSmall2, 1, 0);
+    renderText("ZGORAJ", smallText, blackColor);
+    render(800, 300, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(500, 290, &firstPosSmall2, 1, 100);
+    down_button(700, 290, &firstPosSmall2, 1, 0);
 
-    sprintf(smallBuff, "SREDNJA:%d mm", firstPosMedium);
-    renderText(smallBuff, smallText, blackColor);
-    render(30, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 400, &firstPosMedium, 1, 100);
-    down_button(700, 400, &firstPosMedium, 1, 0);
+    sprintf(AKD_small2Buff, "MALA2:%d mm", AKD_frame_posSmall2);
+    renderText(AKD_small2Buff, smallText, blackColor);
+    render(30, 350, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(500, 340, &AKD_frame_posSmall2, 1, 100);
+    down_button(700, 340, &AKD_frame_posSmall2, 1, 0);
+    renderText("SPODAJ", smallText, blackColor);
+    render(800, 350, NULL, 0.0, NULL, SDL_FLIP_NONE);
+ 
+ 
+    sprintf(mediumBuff, "SREDNJA:%d mm", firstPosMedium);
+    renderText(mediumBuff, smallText, blackColor);
+    render(30, 450, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(500, 440, &firstPosMedium, 1, 100);
+    down_button(700, 440, &firstPosMedium, 1, 0);
+    renderText("ZGORAJ", smallText, blackColor);
+    render(800, 450, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
-    sprintf(smallBuff, "VELIKA:%d mm", firstPosBig);
-    renderText(smallBuff, smallText, blackColor);
+    sprintf(AKD_mediumBuff, "SREDNJA:%d mm", AKD_frame_posMedium);
+    renderText(AKD_mediumBuff, smallText, blackColor);
     render(30, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 500, &firstPosBig, 1, 170);
-    down_button(700, 500, &firstPosBig, 1, 0);
+    up_button(500, 490, &AKD_frame_posMedium, 1, 100);
+    down_button(700, 490, &AKD_frame_posMedium, 1, 0);
+    renderText("SPODAJ", smallText, blackColor);
+    render(800, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
+ 
+ 
+    sprintf(bigBuff, "VELIKA:%d mm", firstPosBig);
+    renderText(bigBuff, smallText, blackColor);
+    render(30, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(500, 590, &firstPosBig, 1, 170);
+    down_button(700, 590, &firstPosBig, 1, 0);
+    renderText("ZGORAJ", smallText, blackColor);
+    render(800, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
-    savePos(30, 600, 200, 100);
+    sprintf(AKD_bigBuff, "VELIKA:%d mm", AKD_frame_posBig);
+    renderText(AKD_bigBuff, smallText, blackColor);
+    render(30, 650, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(500, 640, &AKD_frame_posBig, 1, 170);
+    down_button(700, 640, &AKD_frame_posBig, 1, 0);
+    renderText("SPODAJ", smallText, blackColor);
+    render(800, 650, NULL, 0.0, NULL, SDL_FLIP_NONE);
+ 
+    savePos(30, 720, 200, 50);
   }
   else if(page_stage[pageNum] == 2)
   {
@@ -484,11 +586,11 @@ void pageEleven(int pageNum)
     posButton(200, 450, 150, 100, "", firstPosMedium);
     posButton(200, 600, 150, 100, "", firstPosBig);
   
-    posButton(400, 150, 150, 100, "", secondPosSmall);
-    posButton(400, 300, 150, 100, "", secondPosSmall2);
+    posButton(400, 150, 150, 100, "", AKD_frame_posSmall);
+    posButton(400, 300, 150, 100, "", AKD_frame_posSmall2);
    
-    posButton(400, 450, 150, 100, "", secondPosMedium);
-    posButton(400, 600, 150, 100, "", secondPosBig);
+    posButton(400, 450, 150, 100, "", AKD_frame_posMedium);
+    posButton(400, 600, 150, 100, "", AKD_frame_posBig);
    
    
     sprintf(posManBuff, "POZICIJA:%d mm", posMan);

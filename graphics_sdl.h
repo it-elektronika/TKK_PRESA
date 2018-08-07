@@ -17,6 +17,7 @@ int backgroundColor;
 FILE *fp_can_size;
 FILE *fp_first_pos;
 FILE *fp_second_pos;
+FILE *AKD_pos;
 
 char *line;
 size_t len;

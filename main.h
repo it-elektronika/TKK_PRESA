@@ -7,10 +7,6 @@
 #include <stdlib.h>
 #include <arpa/inet.h>
 #include <time.h>
-#define AKD_frame_posSmall 30
-#define AKD_frame_posSmall2 50
-#define AKD_frame_posMedium 100
-#define AKD_frame_posBig 167.2
 #define lastStep 9
 #define PORTNO 1500
 #define BILLION 1000000000L;
@@ -59,11 +55,17 @@ int posMan;
 int posUp;
 int posDown;
 
+
+char AKD_smallBuff[20];
+char AKD_small2Buff[20];
+char AKD_mediumBuff[20];
+char AKD_bigBuff[20];
+
 char smallBuff[20];
 char small2Buff[20];
-
 char mediumBuff[20];
 char bigBuff[20];
+
 char posManBuff[20]; 
 char posUpBuff[30]; 
 char posDownBuff[30]; 
@@ -77,6 +79,11 @@ int secondPosSmall;
 int secondPosSmall2;
 int secondPosMedium;
 int secondPosBig;
+
+int AKD_frame_posSmall;
+int AKD_frame_posSmall2;
+int AKD_frame_posMedium;
+int AKD_frame_posBig;
 
 int year;
 int month;

@@ -1344,6 +1344,23 @@ void savePos(int x, int y, int w, int h)
     fprintf(fp_first_pos, "%d\n", firstPosBig);
     fprintf(fp_first_pos, "%d\n", firstPosSmall2);
     fclose(fp_first_pos);
+
+ 
+    #ifdef RPI   
+    AKD_pos = fopen("/home/pi/TKK_PRESA/data/AKD_pos.txt", "w");
+    #endif
+    #ifdef LUKA
+    AKD_pos = fopen("/home/luka/TKK_PRESA_/data/AKD_pos.txt", "w");
+    #endif
+ 
+    fprintf(AKD_pos, "%d\n", AKD_frame_posSmall);
+    fprintf(AKD_pos, "%d\n", AKD_frame_posMedium);
+    fprintf(AKD_pos, "%d\n", AKD_frame_posBig);
+    fprintf(AKD_pos, "%d\n", AKD_frame_posSmall2);
+    fclose(AKD_pos);
+
+ 
+ 
   }
   renderText("SAVE", smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 

@@ -462,6 +462,37 @@ void initMain()
     printf("line:%s\n", line);
   }
   fclose(fp_first_pos);
+
+  #ifdef RPI   
+  AKD_pos = fopen("/home/pi/TKK_PRESA/data/AKD_pos.txt", "r");
+  #endif
+  #ifdef LUKA
+  AKD_pos = fopen("/home/luka/TKK_PRESA_/data/AKD_pos.txt", "r");
+  #endif
+
+  for(i = 0; i < 4; ++i)
+  {
+    getline(&line, &len, AKD_pos);
+    if(i==0)
+    {
+      AKD_frame_posSmall = atoi(line);
+    }
+    else if(i==1)
+    {
+      AKD_frame_posMedium = atoi(line);
+    }
+    else if(i==2)
+    {
+      AKD_frame_posBig = atoi(line);
+    }
+    else if(i==3)
+    {
+      AKD_frame_posSmall2 = atoi(line);
+    }
+    printf("line:%s\n", line);
+  }
+  fclose(AKD_pos);
+  
   #ifdef RPI   
   fp_second_pos = fopen("/home/pi/TKK_PRESA/data/second_pos.txt", "r");
   #endif

@@ -36,14 +36,13 @@ int main()
       initCommTCP();
     }
     checkConn();
-    sleep(3);
+    sleep(1);
     touchUpdate();
   } 
   
   /* main program loop */
   while(program == 1)
   {
-    printf("STEP:%d\n", step);
     touchUpdate();
     renderBackground();
     renderStatusBar();
@@ -187,7 +186,6 @@ void receiveResponse()
   else if(recvReadBuff[0] == 4)
   {
     step = recvReadBuff[1];
-    printf("STEP from request 4:%d\n", step);
   }
   memset(recvReadBuff, 0, 29);
 }

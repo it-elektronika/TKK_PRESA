@@ -33,7 +33,6 @@ int main()
   {
     receiveRequest();
     diagnostics();
-    printf("STEP:%d\n", step);
   }    
   close(newsockfd);
   close(sockfd);
@@ -93,10 +92,11 @@ void receiveRequest()
   } 
   else if(recvReadBuff[0] == 2)
   {
+    /*
     for(i = 1; i < 29; ++i)
     {
       printf("recvReadBuff_%d:%d\n",i, recvReadBuff[i]); 
-    }
+    }*/
     sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
     writeVariableValue(outputWriteBuff, recvReadBuff[2]);
     sendResponse(2);
@@ -108,7 +108,6 @@ void receiveRequest()
   }
   else if(recvReadBuff[0] == 4)
   {
-    printf("received response 4\n");
     sendResponse(4);
   }
   

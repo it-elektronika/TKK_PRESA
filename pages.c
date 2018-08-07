@@ -77,7 +77,6 @@ void pageZero(int pageNum)  /* LANDING PAGE */
       {
 	firstPosSmall2 = atoi(line);
       }
-      printf("line:%s\n", line);
     }
     fclose(fp_first_pos);
 
@@ -107,7 +106,6 @@ void pageZero(int pageNum)  /* LANDING PAGE */
       {
 	AKD_frame_posSmall2 = atoi(line);
       }
-      printf("line:%s\n", line);
     }
     fclose(AKD_pos);
    
@@ -582,7 +580,6 @@ void pageEleven(int pageNum)
       {
 	firstPosSmall2 = atoi(line);
       }
-      printf("line:%s\n", line);
     }
     fclose(fp_first_pos);
 
@@ -612,7 +609,6 @@ void pageEleven(int pageNum)
       {
 	AKD_frame_posSmall2 = atoi(line);
       }
-      printf("line:%s\n", line);
     }
     fclose(AKD_pos);
  

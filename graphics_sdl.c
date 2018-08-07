@@ -447,11 +447,11 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
  
 
     posCounter = 0;
-    int * clear1 =  (int*)(&obufCl[0]);
-    int * clear9 =  (int*)(&obufCl[16]);
-    int * posOneB1 = (int*)(&obufOneB[0]);
-    int * posOneB9 =  (int*)(&obufOneB[16]);
-    int * posOneB10 = (int*)(&obufOneB[17]);
+    //int * clear1 =  (int*)(&obufCl[0]);
+    //int * clear9 =  (int*)(&obufCl[16]);
+    //int * posOneB1 = (int*)(&obufOneB[0]);
+    //int * posOneB9 =  (int*)(&obufOneB[16]);
+    //int * posOneB10 = (int*)(&obufOneB[17]);
     int * moveTask1 =  (int*)(&obufMT[0]); 
     int * moveTask9 =  (int*)(&obufMT[13]);
     int * moveTask1Next =  (int*)(&obufMTN[0]); 
@@ -461,6 +461,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
     /* writing position values to AKD registers and saving values to file */
     if(selected[0])
     {
+     /* 
       * clear1 = transId;
       * clear9 = 2;      
       FD_ZERO(&fds);
@@ -492,9 +493,9 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       conn_presa = select(32, &fds, NULL, NULL, &tv);
       conn_presa = recv(s, ibufOneB, 50 , 0);
       transId++;
-      
+      */
       * moveTask1 = transId;
-      * moveTask9 = htonl(1000); /* starting task */                 
+      * moveTask9 = htonl(1000);                
       FD_ZERO(&fds);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
@@ -506,7 +507,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       conn_presa = select(32, &fds, NULL, NULL, &tv);
       conn_presa = recv(s, ibufMT, 50 , 0);
       transId++;
-
+      
       * moveTask1Next = transId;
       * moveTask9Next = htonl(2000);                 
       FD_ZERO(&fds);
@@ -538,6 +539,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
     }
     else if(selected[1])
     {
+      /*
       * clear1 = transId;           
       * clear9 = 4;           
    
@@ -571,7 +573,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       conn_presa = select(32, &fds, NULL, NULL, &tv);
       conn_presa = recv(s, ibufOneB, 50 , 0);
       transId++;
-     
+     */
       * moveTask1 = transId;
       * moveTask9 = htonl(3000);
       FD_ZERO(&fds);
@@ -616,7 +618,8 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       fprintf(fp_can_size, "%d\n", 1);   
     }  
     else if(selected[2])
-    { 
+    {
+      /* 
       * clear1 = transId;           
       * clear9 = 6;           
 
@@ -650,7 +653,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       conn_presa = select(32, &fds, NULL, NULL, &tv);
       conn_presa = recv(s, ibufOneB, 50 , 0);
       transId++;
-      
+      */
       * moveTask1 = transId;
       * moveTask9 = htonl(5000);
       FD_ZERO(&fds);
@@ -695,6 +698,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
     }    
     else if(selected[3]) /* added last small2 */
     {
+      /*
       * clear1 = transId;
       * clear9 = 8;      
       FD_ZERO(&fds);
@@ -727,7 +731,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       conn_presa = select(32, &fds, NULL, NULL, &tv);
       conn_presa = recv(s, ibufOneB, 50 , 0);
       transId++;
-      
+*/      
       * moveTask1 = transId;
       * moveTask9 = htonl(7000); /* starting task */                 
       FD_ZERO(&fds);
@@ -1156,6 +1160,13 @@ void savePos(int x, int y, int w, int h)
     int * posOneA10 = (int*)(&obufOneA[17]);
     int * drvSave1 = (int*)(&obufDS[0]);
    
+    int * clear1 =  (int*)(&obufCl[0]);
+    int * clear9 =  (int*)(&obufCl[16]);
+    int * posOneB1 = (int*)(&obufOneB[0]);
+    int * posOneB9 =  (int*)(&obufOneB[16]);
+    int * posOneB10 = (int*)(&obufOneB[17]);
+   
+
     /* small */
     * firstClear1 = transId;
     * firstClear9 = 1;      
@@ -1185,7 +1196,38 @@ void savePos(int x, int y, int w, int h)
     conn_presa = select(32, &fds, NULL, NULL, &tv);
     conn_presa = recv(s, ibufOneA, 50 , 0);
     transId++;
-       
+
+    * clear1 = transId;
+    * clear9 = 2;      
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufCl, 17, 0);
+    printf("Message Sent! - clear position - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufCl, 50 , 0);
+    transId++;
+	  
+    * posOneB1 = transId;       
+    * posOneB9 = 2;       
+    * posOneB10 = htonl((AKD_frame_posSmall)*1000);
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufOneB, 53, 0);
+    printf("Message Sent! - position parameter - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufOneB, 50 , 0);
+    transId++;
+
+
+    
     * drvSave1 = transId;
     FD_ZERO(&fds);
     tv.tv_sec = 0;
@@ -1228,7 +1270,37 @@ void savePos(int x, int y, int w, int h)
     conn_presa = select(32, &fds, NULL, NULL, &tv);
     conn_presa = recv(s, ibufOneA, 50 , 0);
     transId++;
-       
+ 
+    * clear1 = transId;
+    * clear9 = 8;      
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufCl, 17, 0);
+    printf("Message Sent! - clear position - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufCl, 50 , 0);
+    transId++;
+	  
+    * posOneB1 = transId;       
+    * posOneB9 = 8;       
+    * posOneB10 = htonl((AKD_frame_posSmall2)*1000);
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufOneB, 53, 0);
+    printf("Message Sent! - position parameter - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufOneB, 50 , 0);
+    transId++;
+
+      
     * drvSave1 = transId;
     FD_ZERO(&fds);
     tv.tv_sec = 0;
@@ -1275,6 +1347,36 @@ void savePos(int x, int y, int w, int h)
     conn_presa = recv(s, ibufOneA, 50 , 0);
     transId++;
     
+    * clear1 = transId;
+    * clear9 = 4;      
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufCl, 17, 0);
+    printf("Message Sent! - clear position - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufCl, 50 , 0);
+    transId++;
+	  
+    * posOneB1 = transId;       
+    * posOneB9 = 4;       
+    * posOneB10 = htonl((AKD_frame_posMedium)*1000);
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufOneB, 53, 0);
+    printf("Message Sent! - position parameter - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufOneB, 50 , 0);
+    transId++;
+
+
     * drvSave1 = transId;
     FD_ZERO(&fds);
     tv.tv_sec = 0;
@@ -1319,6 +1421,35 @@ void savePos(int x, int y, int w, int h)
     conn_presa = recv(s, ibufOneA, 50 , 0);
     transId++;
    
+    * clear1 = transId;
+    * clear9 = 6;      
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufCl, 17, 0);
+    printf("Message Sent! - clear position - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufCl, 50 , 0);
+    transId++;
+	  
+    * posOneB1 = transId;       
+    * posOneB9 = 6;       
+    * posOneB10 = htonl((AKD_frame_posBig)*1000);
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufOneB, 53, 0);
+    printf("Message Sent! - position parameter - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufOneB, 50 , 0);
+    transId++;
+
     * drvSave1 = transId;
     FD_ZERO(&fds);
     tv.tv_sec = 0;

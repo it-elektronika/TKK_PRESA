@@ -8,7 +8,6 @@
 void pageZero(int pageNum)  /* LANDING PAGE */
 {
   int i;
-  int y = 250;
   if(page_stage[pageNum] == 0) /* loading page */
   {
     #ifdef RPI   
@@ -51,7 +50,6 @@ void pageZero(int pageNum)  /* LANDING PAGE */
       }
     }
     fclose(fp_can_size);
-
 
     #ifdef RPI   
     fp_first_pos = fopen("/home/pi/TKK_PRESA/data/first_pos.txt", "r");
@@ -131,15 +129,12 @@ void pageZero(int pageNum)  /* LANDING PAGE */
     {  
       renderText("VELIKOST DOZE: VELIKA", regularText, blackColor);
     }
-    render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
-
-    for(i = 0; i < 10; ++i)
-    {
-      sprintf(buff_reg[i], "REG%d:%d", i, regs[i]);
-      renderText(buff_reg[i], regularText, blackColor);
-      render(30, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
-      y = y + 50;
+   
+    else if(selected[3])
+    {  
+      renderText("VELIKOST DOZE: MALA2", regularText, blackColor);
     }
+    render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
   }
   else if(page_stage[pageNum] == 2)
   {
@@ -180,15 +175,15 @@ void pageTwo(int pageNum) /* CAN SIZE SELECTION */
     button(30, 450, 200, 100, "SREDNJA", 1);
     button(30, 600, 200, 100, "VELIKA", 2);
 
-    renderText("POPRAVEK:", smallText, blackColor);
-    render(400, 180, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    //renderText("POPRAVEK:", smallText, blackColor);
+    //render(400, 180, NULL, 0.0, NULL, SDL_FLIP_NONE);
    
-    sprintf(modifierBuff, "%d mm", modifier);
-    renderText(modifierBuff, smallText, blackColor);
-    render(650, 180, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    //sprintf(modifierBuff, "%d mm", modifier);
+    //renderText(modifierBuff, smallText, blackColor);
+    //render(650, 180, NULL, 0.0, NULL, SDL_FLIP_NONE);
     
-    up_button(800,180, &modifier, 1, 5);
-    down_button(900, 180, &modifier, 1, -5);
+    //up_button(800,180, &modifier, 1, 5);
+    //down_button(900, 180, &modifier, 1, -5);
 
     saveButton(400, 600, 200, 100, "SHRANI");
   }
@@ -557,8 +552,70 @@ void pageTen(int pageNum)
 
 void pageEleven(int pageNum)
 {
+  int i;
   if(page_stage[pageNum] == 0)
   {
+    
+    #ifdef RPI   
+    fp_first_pos = fopen("/home/pi/TKK_PRESA/data/first_pos.txt", "r");
+    #endif
+    #ifdef LUKA
+    fp_first_pos = fopen("/home/luka/TKK_PRESA_/data/first_pos.txt", "r");
+    #endif
+
+    for(i = 0; i < 4; ++i)
+    {
+      getline(&line, &len, fp_first_pos);
+      if(i==0)
+      {
+	firstPosSmall = atoi(line);
+      }
+      else if(i==1)
+      {
+	firstPosMedium = atoi(line);
+      }
+      else if(i==2)
+      {
+	firstPosBig = atoi(line);
+      }
+      else if(i==3)
+      {
+	firstPosSmall2 = atoi(line);
+      }
+      printf("line:%s\n", line);
+    }
+    fclose(fp_first_pos);
+
+    #ifdef RPI   
+    AKD_pos = fopen("/home/pi/TKK_PRESA/data/AKD_pos.txt", "r");
+    #endif
+    #ifdef LUKA
+    AKD_pos = fopen("/home/luka/TKK_PRESA_/data/AKD_pos.txt", "r");
+    #endif
+
+    for(i = 0; i < 4; ++i)
+    {
+      getline(&line, &len, AKD_pos);
+      if(i==0)
+      {
+	AKD_frame_posSmall = atoi(line);
+      }
+      else if(i==1)
+      {
+	AKD_frame_posMedium = atoi(line);
+      }
+      else if(i==2)
+      {
+	AKD_frame_posBig = atoi(line);
+      }
+      else if(i==3)
+      {
+	AKD_frame_posSmall2 = atoi(line);
+      }
+      printf("line:%s\n", line);
+    }
+    fclose(AKD_pos);
+ 
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)

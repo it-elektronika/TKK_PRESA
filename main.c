@@ -154,9 +154,6 @@ void sendRequest(int reqId, int outputId, int id)
     n = send(sockfd,sendWriteBuff, 29, 0); 
     memset(sendWriteBuff, 0, 3);
   }
-
-
-  
 }
 
 void receiveResponse()

@@ -69,6 +69,23 @@ void initServer()
 
 }
 
+void initCommAKDPress() 
+{
+  ip_adrs = "192.168.1.13";
+  s = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+  AKD_server.sin_family = AF_INET;
+  AKD_server.sin_port = htons(502);
+  AKD_server.sin_addr.s_addr = inet_addr(ip_adrs);
+  printf("connecting to press drive\n");
+  conn_AKD = connect(s, (struct sockaddr *)&AKD_server, sizeof(struct sockaddr_in));
+  if (conn_AKD < 0) 
+  {   
+    error("ERROR connecting");
+  }
+}  
+
+
 void initMain()
 {
   program = 1;
@@ -79,7 +96,6 @@ void initMain()
 
 void receiveRequest()
 {
-  int i;
   //printf("RECEIVING REQUEST\n");
   FD_SET(newsockfd, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);
@@ -246,7 +262,54 @@ void diagnostics()
     case 0:
       break;
 
+    case 12:
+      writeVariableValue("O_10", 1);
+      usleep(10000);
+      step = 2;
+      break;
+ 
+    case 11:
+      if(readVariableValue("I_9")==1)
+      {
+        step = 3;
+      }
+      break;
+
     case 1:
+    {
+      int * read1 = (int*)(&readBuff[0]);
+      int * read2 = (int*)(&readBuff[2]);
+      int * read3 = (int*)(&readBuff[4]);
+      int * read4 = (int*)(&readBuff[6]);
+      int * read5 = (int*)(&readBuff[7]);
+      int * read6 = (int*)(&readBuff[8]);
+      int * read7 = (int*)(&readBuff[10]);
+
+
+      memset(readBuff, 0, 12);
+      * read1 = transId;   
+      * read2 = htons(0);
+      * read3 = htons(47);
+      * read4 = 1;
+      * read5 = 3;
+      * read6 = htons(2072);
+      * read7 = htons(2);
+        
+      FD_ZERO(&fdsAKD);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
+      conn_AKD = send(s, readBuff, 17, 0);
+      printf("Message Sent! - read feedback position - small\n");
+      FD_SET(s, &fdsAKD);
+      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
+      conn_AKD = recv(s, readBuff_recv, 50 , 0);
+      transId++;
+      break;
+	   
+    }
+    case 13:
       writeVariableValue("O_1", 1);
       step = 2;
       break;

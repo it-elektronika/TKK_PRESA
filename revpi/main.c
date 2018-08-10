@@ -15,6 +15,7 @@
 
 void initServer();
 void initMain();
+void initCommAKDPress();
 void diagnostics();
 void receiveRequest();
 void sendResponse(int reqId);
@@ -27,6 +28,7 @@ void error(const char *msg)
 int main()
 {
   initServer();
+  initCommAKDPress();
   initMain();
  
   while(program == 1)

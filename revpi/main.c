@@ -85,6 +85,10 @@ void initCommAKDPress()
   {   
     error("ERROR connecting");
   }
+  else
+  {
+    printf("AKD connected\n");
+  }
 }  
 
 
@@ -264,13 +268,13 @@ void diagnostics()
     case 0:
       break;
 
-    case 12:
+    case 11111111:
       writeVariableValue("O_10", 1);
       usleep(10000);
       step = 2;
       break;
  
-    case 11:
+    case 111111111:
       if(readVariableValue("I_9")==1)
       {
         step = 3;
@@ -303,54 +307,56 @@ void diagnostics()
     
       conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
       conn_AKD = send(s, readBuff, 17, 0);
-      printf("Message Sent! - read feedback position - small\n");
+      printf("Message Sent! - read feedback position\n");
       FD_SET(s, &fdsAKD);
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
       conn_AKD = recv(s, readBuff_recv, 50 , 0);
+      printf("Message Received! - read feedback position\n");
       transId++;
+      step = 0;
       break;
 	   
     }
-    case 13:
+    case 111:
       writeVariableValue("O_1", 1);
       step = 2;
       break;
 
-    case 2:
+    case 222:
       writeVariableValue("O_10", 1);
       usleep(10000);
       step = 3;
       break;
     
-    case 3:
+    case 333:
       if(readVariableValue("I_7")==1)
       {
         step = 4;
       }
       break;
-    case 4:
+    case 444:
       writeVariableValue("O_10", 0);
       step = 5;
       break;
 
-    case 5:
+    case 555:
       writeVariableValue("O_9", 1);
       step = 6;
       break;
 
-    case 6:
+    case 666:
       if(readVariableValue("I_7")==1)
       {
         step = 7;
       }
       break;
 
-    case 7:
+    case 777:
       writeVariableValue("O_9", 0);
       step = 8;
       break;
    
-    case 8:
+    case 888:
       writeVariableValue("O_1", 0);
       step = 0;
       break;

@@ -283,7 +283,7 @@ void diagnostics()
 
     case 1:
     {
-      int i;
+      unsigned int w;
       int * read1 = (int*)(&readBuff[0]);
       int * read2 = (int*)(&readBuff[2]);
       int * read3 = (int*)(&readBuff[4]);
@@ -313,10 +313,8 @@ void diagnostics()
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
       conn_AKD = recv(s, readBuff_recv, 50 , 0);
       printf("Message Received! - read feedback position\n");
-      for(i = 0; i < 50; i++)
-      {
-        printf("readBuff_recv[%d]:%s\n", i, readBuff_recv);
-      }
+      w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12])/1000;     
+      printf("POSITION FEEDBACK:%d\n", w);
       transId++;
       step = 0;
       break;

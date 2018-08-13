@@ -283,6 +283,7 @@ void diagnostics()
 
     case 1:
     {
+      int i;
       int * read1 = (int*)(&readBuff[0]);
       int * read2 = (int*)(&readBuff[2]);
       int * read3 = (int*)(&readBuff[4]);
@@ -295,7 +296,7 @@ void diagnostics()
       memset(readBuff, 0, 12);
       * read1 = transId;   
       * read2 = htons(0);
-      * read3 = htons(47);
+      * read3 = htons(6);
       * read4 = 1;
       * read5 = 3;
       * read6 = htons(2072);
@@ -306,12 +307,16 @@ void diagnostics()
       tv.tv_usec = 0;
     
       conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
-      conn_AKD = send(s, readBuff, 17, 0);
+      conn_AKD = send(s, readBuff, 12, 0);
       printf("Message Sent! - read feedback position\n");
       FD_SET(s, &fdsAKD);
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
       conn_AKD = recv(s, readBuff_recv, 50 , 0);
       printf("Message Received! - read feedback position\n");
+      for(i = 0; i < 50; i++)
+      {
+        printf("readBuff_recv[%d]:%s\n", i, readBuff_recv);
+      }
       transId++;
       step = 0;
       break;

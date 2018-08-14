@@ -528,46 +528,47 @@ void diagnostics()
 
     case 4:
       writeVariableValue("O_10", 1);
-      usleep(1000);
+      usleep(1000); 
+      step = 5
       break;
 
     case 5:
       writeVariableValue("O_1", 1);
-      step = 2;
+      step = 6;
       break;
 
     case 6:
       writeVariableValue("O_10", 1);
       usleep(10000);
-      step = 3;
+      step = 7;
       break;
     
     case 7:
       if(readVariableValue("I_11")==1)
       {
-        step = 4;
+        step = 8;
       }
       break;
     case 8:
       writeVariableValue("O_10", 0);
-      step = 5;
+      step = 9;
       break;
 
     case 9:
       writeVariableValue("O_9", 1);
-      step = 6;
+      step = 10;
       break;
 
     case 10:
       if(readVariableValue("I_11")==1)
       {
-        step = 7;
+        step = 11;
       }
       break;
 
     case 11:
       writeVariableValue("O_9", 0);
-      step = 8;
+      step = 12;
       break;
    
     case 12:

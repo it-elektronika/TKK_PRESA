@@ -153,6 +153,31 @@ void initMain()
   * writePosTen17 = 1;            
   * writePosTen18 = 1;  
 
+
+
+  int * moveTask1 =  (int*)(&obufMT[0]);
+  int * moveTask2 =  (int*)(&obufMT[2]);
+  int * moveTask3 =  (int*)(&obufMT[4]);
+  int * moveTask4 =  (int*)(&obufMT[6]);
+  int * moveTask5 =  (int*)(&obufMT[7]);
+  int * moveTask6 =  (int*)(&obufMT[8]);
+  int * moveTask7 =  (int*)(&obufMT[10]);
+  int * moveTask8 =  (int*)(&obufMT[12]);
+  int * moveTask9 =  (int*)(&obufMT[13]);
+  
+  memset(obufMT, 0, 17);
+  * moveTask1 = transId;   
+  * moveTask2 = htons(0);
+  * moveTask3 = htons(11);
+  * moveTask4 = 1;
+  * moveTask5 = 16;
+  * moveTask6 = htons(2014);
+  * moveTask7 = htons(2);
+  * moveTask8 = 4;
+  * moveTask9 = 2;
+ 
+
+
   int * drvSave1 =  (int*)(&obufDS[0]);
   int * drvSave2 =  (int*)(&obufDS[2]);
   int * drvSave3 =  (int*)(&obufDS[4]);
@@ -376,6 +401,10 @@ void diagnostics()
       int * writePosTen1 = (int*)(&writePosTenBuff[0]);
       int * writePosTen9 =  (int*)(&writePosTenBuff[16]);
       int * writePosTen10 = (int*)(&writePosTenBuff[17]);
+   
+      int * moveTask1 =  (int*)(&obufMT[0]); 
+      int * moveTask9 =  (int*)(&obufMT[13]);
+   
       int * drvSave1 = (int*)(&obufDS[0]);
    
       memset(readBuff, 0, 12);
@@ -431,6 +460,20 @@ void diagnostics()
       conn_AKD = recv(s, writePosTenBuff_recv, 50 , 0);
       transId++;
 
+      * moveTask1 = transId;
+      * moveTask9 = htonl(10000);                
+      FD_ZERO(&fdsAKD);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
+      conn_AKD = send(s, obufMT, 17, 0);
+      printf("Message Sent! - start task - small\n");
+      FD_SET(s, &fdsAKD);
+      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
+      conn_AKD = recv(s, ibufMT, 50 , 0);
+      transId++;
+        
       * drvSave1 = transId;
       FD_ZERO(&fdsAKD);
       tv.tv_sec = 0;

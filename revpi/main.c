@@ -96,6 +96,85 @@ void initMain()
 {
   program = 1;
   PiControlHandle_g = -1; 
+  
+  int * clear1 =  (int*)(&obufCl[0]);
+  int * clear2 =  (int*)(&obufCl[2]);
+  int * clear3 =  (int*)(&obufCl[4]);
+  int * clear4 =  (int*)(&obufCl[6]);
+  int * clear5 =  (int*)(&obufCl[7]);
+  int * clear6 =  (int*)(&obufCl[8]);
+  int * clear7 =  (int*)(&obufCl[10]);
+  int * clear8 =  (int*)(&obufCl[12]);
+  int * clear9 =  (int*)(&obufCl[16]);
+
+  memset(obufCl, 0, 17);
+  * clear1 = transId;   
+  * clear2 = htons(0);
+  * clear3 = htons(11);
+  * clear4 = 1;
+  * clear5 = 16;
+  * clear6 = htons(530);
+  * clear7 = htons(2);
+  * clear8 = 4;
+  * clear9 = 2; 
+
+  int * writePosTen1 = (int*)(&writePosTenBuff[0]);
+  int * writePosTen2 = (int*)(&writePosTenBuff[2]);
+  int * writePosTen3 = (int*)(&writePosTenBuff[4]);
+  int * writePosTen4 = (int*)(&writePosTenBuff[6]);
+  int * writePosTen5 = (int*)(&writePosTenBuff[7]);
+  int * writePosTen6 = (int*)(&writePosTenBuff[8]);
+  int * writePosTen7 = (int*)(&writePosTenBuff[10]);
+  int * writePosTen8 = (int*)(&writePosTenBuff[12]);
+  int * writePosTen11 = (int*)(&writePosTenBuff[21]);
+  int * writePosTen12 = (int*)(&writePosTenBuff[28]);
+  int * writePosTen13 = (int*)(&writePosTenBuff[29]);
+  int * writePosTen14 = (int*)(&writePosTenBuff[33]);
+  int * writePosTen15 = (int*)(&writePosTenBuff[40]);
+  int * writePosTen16 = (int*)(&writePosTenBuff[44]);
+  int * writePosTen17 = (int*)(&writePosTenBuff[48]);
+  int * writePosTen18 = (int*)(&writePosTenBuff[52]);
+      
+  memset(writePosTenBuff, 0, 58);
+  * writePosTen1 = transId;   
+  * writePosTen2 = htons(0);
+  * writePosTen3 = htons(47);
+  * writePosTen4 = 1;
+  * writePosTen5 = 16;
+  * writePosTen6 = htons(8192);
+  * writePosTen7 = htons(20);
+  * writePosTen8 = 40;
+  * writePosTen11 = htonl(2000000);   
+  * writePosTen12 = 16;           
+  * writePosTen13 = htonl(5000000);  
+  * writePosTen14 = htonl(5000000);  
+  * writePosTen15 = 100;            
+  * writePosTen16 = 0;            
+  * writePosTen17 = 1;            
+  * writePosTen18 = 1;  
+
+  int * drvSave1 =  (int*)(&obufDS[0]);
+  int * drvSave2 =  (int*)(&obufDS[2]);
+  int * drvSave3 =  (int*)(&obufDS[4]);
+  int * drvSave4 =  (int*)(&obufDS[6]);
+  int * drvSave5 =  (int*)(&obufDS[7]);
+  int * drvSave6 =  (int*)(&obufDS[8]);
+  int * drvSave7 =  (int*)(&obufDS[10]);
+  int * drvSave8 =  (int*)(&obufDS[12]);
+  int * drvSave9 =  (int*)(&obufDS[13]);
+
+  memset(obufDS, 0, 17);
+  * drvSave1 = transId;   
+  * drvSave2 = htons(0);
+  * drvSave3 = htons(11);
+  * drvSave4 = 1;
+  * drvSave5 = 16;
+  * drvSave6 = htons(8210);
+  * drvSave7 = htons(2);
+  * drvSave8 = 4;
+  * drvSave9 = htonl(1);
+
+
 }
 
 
@@ -292,7 +371,13 @@ void diagnostics()
       int * read6 = (int*)(&readBuff[8]);
       int * read7 = (int*)(&readBuff[10]);
 
-
+      int * clear1 =  (int*)(&obufCl[0]);
+      int * clear9 =  (int*)(&obufCl[16]);
+      int * writePosTen1 = (int*)(&writePosTenBuff[0]);
+      int * writePosTen9 =  (int*)(&writePosTenBuff[16]);
+      int * writePosTen10 = (int*)(&writePosTenBuff[17]);
+      int * drvSave1 = (int*)(&obufDS[0]);
+   
       memset(readBuff, 0, 12);
       * read1 = transId;   
       * read2 = htons(0);
@@ -313,10 +398,54 @@ void diagnostics()
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
       conn_AKD = recv(s, readBuff_recv, 50 , 0);
       printf("Message Received! - read feedback position\n");
-      w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12])/1000;     
+      w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
       printf("POSITION FEEDBACK:%d\n", w);
       transId++;
+   
+      * clear1 = transId;
+      * clear9 = 10;      
+      FD_ZERO(&fdsAKD);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
+      conn_AKD = send(s, obufCl, 17, 0);
+      printf("Message Sent! - position 10 cleared\n");
+      FD_SET(s, &fdsAKD);
+      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
+      conn_AKD = recv(s, ibufCl, 50 , 0);
+      transId++;
+	  
+      * writePosTen1 = transId;       
+      * writePosTen9 = 10;       
+      * writePosTen10 = w;
+      FD_ZERO(&fdsAKD);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
+      conn_AKD = send(s, writePosTenBuff, 53, 0);
+      printf("Message Sent! - position 10 parameter\n");
+      FD_SET(s, &fdsAKD);
+      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
+      conn_AKD = recv(s, writePosTenBuff_recv, 50 , 0);
+      transId++;
+
+      * drvSave1 = transId;
+      FD_ZERO(&fdsAKD);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
+      conn_AKD = send(s, obufDS, 17, 0);
+      printf("Message Sent! - save to drive\n");
+      FD_SET(s, &fdsAKD);
+      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
+      conn_AKD = recv(s, ibufDS, 50 , 0);
+      transId++;
+   
       step = 0;
+      
       break;
 	   
     }

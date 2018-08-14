@@ -28,4 +28,23 @@ char recvWriteBuff[256];
 
 char readBuff[12];
 char readBuff_recv[30];
+
+char writePosTenBuff[58];
+char writePosTenBuff_recv[56];
+
 char outputWriteBuff[256];
+
+
+char obufMT[21];
+char ibufMT[21];
+
+char obufMTN[21];
+char ibufMTN[21];
+
+char obufDS[17];
+char ibufDS[17];
+char obufCl[17];
+char ibufCl[17];
+
+
+

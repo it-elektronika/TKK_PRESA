@@ -1125,7 +1125,8 @@ void continue_button(int x, int y, int w, int h, int stepMax)
   {
     if(step > 0 && step < stepMax)
     {
-      step = step + 1;
+      sendRequest(5, 0, 0);
+      receiveResponse();
     }
   }
   renderText("NADALJUJ", regularText, blackColor);

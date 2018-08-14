@@ -1,5 +1,3 @@
-/* A simple server in the internet domain using TCP
-   The port number is passed as an argument */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -236,6 +234,14 @@ void receiveRequest()
   {
     sendResponse(4);
   }
+  else if(recvReadBuff[0] == 5)
+  {
+    if(step != 0) /* or max step */
+    {
+      step++;
+    }
+    sendResponse(5);
+  }
   
 }
 
@@ -362,6 +368,21 @@ void sendResponse(int reqId)
     memset(sendWriteBuff, 0, 29);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
+  else if(reqId == 5)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 5;
+    
+    FD_ZERO(&fdsTCP);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    n = select(32, NULL, &fdsTCP, NULL, &tv); 
+   
+    n = send(newsockfd, sendWriteBuff, 29, 0);
+    memset(sendWriteBuff, 0, 29);
+    //printf("RESPONSE SENT reqId:%d\n", reqId);
+  }
 }
 
 
@@ -386,6 +407,20 @@ void diagnostics()
       break;
 
     case 1:
+      break;
+    
+    case 2:
+      writeVariableValue("O_10", 1);
+      usleep(10000);
+      writeVariableValue("O_10", 0);
+      writeVariableValue("O_9", 1);
+      writeVariableValue("O_9", 0);
+     
+      step = 3;
+      break;
+    
+   
+    case 3:
     {
       int w;
       int * read1 = (int*)(&readBuff[0]);
@@ -486,52 +521,56 @@ void diagnostics()
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
       conn_AKD = recv(s, ibufDS, 50 , 0);
       transId++;
-   
-      step = 0;
       
       break;
 	   
     }
-    case 111:
+
+    case 4:
+      writeVariableValue("O_10", 1);
+      usleep(1000);
+      break;
+
+    case 5:
       writeVariableValue("O_1", 1);
       step = 2;
       break;
 
-    case 222:
+    case 6:
       writeVariableValue("O_10", 1);
       usleep(10000);
       step = 3;
       break;
     
-    case 333:
-      if(readVariableValue("I_7")==1)
+    case 7:
+      if(readVariableValue("I_11")==1)
       {
         step = 4;
       }
       break;
-    case 444:
+    case 8:
       writeVariableValue("O_10", 0);
       step = 5;
       break;
 
-    case 555:
+    case 9:
       writeVariableValue("O_9", 1);
       step = 6;
       break;
 
-    case 666:
-      if(readVariableValue("I_7")==1)
+    case 10:
+      if(readVariableValue("I_11")==1)
       {
         step = 7;
       }
       break;
 
-    case 777:
+    case 11:
       writeVariableValue("O_9", 0);
       step = 8;
       break;
    
-    case 888:
+    case 12:
       writeVariableValue("O_1", 0);
       step = 0;
       break;

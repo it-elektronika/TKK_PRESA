@@ -154,6 +154,14 @@ void sendRequest(int reqId, int outputId, int id)
     n = send(sockfd,sendWriteBuff, 29, 0); 
     memset(sendWriteBuff, 0, 3);
   }
+  else if(reqId == 5)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 5;
+    n = send(sockfd,sendWriteBuff, 29, 0); 
+    memset(sendWriteBuff, 0, 3);
+  }
+ 
 }
 
 void receiveResponse()

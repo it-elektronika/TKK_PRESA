@@ -362,7 +362,7 @@ void diagnostics()
 
     case 1:
     {
-      unsigned int w;
+      int w;
       int * read1 = (int*)(&readBuff[0]);
       int * read2 = (int*)(&readBuff[2]);
       int * read3 = (int*)(&readBuff[4]);
@@ -418,7 +418,7 @@ void diagnostics()
 	  
       * writePosTen1 = transId;       
       * writePosTen9 = 10;       
-      * writePosTen10 = w;
+      * writePosTen10 = htonl(w);
       FD_ZERO(&fdsAKD);
       tv.tv_sec = 0;
       tv.tv_usec = 0;

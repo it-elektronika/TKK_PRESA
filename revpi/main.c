@@ -529,7 +529,7 @@ void diagnostics()
     case 4:
       writeVariableValue("O_10", 1);
       usleep(1000); 
-      step = 5
+      step = 5;
       break;
 
     case 5:

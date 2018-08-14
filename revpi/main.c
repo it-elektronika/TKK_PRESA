@@ -527,8 +527,10 @@ void diagnostics()
     }
 
     case 4:
-      writeVariableValue("O_10", 1);
+      writeVariableValue("O_9", 1);
       usleep(1000); 
+      writeVariableValue("O_9", 0);
+      
       step = 5;
       break;
 

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <arpa/inet.h>
 #include <time.h>
-#define lastStep 9
+#define lastStep 12
 #define PORTNO 1500
 #define BILLION 1000000000L;
 modbus_t *ctx;
@@ -48,8 +48,8 @@ char buff_outputs[28][20];
 
 int scrollArr[28];
 char stepCounter[10];
-char stepCond[10][3][50];
-char stepName[10][50];
+char stepCond[13][3][50];
+char stepName[13][50];
 int step;
 int posMan;
 int posUp;

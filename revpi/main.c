@@ -524,7 +524,7 @@ void diagnostics()
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
       conn_AKD = recv(s, ibufDS, 50 , 0);
       transId++;
-      
+      case = 4;
       break;
 	   
     }
@@ -534,8 +534,6 @@ void diagnostics()
       writeVariableValue("O_9", 1);
       usleep(1000); 
       writeVariableValue("O_9", 0);
-      
-      step = 5;
       break;
 
     case 5:

@@ -432,19 +432,6 @@ void diagnostics()
     case 0:
       break;
 
-    case 11111111:
-      writeVariableValue("O_10", 1);
-      usleep(10000);
-      step = 2;
-      break;
- 
-    case 111111111:
-      if(readVariableValue("I_9")==1)
-      {
-        step = 3;
-      }
-      break;
-
     case 1:
       printf("STEP: %d\n", step);  
       break;
@@ -460,7 +447,6 @@ void diagnostics()
       step = 3;
       break;
     
-   
     case 3:
     {
       printf("STEP: %d\n", step);
@@ -571,7 +557,7 @@ void diagnostics()
     case 4:
       printf("STEP: %d\n", step);
       writeVariableValue("O_9", 1);
-      usleep(1000); 
+      usleep(10000); 
       writeVariableValue("O_9", 0);
       break;
 

@@ -161,7 +161,17 @@ void sendRequest(int reqId, int outputId, int id)
     n = send(sockfd,sendWriteBuff, 29, 0); 
     memset(sendWriteBuff, 0, 3);
   }
- 
+  else if(reqId == 6)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    int * sendWrite1 = (int*)(&sendWriteBuff[1]);
+   
+    * sendWrite0 = 6;
+    * sendWrite1 = selectedCan; 
+   
+    n = send(sockfd,sendWriteBuff, 29, 0); 
+    memset(sendWriteBuff, 0, 3);
+  }
 }
 
 void receiveResponse()

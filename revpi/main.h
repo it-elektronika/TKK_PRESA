@@ -17,6 +17,8 @@ int program;
 int transId;
 int conn_AKD;
 
+int selectedCan;
+
 int PiControlHandle_g;
 
 char sendReadBuff[256];
@@ -37,6 +39,9 @@ char outputWriteBuff[256];
 
 char obufMT[21];
 char ibufMT[21];
+
+char obufMTN[21];
+char ibufMTN[21];
 
 
 char obufDS[17];

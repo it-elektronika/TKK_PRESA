@@ -151,8 +151,6 @@ void initMain()
   * writePosTen17 = 1;            
   * writePosTen18 = 1;  
 
-
-
   int * moveTask1 =  (int*)(&obufMT[0]);
   int * moveTask2 =  (int*)(&obufMT[2]);
   int * moveTask3 =  (int*)(&obufMT[4]);
@@ -169,11 +167,32 @@ void initMain()
   * moveTask3 = htons(11);
   * moveTask4 = 1;
   * moveTask5 = 16;
-  * moveTask6 = htons(2016);
+  * moveTask6 = htons(2014);
   * moveTask7 = htons(2);
   * moveTask8 = 4;
   * moveTask9 = 2;
  
+  int * moveTask1Next =  (int*)(&obufMTN[0]);
+  int * moveTask2Next =  (int*)(&obufMTN[2]);
+  int * moveTask3Next =  (int*)(&obufMTN[4]);
+  int * moveTask4Next =  (int*)(&obufMTN[6]);
+  int * moveTask5Next =  (int*)(&obufMTN[7]);
+  int * moveTask6Next =  (int*)(&obufMTN[8]);
+  int * moveTask7Next =  (int*)(&obufMTN[10]);
+  int * moveTask8Next =  (int*)(&obufMTN[12]);
+  int * moveTask9Next =  (int*)(&obufMTN[13]);
+  
+  memset(obufMTN, 0, 17);
+  * moveTask1Next = transId;   
+  * moveTask2Next = htons(0);
+  * moveTask3Next = htons(11);
+  * moveTask4Next = 1;
+  * moveTask5Next = 16;
+  * moveTask6Next = htons(2016);
+  * moveTask7Next = htons(2);
+  * moveTask8Next = 4;
+  * moveTask9Next = 2;
+
 
 
   int * drvSave1 =  (int*)(&obufDS[0]);
@@ -241,6 +260,10 @@ void receiveRequest()
       step++;
     }
     sendResponse(5);
+  }
+  else if(recvReadBuff[0] == 6)
+  {
+    selectedCan = recvReadBuff[1]; 
   }
   
 }
@@ -440,8 +463,8 @@ void diagnostics()
       int * writePosTen9 =  (int*)(&writePosTenBuff[16]);
       int * writePosTen10 = (int*)(&writePosTenBuff[17]);
    
-      int * moveTask1 =  (int*)(&obufMT[0]); 
-      int * moveTask9 =  (int*)(&obufMT[13]);
+      int * moveTask1Next =  (int*)(&obufMTN[0]); 
+      int * moveTask9Next =  (int*)(&obufMTN[13]);
    
       int * drvSave1 = (int*)(&obufDS[0]);
    
@@ -498,18 +521,18 @@ void diagnostics()
       conn_AKD = recv(s, writePosTenBuff_recv, 50 , 0);
       transId++;
 
-      * moveTask1 = transId;
-      * moveTask9 = htonl(10000);                
+      * moveTask1Next = transId;
+      * moveTask9Next = htonl(10000);                
       FD_ZERO(&fdsAKD);
       tv.tv_sec = 0;
       tv.tv_usec = 0;
     
       conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
-      conn_AKD = send(s, obufMT, 17, 0);
+      conn_AKD = send(s, obufMTN, 17, 0);
       printf("Message Sent! - start task - small\n");
       FD_SET(s, &fdsAKD);
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
-      conn_AKD = recv(s, ibufMT, 50 , 0);
+      conn_AKD = recv(s, ibufMTN, 50 , 0);
       transId++;
         
       * drvSave1 = transId;
@@ -587,6 +610,77 @@ void diagnostics()
       writeVariableValue("O_1", 0);
       step = 0;
       break;
-   }
+     
+    case 13:
+    {
+      int * moveTask1 =  (int*)(&obufMT[0]); 
+      int * moveTask9 =  (int*)(&obufMT[13]);
+      int * moveTask1Next =  (int*)(&obufMTN[0]); 
+      int * moveTask9Next =  (int*)(&obufMTN[13]);
+      int * drvSave1 = (int*)(&obufDS[0]);
+   
+      * moveTask1 = transId;
+      if(selectedCan == 0)
+      {
+	* moveTask9 = htonl(1000);                
+	* moveTask9Next = htonl(2000);
+      }
+      else if(selectedCan == 1)
+      {
+	* moveTask9 = htonl(3000);
+	* moveTask9Next = htonl(4000);
+      }
+      else if(selectedCan == 2)
+      {
+       * moveTask9 = htonl(5000);
+       * moveTask9Next = htonl(6000);     
+      }
+      else if(selectedCan == 3)
+      {
+	* moveTask9 = htonl(7000);
+	* moveTask9Next = htonl(8000); 
+      }
+
+      FD_ZERO(&fdsAKD);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
+      conn_AKD = send(s, obufMT, 17, 0);
+      printf("Message Sent! - start task - small\n");
+      FD_SET(s, &fdsAKD);
+      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
+      conn_AKD = recv(s, ibufMT, 50 , 0);
+      transId++;
+      
+      * moveTask1Next = transId;
+	
+      FD_ZERO(&fdsAKD);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
+      conn_AKD = send(s, obufMTN, 17, 0);
+      printf("Message Sent! - start task - small\n");
+      FD_SET(s, &fdsAKD);
+      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
+      conn_AKD = recv(s, ibufMTN, 50 , 0);
+      transId++;
+
+      * drvSave1 = transId;
+      FD_ZERO(&fdsAKD);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
+      conn_AKD = send(s, obufDS, 17, 0);
+      printf("Message Sent! - save to drive - small\n");
+      FD_SET(s, &fdsAKD);
+      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
+      conn_AKD = recv(s, ibufDS, 50 , 0);
+      transId++;
+
+    }
+  }
 }
 

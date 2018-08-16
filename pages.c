@@ -24,24 +24,31 @@ void pageZero(int pageNum)  /* LANDING PAGE */
       {
         if(atoi(line) == 0)
         {
+          selectedCan = 0;
           selected[0]=1;
           selected[1]=0;
-          selected[2]=0;     
+          selected[2]=0;
+          selected[3]=0;     
         }
         else if(atoi(line) == 1)
         {
+          selectedCan = 1;
           selected[0]=0;
           selected[1]=1;
-          selected[2]=0;  
+          selected[2]=0;
+          selected[3]=0;  
         }
         else if(atoi(line) == 2)
         {
+          selectedCan = 2;
           selected[0]=0;
           selected[1]=0;
           selected[2]=1;  
+          selected[3]=0;
         }
         else if(atoi(line) == 3)
         {
+          selectedCan = 3;
           selected[0]=0;
           selected[1]=0;
           selected[2]=0;

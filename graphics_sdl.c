@@ -23,7 +23,6 @@ int init()    /* things needed to start sdl2 properly */
   }  
 
   window = SDL_CreateWindow("IT-Elektronika", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS);
-   
 
   if(window == NULL)
   {
@@ -33,8 +32,7 @@ int init()    /* things needed to start sdl2 properly */
   renderer = SDL_CreateRenderer(window, - 1, SDL_RENDERER_SOFTWARE);
   if(renderer == NULL)
   {
-    ;
-    /*printf("RENDERER IS NULL\n");*/
+    printf("RENDERER IS NULL\n");
   }
 
   if((innited&flags) != flags)
@@ -390,7 +388,6 @@ void touchUpdate()   /* handling touch events */
       {
         program = 0;        
       }
-      
     }
     #endif
     #ifdef LUKA
@@ -438,14 +435,6 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
     fp_can_size = fopen("/home/luka/TKK_PRESA_/data/can_size.txt", "w");
     #endif
     
-    #ifdef RPI   
-    fp_second_pos = fopen("/home/pi/TKK_PRESA/data/second_pos.txt", "w");
-    #endif
-    #ifdef LUKA
-    fp_second_pos = fopen("/home/luka/TKK_PRESA_/data/second_pos.txt", "w");
-    #endif
- 
-
     posCounter = 0;
     //int * clear1 =  (int*)(&obufCl[0]);
     //int * clear9 =  (int*)(&obufCl[16]);
@@ -457,326 +446,79 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
     int * moveTask1Next =  (int*)(&obufMTN[0]); 
     int * moveTask9Next =  (int*)(&obufMTN[13]);
     int * drvSave1 = (int*)(&obufDS[0]);
-   
-    /* writing position values to AKD registers and saving values to file */
+ 
+    * moveTask1 = transId;
     if(selected[0])
     {
-     /* 
-      * clear1 = transId;
-      * clear9 = 2;      
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufCl, 17, 0);
-      printf("Message Sent! - clear position - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufCl, 50 , 0);
-      transId++;
-            
-      * posOneB1 = transId;       
-      * posOneB9 = 2;       
-      * posOneB10 = htonl((AKD_frame_posSmall+modifier)*1000);
-      secondPosSmall = AKD_frame_posSmall+modifier;
-      fprintf(fp_second_pos, "%d\n", secondPosSmall);
-
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufOneB, 53, 0);
-      printf("Message Sent! - position parameter - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufOneB, 50 , 0);
-      transId++;
-      */
-      * moveTask1 = transId;
       * moveTask9 = htonl(1000);                
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufMT, 17, 0);
-      printf("Message Sent! - start task - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufMT, 50 , 0);
-      transId++;
-      
-      * moveTask1Next = transId;
-      * moveTask9Next = htonl(2000);                 
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufMTN, 17, 0);
-      printf("Message Sent! - start task - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufMTN, 50 , 0);
-      transId++;
-
-      * drvSave1 = transId;
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufDS, 17, 0);
-      printf("Message Sent! - save to drive - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufDS, 50 , 0);
-      transId++;
-
-      fprintf(fp_can_size, "%d\n", 0);
+      * moveTask9Next = htonl(2000);
+      fprintf(fp_can_size, "%d\n", 0);   
+      selectedCan = 0;
     }
     else if(selected[1])
     {
-      /*
-      * clear1 = transId;           
-      * clear9 = 4;           
-   
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufCl, 17, 0);
-      printf("Message Sent! - clear position - medium\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufCl, 50 , 0);
-      transId++;
-     
-      * posOneB1 = transId; 
-      * posOneB9 = 4;
-      * posOneB10 = htonl((AKD_frame_posMedium+modifier)*1000); 
-      secondPosMedium = AKD_frame_posMedium+modifier;
-      fprintf(fp_second_pos, "%d\n", secondPosMedium);
-
-
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufOneB, 53, 0);
-      printf("Message Sent! - position parameter - medium\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufOneB, 50 , 0);
-      transId++;
-     */
-      * moveTask1 = transId;
       * moveTask9 = htonl(3000);
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufMT, 17, 0);
-      printf("Message Sent! - start task - medium\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufMT, 50 , 0);
-      transId++;
-      
-      * moveTask1Next = transId;
-      * moveTask9Next = htonl(4000); /* starting task */                 
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufMTN, 17, 0);
-      printf("Message Sent! - start task - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufMTN, 50 , 0);
-      transId++;
-      
-      * drvSave1 = transId;
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufDS, 17, 0);
-      printf("Message Sent! - save to drive - medium\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufDS, 50 , 0);
-      transId++;
-
-      fprintf(fp_can_size, "%d\n", 1);   
-    }  
+      * moveTask9Next = htonl(4000);
+      fprintf(fp_can_size, "%d\n", 1);
+      selectedCan = 1;
+    }
     else if(selected[2])
     {
-      /* 
-      * clear1 = transId;           
-      * clear9 = 6;           
-
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufCl, 17, 0);
-      printf("Message Sent! - clear position - big\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufCl, 50 , 0);
-      transId++;
-      
-      * posOneB1 = transId;  
-      * posOneB9 = 6;  
-      * posOneB10 = htonl((AKD_frame_posBig+modifier)*1000);  
-      secondPosBig = AKD_frame_posBig+modifier;
-      fprintf(fp_second_pos, "%d\n", secondPosBig);
-
-
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufOneB, 53, 0);
-      printf("Message sent! - position parameter - big\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufOneB, 50 , 0);
-      transId++;
-      */
-      * moveTask1 = transId;
-      * moveTask9 = htonl(5000);
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      * moveTask1Next = transId;
-      * moveTask9Next = htonl(6000); /* starting task */                 
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufMTN, 17, 0);
-      printf("Message Sent! - start task - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufMTN, 50 , 0);
-      transId++;
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufMT, 17, 0);
-      printf("Message Sent! - start task -big\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufMT, 50 , 0);
-      transId++;
-
-      * drvSave1 = transId;
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufDS, 17, 0);
-      printf("Message Sent! - save to drive - big\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufDS, 50 , 0);
-      transId++;
-
-      fprintf(fp_can_size, "%d\n", 2);
-    }    
-    else if(selected[3]) /* added last small2 */
-    {
-      /*
-      * clear1 = transId;
-      * clear9 = 8;      
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufCl, 17, 0);
-      printf("Message Sent! - clear position - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufCl, 50 , 0);
-      transId++;
-            
-      * posOneB1 = transId;       
-      * posOneB9 = 8;       
-      * posOneB10 = htonl((AKD_frame_posSmall2+modifier)*1000);
-      secondPosSmall2 = AKD_frame_posSmall2+modifier;
-      fprintf(fp_second_pos, "%d\n", secondPosSmall2);
-
-
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufOneB, 53, 0);
-      printf("Message Sent! - position parameter - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufOneB, 50 , 0);
-      transId++;
-*/      
-      * moveTask1 = transId;
-      * moveTask9 = htonl(7000); /* starting task */                 
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufMT, 17, 0);
-      printf("Message Sent! - start task - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufMT, 50 , 0);
-      transId++;
-
-      * moveTask1Next = transId;
-      * moveTask9Next = htonl(8000); /* starting task */                 
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufMTN, 17, 0);
-      printf("Message Sent! - start task - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufMTN, 50 , 0);
-      transId++;
-
-      * drvSave1 = transId;
-      FD_ZERO(&fds);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_presa = select(32, NULL, &fds, NULL, &tv);
-      conn_presa = send(s, obufDS, 17, 0);
-      printf("Message Sent! - save to drive - small\n");
-      FD_SET(s, &fds);
-      conn_presa = select(32, &fds, NULL, NULL, &tv);
-      conn_presa = recv(s, ibufDS, 50 , 0);
-      transId++;
-
-      fprintf(fp_can_size, "%d\n", 3);
+     * moveTask9 = htonl(5000);
+     * moveTask9Next = htonl(6000);     
+     fprintf(fp_can_size, "%d\n", 2); 
+     selectedCan = 2;               
     }
+    else if(selected[3])
+    {
+      * moveTask9 = htonl(7000);
+      * moveTask9Next = htonl(8000); 
+      fprintf(fp_can_size, "%d\n", 3); 
+      selectedCan = 4;            
+    }
+
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufMT, 17, 0);
+    printf("Message Sent! - start task - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufMT, 50 , 0);
+    transId++;
+    
+    * moveTask1Next = transId;
+    
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufMTN, 17, 0);
+    printf("Message Sent! - start task - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufMTN, 50 , 0);
+    transId++;
+
+    * drvSave1 = transId;
+    FD_ZERO(&fds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_presa = select(32, NULL, &fds, NULL, &tv);
+    conn_presa = send(s, obufDS, 17, 0);
+    printf("Message Sent! - save to drive - small\n");
+    FD_SET(s, &fds);
+    conn_presa = select(32, &fds, NULL, NULL, &tv);
+    conn_presa = recv(s, ibufDS, 50 , 0);
+    transId++;
+
     fclose(fp_can_size);
-    fclose(fp_second_pos);
+    sendRequest(6, 0, 0);
+    receiveResponse();
   }
   renderText(text, smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 

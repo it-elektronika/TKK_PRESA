@@ -20,7 +20,7 @@ fd_set fds;
 fd_set fdsTCP;
 
 struct timeval tv;
-
+int selectedCan;
 int connectiOn;
 char connStat[2][2];
 int n; 

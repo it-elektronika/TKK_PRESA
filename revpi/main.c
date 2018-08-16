@@ -266,7 +266,11 @@ void receiveRequest()
     selectedCan = recvReadBuff[1]; 
     sendResponse(6);
   }
-  
+  else if(recvReadBuff[0] == 7)
+  {
+    press = recvReadBuff[1]*1000; 
+    sendResponse(7);
+  }
 }
 
 
@@ -422,6 +426,21 @@ void sendResponse(int reqId)
     memset(sendWriteBuff, 0, 29);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
+  else if(reqId == 7)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 7;
+    
+    FD_ZERO(&fdsTCP);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    n = select(32, NULL, &fdsTCP, NULL, &tv); 
+   
+    n = send(newsockfd, sendWriteBuff, 29, 0);
+    memset(sendWriteBuff, 0, 29);
+    //printf("RESPONSE SENT reqId:%d\n", reqId);
+  }
 }
 
 
@@ -510,7 +529,7 @@ void diagnostics()
 	  
       * writePosTen1 = transId;       
       * writePosTen9 = 10;       
-      * writePosTen10 = htonl(w);
+      * writePosTen10 = htonl(w + press);
       FD_ZERO(&fdsAKD);
       tv.tv_sec = 0;
       tv.tv_usec = 0;

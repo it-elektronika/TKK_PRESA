@@ -4,7 +4,7 @@ socklen_t clilen;
 struct sockaddr_in serv_addr, cli_addr;
 struct sockaddr_in AKD_server;
 char *ip_adrs;
-
+int press;
 
 fd_set fdsTCP;
 fd_set fdsAKD;

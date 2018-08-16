@@ -527,7 +527,16 @@ void pageNine(int pageNum)  /* ERROR */
     renderText("SPODAJ", smallText, blackColor);
     render(800, 650, NULL, 0.0, NULL, SDL_FLIP_NONE);
  
+    sprintf(pressBuff, "STISK:%d mm", press);
+    renderText(pressBuff, smallText, blackColor);
+    render(950, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    up_button(1150, 140, &press, 1, 170);
+    down_button(1200, 140, &press, 1, 0);
+ 
     savePos(30, 720, 200, 50);
+
+    sendRequest(7, 0, 0);
+    receiveResponse();
   }
   else if(page_stage[pageNum] == 2)
   {

@@ -172,6 +172,17 @@ void sendRequest(int reqId, int outputId, int id)
     n = send(sockfd,sendWriteBuff, 29, 0); 
     memset(sendWriteBuff, 0, 3);
   }
+  else if(reqId == 7)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    int * sendWrite1 = (int*)(&sendWriteBuff[1]);
+   
+    * sendWrite0 = 7;
+    * sendWrite1 = press; 
+   
+    n = send(sockfd,sendWriteBuff, 29, 0); 
+    memset(sendWriteBuff, 0, 3);
+  }
 }
 
 void receiveResponse()
@@ -555,6 +566,24 @@ void initMain()
     printf("line:%s\n", line);
   }
   fclose(fp_second_pos);
+ 
+  #ifdef RPI   
+  fp_press = fopen("/home/pi/TKK_PRESA/data/press.txt", "r");
+  #endif
+  #ifdef LUKA
+  fp_press = fopen("/home/luka/TKK_PRESA_/data/press.txt", "r");
+  #endif
+
+  for(i = 0; i < 1; ++i)
+  {
+    getline(&line, &len, fp_second_pos);
+    if(i==0)
+    {
+      press = atoi(line);
+    }
+  }
+  fclose(fp_press);
+
 }
 
 void error(const char *msg)

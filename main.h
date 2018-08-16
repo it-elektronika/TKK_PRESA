@@ -55,6 +55,8 @@ int posMan;
 int posUp;
 int posDown;
 
+int press;
+char pressBuff[20];
 
 char AKD_smallBuff[20];
 char AKD_small2Buff[20];

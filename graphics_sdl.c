@@ -1235,7 +1235,17 @@ void savePos(int x, int y, int w, int h)
     fprintf(AKD_pos, "%d\n", AKD_frame_posSmall2);
     fclose(AKD_pos);
 
+    #ifdef RPI   
+    fp_press = fopen("/home/pi/TKK_PRESA/data/press.txt", "w");
+    #endif
+    #ifdef LUKA
+    fp_press = fopen("/home/luka/TKK_PRESA_/data/press.txt", "w");
+    #endif
  
+    fprintf(fp_press, "%d\n", press);
+    fclose(fp_press);
+
+
  
   }
   renderText("SAVE", smallText,  blackColor);

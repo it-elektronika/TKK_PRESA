@@ -268,7 +268,7 @@ void receiveRequest()
   }
   else if(recvReadBuff[0] == 7)
   {
-    press = recvReadBuff[1]*1000; 
+    press = (recvReadBuff[1])*1000; 
     sendResponse(7);
   }
 }

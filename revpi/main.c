@@ -608,7 +608,7 @@ void diagnostics()
     case 12:
       printf("STEP: %d\n", step);
       writeVariableValue("O_1", 0);
-      step = 0;
+      step = 13;
       break;
      
     case 13:

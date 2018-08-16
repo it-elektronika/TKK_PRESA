@@ -679,7 +679,7 @@ void diagnostics()
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
       conn_AKD = recv(s, ibufDS, 50 , 0);
       transId++;
-
+      step = 0;
     }
   }
 }

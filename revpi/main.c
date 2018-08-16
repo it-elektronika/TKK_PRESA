@@ -264,6 +264,7 @@ void receiveRequest()
   else if(recvReadBuff[0] == 6)
   {
     selectedCan = recvReadBuff[1]; 
+    sendResponse(6);
   }
   
 }
@@ -395,6 +396,21 @@ void sendResponse(int reqId)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 5;
+    
+    FD_ZERO(&fdsTCP);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    n = select(32, NULL, &fdsTCP, NULL, &tv); 
+   
+    n = send(newsockfd, sendWriteBuff, 29, 0);
+    memset(sendWriteBuff, 0, 29);
+    //printf("RESPONSE SENT reqId:%d\n", reqId);
+  }
+  else if(reqId == 6)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 6;
     
     FD_ZERO(&fdsTCP);
     tv.tv_sec = 0;

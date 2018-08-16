@@ -437,6 +437,18 @@ void initMain()
   strcpy(stepCond[9][0], "POGOJ 9.1");
   strcpy(stepCond[9][1], "POGOJ 9.2");
   strcpy(stepCond[9][2], "POGOJ 9.3");
+  strcpy(stepCond[10][0], "POGOJ 10.1");
+  strcpy(stepCond[10][1], "POGOJ 10.2");
+  strcpy(stepCond[10][2], "POGOJ 10.3");
+  strcpy(stepCond[11][0], "POGOJ 11.1");
+  strcpy(stepCond[11][1], "POGOJ 11.2");
+  strcpy(stepCond[11][2], "POGOJ 11.3");
+  strcpy(stepCond[12][0], "POGOJ 12.1");
+  strcpy(stepCond[12][1], "POGOJ 12.2");
+  strcpy(stepCond[12][2], "POGOJ 12.3");
+  strcpy(stepCond[13][0], "POGOJ 13.1");
+  strcpy(stepCond[13][1], "POGOJ 13.2");
+  strcpy(stepCond[13][2], "POGOJ 13.3");
   
   strcpy(stepName[0], "KORAK1");
   strcpy(stepName[1], "KORAK2");
@@ -448,6 +460,11 @@ void initMain()
   strcpy(stepName[7], "KORAK8");
   strcpy(stepName[8], "KORAK9");
   strcpy(stepName[9], "KORAK10");
+  strcpy(stepName[10], "KORAK11");
+  strcpy(stepName[11], "KORAK12");
+  strcpy(stepName[12], "KORAK13");
+  strcpy(stepName[13], "KORAK14");
+
 
   #ifdef RPI   
   fp_first_pos = fopen("/home/pi/TKK_PRESA/data/first_pos.txt", "r");

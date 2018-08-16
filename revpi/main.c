@@ -583,7 +583,6 @@ void diagnostics()
     case 5:
       printf("STEP: %d\n", step);
       writeVariableValue("O_1", 1);
-      usleep(10000); 
       step = 6;
       break;
 
@@ -604,6 +603,7 @@ void diagnostics()
     case 8:
       printf("STEP: %d\n", step);
       writeVariableValue("O_10", 0);
+      usleep(10000);
       step = 9;
       break;
 

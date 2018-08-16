@@ -576,7 +576,7 @@ void initMain()
 
   for(i = 0; i < 1; ++i)
   {
-    getline(&line, &len, fp_second_pos);
+    getline(&line, &len, fp_press);
     if(i==0)
     {
       press = atoi(line);

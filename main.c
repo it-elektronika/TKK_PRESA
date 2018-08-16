@@ -405,8 +405,8 @@ void initMain()
   * posOneA17 = 1;            
   * posOneA18 = 1;  
   
-  memset(stepCond, 0, sizeof(lastStep));
-  memset(stepName, 0, sizeof(lastStep));
+  memset(stepCond, 0, sizeof(stepCond));
+  memset(stepName, 0, sizeof(stepName));
   strcpy(stepCond[0][0], "POGOJ 0.1");
   strcpy(stepCond[0][1], "POGOJ 0.2");
   strcpy(stepCond[0][2], "POGOJ 0.3");

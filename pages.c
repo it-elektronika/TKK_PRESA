@@ -257,7 +257,7 @@ void pageFour(int pageNum)  /* DIAGNOSTICS */
   else if(page_stage[pageNum] == 1)
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 1);
-    continue_button(30, 200, 350, 100, 9);
+    continue_button(30, 200, 350, 100, lastStep);
     start_button(700, 200, 250, 100);
     stop_button(1000, 200, 250, 100);
          

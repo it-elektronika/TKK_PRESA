@@ -615,6 +615,8 @@ void diagnostics()
      
     case 13:
     {
+      printf("STEP: %d\n", step);
+      printf("SELECTED CAN: %d\n", selectedCan);
       int * moveTask1 =  (int*)(&obufMT[0]); 
       int * moveTask9 =  (int*)(&obufMT[13]);
       int * moveTask1Next =  (int*)(&obufMTN[0]); 

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <arpa/inet.h>
 #include <time.h>
-#define lastStep 12
+#define lastStep 13
 #define PORTNO 1500
 #define BILLION 1000000000L;
 modbus_t *ctx;

@@ -533,7 +533,7 @@ void pageNine(int pageNum)  /* ERROR */
     sprintf(pressBuff, "STISK:%d mm", press);
     renderText(pressBuff, smallText, blackColor);
     render(950, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(1150, 140, &press, 1, 170);
+    up_button(1150, 140, &press, 1, 10);
     down_button(1200, 140, &press, 1, 0);
  
     savePos(30, 720, 200, 50);

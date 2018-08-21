@@ -286,7 +286,7 @@ void initMain()
   * posOneB6 = htons(8192);
   * posOneB7 = htons(20);
   * posOneB8 = 40;
-  * posOneB11 = htonl(2000000);   
+  * posOneB11 = htonl(200000);   
   * posOneB12 = 16;           
   * posOneB13 = htonl(5000000);  
   * posOneB14 = htonl(5000000);  
@@ -407,7 +407,7 @@ void initMain()
   * posOneA6 = htons(8192);
   * posOneA7 = htons(20);
   * posOneA8 = 40;
-  * posOneA11 = htonl(2000000);   
+  * posOneA11 = htonl(200000);   
   * posOneA12 = 16;           
   * posOneA13 = htonl(5000000);  
   * posOneA14 = htonl(5000000);  

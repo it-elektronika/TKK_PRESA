@@ -458,12 +458,15 @@ void diagnostics()
     
     case 2:
       printf("STEP: %d\n", step);
-      writeVariableValue("O_10", 1);
+      writeVariableValue("O_9", 1);
       usleep(10000);
-      writeVariableValue("O_10", 0);
-      /*writeVariableValue("O_9", 1);
       writeVariableValue("O_9", 0);
-     */
+      printf("first pos\n");
+      usleep(50000);
+      writeVariableValue("O_10", 1);
+      writeVariableValue("O_10", 0);
+      printf("measurement position\n");
+
       step = 3;
       break;
     
@@ -577,6 +580,7 @@ void diagnostics()
 
     case 4:
       printf("STEP: %d\n", step);
+      printf("ready to perform press\n");
       writeVariableValue("O_9", 1);
       usleep(10000); 
       writeVariableValue("O_9", 0);

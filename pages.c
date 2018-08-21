@@ -115,6 +115,9 @@ void pageZero(int pageNum)  /* LANDING PAGE */
       }
     }
     fclose(AKD_pos);
+  
+    sendRequest(6, 0, 0);
+    receiveResponse();
    
     page_stage[pageNum] = 1;
   }

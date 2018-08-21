@@ -462,8 +462,10 @@ void diagnostics()
       usleep(10000);
       writeVariableValue("O_9", 0);
       printf("first pos\n");
-      usleep(50000);
+      usleep(100000);
       writeVariableValue("O_10", 1);
+      usleep(10000);
+
       writeVariableValue("O_10", 0);
       printf("measurement position\n");
 

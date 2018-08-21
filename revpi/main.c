@@ -460,9 +460,9 @@ void diagnostics()
       writeVariableValue("O_10", 1);
       usleep(10000);
       writeVariableValue("O_10", 0);
-      writeVariableValue("O_9", 1);
+      /*writeVariableValue("O_9", 1);
       writeVariableValue("O_9", 0);
-     
+     */
       step = 3;
       break;
     

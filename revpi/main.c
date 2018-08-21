@@ -453,6 +453,7 @@ void diagnostics()
 
     case 1:
       printf("STEP: %d\n", step);  
+      printf("SELECTED CAN: %d\n", selectedCan);
       break;
     
     case 2:
@@ -508,8 +509,9 @@ void diagnostics()
       FD_SET(s, &fdsAKD);
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
       conn_AKD = recv(s, readBuff_recv, 50 , 0);
-      printf("Message Received! - read feedback position\n");
+      
       w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
+      printf("Message Received! - read feedback position: %d\n", w);
       printf("POSITION FEEDBACK:%d\n", w);
       transId++;
    
@@ -636,7 +638,7 @@ void diagnostics()
     case 13:
     {
       printf("STEP: %d\n", step);
-      printf("SELECTED CAN: %d\n", selectedCan);
+      
       int * moveTask1 =  (int*)(&obufMT[0]); 
       int * moveTask9 =  (int*)(&obufMT[13]);
       int * moveTask1Next =  (int*)(&obufMTN[0]); 
@@ -671,7 +673,7 @@ void diagnostics()
     
       conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
       conn_AKD = send(s, obufMT, 17, 0);
-      printf("Message Sent! - start task - small\n");
+      printf("Message Sent! move_task_next: %d\n", moveTask9);
       FD_SET(s, &fdsAKD);
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
       conn_AKD = recv(s, ibufMT, 50 , 0);
@@ -685,7 +687,7 @@ void diagnostics()
     
       conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
       conn_AKD = send(s, obufMTN, 17, 0);
-      printf("Message Sent! - start task - small\n");
+      printf("Message Sent! move_task_next: %d\n", moveTask9Next);
       FD_SET(s, &fdsAKD);
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
       conn_AKD = recv(s, ibufMTN, 50 , 0);
@@ -698,7 +700,7 @@ void diagnostics()
     
       conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
       conn_AKD = send(s, obufDS, 17, 0);
-      printf("Message Sent! - save to drive - small\n");
+      printf("Message Sent! - save to drive\n");
       FD_SET(s, &fdsAKD);
       conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
       conn_AKD = recv(s, ibufDS, 50 , 0);

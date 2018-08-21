@@ -459,12 +459,12 @@ void diagnostics()
     case 2:
       printf("STEP: %d\n", step);
       writeVariableValue("O_9", 1);
-      usleep(10000);
+      usleep(100000);
       writeVariableValue("O_9", 0);
       printf("first pos\n");
-      usleep(100000);
+      usleep(10000000);
       writeVariableValue("O_10", 1);
-      usleep(10000);
+      usleep(100000);
 
       writeVariableValue("O_10", 0);
       printf("measurement position\n");
@@ -584,7 +584,7 @@ void diagnostics()
       printf("STEP: %d\n", step);
       printf("ready to perform press\n");
       writeVariableValue("O_9", 1);
-      usleep(10000); 
+      usleep(100000); 
       writeVariableValue("O_9", 0);
       break;
 
@@ -597,7 +597,7 @@ void diagnostics()
     case 6:
       printf("STEP: %d\n", step);
       writeVariableValue("O_10", 1);
-      usleep(10000);
+      usleep(100000);
       step = 7;
       break;
     
@@ -611,7 +611,7 @@ void diagnostics()
     case 8:
       printf("STEP: %d\n", step);
       writeVariableValue("O_10", 0);
-      usleep(10000);
+      usleep(100000);
       step = 9;
       break;
 

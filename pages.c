@@ -119,6 +119,9 @@ void pageZero(int pageNum)  /* LANDING PAGE */
     sendRequest(6, 0, 0);
     receiveResponse();
    
+    sendRequest(7, 0, 0);
+    receiveResponse();
+ 
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -537,10 +540,7 @@ void pageNine(int pageNum)  /* ERROR */
     down_button(1200, 140, &press, 1, 0);
  
     savePos(30, 720, 200, 50);
-
-    sendRequest(7, 0, 0);
-    receiveResponse();
-  }
+ }
   else if(page_stage[pageNum] == 2)
   {
     page_stage[pageNum] = 0;

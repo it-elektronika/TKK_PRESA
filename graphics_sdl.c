@@ -1245,6 +1245,9 @@ void savePos(int x, int y, int w, int h)
     fprintf(fp_press, "%d\n", press);
     fclose(fp_press);
 
+    sendRequest(7, 0, 0);
+    receiveResponse();
+ 
 
  
   }

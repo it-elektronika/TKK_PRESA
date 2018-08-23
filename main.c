@@ -27,10 +27,12 @@ int main()
     renderContent();
     SDL_RenderPresent(renderer);
     cycle++;
+ 
     if(conn_presa != 0)
     {
       initCommAKDPress();
     }
+    
     if(conn_hmi != 0)
     {
       initCommTCP();
@@ -63,12 +65,13 @@ void initCommAKDPress()
   server.sin_addr.s_addr = inet_addr(ip_adrs);
   printf("connecting to press drive\n");
   conn_presa = connect(s, (struct sockaddr *)&server, sizeof(struct sockaddr_in));
-  if (conn_hmi < 0) 
+  if (conn_presa < 0) 
   {   
     error("ERROR connecting");
   }
   printf("connPresa[0]:%d\n", conn_presa);
-}  
+}
+
 
 void initCommTCP()
 {

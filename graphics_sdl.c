@@ -483,7 +483,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
   
     conn_presa = select(32, NULL, &fds, NULL, &tv);
     conn_presa = send(s, obufMT, 17, 0);
-    printf("Message Sent! - start task - small\n");
+    printf("Message Sent! - motion task 1 - press\n");
     FD_SET(s, &fds);
     conn_presa = select(32, &fds, NULL, NULL, &tv);
     conn_presa = recv(s, ibufMT, 50 , 0);
@@ -497,7 +497,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
   
     conn_presa = select(32, NULL, &fds, NULL, &tv);
     conn_presa = send(s, obufMTN, 17, 0);
-    printf("Message Sent! - start task - small\n");
+    printf("Message Sent! - motion task2 - press\n");
     FD_SET(s, &fds);
     conn_presa = select(32, &fds, NULL, NULL, &tv);
     conn_presa = recv(s, ibufMTN, 50 , 0);
@@ -510,10 +510,45 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
   
     conn_presa = select(32, NULL, &fds, NULL, &tv);
     conn_presa = send(s, obufDS, 17, 0);
-    printf("Message Sent! - save to drive - small\n");
+    printf("Message Sent! - save to drive - press\n");
     FD_SET(s, &fds);
     conn_presa = select(32, &fds, NULL, NULL, &tv);
     conn_presa = recv(s, ibufDS, 50 , 0);
+    transId++;
+
+    conn_gripper = select(32, NULL, &fds_gripper, NULL, &tv);
+    conn_gripper = send(akd_gripper, obufMT, 17, 0);
+    printf("Message Sent! - motion task 1 - gripper\n");
+    FD_SET(akd_gripper, &fds_gripper);
+    conn_gripper = select(32, &fds_gripper, NULL, NULL, &tv);
+    conn_presa = recv(akd_gripper, ibufMT, 50 , 0);
+    transId++;
+    
+    * moveTask1Next = transId;
+    
+    FD_ZERO(&fds_gripper);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_gripper = select(32, NULL, &fds_gripper, NULL, &tv);
+    conn_gripper = send(akd_gripper, obufMTN, 17, 0);
+    printf("Message Sent! - motion task 2 - gripper\n");
+    FD_SET(akd_gripper, &fds_gripper);
+    conn_gripper = select(32, &fds_gripper, NULL, NULL, &tv);
+    conn_gripper = recv(akd_gripper, ibufMTN, 50 , 0);
+    transId++;
+
+    * drvSave1 = transId;
+    FD_ZERO(&fds_gripper);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    conn_gripper = select(32, NULL, &fds_gripper, NULL, &tv);
+    conn_gripper = send(akd_gripper, obufDS, 17, 0);
+    printf("Message Sent! - save to drive - gripper\n");
+    FD_SET(akd_gripper, &fds_gripper);
+    conn_gripper = select(32, &fds_gripper, NULL, NULL, &tv);
+    conn_gripper = recv(akd_gripper, ibufDS, 50 , 0);
     transId++;
 
     fclose(fp_can_size);

@@ -13,11 +13,14 @@
 modbus_t *ctx;
 
 int sockfd;
-struct sockaddr_in serv_addr;
-struct sockaddr_in server;
+struct sockaddr_in serv_addr;  /* REVPI */
+struct sockaddr_in server;     /* AKD_PRESA */
+
+
 char *ip_adrs;
 fd_set fds;
 fd_set fdsTCP;
+
 
 struct timeval tv;
 int selectedCan;

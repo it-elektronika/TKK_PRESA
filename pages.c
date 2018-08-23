@@ -400,7 +400,7 @@ void pageSeven(int pageNum) /* ERROR DRIVES */
       renderText("DRIVE PRESA: NOK", regularText, blackColor);
     }
     render(50, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    
+   
     if(conn_hmi == 0)
     {
       renderText("HMI: OK", regularText, blackColor);

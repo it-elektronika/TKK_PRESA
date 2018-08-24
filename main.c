@@ -556,15 +556,15 @@ void initMain()
     }
     else if(i==1)
     {
-      secondPosMedium = atoi(line);
+      secondPosSmall2 = atoi(line);
     }
     else if(i==2)
     {
-      secondPosBig = atoi(line);
+      secondPosMedium = atoi(line);
     }
     else if(i==3)
     {
-      secondPosSmall2 = atoi(line);
+      secondPosBig = atoi(line);
     }
     printf("line:%s\n", line);
   }
@@ -627,5 +627,14 @@ void checkConn()
     page = 7;
     connectiOn = 0;
   }
+}
+
+
+void sendModbus(int socket, int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text)
+{
+  socket = send(socket_fd, send_buff, send_buff_size, 0);
+  printf("%s\n", print_text);
+  socket = recv(socket_fd, receive_buff, receive_buff_size , 0);
+  transId++;
 }
 

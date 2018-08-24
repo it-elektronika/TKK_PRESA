@@ -474,9 +474,10 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       * moveTask9 = htonl(7000);
       * moveTask9Next = htonl(8000); 
       fprintf(fp_can_size, "%d\n", 3); 
-      selectedCan = 4;            
+      selectedCan = 3;            
     }
 
+    /*
     FD_ZERO(&fds);
     tv.tv_sec = 0;
     tv.tv_usec = 0;
@@ -488,68 +489,15 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
     conn_presa = select(32, &fds, NULL, NULL, &tv);
     conn_presa = recv(s, ibufMT, 50 , 0);
     transId++;
-    
+    */
+
+    sendModbus(conn_presa, s, obufMT, 17, ibufMT, 50, "motion task 1 - press");
     * moveTask1Next = transId;
-    
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufMTN, 17, 0);
-    printf("Message Sent! - motion task2 - press\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufMTN, 50 , 0);
-    transId++;
-
+   
+    sendModbus(conn_presa, s, obufMTN, 17, ibufMTN, 50, "motion task - press");    
     * drvSave1 = transId;
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufDS, 17, 0);
-    printf("Message Sent! - save to drive - press\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufDS, 50 , 0);
-    transId++;
-
-    conn_gripper = select(32, NULL, &fds_gripper, NULL, &tv);
-    conn_gripper = send(akd_gripper, obufMT, 17, 0);
-    printf("Message Sent! - motion task 1 - gripper\n");
-    FD_SET(akd_gripper, &fds_gripper);
-    conn_gripper = select(32, &fds_gripper, NULL, NULL, &tv);
-    conn_presa = recv(akd_gripper, ibufMT, 50 , 0);
-    transId++;
     
-    * moveTask1Next = transId;
-    
-    FD_ZERO(&fds_gripper);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_gripper = select(32, NULL, &fds_gripper, NULL, &tv);
-    conn_gripper = send(akd_gripper, obufMTN, 17, 0);
-    printf("Message Sent! - motion task 2 - gripper\n");
-    FD_SET(akd_gripper, &fds_gripper);
-    conn_gripper = select(32, &fds_gripper, NULL, NULL, &tv);
-    conn_gripper = recv(akd_gripper, ibufMTN, 50 , 0);
-    transId++;
-
-    * drvSave1 = transId;
-    FD_ZERO(&fds_gripper);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_gripper = select(32, NULL, &fds_gripper, NULL, &tv);
-    conn_gripper = send(akd_gripper, obufDS, 17, 0);
-    printf("Message Sent! - save to drive - gripper\n");
-    FD_SET(akd_gripper, &fds_gripper);
-    conn_gripper = select(32, &fds_gripper, NULL, NULL, &tv);
-    conn_gripper = recv(akd_gripper, ibufDS, 50 , 0);
-    transId++;
+    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive");
 
     fclose(fp_can_size);
     sendRequest(6, 0, 0);
@@ -948,301 +896,101 @@ void savePos(int x, int y, int w, int h)
    
 
     /* small */
-    * firstClear1 = transId;
     * firstClear9 = 1;      
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufClFirst, 17, 0);
-    printf("Message Sent! - clear position - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufClFirst, 50 , 0);
-    transId++;
-	  
-    * posOneA1 = transId;       
     * posOneA9 = 1;       
     * posOneA10 = htonl((firstPosSmall)*1000);
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufOneA, 53, 0);
-    printf("Message Sent! - position parameter - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufOneA, 50 , 0);
-    transId++;
-
-    * clear1 = transId;
     * clear9 = 2;      
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufCl, 17, 0);
-    printf("Message Sent! - clear position - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufCl, 50 , 0);
-    transId++;
-	  
-    * posOneB1 = transId;       
     * posOneB9 = 2;       
     * posOneB10 = htonl((AKD_frame_posSmall)*1000);
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufOneB, 53, 0);
-    printf("Message Sent! - position parameter - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufOneB, 50 , 0);
-    transId++;
 
-
-    
-    * drvSave1 = transId;
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufDS, 17, 0);
-    printf("Message Sent! - save to drive - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufDS, 50 , 0);
-    transId++;
- 
-    /* small 2 */
     * firstClear1 = transId;
-    * firstClear9 = 7;      
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufClFirst, 17, 0);
-    printf("Message Sent! - clear position - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufClFirst, 50 , 0);
-    transId++;
+    sendModbus(conn_presa, s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
 	  
     * posOneA1 = transId;       
-    * posOneA9 = 7;       
-    * posOneA10 = htonl((firstPosSmall2)*1000);
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufOneA, 53, 0);
-    printf("Message Sent! - position parameter - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufOneA, 50 , 0);
-    transId++;
- 
-    * clear1 = transId;
-    * clear9 = 8;      
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufCl, 17, 0);
-    printf("Message Sent! - clear position - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufCl, 50 , 0);
-    transId++;
-	  
-    * posOneB1 = transId;       
-    * posOneB9 = 8;       
-    * posOneB10 = htonl((AKD_frame_posSmall2)*1000);
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufOneB, 53, 0);
-    printf("Message Sent! - position parameter - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufOneB, 50 , 0);
-    transId++;
+    sendModbus(conn_presa, s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
 
-      
-    * drvSave1 = transId;
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
+    * clear1 = transId;
+    sendModbus(conn_presa, s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
   
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufDS, 17, 0);
-    printf("Message Sent! - save to drive - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufDS, 50 , 0);
-    transId++;
+    * posOneB1 = transId;       
+    sendModbus(conn_presa, s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
+    
+    * drvSave1 = transId;
+    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive - small");
+
+
+    /* small 2 */
+    * firstClear9 = 3;      
+    * posOneA9 = 3;       
+    * posOneA10 = htonl((firstPosSmall2)*1000);
+    * clear9 = 4;      
+    * posOneB9 = 4;       
+    * posOneB10 = htonl((AKD_frame_posSmall2)*1000);
+
+    * firstClear1 = transId;
+    sendModbus(conn_presa, s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
+  
+    * posOneA1 = transId;       
+    sendModbus(conn_presa, s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
+
+    * clear1 = transId;
+    sendModbus(conn_presa, s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
+
+    * posOneB1 = transId;       
+    sendModbus(conn_presa, s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
+        
+    * drvSave1 = transId;
+    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive - small");
 
 
     /* medium */
-
-    * firstClear1 = transId;           
-    * firstClear9 = 3;           
- 
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufClFirst, 17, 0);
-    printf("Message Sent! - clear position - medium\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufClFirst, 50 , 0);
-    transId++;
-   
-    * posOneA1 = transId; 
-    * posOneA9 = 3;
-    * posOneA10 = htonl((firstPosMedium)*1000); 
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufOneA, 53, 0);
-    printf("Message Sent! - position parameter - medium\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufOneA, 50 , 0);
-    transId++;
-    
-    * clear1 = transId;
-    * clear9 = 4;      
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufCl, 17, 0);
-    printf("Message Sent! - clear position - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufCl, 50 , 0);
-    transId++;
-	  
-    * posOneB1 = transId;       
-    * posOneB9 = 4;       
-    * posOneB10 = htonl((AKD_frame_posMedium)*1000);
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufOneB, 53, 0);
-    printf("Message Sent! - position parameter - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufOneB, 50 , 0);
-    transId++;
-
-
-    * drvSave1 = transId;
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufDS, 17, 0);
-    printf("Message Sent! - save to drive - medium\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufDS, 50 , 0);
-    transId++;
-    
-    /* big */  
-    * firstClear1 = transId;           
     * firstClear9 = 5;           
-
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufClFirst, 17, 0);
-    printf("Message Sent! - clear position - big\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufClFirst, 50 , 0);
-    transId++;
-    
-    * posOneA1 = transId;  
-    * posOneA9 = 5;  
-    * posOneA10 = htonl((firstPosBig)*1000);  
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufOneA, 53, 0);
-    printf("Message sent! - position parameter - big\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufOneA, 50 , 0);
-    transId++;
-   
-    * clear1 = transId;
+    * posOneA9 = 5;
+    * posOneA10 = htonl((firstPosMedium)*1000); 
     * clear9 = 6;      
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufCl, 17, 0);
-    printf("Message Sent! - clear position - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufCl, 50 , 0);
-    transId++;
-	  
-    * posOneB1 = transId;       
     * posOneB9 = 6;       
-    * posOneB10 = htonl((AKD_frame_posBig)*1000);
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufOneB, 53, 0);
-    printf("Message Sent! - position parameter - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufOneB, 50 , 0);
-    transId++;
+    * posOneB10 = htonl((AKD_frame_posMedium)*1000);
+    
+    * firstClear1 = transId;           
+    sendModbus(conn_presa, s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
 
-    * drvSave1 = transId;
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
+    * posOneA1 = transId; 
+    sendModbus(conn_presa, s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
   
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufDS, 17, 0);
-    printf("Message Sent! - save to drive - big\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufDS, 50 , 0);
-    transId++;
+    * clear1 = transId;
+    sendModbus(conn_presa, s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
+ 
+    * posOneB1 = transId;       
+    sendModbus(conn_presa, s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
    
+    * drvSave1 = transId;
+    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive - small");
+
+
+    /* big */  
+    * firstClear9 = 7;           
+    * posOneA9 = 7;  
+    * posOneA10 = htonl((firstPosBig)*1000);  
+    * clear9 = 8;      
+    * posOneB9 = 8;       
+    * posOneB10 = htonl((AKD_frame_posBig)*1000);
+    
+    * firstClear1 = transId;           
+    sendModbus(conn_presa, s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
+
+    * posOneA1 = transId;  
+    sendModbus(conn_presa, s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
+
+    * clear1 = transId;
+    sendModbus(conn_presa, s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
+  
+    * posOneB1 = transId;       
+    sendModbus(conn_presa, s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
+   
+    * drvSave1 = transId;
+    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive - small");
+
+
     #ifdef RPI   
     fp_first_pos = fopen("/home/pi/TKK_PRESA/data/first_pos.txt", "w");
     #endif
@@ -1251,9 +999,9 @@ void savePos(int x, int y, int w, int h)
     #endif
  
     fprintf(fp_first_pos, "%d\n", firstPosSmall);
+    fprintf(fp_first_pos, "%d\n", firstPosSmall2);
     fprintf(fp_first_pos, "%d\n", firstPosMedium);
     fprintf(fp_first_pos, "%d\n", firstPosBig);
-    fprintf(fp_first_pos, "%d\n", firstPosSmall2);
     fclose(fp_first_pos);
 
  
@@ -1265,9 +1013,9 @@ void savePos(int x, int y, int w, int h)
     #endif
  
     fprintf(AKD_pos, "%d\n", AKD_frame_posSmall);
+    fprintf(AKD_pos, "%d\n", AKD_frame_posSmall2);
     fprintf(AKD_pos, "%d\n", AKD_frame_posMedium);
     fprintf(AKD_pos, "%d\n", AKD_frame_posBig);
-    fprintf(AKD_pos, "%d\n", AKD_frame_posSmall2);
     fclose(AKD_pos);
 
     #ifdef RPI   
@@ -1282,9 +1030,6 @@ void savePos(int x, int y, int w, int h)
 
     sendRequest(7, 0, 0);
     receiveResponse();
- 
-
- 
   }
   renderText("SAVE", smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
@@ -1341,19 +1086,7 @@ void enableButton(int x, int y, int w, int h)
     * intloc8_ed = 4;
     * intloc9_ed = htonl(1);
             
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-            
-    x = select(32, NULL, &fds, NULL, &tv);
-    x = send(s, obufEd, 17, 0);
-            
-    FD_SET(s, &fds);
-    x = select(32, &fds, NULL, NULL, &tv);
-    x = recv(s, ibufEd, 50 , 0);
-    transId++;        
-            
-    printf("Drive Disabled\n" );
+    sendModbus(conn_presa, s, obufEd, 17, ibufEd, 50, "enable drive - presa");
   }
 }
 
@@ -1389,19 +1122,7 @@ void disableButton(int x, int y, int w, int h)
     * intloc8_ed = 4;
     * intloc9_ed = htonl(1);
             
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-            
-    x = select(32, NULL, &fds, NULL, &tv);
-    x = send(s, obufEd, 17, 0);
-            
-    FD_SET(s, &fds);
-    x = select(32, &fds, NULL, NULL, &tv);
-    x = recv(s, ibufEd, 50 , 0);
-    transId++;        
-            
-    printf("Drive Disabled\n" );
+    sendModbus(conn_presa, s, obufEd, 17, ibufEd, 50, "disable drive - presa");
   }
 }
 
@@ -1426,49 +1147,19 @@ void startButton(int x, int y, int w, int h)
     int * posOneA15 = (int*)(&obufOneA[40]);
     int * drvSave1 = (int*)(&obufDS[0]);
    
-    
-    * firstClear1 = transId;
     * firstClear9 = 9;      
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufClFirst, 17, 0);
-    printf("Message Sent! - clear position - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufClFirst, 50 , 0);
-    transId++;
-	  
-    * posOneA1 = transId;       
     * posOneA9 = 9;       
     * posOneA10 = htonl((posMan)*1000);
     * posOneA15 = 100;
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufOneA, 53, 0);
-    printf("Message Sent! - position parameter - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufOneA, 50 , 0);
-    transId++;
+    
+    * firstClear1 = transId;
+    sendModbus(conn_presa, s, obufClFirst, 17, ibufClFirst, 50, "clear position - presa");
+   
+    * posOneA1 = transId;       
+    sendModbus(conn_presa, s, obufOneA, 53, ibufOneA, 50, "position parameter - presa");
        
     * drvSave1 = transId;
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufDS, 17, 0);
-    printf("Message Sent! - save to drive - small\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufDS, 50 , 0);
-    transId++;
+    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive - presa");
    
     int * intloc1_ed = (int*)(&obufEd[0]);
     int * intloc2_ed = (int*)(&obufEd[2]);
@@ -1490,16 +1181,12 @@ void startButton(int x, int y, int w, int h)
     * intloc8_ed = 4;
     * intloc9_ed = htonl(9);
             
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-            
-    x = select(32, NULL, &fds, NULL, &tv);
-    x = send(s, obufEd, 17, 0);
-            
-    FD_SET(s, &fds);
-    x = select(32, &fds, NULL, NULL, &tv);
-    x = recv(s, ibufEd, 50 , 0);
-    transId++;        
+    sendModbus(conn_presa, s, obufEd, 17, ibufEd, 50, "start motion task - presa");
   }
 }
+
+
+
+
+
+

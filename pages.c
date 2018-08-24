@@ -74,15 +74,15 @@ void pageZero(int pageNum)  /* LANDING PAGE */
       }
       else if(i==1)
       {
-	firstPosMedium = atoi(line);
+	firstPosSmall2 = atoi(line);
       }
       else if(i==2)
       {
-	firstPosBig = atoi(line);
+	firstPosMedium = atoi(line);
       }
       else if(i==3)
       {
-	firstPosSmall2 = atoi(line);
+	firstPosBig = atoi(line);
       }
     }
     fclose(fp_first_pos);
@@ -103,15 +103,15 @@ void pageZero(int pageNum)  /* LANDING PAGE */
       }
       else if(i==1)
       {
-	AKD_frame_posMedium = atoi(line);
+	AKD_frame_posSmall2 = atoi(line);
       }
       else if(i==2)
       {
-	AKD_frame_posBig = atoi(line);
+	AKD_frame_posMedium = atoi(line);
       }
       else if(i==3)
       {
-	AKD_frame_posSmall2 = atoi(line);
+	AKD_frame_posBig = atoi(line);
       }
     }
     fclose(AKD_pos);
@@ -134,16 +134,16 @@ void pageZero(int pageNum)  /* LANDING PAGE */
     }
     else if(selected[1])
     {   
-      renderText("VELIKOST DOZE: SREDNJA", regularText, blackColor);
+      renderText("VELIKOST DOZE: MALA2", regularText, blackColor);
     }  
     else if(selected[2])
     {  
-      renderText("VELIKOST DOZE: VELIKA", regularText, blackColor);
+      renderText("VELIKOST DOZE: SREDNJA", regularText, blackColor);
     }
    
     else if(selected[3])
     {  
-      renderText("VELIKOST DOZE: MALA2", regularText, blackColor);
+      renderText("VELIKOST DOZE: VELIKA", regularText, blackColor);
     }
     render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
   }
@@ -589,15 +589,15 @@ void pageEleven(int pageNum)
       }
       else if(i==1)
       {
-	firstPosMedium = atoi(line);
+	firstPosSmall2 = atoi(line);
       }
       else if(i==2)
       {
-	firstPosBig = atoi(line);
+	firstPosMedium = atoi(line);
       }
       else if(i==3)
       {
-	firstPosSmall2 = atoi(line);
+	firstPosBig = atoi(line);
       }
     }
     fclose(fp_first_pos);
@@ -618,15 +618,15 @@ void pageEleven(int pageNum)
       }
       else if(i==1)
       {
-	AKD_frame_posMedium = atoi(line);
+	AKD_frame_posSmall2 = atoi(line);
       }
       else if(i==2)
       {
-	AKD_frame_posBig = atoi(line);
+	AKD_frame_posMedium = atoi(line);
       }
       else if(i==3)
       {
-	AKD_frame_posSmall2 = atoi(line);
+	AKD_frame_posBig = atoi(line);
       }
     }
     fclose(AKD_pos);

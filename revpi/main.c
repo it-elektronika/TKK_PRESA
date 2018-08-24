@@ -193,8 +193,6 @@ void initMain()
   * moveTask8Next = 4;
   * moveTask9Next = 2;
 
-
-
   int * drvSave1 =  (int*)(&obufDS[0]);
   int * drvSave2 =  (int*)(&obufDS[2]);
   int * drvSave3 =  (int*)(&obufDS[4]);
@@ -215,8 +213,6 @@ void initMain()
   * drvSave7 = htons(2);
   * drvSave8 = 4;
   * drvSave9 = htonl(1);
-
-
 }
 
 
@@ -495,98 +491,44 @@ void diagnostics()
       int * read5 = (int*)(&readBuff[7]);
       int * read6 = (int*)(&readBuff[8]);
       int * read7 = (int*)(&readBuff[10]);
-
       int * clear1 =  (int*)(&obufCl[0]);
       int * clear9 =  (int*)(&obufCl[16]);
       int * writePosTen1 = (int*)(&writePosTenBuff[0]);
       int * writePosTen9 =  (int*)(&writePosTenBuff[16]);
       int * writePosTen10 = (int*)(&writePosTenBuff[17]);
-   
       int * moveTask1Next =  (int*)(&obufMTN[0]); 
       int * moveTask9Next =  (int*)(&obufMTN[13]);
-   
       int * drvSave1 = (int*)(&obufDS[0]);
    
       memset(readBuff, 0, 12);
-      * read1 = transId;   
       * read2 = htons(0);
       * read3 = htons(6);
       * read4 = 1;
       * read5 = 3;
       * read6 = htons(2072);
       * read7 = htons(2);
-        
-      FD_ZERO(&fdsAKD);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
-      conn_AKD = send(s, readBuff, 12, 0);
-      printf("Message Sent! - read feedback position\n");
-      FD_SET(s, &fdsAKD);
-      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
-      conn_AKD = recv(s, readBuff_recv, 50 , 0);
-      
-      w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
-      printf("Message Received! - read feedback position: %d\n", w);
-      printf("POSITION FEEDBACK:%d\n", w);
-      transId++;
-   
-      * clear1 = transId;
       * clear9 = 10;      
-      FD_ZERO(&fdsAKD);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
-      conn_AKD = send(s, obufCl, 17, 0);
-      printf("Message Sent! - position 10 cleared\n");
-      FD_SET(s, &fdsAKD);
-      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
-      conn_AKD = recv(s, ibufCl, 50 , 0);
-      transId++;
-	  
-      * writePosTen1 = transId;       
       * writePosTen9 = 10;       
+     * moveTask9Next = htonl(10000);                
+         
+      * read1 = transId;   
+      sendModbus(conn_AKD, s, readBuff, 12, readBuff_recv, 50, "read feedback position");
+      w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
       * writePosTen10 = htonl(w + press);
-      FD_ZERO(&fdsAKD);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
+      printf("POSITION FEEDBACK:%d\n", w);
+     
+      * clear1 = transId;
+      sendModbus(conn_AKD, s, obufCl, 17, ibufCl, 50, "position 10 cleared");
+       
+      * writePosTen1 = transId;       
+      sendModbus(conn_AKD, s, writePosTenBuff, 53, writePosTenBuff_recv, 50, "position 10 parameter");
     
-      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
-      conn_AKD = send(s, writePosTenBuff, 53, 0);
-      printf("Message Sent! - position 10 parameter\n");
-      FD_SET(s, &fdsAKD);
-      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
-      conn_AKD = recv(s, writePosTenBuff_recv, 50 , 0);
-      transId++;
-
       * moveTask1Next = transId;
-      * moveTask9Next = htonl(10000);                
-      FD_ZERO(&fdsAKD);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
-      conn_AKD = send(s, obufMTN, 17, 0);
-      printf("Message Sent! - start task - small\n");
-      FD_SET(s, &fdsAKD);
-      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
-      conn_AKD = recv(s, ibufMTN, 50 , 0);
-      transId++;
-        
+      sendModbus(conn_AKD, s, obufMTN, 17, ibufMTN, 50, "second position parameter");
+      
       * drvSave1 = transId;
-      FD_ZERO(&fdsAKD);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
-      conn_AKD = send(s, obufDS, 17, 0);
-      printf("Message Sent! - save to drive\n");
-      FD_SET(s, &fdsAKD);
-      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
-      conn_AKD = recv(s, ibufDS, 50 , 0);
-      transId++;
+      sendModbus(conn_AKD, s, obufDS, 17, ibufDS, 50, "save to drive");
+      
       step = 6;
       break;
 	   
@@ -690,46 +632,24 @@ void diagnostics()
 	* moveTask9Next = htonl(8000); 
       }
 
-      FD_ZERO(&fdsAKD);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
-      conn_AKD = send(s, obufMT, 17, 0);
-      printf("Message Sent! move_task_next: %d\n", moveTask9);
-      FD_SET(s, &fdsAKD);
-      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
-      conn_AKD = recv(s, ibufMT, 50 , 0);
-      transId++;
-      
+      sendModbus(conn_AKD, s, obufMT, 17, ibufMT, 50, "move task 1 - revert to original positions");
       * moveTask1Next = transId;
 	
-      FD_ZERO(&fdsAKD);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
-      conn_AKD = send(s, obufMTN, 17, 0);
-      printf("Message Sent! move_task_next: %d\n", moveTask9Next);
-      FD_SET(s, &fdsAKD);
-      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
-      conn_AKD = recv(s, ibufMTN, 50 , 0);
-      transId++;
-
+      sendModbus(conn_AKD, s, obufMTN, 17, ibufMTN, 50, "move task 2 - revert to original positions");
+ 
       * drvSave1 = transId;
-      FD_ZERO(&fdsAKD);
-      tv.tv_sec = 0;
-      tv.tv_usec = 0;
-    
-      conn_AKD = select(32, NULL, &fdsAKD, NULL, &tv);
-      conn_AKD = send(s, obufDS, 17, 0);
-      printf("Message Sent! - save to drive\n");
-      FD_SET(s, &fdsAKD);
-      conn_AKD = select(32, &fdsAKD, NULL, NULL, &tv);
-      conn_AKD = recv(s, ibufDS, 50 , 0);
+      sendModbus(conn_AKD, s, obufDS, 17, ibufDS, 50, "save to drive");
+ 
       transId++;
       step = 0;
     }
   }
 }
 
+void sendModbus(int socket, int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text)
+{
+  socket = send(socket_fd, send_buff, send_buff_size, 0);
+  printf("%s\n", print_text);
+  socket = recv(socket_fd, receive_buff, receive_buff_size , 0);
+  transId++;
+}

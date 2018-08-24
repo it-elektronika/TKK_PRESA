@@ -182,9 +182,9 @@ void pageTwo(int pageNum) /* CAN SIZE SELECTION */
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 1);
     button(30, 150, 200, 100, "MALA", 0);
-    button(30, 300, 200, 100, "MALA2", 3);
-    button(30, 450, 200, 100, "SREDNJA", 1);
-    button(30, 600, 200, 100, "VELIKA", 2);
+    button(30, 300, 200, 100, "MALA2", 1);
+    button(30, 450, 200, 100, "SREDNJA", 2);
+    button(30, 600, 200, 100, "VELIKA", 3);
 
     //renderText("POPRAVEK:", smallText, blackColor);
     //render(400, 180, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -469,7 +469,7 @@ void pageNine(int pageNum)  /* ERROR */
     sprintf(smallBuff, "MALA:%d mm", firstPosSmall);
     renderText(smallBuff, smallText, blackColor);
     render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 140, &firstPosSmall, 1, 100);
+    up_button(500, 140, &firstPosSmall, 1, 200);
     down_button(700, 140, &firstPosSmall, 1, 0);
     renderText("ZGORAJ", smallText, blackColor);
     render(800, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -477,7 +477,7 @@ void pageNine(int pageNum)  /* ERROR */
     sprintf(AKD_smallBuff, "MALA:%d mm", AKD_frame_posSmall);
     renderText(AKD_smallBuff, smallText, blackColor);
     render(30, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 190, &AKD_frame_posSmall, 1, 100);
+    up_button(500, 190, &AKD_frame_posSmall, 1, 200);
     down_button(700, 190, &AKD_frame_posSmall, 1, 0);
     renderText("SPODAJ", smallText, blackColor);
     render(800, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -488,13 +488,13 @@ void pageNine(int pageNum)  /* ERROR */
     render(30, 300, NULL, 0.0, NULL, SDL_FLIP_NONE);
     renderText("ZGORAJ", smallText, blackColor);
     render(800, 300, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 290, &firstPosSmall2, 1, 100);
+    up_button(500, 290, &firstPosSmall2, 1, 200);
     down_button(700, 290, &firstPosSmall2, 1, 0);
 
     sprintf(AKD_small2Buff, "MALA2:%d mm", AKD_frame_posSmall2);
     renderText(AKD_small2Buff, smallText, blackColor);
     render(30, 350, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 340, &AKD_frame_posSmall2, 1, 100);
+    up_button(500, 340, &AKD_frame_posSmall2, 1, 200);
     down_button(700, 340, &AKD_frame_posSmall2, 1, 0);
     renderText("SPODAJ", smallText, blackColor);
     render(800, 350, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -503,7 +503,7 @@ void pageNine(int pageNum)  /* ERROR */
     sprintf(mediumBuff, "SREDNJA:%d mm", firstPosMedium);
     renderText(mediumBuff, smallText, blackColor);
     render(30, 450, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 440, &firstPosMedium, 1, 100);
+    up_button(500, 440, &firstPosMedium, 1, 200);
     down_button(700, 440, &firstPosMedium, 1, 0);
     renderText("ZGORAJ", smallText, blackColor);
     render(800, 450, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -511,7 +511,7 @@ void pageNine(int pageNum)  /* ERROR */
     sprintf(AKD_mediumBuff, "SREDNJA:%d mm", AKD_frame_posMedium);
     renderText(AKD_mediumBuff, smallText, blackColor);
     render(30, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 490, &AKD_frame_posMedium, 1, 100);
+    up_button(500, 490, &AKD_frame_posMedium, 1, 200);
     down_button(700, 490, &AKD_frame_posMedium, 1, 0);
     renderText("SPODAJ", smallText, blackColor);
     render(800, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -520,7 +520,7 @@ void pageNine(int pageNum)  /* ERROR */
     sprintf(bigBuff, "VELIKA:%d mm", firstPosBig);
     renderText(bigBuff, smallText, blackColor);
     render(30, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 590, &firstPosBig, 1, 170);
+    up_button(500, 590, &firstPosBig, 1, 200);
     down_button(700, 590, &firstPosBig, 1, 0);
     renderText("ZGORAJ", smallText, blackColor);
     render(800, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -528,7 +528,7 @@ void pageNine(int pageNum)  /* ERROR */
     sprintf(AKD_bigBuff, "VELIKA:%d mm", AKD_frame_posBig);
     renderText(AKD_bigBuff, smallText, blackColor);
     render(30, 650, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    up_button(500, 640, &AKD_frame_posBig, 1, 170);
+    up_button(500, 640, &AKD_frame_posBig, 1, 200);
     down_button(700, 640, &AKD_frame_posBig, 1, 0);
     renderText("SPODAJ", smallText, blackColor);
     render(800, 650, NULL, 0.0, NULL, SDL_FLIP_NONE);

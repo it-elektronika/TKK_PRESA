@@ -779,12 +779,12 @@ void outputButton(int x, int y, int w, int h, int id)
   {
     if(strcmp(outputs[id], "0") == 0)
     {
-      sendRequest(2, 0, id);
+      sendRequest(2, id, 0);
       receiveResponse();
     }
     else if(strcmp(outputs[id], "1") == 0)
     {
-      sendRequest(2, 1, id);
+      sendRequest(2, id, 1);
       receiveResponse();
     }
   }

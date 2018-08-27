@@ -93,7 +93,7 @@ void initCommTCP()
   printf("connHmi[1]:%d\n", conn_hmi);
 }
 
-void sendRequest(int reqId, int outputId, int id)
+void sendRequest(int reqId, int id, int outputState)
 {
    /* READ VARIABLES */
   if(reqId == 1)  
@@ -116,7 +116,7 @@ void sendRequest(int reqId, int outputId, int id)
   /* WRITE OUTPUT VARIABLES */
   else if(reqId == 2)
   {
-    if(outputId == 0)
+    if(outputState == 0)
     {
       int * sendWrite0 = (int*)(&sendWriteBuff[0]);
       int * sendWrite1 = (int*)(&sendWriteBuff[1]);
@@ -129,7 +129,7 @@ void sendRequest(int reqId, int outputId, int id)
       memset(sendWriteBuff, 0, 29);
       //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
-    else if(outputId == 1)
+    else if(outputState == 1)
     {
       int * sendWrite0 = (int*)(&sendWriteBuff[0]);
       int * sendWrite1 = (int*)(&sendWriteBuff[1]);

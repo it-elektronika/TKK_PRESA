@@ -126,7 +126,7 @@ char modifierBuff[20];
 int modifier;
 
 void readLine(int fd, char data[], size_t maxlen);
-void sendRequest(int reqId, int outputId, int id);
+void sendRequest(int reqId, int id, int outputState);
 void receiveResponse();
 void timer(float measure);
 

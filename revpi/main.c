@@ -238,6 +238,7 @@ void receiveRequest()
     }*/
     sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
     writeVariableValue(outputWriteBuff, recvReadBuff[2]);
+    printf("%s\n", outputWriteBuff);
     sendResponse(2);
   }
   else if(recvReadBuff[0] == 3)
@@ -302,7 +303,7 @@ void sendResponse(int reqId)
     int * sendWrite25 = (int*)(&sendWriteBuff[25]);
     int * sendWrite26 = (int*)(&sendWriteBuff[26]);
     int * sendWrite27 = (int*)(&sendWriteBuff[27]);
-    int * sendWrite28 = (int*)(&sendWriteBuff[27]);
+    int * sendWrite28 = (int*)(&sendWriteBuff[28]);
     
     * sendWrite0 = 1;
     * sendWrite1 = readVariableValue("I_1");

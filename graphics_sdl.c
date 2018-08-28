@@ -807,14 +807,12 @@ void start_button(int x, int y, int w, int h)
   {
     if(step == 0)
     {
-      printf("send request 3\n");
       sendRequest(3, 0, 0);
       receiveResponse();  
     } 
   }
   else
   {
-    printf("Send request 4\n");
     sendRequest(4, 0, 0);
     receiveResponse();  
   }

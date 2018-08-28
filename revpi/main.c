@@ -669,6 +669,11 @@ void diagnostics()
     case 2:
       printf("STEP: %d\n", step);
       writeVariableValue("O_1", 1);
+      writeVariableValue("O_1", 0);
+      usleep(100000);
+      writeVariableValue("O_1", 1);
+      
+
       step = 3;
       break;
 

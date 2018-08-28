@@ -652,6 +652,9 @@ void diagnostics()
   switch(step)
   {
     case 0:
+      break;
+
+    case 1:
       printf("STEP: %d\n", step);
       printf("ready to perform press\n");
       writeVariableValue("O_9", 1);
@@ -659,59 +662,59 @@ void diagnostics()
       writeVariableValue("O_9", 0);
       if(readVariableValue("I_11"))
       {
-	step = 1;
+	step = 2;
       }
-      break;
-
-    case 1:
-      printf("STEP: %d\n", step);
-      writeVariableValue("O_1", 1);
-      step = 2;
       break;
 
     case 2:
       printf("STEP: %d\n", step);
-      writeVariableValue("O_10", 1);
-      usleep(100000);
+      writeVariableValue("O_1", 1);
       step = 3;
       break;
-    
+
     case 3:
       printf("STEP: %d\n", step);
-      if(readVariableValue("I_11")==1)
-      {
-	step = 4;
-      }
+      writeVariableValue("O_10", 1);
+      usleep(100000);
+      step = 4;
       break;
     
     case 4:
       printf("STEP: %d\n", step);
-      writeVariableValue("O_10", 0);
-      usleep(100000);
-      step = 5;
+      if(readVariableValue("I_11")==1)
+      {
+	step = 5;
+      }
       break;
-
+    
     case 5:
       printf("STEP: %d\n", step);
-      writeVariableValue("O_9", 1);
+      writeVariableValue("O_10", 0);
+      usleep(100000);
       step = 6;
       break;
 
     case 6:
       printf("STEP: %d\n", step);
-      if(readVariableValue("I_11")==1)
-      {
-	step = 7;
-      }
+      writeVariableValue("O_9", 1);
+      step = 7;
       break;
 
     case 7:
       printf("STEP: %d\n", step);
+      if(readVariableValue("I_11")==1)
+      {
+	step = 8;
+      }
+      break;
+
+    case 8:
+      printf("STEP: %d\n", step);
       writeVariableValue("O_9", 0);
-      step = 8;
+      step = 9;
       break;
    
-    case 8:
+    case 9:
       printf("STEP: %d\n", step);
       writeVariableValue("O_1", 0);
       step = 0;

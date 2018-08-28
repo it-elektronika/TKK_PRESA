@@ -550,6 +550,11 @@ void diagnostics()
     case 7:
       printf("STEP: %d\n", step);
       writeVariableValue("O_1", 1);
+      usleep(100000);
+      writeVariableValue("O_1", 0);
+      usleep(100000);
+      writeVariableValue("O_1", 1);
+      
       step = 8;
       break;
 
@@ -559,49 +564,59 @@ void diagnostics()
       usleep(100000);
       step = 9;
       break;
-    
+ 
     case 9:
       printf("STEP: %d\n", step);
-      if(readVariableValue("I_11")==1)
+      if(readVariableValue("I_5")==1)
       {
+        writeVariableValue("O_2", 1);
+	writeVariableValue("O_1", 0);
         step = 10;
       }
       break;
-    
+   
     case 10:
+      printf("STEP: %d\n", step);
+      if(readVariableValue("I_11")==1)
+      {
+        step = 11;
+      }
+      break;
+    
+    case 11:
       printf("STEP: %d\n", step);
       writeVariableValue("O_10", 0);
       usleep(100000);
-      step = 11;
-      break;
-
-    case 11:
-      printf("STEP: %d\n", step);
-      writeVariableValue("O_9", 1);
       step = 12;
       break;
 
     case 12:
       printf("STEP: %d\n", step);
-      if(readVariableValue("I_11")==1)
-      {
-        step = 13;
-      }
+      writeVariableValue("O_9", 1);
+      step = 13;
       break;
 
     case 13:
       printf("STEP: %d\n", step);
-      writeVariableValue("O_9", 0);
-      step = 14;
+      if(readVariableValue("I_11")==1)
+      {
+        step = 14;
+      }
       break;
-   
+
     case 14:
       printf("STEP: %d\n", step);
-      writeVariableValue("O_1", 0);
+      writeVariableValue("O_9", 0);
       step = 15;
       break;
-     
+   
     case 15:
+      printf("STEP: %d\n", step);
+      writeVariableValue("O_2", 0);
+      step = 16;
+      break;
+     
+    case 16:
     {
       printf("STEP: %d\n", step);
       
@@ -732,7 +747,7 @@ void diagnostics()
    
     case 10:
       printf("STEP: %d\n", step);
-     writeVariableValue("O_2", 0);
+      writeVariableValue("O_2", 0);
       
       step = 0;
       break;

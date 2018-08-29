@@ -692,9 +692,9 @@ void diagnostics()
       }
       else if(selectedCan == 3)
       {
-        writeVariableValue("O_2", 1);
+        writeVariableValue("O_2_i03", 1);
         usleep(100000); 
-        writeVariableValue("O_2", 0);
+        writeVariableValue("O_2_i03", 0);
       }
 
       writeVariableValue("O_9", 1);
@@ -733,12 +733,12 @@ void diagnostics()
       }
       else if(selectedCan == 2)
       {
-        writeVariableValue("O_1_i3", 1);
+        writeVariableValue("O_1_i03", 1);
         usleep(100000); 
       }
       else if(selectedCan == 3)
       {
-        writeVariableValue("O_3", 1);
+        writeVariableValue("O_3_i03", 1);
         usleep(100000); 
       }
 
@@ -789,11 +789,11 @@ void diagnostics()
       }
       else if(selectedCan == 2)
       {
-        writeVariableValue("O_1_i3", 0);
+        writeVariableValue("O_1_i03", 0);
       }
       else if(selectedCan == 3)
       {
-        writeVariableValue("O_3", 0);
+        writeVariableValue("O_3_i03", 0);
       }
 
       writeVariableValue("O_10", 0);
@@ -833,7 +833,7 @@ void diagnostics()
       }
       else if(selectedCan == 3)
       {
-        writeVariableValue("O_2", 1);
+        writeVariableValue("O_2_i03", 1);
       }
       usleep(100000);
       step = 12;
@@ -862,7 +862,7 @@ void diagnostics()
       }
       else if(selectedCan == 3)
       {
-        writeVariableValue("O_2", 0);
+        writeVariableValue("O_2_i03", 0);
       }
 
       writeVariableValue("O_2", 0);

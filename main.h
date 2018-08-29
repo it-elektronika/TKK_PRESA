@@ -10,17 +10,14 @@
 #define lastStep 15
 #define PORTNO 1500
 #define BILLION 1000000000L;
-modbus_t *ctx;
 
 int sockfd;
 struct sockaddr_in serv_addr;  /* REVPI */
 struct sockaddr_in server;     /* AKD_PRESA */
 
-
 char *ip_adrs;
 fd_set fds;
 fd_set fdsTCP;
-
 
 struct timeval tv;
 int selectedCan;
@@ -133,5 +130,4 @@ void timer(float measure);
 void initCommTCP();
 void initCommAKDPress();
 void initMain();
-
 void sendModbus(int socket, int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text);

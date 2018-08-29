@@ -66,7 +66,6 @@ void initServer()
     error("ERROR on accept");
   }
   printf("Connection Accepted\n");
-
 }
 
 void initCommAKDPress() 
@@ -672,10 +671,18 @@ void diagnostics()
     case 1:
       printf("STEP: %d\n", step);
       printf("ready to perform press\n");
+    
+      writeVariableValue("O_11", 1);
+      usleep(100000); 
+      writeVariableValue("O_11", 0);
+    
+
       writeVariableValue("O_9", 1);
       usleep(100000); 
       writeVariableValue("O_9", 0);
-      if(readVariableValue("I_11"))
+
+     
+      if(readVariableValue("I_11") && readVariableValue("I_12"))
       {
 	step = 2;
       }
@@ -695,60 +702,73 @@ void diagnostics()
 
     case 3:
       printf("STEP: %d\n", step);
+      writeVariableValue("O_12", 1);
+      if(readVariableValue("I_12"))
+      {
+        step = 4;
+      }      
+      break;
+
+    
+    case 4: 
       writeVariableValue("O_10", 1);
       usleep(100000);
-      step = 4;
+      step = 5;
       break;
     
-    case 4:
+    case 5:
       printf("STEP: %d\n", step);
       if(readVariableValue("I_5")==1)
       {
         writeVariableValue("O_2", 1);
 	writeVariableValue("O_1", 0);
-        step = 5;
+        step = 6;
       }
       break;
 
-    case 5:
+    case 6:
       printf("STEP: %d\n", step);
       if(readVariableValue("I_11")==1)
       {
-	step = 6;
+	step = 7;
       }
       break;
     
-    case 6:
-      printf("STEP: %d\n", step);
-      writeVariableValue("O_10", 0);
-      usleep(100000);
-      step = 7;
-      break;
-
     case 7:
       printf("STEP: %d\n", step);
-      writeVariableValue("O_9", 1);
+      writeVariableValue("O_12", 0);
+      writeVariableValue("O_10", 0);
+      usleep(100000);
       step = 8;
       break;
 
     case 8:
       printf("STEP: %d\n", step);
-      if(readVariableValue("I_11")==1)
-      {
-	step = 9;
-      }
+      writeVariableValue("O_9", 1);
+      step = 9;
       break;
 
     case 9:
       printf("STEP: %d\n", step);
-      writeVariableValue("O_9", 0);
-      step = 10;
+      if(readVariableValue("I_11")==1)
+      {
+	step = 10;
+      }
       break;
-   
+
     case 10:
       printf("STEP: %d\n", step);
+      writeVariableValue("O_9", 0);
+      writeVariableValue("O_11", 1);
+      if(readVariableValue("I_12"))
+      {
+        step = 11;
+      }
+      break;
+   
+    case 11:
+      printf("STEP: %d\n", step);
       writeVariableValue("O_2", 0);
-      
       step = 0;
       break;
   }

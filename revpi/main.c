@@ -753,7 +753,7 @@ void diagnostics()
 
     case 10:
       printf("STEP: %d\n", step);
-      if(readVariableValue("I_11")==1)
+      if(readVariableValue("I_11"))
       {
 	step = 11;
       }
@@ -775,6 +775,7 @@ void diagnostics()
    
     case 13:
       printf("STEP: %d\n", step);
+      writeVariableValue("O_11", 1); 
       writeVariableValue("O_2", 0);
       step = 0;
       break;

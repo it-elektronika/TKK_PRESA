@@ -696,175 +696,158 @@ void diagnostics()
         usleep(100000); 
         writeVariableValue("O_2_i03", 0);
       }
+      step = 2;
+      break;
 
-      writeVariableValue("O_9", 1);
-      usleep(100000); 
-      writeVariableValue("O_9", 0);
-
-     
-      if(readVariableValue("I_11") && readVariableValue("I_12"))
+    case 2:  
+      if(readVariableValue("I_12"))
       {
-	step = 2;
+	step = 3;
       }
       break;
 
-    case 2:
+    case 3:
+      writeVariableValue("O_9", 1);
+      usleep(100000); 
+      writeVariableValue("O_9", 0);
+      step = 4;
+      break;
+
+    case 4:
+      if(readVariableValue("O_11"))
+      { 
+        step = 5;
+      }
+      break;
+
+    case 5:
       printf("STEP: %d\n", step);
       writeVariableValue("O_1", 1);
       usleep(100000);
       writeVariableValue("O_1", 0);
       usleep(100000);
       writeVariableValue("O_1", 1);
-      step = 3;
+      step = 6;
       break;
 
-    case 3:
+    case 6:
       printf("STEP: %d\n", step);
   
       if(selectedCan == 0)
       {
         writeVariableValue("O_12", 1);
         usleep(100000); 
+        writeVariableValue("O_12", 0);
       }
       else if(selectedCan == 1)
       {
         writeVariableValue("O_13", 1);
         usleep(100000); 
+        writeVariableValue("O_13", 0);
       }
       else if(selectedCan == 2)
       {
         writeVariableValue("O_1_i03", 1);
         usleep(100000); 
+        writeVariableValue("O_1_i03", 0);
       }
       else if(selectedCan == 3)
       {
         writeVariableValue("O_3_i03", 1);
         usleep(100000); 
+        writeVariableValue("O_3_i03", 0);
       }
 
-      step = 4;
+      step = 7;
       break;
     
-    case 4:
+    case 7:
       if(readVariableValue("I_12"))
       {
-        step = 5;
+        step = 8;
       }      
       break;
 
     
-    case 5: 
+    case 8: 
       writeVariableValue("O_10", 1);
       usleep(100000);
-      step = 6;
+      writeVariableValue("O_10", 0);
+      step = 9;
       break;
     
-    case 6:
+    case 9:
       printf("STEP: %d\n", step);
       if(readVariableValue("I_5")==1)
       {
         writeVariableValue("O_2", 1);
 	writeVariableValue("O_1", 0);
-        step = 7;
+        step = 10;
       }
-      break;
-
-    case 7:
-      printf("STEP: %d\n", step);
-      if(readVariableValue("I_11")==1)
-      {
-	step = 8;
-      }
-      break;
-    
-    case 8:
-      printf("STEP: %d\n", step);
-      if(selectedCan == 0)
-      {
-        writeVariableValue("O_12", 0);
-      }
-      else if(selectedCan == 1)
-      {
-        writeVariableValue("O_13", 0);
-      }
-      else if(selectedCan == 2)
-      {
-        writeVariableValue("O_1_i03", 0);
-      }
-      else if(selectedCan == 3)
-      {
-        writeVariableValue("O_3_i03", 0);
-      }
-
-      writeVariableValue("O_10", 0);
-      usleep(100000);
-      step = 9;
-      break;
-
-    case 9:
-      printf("STEP: %d\n", step);
-      writeVariableValue("O_9", 1);
-      usleep(100000);
-      step = 10;
       break;
 
     case 10:
       printf("STEP: %d\n", step);
-      if(readVariableValue("I_11"))
+      if(readVariableValue("I_11")==1)
       {
 	step = 11;
       }
       break;
-
+    
     case 11:
       printf("STEP: %d\n", step);
-      writeVariableValue("O_9", 0);
-      if(selectedCan == 0)
-      {
-        writeVariableValue("O_11", 1);
-      }
-      else if(selectedCan == 1)
-      {
-        writeVariableValue("O_11", 1);
-      }
-      else if(selectedCan == 2)
-      {
-        writeVariableValue("O_14", 1);
-      }
-      else if(selectedCan == 3)
-      {
-        writeVariableValue("O_2_i03", 1);
-      }
+      writeVariableValue("O_9", 1);
       usleep(100000);
+      writeVariableValue("O_9", 1);
       step = 12;
       break;
-    
+
     case 12:
-      if(readVariableValue("I_12"))
+      printf("STEP: %d\n", step);
+      if(readVariableValue("I_11"))
       {
-        step = 13;
+	step = 13;
       }
       break;
-   
+
     case 13:
       printf("STEP: %d\n", step);
       if(selectedCan == 0)
       {
+        writeVariableValue("O_11", 1);
+        usleep(100000);
         writeVariableValue("O_11", 0);
       }
       else if(selectedCan == 1)
       {
+        writeVariableValue("O_11", 1);
+        usleep(100000);
         writeVariableValue("O_11", 0);
       }
       else if(selectedCan == 2)
       {
+        writeVariableValue("O_14", 1);
+        usleep(100000);
         writeVariableValue("O_14", 0);
       }
       else if(selectedCan == 3)
       {
+        writeVariableValue("O_2_i03", 1);
+        usleep(100000);
         writeVariableValue("O_2_i03", 0);
+       }
+      step = 14;
+      break;
+    
+    case 14:
+      if(readVariableValue("I_12"))
+      {
+        step = 15;
       }
-
+      break;
+   
+    case 15:
+      printf("STEP: %d\n", step);
       writeVariableValue("O_2", 0);
       step = 0;
       break;

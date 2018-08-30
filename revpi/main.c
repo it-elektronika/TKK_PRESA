@@ -714,7 +714,7 @@ void diagnostics()
       break;
 
     case 4:
-      if(readVariableValue("O_11"))
+      if(readVariableValue("I_11"))
       { 
         step = 5;
       }

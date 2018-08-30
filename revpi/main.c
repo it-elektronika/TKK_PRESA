@@ -848,8 +848,22 @@ void diagnostics()
         step = 15;
       }
       break;
-   
+
     case 15:
+      writeVariableValue("O_7", 1);
+      usleep(100000);
+      writeVariableValue("O_7", 0);
+      step = 16;
+      break;
+
+    case 16:
+      if(readVariableValue("I_13"))
+      {
+        step = 17;
+      }
+      break;
+
+    case 17:
       printf("STEP: %d\n", step);
       writeVariableValue("O_2", 0);
       step = 0;

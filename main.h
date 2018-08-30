@@ -7,9 +7,9 @@
 #include <stdlib.h>
 #include <arpa/inet.h>
 #include <time.h>
-#define lastStep 15
+#define lastStep 17
 #define PORTNO 1500
-#define BILLION 1000000000L;
+#define BILLION 1000000000L
 
 int sockfd;
 struct sockaddr_in serv_addr;  /* REVPI */

@@ -291,7 +291,7 @@ void pageFour(int pageNum)  /* DIAGNOSTICS */
     renderText("NASLEDNJI KORAK", smallText, blackColor);
     render(680, 415, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
-    
+   /* 
     renderText(stepCond[step][0], smallText, blackColor);
     render(30, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
@@ -311,7 +311,7 @@ void pageFour(int pageNum)  /* DIAGNOSTICS */
 
       renderText(stepCond[step+1][2], smallText, blackColor);
       render(700, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    }
+    }*/
   }
   else if(page_stage[pageNum] == 2)
   {

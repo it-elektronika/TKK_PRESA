@@ -261,10 +261,10 @@ void receiveRequest()
   {
     selectedCan = recvReadBuff[1]; 
     writeVariableValue("O_4_i03", 1);
-    writeVariableValue("O_3_i03", 1);
+    writeVariableValue("O_11", 1);
     usleep(100000);
     writeVariableValue("O_4_i03", 0);
-    writeVariableValue("O_3_i03", 0);
+    writeVariableValue("O_11", 0);
     sendResponse(6);
   }
   else if(recvReadBuff[0] == 7)

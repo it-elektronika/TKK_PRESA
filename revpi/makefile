@@ -9,3 +9,4 @@ tkk_presa_revpi:  main.o kunbus.o
 
 clean:
 	find . -name "*.o" -type f -delete
+	rm tkk_presa_revpi

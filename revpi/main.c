@@ -762,7 +762,7 @@ void diagnostics()
         usleep(100000); 
         writeVariableValue("O_3_i03", 0);
       }
-      step = 7;
+      step = 8;
       break;
     
     case 7:
@@ -791,7 +791,7 @@ void diagnostics()
 
     case 10:
       printf("STEP: %d\n", step);
-      if(readVariableValue("I_11")==1)
+      if(readVariableValue("I_11") && readVariableValue("I_12")) /* second condition used if both moves at the same time*/
       {
 	step = 11;
       }

@@ -463,7 +463,13 @@ void initMain()
   strcpy(stepCond[13][0], "POGOJ 13.1");
   strcpy(stepCond[13][1], "POGOJ 13.2");
   strcpy(stepCond[13][2], "POGOJ 13.3");
-  
+  strcpy(stepCond[14][0], "POGOJ 14.1");
+  strcpy(stepCond[14][1], "POGOJ 14.2");
+  strcpy(stepCond[14][2], "POGOJ 14.3");
+  strcpy(stepCond[15][0], "POGOJ 15.1");
+  strcpy(stepCond[15][1], "POGOJ 15.2");
+  strcpy(stepCond[15][2], "POGOJ 15.3");
+ 
   strcpy(stepName[0], "KORAK1");
   strcpy(stepName[1], "KORAK2");
   strcpy(stepName[2], "KORAK3");
@@ -478,6 +484,8 @@ void initMain()
   strcpy(stepName[11], "KORAK12");
   strcpy(stepName[12], "KORAK13");
   strcpy(stepName[13], "KORAK14");
+  strcpy(stepName[14], "KORAK15");
+
 
 
   #ifdef RPI   

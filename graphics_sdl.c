@@ -127,6 +127,7 @@ int renderText(const char *text, TTF_Font *textFont,  SDL_Color textColor)
   if(textSurface == NULL)
   {
     printf("Unable to render text surface! SDL Error: %s\n", SDL_GetError());
+    printf("STEP: %d\n", step);
   }
   else
   {

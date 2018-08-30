@@ -260,6 +260,11 @@ void receiveRequest()
   else if(recvReadBuff[0] == 6)
   {
     selectedCan = recvReadBuff[1]; 
+    writeVariableValue("O_4_i03", 1);
+    writeVariableValue("O_3_i03", 1);
+    usleep(100000);
+    writeVariableValue("O_4_i03", 0);
+    writeVariableValue("O_3_i03", 0);
     sendResponse(6);
   }
   else if(recvReadBuff[0] == 7)
@@ -757,7 +762,6 @@ void diagnostics()
         usleep(100000); 
         writeVariableValue("O_3_i03", 0);
       }
-
       step = 7;
       break;
     
@@ -768,7 +772,6 @@ void diagnostics()
       }      
       break;
 
-    
     case 8: 
       writeVariableValue("O_10", 1);
       usleep(100000);
@@ -778,7 +781,7 @@ void diagnostics()
     
     case 9:
       printf("STEP: %d\n", step);
-      if(readVariableValue("I_5")==1)
+      if(readVariableValue("I_5"))
       {
         writeVariableValue("O_2", 1);
 	writeVariableValue("O_1", 0);
@@ -798,7 +801,7 @@ void diagnostics()
       printf("STEP: %d\n", step);
       writeVariableValue("O_9", 1);
       usleep(100000);
-      writeVariableValue("O_9", 1);
+      writeVariableValue("O_9", 0);
       step = 12;
       break;
 

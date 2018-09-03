@@ -802,7 +802,7 @@ void diagnostics()
       writeVariableValue("O_9", 1);
       usleep(100000);
       writeVariableValue("O_9", 0);
-      step = 12;
+      step = 13; /* no need to wait here*/
       break;
 
     case 12:

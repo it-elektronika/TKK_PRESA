@@ -1,3 +1,4 @@
+#define delay_time 70000
 int sockfd, newsockfd;
 socklen_t clilen;
 

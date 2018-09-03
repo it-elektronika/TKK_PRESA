@@ -680,25 +680,25 @@ void diagnostics()
       if(selectedCan == 0)
       {
         writeVariableValue("O_11", 1);
-        usleep(100000); 
+        usleep(delay_time); 
         writeVariableValue("O_11", 0);
       }
       else if(selectedCan == 1)
       {
         writeVariableValue("O_11", 1);
-        usleep(100000); 
+        usleep(delay_time); 
         writeVariableValue("O_11", 0);
       }
       else if(selectedCan ==2)
       {
         writeVariableValue("O_14", 1);
-        usleep(100000); 
+        usleep(delay_time); 
         writeVariableValue("O_14", 0);
       }
       else if(selectedCan == 3)
       {
         writeVariableValue("O_2_i03", 1);
-        usleep(100000); 
+        usleep(delay_time); 
         writeVariableValue("O_2_i03", 0);
       }
       step = 2;
@@ -713,7 +713,7 @@ void diagnostics()
 
     case 3:
       writeVariableValue("O_9", 1);
-      usleep(100000); 
+      usleep(delay_time); 
       writeVariableValue("O_9", 0);
       step = 4;
       break;
@@ -728,9 +728,9 @@ void diagnostics()
     case 5:
       printf("STEP: %d\n", step);
       writeVariableValue("O_1", 1);
-      usleep(100000);
+      usleep(delay_time);
       writeVariableValue("O_1", 0);
-      usleep(100000);
+      usleep(delay_time);
       writeVariableValue("O_1", 1);
       step = 6;
       break;
@@ -741,25 +741,25 @@ void diagnostics()
       if(selectedCan == 0)
       {
         writeVariableValue("O_12", 1);
-        usleep(100000); 
+        usleep(delay_time); 
         writeVariableValue("O_12", 0);
       }
       else if(selectedCan == 1)
       {
         writeVariableValue("O_13", 1);
-        usleep(100000); 
+        usleep(delay_time); 
         writeVariableValue("O_13", 0);
       }
       else if(selectedCan == 2)
       {
         writeVariableValue("O_1_i03", 1);
-        usleep(100000); 
+        usleep(delay_time); 
         writeVariableValue("O_1_i03", 0);
       }
       else if(selectedCan == 3)
       {
         writeVariableValue("O_3_i03", 1);
-        usleep(100000); 
+        usleep(delay_time); 
         writeVariableValue("O_3_i03", 0);
       }
       step = 8;
@@ -774,7 +774,7 @@ void diagnostics()
 
     case 8: 
       writeVariableValue("O_10", 1);
-      usleep(100000);
+      usleep(delay_time);
       writeVariableValue("O_10", 0);
       step = 9;
       break;
@@ -800,7 +800,7 @@ void diagnostics()
     case 11:
       printf("STEP: %d\n", step);
       writeVariableValue("O_9", 1);
-      usleep(100000);
+      usleep(delay_time);
       writeVariableValue("O_9", 0);
       step = 13; /* no need to wait here*/
       break;
@@ -818,25 +818,25 @@ void diagnostics()
       if(selectedCan == 0)
       {
         writeVariableValue("O_11", 1);
-        usleep(100000);
+        usleep(delay_time);
         writeVariableValue("O_11", 0);
       }
       else if(selectedCan == 1)
       {
         writeVariableValue("O_11", 1);
-        usleep(100000);
+        usleep(delay_time);
         writeVariableValue("O_11", 0);
       }
       else if(selectedCan == 2)
       {
         writeVariableValue("O_14", 1);
-        usleep(100000);
+        usleep(delay_time);
         writeVariableValue("O_14", 0);
       }
       else if(selectedCan == 3)
       {
         writeVariableValue("O_2_i03", 1);
-        usleep(100000);
+        usleep(delay_time);
         writeVariableValue("O_2_i03", 0);
        }
       step = 14;
@@ -851,7 +851,7 @@ void diagnostics()
 
     case 15:
       writeVariableValue("O_7", 1);
-      usleep(100000);
+      usleep(delay_time);
       writeVariableValue("O_7", 0);
       step = 16;
       break;

@@ -866,7 +866,7 @@ void diagnostics()
     case 17:
       printf("STEP: %d\n", step);
       writeVariableValue("O_2", 0);
-      step = 1;
+      step = 5; /* for simulating reasons*/
       break;
   }
 }

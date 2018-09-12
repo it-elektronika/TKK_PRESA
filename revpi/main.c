@@ -676,19 +676,26 @@ void diagnostics()
     case 1:  /* gripper - pomik na zgornjo pozicijo */
       printf("STEP: %d\n", step);
       printf("ready to perform press\n");
-    
+      
+      writeVariableValue("O_11", 0);
+      writeVariableValue("O_12", 0);
+      writeVariableValue("O_13", 0);
+      writeVariableValue("O_14", 0);
+      
       if(selectedCan == 0) /* mala */
       {
         writeVariableValue("O_11", 1);
         writeVariableValue("O_1_i03", 1);
         usleep(delay_time); 
+        writeVariableValue("O_1_i03", 0);      
       }
       else if(selectedCan == 1) /* mala 2 */
       {
         writeVariableValue("O_11", 1);
         writeVariableValue("O_12", 1);
         writeVariableValue("O_1_i03", 1);
-        usleep(delay_time); 
+        usleep(delay_time);
+        writeVariableValue("O_1_i03", 0);      
       }
       else if(selectedCan ==2) /* srednja */
       {
@@ -696,6 +703,7 @@ void diagnostics()
         writeVariableValue("O_13", 1);
         writeVariableValue("O_1_i03", 1);
         usleep(delay_time); 
+        writeVariableValue("O_1_i03", 0);      
       }
       else if(selectedCan == 3) /* velika */
       {
@@ -704,6 +712,7 @@ void diagnostics()
         writeVariableValue("O_13", 1);
         writeVariableValue("O_1_i03", 1);
         usleep(delay_time); 
+        writeVariableValue("O_1_i03", 0);      
      }
       step = 2;
       break;
@@ -712,11 +721,9 @@ void diagnostics()
       if(readVariableValue("I_12"))
       {
 	step = 3;
-        writeVariableValue("O_1_i03", 0);      
         writeVariableValue("O_11", 0);
         writeVariableValue("O_12", 0);
         writeVariableValue("O_13", 0);
-      
       }
       break;
 
@@ -752,12 +759,14 @@ void diagnostics()
         writeVariableValue("O_12", 1);
         writeVariableValue("O_1_i03", 1);
         usleep(delay_time); 
+        writeVariableValue("O_1_i03", 0);        
       }
       else if(selectedCan == 1) /* mala 2 */
       {
         writeVariableValue("O_13", 1);
         writeVariableValue("O_1_i03", 1);
         usleep(delay_time); 
+        writeVariableValue("O_1_i03", 0);
       }
       else if(selectedCan == 2) /* srednja */
       {
@@ -765,12 +774,14 @@ void diagnostics()
         writeVariableValue("O_13", 1);
         writeVariableValue("O_1_i03", 1);
         usleep(delay_time); 
+        writeVariableValue("O_1_i03", 0);
       }
       else if(selectedCan == 3) /* velika */
       {
         writeVariableValue("O_14", 1);
         writeVariableValue("O_1_i03", 1);
         usleep(delay_time); 
+        writeVariableValue("O_1_i03", 0);
       }
 
       step = 7;
@@ -780,7 +791,6 @@ void diagnostics()
       if(readVariableValue("I_12"))
       {
         step = 8;
-        writeVariableValue("O_1_i03", 0);
         writeVariableValue("O_12", 0);
         writeVariableValue("O_13", 0);
         writeVariableValue("O_14", 0);
@@ -836,6 +846,7 @@ void diagnostics()
         writeVariableValue("O_11", 1);
         writeVariableValue("O_1_i03", 1);
         usleep(delay_time); 
+        writeVariableValue("O_1_i03", 0);      
       }
       else if(selectedCan == 1) /* mala 2 */
       {
@@ -843,12 +854,14 @@ void diagnostics()
         writeVariableValue("O_12", 1);
         writeVariableValue("O_1_i03", 1);
         usleep(delay_time); 
+        writeVariableValue("O_1_i03", 0);         
       }
       else if(selectedCan ==2) /* srednja */
       {
         writeVariableValue("O_11", 1);
         writeVariableValue("O_13", 1);
         writeVariableValue("O_1_i03", 1);
+        writeVariableValue("O_1_i03", 0);      
       }
       else if(selectedCan == 3) /* velika */
       {
@@ -857,6 +870,7 @@ void diagnostics()
         writeVariableValue("O_13", 1);
         writeVariableValue("O_1_i03", 1);
         usleep(delay_time); 
+        writeVariableValue("O_1_i03", 0);      
       }
       step = 14;
       break;
@@ -865,7 +879,6 @@ void diagnostics()
       if(readVariableValue("I_12"))
       {
         step = 15;
-        writeVariableValue("O_1_i03", 0);      
         writeVariableValue("O_11", 0);
         writeVariableValue("O_12", 0);
         writeVariableValue("O_13", 0);

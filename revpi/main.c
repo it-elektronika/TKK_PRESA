@@ -789,7 +789,7 @@ void diagnostics()
         writeVariableValue("O_14", 0);
       }
 
-      step = 8;
+      step = 7;
       break;
     
     case 7: /* preverim ali je bil premik izveden */
@@ -829,7 +829,7 @@ void diagnostics()
       writeVariableValue("O_9", 1);
       usleep(delay_time);
       writeVariableValue("O_9", 0);
-      step = 13; /* no need to wait here*/
+      step = 12; /* no need to wait here*/
       break;
 
     case 12: /* preverim ali je bil pomik izveden */

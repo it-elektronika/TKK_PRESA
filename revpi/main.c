@@ -697,7 +697,7 @@ void diagnostics()
     case 1:  /* gripper - pomik na zgornjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - pomik na zgornjo pozicijo\n");
-      usleep(5000000);
+      //usleep(5000000);
       writeVariableValue("O_11", 0);
       writeVariableValue("O_12", 0);
       writeVariableValue("O_13", 0);
@@ -741,7 +741,7 @@ void diagnostics()
     case 2:  /* preverim ali je bil premik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je bil premik izveden\n");
-      usleep(5000000);
+      //usleep(5000000);
       writeVariableValue("O_11", 0);
       writeVariableValue("O_12", 0);
       writeVariableValue("O_13", 0);
@@ -757,7 +757,7 @@ void diagnostics()
     case 3: /* gripper - premik na spodnjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - premik na spodnjo pozicijo\n");
-      usleep(5000000);
+      //usleep(5000000);
       if(selectedCan == 0) /* mala */
       {
         writeVariableValue("O_12", 1);
@@ -795,7 +795,7 @@ void diagnostics()
     case 4: /* preverim ali je bil premik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je bil premik izveden\n");
-      usleep(5000000);
+      //usleep(5000000);
       writeVariableValue("O_11", 0);
       writeVariableValue("O_12", 0);
       writeVariableValue("O_13", 0);

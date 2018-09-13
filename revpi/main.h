@@ -1,5 +1,5 @@
-#define delay_time 500000
-#define delay_time2 250000
+#define delay_time 70000
+#define delay_time2 100000
 
 int sockfd, newsockfd;
 socklen_t clilen;

@@ -831,7 +831,8 @@ void stop_button(int x, int y, int w, int h)
 
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
-    step = 0;
+    sendRequest(8, 0, 0);
+    receieveResponse();
   }
   renderText("STOP", regularText, blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 

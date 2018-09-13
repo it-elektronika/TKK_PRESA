@@ -272,6 +272,11 @@ void receiveRequest()
     press = (recvReadBuff[1])*1000; 
     sendResponse(7);
   }
+  else if(recvReadBuff[0] == 8)
+  {
+    step = 0;
+    sendResponse(8);
+  }
 }
 
 
@@ -431,6 +436,22 @@ void sendResponse(int reqId)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 7;
+    
+    FD_ZERO(&fdsTCP);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    n = select(32, NULL, &fdsTCP, NULL, &tv); 
+   
+    n = send(newsockfd, sendWriteBuff, 29, 0);
+    memset(sendWriteBuff, 0, 29);
+    //printf("RESPONSE SENT reqId:%d\n", reqId);
+  }
+
+  else if(reqId == 8)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 8;
     
     FD_ZERO(&fdsTCP);
     tv.tv_sec = 0;

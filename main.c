@@ -186,6 +186,13 @@ void sendRequest(int reqId, int id, int outputState)
     n = send(sockfd,sendWriteBuff, 29, 0); 
     memset(sendWriteBuff, 0, 3);
   }
+  else if(reqId == 8)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 8;
+    n = send(sockfd,sendWriteBuff, 29, 0); 
+    memset(sendWriteBuff, 0, 3);
+  }
 }
 
 void receiveResponse()

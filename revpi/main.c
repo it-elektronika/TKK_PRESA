@@ -681,7 +681,7 @@ void diagnostics()
       writeVariableValue("O_12", 0);
       writeVariableValue("O_13", 0);
       writeVariableValue("O_14", 0);
-      
+      writeVariableValue("O_1_i03", 0);
       if(selectedCan == 0) /* mala */
       {
         writeVariableValue("O_11", 1);
@@ -721,12 +721,15 @@ void diagnostics()
       printf("STEP: %d\n", step);
       printf("preverim ali je bil premik izveden\n");
       usleep(5000000);
+      writeVariableValue("O_11", 0);
+      writeVariableValue("O_12", 0);
+      writeVariableValue("O_13", 0);
+      writeVariableValue("O_14", 0);
+      writeVariableValue("O_1_i03", 0);
+     
       if(readVariableValue("I_12"))
       {
 	step = 3;
-        writeVariableValue("O_11", 0);
-        writeVariableValue("O_12", 0);
-        writeVariableValue("O_13", 0);
       }
       break;
 
@@ -803,12 +806,15 @@ void diagnostics()
       printf("STEP: %d\n", step);
       printf("preverim ali je bil premik izveden\n");
       usleep(5000000);
+      writeVariableValue("O_11", 0);
+      writeVariableValue("O_12", 0);
+      writeVariableValue("O_13", 0);
+      writeVariableValue("O_14", 0);
+      writeVariableValue("O_1_i03", 0);
+     
       if(readVariableValue("I_12"))
       {
         step = 8;
-        writeVariableValue("O_12", 0);
-        writeVariableValue("O_13", 0);
-        writeVariableValue("O_14", 0);
       }      
       break;
 
@@ -906,12 +912,15 @@ void diagnostics()
       printf("STEP: %d\n", step);
       printf("preverim ali je pomik izveden\n");
       usleep(5000000);
+      writeVariableValue("O_11", 0);
+      writeVariableValue("O_12", 0);
+      writeVariableValue("O_13", 0);
+      writeVariableValue("O_14", 0);
+      writeVariableValue("O_1_i03", 0);
+     
       if(readVariableValue("I_12"))
       {
         step = 15;
-        writeVariableValue("O_11", 0);
-        writeVariableValue("O_12", 0);
-        writeVariableValue("O_13", 0);
       }
       break;
 

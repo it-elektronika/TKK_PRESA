@@ -788,46 +788,16 @@ void diagnostics()
     case 6: /* gripper - premik na spodnjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - premik na spodnjo pozicijo\n");
-      if(selectedCan == 0) /* mala */
-      {
-        writeVariableValue("O_12", 1);
-        usleep(delay_time2);
-        writeVariableValue("O_1_i03", 1);
-        usleep(delay_time); 
-        writeVariableValue("O_1_i03", 0);        
-      }
-      else if(selectedCan == 1) /* mala 2 */
-      {
-        writeVariableValue("O_13", 1);
-        usleep(delay_time2);
-        writeVariableValue("O_1_i03", 1);
-        usleep(delay_time); 
-        writeVariableValue("O_1_i03", 0);
-      }
-      else if(selectedCan == 2) /* srednja */
-      {
-        writeVariableValue("O_12", 1);
-        writeVariableValue("O_13", 1);
-        usleep(delay_time2);
-        writeVariableValue("O_1_i03", 1);
-        usleep(delay_time); 
-        writeVariableValue("O_1_i03", 0);
-      }
-      else if(selectedCan == 3) /* velika */
-      {
-        writeVariableValue("O_14", 1);
-        usleep(delay_time2);
-        writeVariableValue("O_1_i03", 1);
-        usleep(delay_time); 
-        writeVariableValue("O_1_i03", 0);
-	
-        writeVariableValue("O_11", 0);
-	writeVariableValue("O_12", 0);
-	writeVariableValue("O_13", 0);
-	writeVariableValue("O_14", 0);
-	writeVariableValue("O_1_i03", 0); 
-      } 
-
+      
+      writeVariableValue("O_1_i03", 1);
+      usleep(delay_time); 
+      writeVariableValue("O_1_i03", 0);        
+  
+      writeVariableValue("O_11", 0);
+      writeVariableValue("O_12", 0);
+      writeVariableValue("O_13", 0);
+      writeVariableValue("O_14", 0);
+      
       step = 8;
       break;
     
@@ -873,6 +843,28 @@ void diagnostics()
     case 11: /* presa - pomik v zgornjo pozicijo*/
       printf("STEP: %d\n", step);
       printf("presa - pomik v zgornjo pozicijo\n");
+    
+      if(selectedCan == 0) /* mala */
+      {
+        writeVariableValue("O_11", 1);
+      }
+      else if(selectedCan == 1) /* mala 2 */
+      {
+        writeVariableValue("O_11", 1);
+        writeVariableValue("O_12", 1);
+      }
+      else if(selectedCan == 2) /* srednja */
+      {
+        writeVariableValue("O_11", 1);
+        writeVariableValue("O_13", 1);
+      }
+      else if(selectedCan == 3) /* velika*/
+      {
+        writeVariableValue("O_11", 1);
+        writeVariableValue("O_12", 1);
+        writeVariableValue("O_13", 1);
+      }
+     
       writeVariableValue("O_9", 1);
       usleep(delay_time);
       writeVariableValue("O_9", 0);
@@ -891,54 +883,23 @@ void diagnostics()
     case 13: /* gripper - pomik v zgornjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - pomik v zgornjo pozicijo\n");
-      if(selectedCan == 0) /* mala */
-      {
-        writeVariableValue("O_11", 1);
-        usleep(delay_time2);
-        writeVariableValue("O_1_i03", 1);
-        usleep(delay_time); 
-        writeVariableValue("O_1_i03", 0);      
-      }
-      else if(selectedCan == 1) /* mala 2 */
-      {
-        writeVariableValue("O_11", 1);
-        writeVariableValue("O_12", 1);
-        usleep(delay_time2);
-        writeVariableValue("O_1_i03", 1);
-        usleep(delay_time); 
-        writeVariableValue("O_1_i03", 0);         
-      }
-      else if(selectedCan == 2) /* srednja */
-      {
-        writeVariableValue("O_11", 1);
-        writeVariableValue("O_13", 1);
-        usleep(delay_time2);
-        writeVariableValue("O_1_i03", 1);
-        usleep(delay_time);
-        writeVariableValue("O_1_i03", 0);      
-      }
-      else if(selectedCan == 3) /* velika*/
-      {
-        writeVariableValue("O_11", 1);
-        writeVariableValue("O_12", 1);
-        writeVariableValue("O_13", 1);
-        usleep(delay_time2); 
-        writeVariableValue("O_1_i03", 1);
-        usleep(delay_time); 
-        writeVariableValue("O_1_i03", 0);      
-      }
+      
+      writeVariableValue("O_1_i03", 1);
+      usleep(delay_time); 
+      writeVariableValue("O_1_i03", 0);      
+      
+      writeVariableValue("O_11", 0);
+      writeVariableValue("O_12", 0);
+      writeVariableValue("O_13", 0);
+      writeVariableValue("O_14", 0);
+     
       step = 14;
       break;
     
     case 14:  /* preverim ali je pomik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je pomik izveden\n");
-      writeVariableValue("O_11", 0);
-      writeVariableValue("O_12", 0);
-      writeVariableValue("O_13", 0);
-      writeVariableValue("O_14", 0);
-      writeVariableValue("O_1_i03", 0);
-     
+      
       if(readVariableValue("I_12"))
       {
         step = 15;
@@ -948,6 +909,25 @@ void diagnostics()
     case 15: /* miza - pomik za eno dozo */
       printf("STEP: %d\n", step);
       printf("miza - pomik za eno dozo\n");
+  
+      if(selectedCan == 0) /* mala */
+      {
+        writeVariableValue("O_12", 1);
+      }
+      else if(selectedCan == 1) /* mala 2 */
+      {
+        writeVariableValue("O_13", 1);
+      }
+      else if(selectedCan == 2) /* srednja */
+      {
+        writeVariableValue("O_12", 1);
+        writeVariableValue("O_13", 1);
+      }
+      else if(selectedCan == 3) /* velika */
+      {
+        writeVariableValue("O_14", 1);
+      }
+
       writeVariableValue("O_7", 1);
       usleep(delay_time);
       writeVariableValue("O_7", 0);

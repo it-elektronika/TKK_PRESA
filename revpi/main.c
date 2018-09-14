@@ -788,7 +788,6 @@ void diagnostics()
     case 6: /* gripper - premik na spodnjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - premik na spodnjo pozicijo\n");
-      
       writeVariableValue("O_1_i03", 1);
       usleep(delay_time); 
       writeVariableValue("O_1_i03", 0);        
@@ -836,8 +835,8 @@ void diagnostics()
       printf("STEP: %d\n", step);
       printf("presa - premik na spodnjo pozicijo\n");
       writeVariableValue("O_10", 1);
-      usleep(delay_time);
-      writeVariableValue("O_10", 0);
+      //usleep(delay_time);
+      //writeVariableValue("O_10", 0);
       step = 9;
       break;
     
@@ -858,6 +857,8 @@ void diagnostics()
       if(readVariableValue("I_11") && readVariableValue("I_12")) /* second condition used if both moves at the same time*/
       {
 	step = 11;
+        writeVariableValue("O_7", 0);
+        //writeVariableValue("O_1_i03", 0);
       }
       break;
     
@@ -866,8 +867,8 @@ void diagnostics()
       printf("presa - pomik v zgornjo pozicijo\n");
            
       writeVariableValue("O_9", 1);
-      usleep(delay_time);
-      writeVariableValue("O_9", 0);
+      //usleep(delay_time);
+      //writeVariableValue("O_9", 0);
       step = 13; /*no need to wait here*/
       break;
 
@@ -883,7 +884,6 @@ void diagnostics()
     case 13: /* gripper - pomik v zgornjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - pomik v zgornjo pozicijo\n");
-      
       writeVariableValue("O_1_i03", 1);
       usleep(delay_time); 
       writeVariableValue("O_1_i03", 0);      
@@ -929,8 +929,12 @@ void diagnostics()
       printf("miza - pomik za eno dozo\n");
   
       writeVariableValue("O_7", 1);
-      usleep(delay_time);
-      writeVariableValue("O_7", 0);
+      //usleep(delay_time);
+      //writeVariableValue("O_7", 0);
+
+      writeVariableValue("O_9", 0);
+      writeVariableValue("O_10", 0);
+
       step = 16;
       break;
 

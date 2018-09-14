@@ -1,4 +1,4 @@
-#define delay_time 70000
+#define delay_time 30000
 #define delay_time2 30000
 
 int sockfd, newsockfd;

@@ -820,20 +820,21 @@ void diagnostics()
         writeVariableValue("O_1_i03", 1);
         usleep(delay_time); 
         writeVariableValue("O_1_i03", 0);
-      }
+	
+        writeVariableValue("O_11", 0);
+	writeVariableValue("O_12", 0);
+	writeVariableValue("O_13", 0);
+	writeVariableValue("O_14", 0);
+	writeVariableValue("O_1_i03", 0); 
+      } 
 
-      step = 7;
+      step = 8;
       break;
     
     case 7: /* preverim ali je bil premik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je bil premik izveden\n");
-      writeVariableValue("O_11", 0);
-      writeVariableValue("O_12", 0);
-      writeVariableValue("O_13", 0);
-      writeVariableValue("O_14", 0);
-      writeVariableValue("O_1_i03", 0);
-     
+    
       if(readVariableValue("I_12"))
       {
         step = 8;
@@ -875,7 +876,7 @@ void diagnostics()
       writeVariableValue("O_9", 1);
       usleep(delay_time);
       writeVariableValue("O_9", 0);
-      step = 12; /*no need to wait here*/
+      step = 13; /*no need to wait here*/
       break;
 
     case 12: /* preverim ali je bil pomik izveden */
@@ -907,7 +908,7 @@ void diagnostics()
         usleep(delay_time); 
         writeVariableValue("O_1_i03", 0);         
       }
-      else if(selectedCan ==2) /* srednja */
+      else if(selectedCan == 2) /* srednja */
       {
         writeVariableValue("O_11", 1);
         writeVariableValue("O_13", 1);

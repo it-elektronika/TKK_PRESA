@@ -798,6 +798,27 @@ void diagnostics()
       writeVariableValue("O_13", 0);
       writeVariableValue("O_14", 0);
       
+      if(selectedCan == 0) /* mala */
+      {
+        writeVariableValue("O_11", 1);
+      }
+      else if(selectedCan == 1) /* mala 2 */
+      {
+        writeVariableValue("O_11", 1);
+        writeVariableValue("O_12", 1);
+      }
+      else if(selectedCan == 2) /* srednja */
+      {
+        writeVariableValue("O_11", 1);
+        writeVariableValue("O_13", 1);
+      }
+      else if(selectedCan == 3) /* velika*/
+      {
+        writeVariableValue("O_11", 1);
+        writeVariableValue("O_12", 1);
+        writeVariableValue("O_13", 1);
+      }
+
       step = 8;
       break;
     
@@ -843,28 +864,7 @@ void diagnostics()
     case 11: /* presa - pomik v zgornjo pozicijo*/
       printf("STEP: %d\n", step);
       printf("presa - pomik v zgornjo pozicijo\n");
-    
-      if(selectedCan == 0) /* mala */
-      {
-        writeVariableValue("O_11", 1);
-      }
-      else if(selectedCan == 1) /* mala 2 */
-      {
-        writeVariableValue("O_11", 1);
-        writeVariableValue("O_12", 1);
-      }
-      else if(selectedCan == 2) /* srednja */
-      {
-        writeVariableValue("O_11", 1);
-        writeVariableValue("O_13", 1);
-      }
-      else if(selectedCan == 3) /* velika*/
-      {
-        writeVariableValue("O_11", 1);
-        writeVariableValue("O_12", 1);
-        writeVariableValue("O_13", 1);
-      }
-     
+           
       writeVariableValue("O_9", 1);
       usleep(delay_time);
       writeVariableValue("O_9", 0);
@@ -893,23 +893,6 @@ void diagnostics()
       writeVariableValue("O_13", 0);
       writeVariableValue("O_14", 0);
      
-      step = 14;
-      break;
-    
-    case 14:  /* preverim ali je pomik izveden */
-      printf("STEP: %d\n", step);
-      printf("preverim ali je pomik izveden\n");
-      
-      if(readVariableValue("I_12"))
-      {
-        step = 15;
-      }
-      break;
-
-    case 15: /* miza - pomik za eno dozo */
-      printf("STEP: %d\n", step);
-      printf("miza - pomik za eno dozo\n");
-  
       if(selectedCan == 0) /* mala */
       {
         writeVariableValue("O_12", 1);
@@ -928,6 +911,23 @@ void diagnostics()
         writeVariableValue("O_14", 1);
       }
 
+      step = 14;
+      break;
+    
+    case 14:  /* preverim ali je pomik izveden */
+      printf("STEP: %d\n", step);
+      printf("preverim ali je pomik izveden\n");
+      
+      if(readVariableValue("I_12"))
+      {
+        step = 15;
+      }
+      break;
+
+    case 15: /* miza - pomik za eno dozo */
+      printf("STEP: %d\n", step);
+      printf("miza - pomik za eno dozo\n");
+  
       writeVariableValue("O_7", 1);
       usleep(delay_time);
       writeVariableValue("O_7", 0);

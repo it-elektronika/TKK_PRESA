@@ -31,11 +31,11 @@ char sendWriteBuff[256];
 char recvWriteBuff[256];
 
 
-char readBuff[12];
-char readBuff_recv[30];
+char readBuff[57];
+char readBuff_recv[57];
 
 char writePosTenBuff[58];
-char writePosTenBuff_recv[56];
+char writePosTenBuff_recv[57];
 
 char outputWriteBuff[256];
 

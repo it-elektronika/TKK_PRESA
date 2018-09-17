@@ -221,7 +221,7 @@ void receiveRequest()
   //printf("RECEIVING REQUEST\n");
   FD_SET(newsockfd, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);
-  n = recv(newsockfd, recvReadBuff, 29, 0);
+  n = recv(newsockfd, recvReadBuff, 57, 0);
   //printf("REQUEST RECEIVED\n");
   
   if(recvReadBuff[0] == 1)
@@ -317,7 +317,7 @@ void sendResponse(int reqId)
     int * sendWrite30 = (int*)(&sendWriteBuff[30]);
     int * sendWrite31 = (int*)(&sendWriteBuff[31]);
     int * sendWrite32 = (int*)(&sendWriteBuff[32]);
-    int * sendWrite32 = (int*)(&sendWriteBuff[33]);
+    int * sendWrite33 = (int*)(&sendWriteBuff[33]);
     int * sendWrite34 = (int*)(&sendWriteBuff[34]);
     int * sendWrite35 = (int*)(&sendWriteBuff[35]);
     int * sendWrite36 = (int*)(&sendWriteBuff[36]);
@@ -341,7 +341,6 @@ void sendResponse(int reqId)
     int * sendWrite54 = (int*)(&sendWriteBuff[54]);
     int * sendWrite55 = (int*)(&sendWriteBuff[55]);
     int * sendWrite56 = (int*)(&sendWriteBuff[56]);
-    int * sendWrite57 = (int*)(&sendWriteBuff[57]);
    
     * sendWrite0 = 1;
     * sendWrite1 = readVariableValue("I_1");

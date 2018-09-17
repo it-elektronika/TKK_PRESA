@@ -409,7 +409,7 @@ void sendResponse(int reqId)
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
   
     n = send(newsockfd, sendWriteBuff, 57, 0);
-    memset(sendWriteBuff, 0, 56);
+    memset(sendWriteBuff, 0, 57);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
 
   }

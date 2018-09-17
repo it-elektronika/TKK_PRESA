@@ -72,7 +72,6 @@ void initCommAKDPress()
   printf("connPresa[0]:%d\n", conn_presa);
 }
 
-
 void initCommTCP()
 {
   serv_addr.sin_addr.s_addr = inet_addr("192.168.1.12"); /* 192.168.0.12 - the actual one */
@@ -125,8 +124,8 @@ void sendRequest(int reqId, int id, int outputState)
       * sendWrite0 = 2;
       * sendWrite1 = id+1;
       * sendWrite2 = 1;  
-      n = send(sockfd,sendWriteBuff, 58, 0); 
-      memset(sendWriteBuff, 0, 58);
+      n = send(sockfd,sendWriteBuff, 57, 0); 
+      memset(sendWriteBuff, 0, 57);
       //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
     else if(outputState == 1)
@@ -138,8 +137,8 @@ void sendRequest(int reqId, int id, int outputState)
       * sendWrite0 = 2;
       * sendWrite1 = id+1;
       * sendWrite2 = 0;  
-      n = send(sockfd,sendWriteBuff, 58, 0); 
-      memset(sendWriteBuff, 0, 58);
+      n = send(sockfd,sendWriteBuff, 57, 0); 
+      memset(sendWriteBuff, 0, 57);
       //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
   }

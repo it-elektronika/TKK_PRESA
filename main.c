@@ -125,8 +125,8 @@ void sendRequest(int reqId, int id, int outputState)
       * sendWrite0 = 2;
       * sendWrite1 = id+1;
       * sendWrite2 = 1;  
-      n = send(sockfd,sendWriteBuff, 29, 0); 
-      memset(sendWriteBuff, 0, 29);
+      n = send(sockfd,sendWriteBuff, 58, 0); 
+      memset(sendWriteBuff, 0, 58);
       //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
     else if(outputState == 1)
@@ -138,8 +138,8 @@ void sendRequest(int reqId, int id, int outputState)
       * sendWrite0 = 2;
       * sendWrite1 = id+1;
       * sendWrite2 = 0;  
-      n = send(sockfd,sendWriteBuff, 29, 0); 
-      memset(sendWriteBuff, 0, 3);
+      n = send(sockfd,sendWriteBuff, 58, 0); 
+      memset(sendWriteBuff, 0, 58);
       //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
   }
@@ -204,7 +204,7 @@ void receiveResponse()
     
 
   //readLine(sockfd, recvReadBuff, 28);
-  n = recv(sockfd, recvReadBuff, 29, 0);
+  n = recv(sockfd, recvReadBuff, 57, 0);
   //printf("RESPONSE RECEIVED\n");
   if(recvReadBuff[0] == 1)
   {
@@ -215,7 +215,7 @@ void receiveResponse()
     }
     for(i=0; i < ioPins; ++i)
     {
-      sprintf(outputs[i], "%d\0\n", recvReadBuff[i+29]);
+      sprintf(outputs[i], "%d\0\n", recvReadBuff[i+28]);
       //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
   }

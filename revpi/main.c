@@ -778,18 +778,7 @@ void diagnostics()
       }
       break;
 
-    case 5: /* zacetek merjenja sile pritiska */
-      printf("STEP: %d\n", step);
-      printf("zacetek merjenja sile pritiska\n");
-      //writeVariableValue("O_1", 1);
-      //usleep(delay_time);
-      //writeVariableValue("O_1", 0);
-      //usleep(delay_time);
-      writeVariableValue("O_1", 1);
-      step = 6;
-      break;
-
-    case 6: /* gripper - premik na spodnjo pozicijo */
+      case 5: /* gripper - premik na spodnjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - premik na spodnjo pozicijo\n");
       writeVariableValue("O_1_i03", 1);
@@ -822,69 +811,53 @@ void diagnostics()
         writeVariableValue("O_13", 1);
       }
 
-      step = 8;
+      step = 7;
       break;
     
-    case 7: /* preverim ali je bil premik izveden */
+    case 6: /* preverim ali je bil premik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je bil premik izveden\n");
     
       if(readVariableValue("I_12"))
       {
-        step = 8;
+        step = 7;
       }      
       break;
 
-    case 8: /* presa - premik na spodnjo pozicijo */
+    case 7: /* presa - premik na spodnjo pozicijo */
       printf("STEP: %d\n", step);
       printf("presa - premik na spodnjo pozicijo\n");
       writeVariableValue("O_10", 1);
-      //usleep(delay_time);
-      //writeVariableValue("O_10", 0);
-      step = 10;
+      step = 8;
       break;
     
-    case 9: /* preverim ali sem dobil signal iz merilnega instrumenta */
-      printf("STEP: %d\n", step);
-      printf("preverim ali sem dobil signal iz merilnega instrumenta\n");
-      if(readVariableValue("I_5"))
-      {
-        writeVariableValue("O_2", 1);
-	writeVariableValue("O_1", 0);
-        step = 10;
-      }
-      break;
-
-    case 10: /* preverim ali sta presa in gripper izvedla pomik */
+    case 8: /* preverim ali sta presa in gripper izvedla pomik */
       printf("STEP: %d\n", step);
       printf("preverim ali sta presa in gripper izvedla pomik\n");
       if(readVariableValue("I_11") && readVariableValue("I_12")) /* second condition used if both moves at the same time*/
       {
        writeVariableValue("O_7", 0);
-       step = 11;
-       //writeVariableValue("O_1_i03", 0);
+       step = 9;
       }
       break;
     
-    case 11: /* presa - pomik v zgornjo pozicijo*/
+    case 9: /* presa - pomik v zgornjo pozicijo*/
       printf("STEP: %d\n", step);
       printf("presa - pomik v zgornjo pozicijo\n");    
       writeVariableValue("O_9", 1);
-      //usleep(delay_time);
-      //writeVariableValue("O_9", 0);
-      step = 13; /*no need to wait here*/
+      step = 11; /*no need to wait here*/
       break;
 
-    case 12: /* preverim ali je bil pomik izveden */
+    case 10: /* preverim ali je bil pomik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je bil pomik izveden\n");
       if(readVariableValue("I_11"))
       {
-	step = 13;
+	step = 11;
       }
       break;
 
-    case 13: /* gripper - pomik v zgornjo pozicijo */
+    case 11: /* gripper - pomik v zgornjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - pomik v zgornjo pozicijo\n");
       writeVariableValue("O_1_i03", 1);
@@ -916,45 +889,42 @@ void diagnostics()
         writeVariableValue("O_14", 1);
       }
 
-      step = 14;
+      step = 12;
       break;
     
-    case 14:  /* preverim ali je pomik izveden */
+    case 12:  /* preverim ali je pomik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je pomik izveden\n");
       
       if(readVariableValue("I_12"))
       {
-        step = 15;
+        step = 13;
       }
       break;
 
-    case 15: /* miza - pomik za eno dozo */
+    case 13: /* miza - pomik za eno dozo */
       printf("STEP: %d\n", step);
       printf("miza - pomik za eno dozo\n");
   
       writeVariableValue("O_7", 1);
-      //usleep(delay_time);
-      //writeVariableValue("O_7", 0);
       writeVariableValue("O_9", 0);
       writeVariableValue("O_10", 0);
 
-      step = 16;
+      step = 14;
       break;
 
-    case 16: /* preverim ali je bil premik izveden */
+    case 14: /* preverim ali je bil premik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je bil premik izveden\n");
       if(readVariableValue("I_13"))
       {
-        step = 17;
+        step = 15;
       }
       break;
 
-    case 17:
+    case 15:
       printf("STEP: %d\n", step);
       printf("Izklop stopa meritve\n");
-      //writeVariableValue("O_2", 0);
       step = 5; /* for purposes of simulation*/
       break;
   }

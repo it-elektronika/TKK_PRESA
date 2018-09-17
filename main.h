@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <arpa/inet.h>
 #include <time.h>
-#define lastStep 17
+#define lastStep 15
 #define PORTNO 1500
 #define BILLION 1000000000L
 

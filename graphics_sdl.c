@@ -772,8 +772,8 @@ void clockButton(int x, int y, int h, int w, char *tmBuff)
 
 void outputButton(int x, int y, int w, int h, int id)
 {
-  sprintf(buff_outputs[id], "O_%d: %s",id+1, outputs[id]);
-  renderText(buff_outputs[id], regularText, blackColor);
+  sprintf(buff_outputs_val[id], "%s: %s",buff_outputs[id], outputs[id]);
+  renderText(buff_outputs_val[id], regularText, blackColor);
   render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)

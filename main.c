@@ -208,14 +208,14 @@ void receiveResponse()
   //printf("RESPONSE RECEIVED\n");
   if(recvReadBuff[0] == 1)
   {
-    for(i=0; i < 14; ++i)
+    for(i=0; i < ioPins; ++i)
     {
       sprintf(inputs[i], "%d\0\n", recvReadBuff[i+1]);
       //printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
     }
-    for(i=0; i < 14; ++i)
+    for(i=0; i < ioPins; ++i)
     {
-      sprintf(outputs[i], "%d\0\n", recvReadBuff[i+15]);
+      sprintf(outputs[i], "%d\0\n", recvReadBuff[i+29]);
       //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
   }
@@ -426,6 +426,64 @@ void initMain()
   * posOneA17 = 1;            
   * posOneA18 = 1;  
   
+  strcpy(buff_inputs[0], "I_1");
+  strcpy(buff_inputs[1], "I_2");
+  strcpy(buff_inputs[2], "I_3");
+  strcpy(buff_inputs[3], "I_4");
+  strcpy(buff_inputs[4], "I_5");
+  strcpy(buff_inputs[5], "I_6");
+  strcpy(buff_inputs[6], "I_7");
+  strcpy(buff_inputs[7], "I_8");
+  strcpy(buff_inputs[8], "I_9");
+  strcpy(buff_inputs[9], "I_10");
+  strcpy(buff_inputs[10], "I_11");
+  strcpy(buff_inputs[11], "I_12");
+  strcpy(buff_inputs[12], "I_13");
+  strcpy(buff_inputs[13], "I_14");
+  strcpy(buff_inputs[14], "I_1_i03");
+  strcpy(buff_inputs[15], "I_2_i03");
+  strcpy(buff_inputs[16], "I_3_i03");
+  strcpy(buff_inputs[17], "I_4_i03");
+  strcpy(buff_inputs[18], "I_5_i03");
+  strcpy(buff_inputs[19], "I_6_i03");
+  strcpy(buff_inputs[20], "I_7_i03");
+  strcpy(buff_inputs[21], "I_8_i03");
+  strcpy(buff_inputs[22], "I_9_i03");
+  strcpy(buff_inputs[23], "I_10_i03");
+  strcpy(buff_inputs[24], "I_11_i03");
+  strcpy(buff_inputs[25], "I_12_i03");
+  strcpy(buff_inputs[26], "I_13_i03");
+  strcpy(buff_inputs[27], "I_14_i03");
+
+  strcpy(buff_outputs[0], "O_1");
+  strcpy(buff_outputs[1], "O_2");
+  strcpy(buff_outputs[2], "O_3");
+  strcpy(buff_outputs[3], "O_4");
+  strcpy(buff_outputs[4], "O_5");
+  strcpy(buff_outputs[5], "O_6");
+  strcpy(buff_outputs[6], "O_7");
+  strcpy(buff_outputs[7], "O_8");
+  strcpy(buff_outputs[8], "O_9");
+  strcpy(buff_outputs[9], "O_10");
+  strcpy(buff_outputs[10], "O_11");
+  strcpy(buff_outputs[11], "O_12");
+  strcpy(buff_outputs[12], "O_13");
+  strcpy(buff_outputs[13], "O_14");
+  strcpy(buff_outputs[14], "O_1_i03");
+  strcpy(buff_outputs[15], "O_2_i03");
+  strcpy(buff_outputs[16], "O_3_i03");
+  strcpy(buff_outputs[17], "O_4_i03");
+  strcpy(buff_outputs[18], "O_5_i03");
+  strcpy(buff_outputs[19], "O_6_i03");
+  strcpy(buff_outputs[20], "O_7_i03");
+  strcpy(buff_outputs[21], "O_8_i03");
+  strcpy(buff_outputs[22], "O_9_i03");
+  strcpy(buff_outputs[23], "O_10_i03");
+  strcpy(buff_outputs[24], "O_11_i03");
+  strcpy(buff_outputs[25], "O_12_i03");
+  strcpy(buff_outputs[26], "O_13_i03");
+  strcpy(buff_outputs[27], "O_14_i03");
+
   memset(stepCond, '\0', sizeof(stepCond));
   memset(stepName, '\0', sizeof(stepName));
   strcpy(stepCond[0][0], "POGOJ 0.1");

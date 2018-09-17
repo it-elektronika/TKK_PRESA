@@ -223,7 +223,7 @@ void pageThree(int pageNum)  /* I/O STATUS */
       SDL_RenderDrawLine(renderer, 1200, 180+i, 1280, 180+i);
       SDL_RenderDrawLine(renderer, 1200, 700+i, 1280, 700+i);
     }
-    for(i = 0; i < 14; ++i)
+    for(i = 0; i < ioPins; ++i)
     {
       if((y + modY >= 100))
       {
@@ -236,10 +236,14 @@ void pageThree(int pageNum)  /* I/O STATUS */
  
       if(scrollArr[i] < 1)
       {
-        sprintf(buff_inputs[i], "I_%d:%s", i+1, inputs[i]);
-        renderText(buff_inputs[i], regularText, blackColor);
+        //renderText(buff_inputs[i], regularText, blackColor);
+        //render(30, y+modY, NULL, 0.0, NULL, SDL_FLIP_NONE);
+        
+        sprintf(buff_inputs_val[i], "%s: %s", buff_inputs[i], inputs[i]);
+        renderText(buff_inputs_val[i], regularText, blackColor);
         render(30, y+modY, NULL, 0.0, NULL, SDL_FLIP_NONE);
-        outputButton(300, y+modY, 100, 50, i);
+       
+        outputButton(500, y+modY, 100, 50, i);
       }
       y = y + 70;
     }

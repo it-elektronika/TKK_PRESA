@@ -430,8 +430,8 @@ void sendResponse(int reqId)
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
    
-    n = send(newsockfd, sendReadBuff, 29, 0);
-    memset(sendReadBuff, 0, 29);
+    n = send(newsockfd, sendReadBuff, 1, 0);
+    memset(sendReadBuff, 0, 1);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
   else if(reqId == 3)
@@ -445,8 +445,8 @@ void sendResponse(int reqId)
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
     
-    n = send(newsockfd, sendWriteBuff, 29, 0);
-    memset(sendWriteBuff, 0, 29);
+    n = send(newsockfd, sendWriteBuff, 1, 0);
+    memset(sendWriteBuff, 0, 1);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
   
@@ -463,8 +463,8 @@ void sendResponse(int reqId)
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
    
-    n = send(newsockfd, sendWriteBuff, 29, 0);
-    memset(sendWriteBuff, 0, 29);
+    n = send(newsockfd, sendWriteBuff, 2, 0);
+    memset(sendWriteBuff, 0, 2);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
   else if(reqId == 5)
@@ -478,8 +478,8 @@ void sendResponse(int reqId)
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
    
-    n = send(newsockfd, sendWriteBuff, 29, 0);
-    memset(sendWriteBuff, 0, 29);
+    n = send(newsockfd, sendWriteBuff, 1, 0);
+    memset(sendWriteBuff, 0, 1);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
   else if(reqId == 6)
@@ -493,8 +493,8 @@ void sendResponse(int reqId)
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
    
-    n = send(newsockfd, sendWriteBuff, 29, 0);
-    memset(sendWriteBuff, 0, 29);
+    n = send(newsockfd, sendWriteBuff, 1, 0);
+    memset(sendWriteBuff, 0, 1);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
   else if(reqId == 7)
@@ -508,8 +508,8 @@ void sendResponse(int reqId)
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
    
-    n = send(newsockfd, sendWriteBuff, 29, 0);
-    memset(sendWriteBuff, 0, 29);
+    n = send(newsockfd, sendWriteBuff, 1, 0);
+    memset(sendWriteBuff, 0, 1);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
 
@@ -524,8 +524,8 @@ void sendResponse(int reqId)
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
    
-    n = send(newsockfd, sendWriteBuff, 29, 0);
-    memset(sendWriteBuff, 0, 29);
+    n = send(newsockfd, sendWriteBuff, 1, 0);
+    memset(sendWriteBuff, 0, 1);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
 }

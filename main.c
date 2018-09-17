@@ -98,8 +98,6 @@ void sendRequest(int reqId, int id, int outputState)
   if(reqId == 1)  
   {
     int * sendRead0 = (int*)(&sendReadBuff[0]);
-    memset(sendReadBuff, 0, 29);
- 
     * sendRead0 = 1;  
 
     FD_ZERO(&fdsTCP);
@@ -107,8 +105,8 @@ void sendRequest(int reqId, int id, int outputState)
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
-    n = send(sockfd,sendReadBuff, 29, 0);  
-    memset(sendReadBuff, 0, 29);
+    n = send(sockfd,sendReadBuff, 1, 0);  
+    memset(sendReadBuff, 0, 1);
     //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
 
   }
@@ -124,8 +122,8 @@ void sendRequest(int reqId, int id, int outputState)
       * sendWrite0 = 2;
       * sendWrite1 = id+1;
       * sendWrite2 = 1;  
-      n = send(sockfd,sendWriteBuff, 57, 0); 
-      memset(sendWriteBuff, 0, 57);
+      n = send(sockfd,sendWriteBuff, 3, 0); 
+      memset(sendWriteBuff, 0, 3);
       //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
     else if(outputState == 1)
@@ -137,8 +135,8 @@ void sendRequest(int reqId, int id, int outputState)
       * sendWrite0 = 2;
       * sendWrite1 = id+1;
       * sendWrite2 = 0;  
-      n = send(sockfd,sendWriteBuff, 57, 0); 
-      memset(sendWriteBuff, 0, 57);
+      n = send(sockfd,sendWriteBuff, 3, 0); 
+      memset(sendWriteBuff, 0, 3);
       //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
   }
@@ -146,22 +144,22 @@ void sendRequest(int reqId, int id, int outputState)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 3;
-    n = send(sockfd,sendWriteBuff, 29, 0); 
-    memset(sendWriteBuff, 0, 3);
+    n = send(sockfd,sendWriteBuff, 1, 0); 
+    memset(sendWriteBuff, 0, 1);
   }
   else if(reqId == 4)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 4;
-    n = send(sockfd,sendWriteBuff, 29, 0); 
-    memset(sendWriteBuff, 0, 3);
+    n = send(sockfd,sendWriteBuff, 1, 0); 
+    memset(sendWriteBuff, 0, 1);
   }
   else if(reqId == 5)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 5;
-    n = send(sockfd,sendWriteBuff, 29, 0); 
-    memset(sendWriteBuff, 0, 3);
+    n = send(sockfd,sendWriteBuff, 1, 0); 
+    memset(sendWriteBuff, 0, 1);
   }
   else if(reqId == 6)
   {
@@ -171,8 +169,8 @@ void sendRequest(int reqId, int id, int outputState)
     * sendWrite0 = 6;
     * sendWrite1 = selectedCan; 
    
-    n = send(sockfd,sendWriteBuff, 29, 0); 
-    memset(sendWriteBuff, 0, 3);
+    n = send(sockfd,sendWriteBuff, 2, 0); 
+    memset(sendWriteBuff, 0, 2);
   }
   else if(reqId == 7)
   {
@@ -182,15 +180,15 @@ void sendRequest(int reqId, int id, int outputState)
     * sendWrite0 = 7;
     * sendWrite1 = press; 
    
-    n = send(sockfd,sendWriteBuff, 29, 0); 
-    memset(sendWriteBuff, 0, 3);
+    n = send(sockfd,sendWriteBuff, 2, 0); 
+    memset(sendWriteBuff, 0, 2);
   }
   else if(reqId == 8)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 8;
-    n = send(sockfd,sendWriteBuff, 29, 0); 
-    memset(sendWriteBuff, 0, 3);
+    n = send(sockfd,sendWriteBuff, 1, 0); 
+    memset(sendWriteBuff, 0, 1);
   }
 }
 
@@ -201,8 +199,6 @@ void receiveResponse()
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);
     
-
-  //readLine(sockfd, recvReadBuff, 28);
   n = recv(sockfd, recvReadBuff, 57, 0);
   //printf("RESPONSE RECEIVED\n");
   if(recvReadBuff[0] == 1)

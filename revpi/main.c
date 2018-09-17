@@ -239,9 +239,9 @@ void receiveRequest()
     {
       sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
     }
-    else if(recvReadBuff[1] > 15 && recvReadBuff[1] < 29)
+    else if(recvReadBuff[1] > 14 && recvReadBuff[1] < 29)
     {
-      sprintf(outputWriteBuff, "O_%d_i03",  recvReadBuff[1]);
+      sprintf(outputWriteBuff, "O_%d_i03",  (recvReadBuff[1]-14));
     }
     writeVariableValue(outputWriteBuff, recvReadBuff[2]);
     printf("%s\n", outputWriteBuff);

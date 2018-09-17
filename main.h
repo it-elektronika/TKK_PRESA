@@ -50,7 +50,7 @@ char buff_outputs[28][20];
 char buff_inputs_val[28][40];
 char buff_outputs_val[28][40];
 
-int scrollArr[28];
+int scrollArr[56];
 char stepCounter[lastStep+2];
 char stepCond[lastStep+2][3][50];
 char stepName[lastStep+2][50];

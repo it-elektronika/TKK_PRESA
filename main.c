@@ -214,7 +214,7 @@ void receiveResponse()
     }
     for(i=0; i < ioPins; ++i)
     {
-      sprintf(outputs[i], "%d\0\n", recvReadBuff[i+28]);
+      sprintf(outputs[i], "%d\0\n", recvReadBuff[i+29]);
       //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
   }
@@ -222,7 +222,7 @@ void receiveResponse()
   {
     step = recvReadBuff[1];
   }
-  memset(recvReadBuff, 0, 29);
+  memset(recvReadBuff, 0, 57);
 }
 
 void initMain()

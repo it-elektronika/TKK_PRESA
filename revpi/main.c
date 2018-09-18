@@ -977,7 +977,7 @@ void diagnostics()
       printf("miza - pomik za eno dozo\n");
   
       writeVariableValue("O_7", 1);
-      usleep(delay_time);
+      //usleep(delay_time);
       writeVariableValue("O_9", 0);
       writeVariableValue("O_10", 0);
 
@@ -987,7 +987,8 @@ void diagnostics()
     case 14: /* preverim ali je bil premik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je bil premik izveden\n");
-      if(readVariableValue("I_13"))
+      detectRise("I_13");
+      if(riseDetected)
       {
         writeVariableValue("O_7", 0);
         step = 15;
@@ -1008,4 +1009,49 @@ void sendModbus(int socket, int socket_fd, char *send_buff, int send_buff_size, 
   printf("%s\n", print_text);
   socket = recv(socket_fd, receive_buff, receive_buff_size , 0);
   transId++;
+}
+
+void detectFall(const char *var)
+{
+  int currentValue;
+  int oldValue;
+  currentValue = 1;
+  oldValue = 1;
+  fallDetected = 0;
+  currentValue = readVariableValue(var);
+  
+  if(currentValue != oldValue)
+  {
+    if(currentValue == 0)
+    {
+      fallDetected = 1;
+    } 
+    else
+    {
+      fallDetected = 0;
+    }
+    oldValue = currentValue; 
+  }
+}
+
+void detectRise(const char *var)
+{
+  int currentValue;
+  int oldValue;
+  currentValue = 0;
+  oldValue = 0;
+  riseDetected = 0;
+  currentValue = readVariableValue(var);
+  if(currentValue != oldValue)
+  {
+    if(currentValue == 1)
+    {
+      riseDetected = 1;
+    }
+    else
+    {
+      riseDetected = 0;
+    }
+    oldValue = currentValue;  
+  }
 }

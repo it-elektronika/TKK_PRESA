@@ -21,6 +21,8 @@ int transId;
 int conn_AKD;
 
 int selectedCan;
+int rise_detected;
+int fall_detected;
 
 int PiControlHandle_g;
 
@@ -54,3 +56,5 @@ char ibufCl[17];
 
 
 void sendModbus(int socket, int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text);
+void detectFall(const char *var);
+void detectRise(const char *var);

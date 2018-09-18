@@ -987,11 +987,14 @@ void diagnostics()
     case 14: /* preverim ali je bil premik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je bil premik izveden\n");
-      detectFall("I_13");
-      if(fallDetected)
+      if(readVariableValue("I_13"))
       {
         writeVariableValue("O_7", 0);
         step = 15;
+      }
+      else
+      {
+        usleep(1000);
       }
       break;
 

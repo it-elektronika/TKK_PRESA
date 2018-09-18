@@ -988,6 +988,7 @@ void diagnostics()
       printf("STEP: %d\n", step);
       printf("preverim ali je bil premik izveden\n");
       usleep(50000);
+      writeVariableValue("O_7", 0);
       step = 15;
       break;
 

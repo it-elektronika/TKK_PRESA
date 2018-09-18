@@ -814,7 +814,7 @@ void start_button(int x, int y, int w, int h)
   }
   else
   {
-    //sendRequest(4, 0, 0);
+    sendRequest(4, 0, 0);
     receiveResponse();  
   }
   renderText("START", regularText, blackColor);

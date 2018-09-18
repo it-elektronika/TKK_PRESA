@@ -749,7 +749,6 @@ void diagnostics()
 */
 void diagnostics()
 {
-  sendResponse(4);
   switch(step)
   {
     case 0:

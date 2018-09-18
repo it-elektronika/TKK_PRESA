@@ -31,8 +31,17 @@ int main()
  
   while(program == 1)
   {
+    if(readVariableValue("I_1_i03") && step == 0)
+    {
+      step = 1;
+    }
+    else if(readVariableValue("I_2_i03"))
+    {
+      step = 0;
+    }
     receiveRequest();
     diagnostics();
+    
   }    
   close(newsockfd);
   close(sockfd);

@@ -224,17 +224,12 @@ void receiveRequest()
   n = recv(newsockfd, recvReadBuff, 57, 0);
   //printf("REQUEST RECEIVED\n");
   
-  if(recvReadBuff[0] == 1)
+  if(recvReadBuff[0] == 1) /* SEND VARIABLE DATA */
   {
     sendResponse(1);
   } 
-  else if(recvReadBuff[0] == 2)
+  else if(recvReadBuff[0] == 2) /* SWITCH OUTPUTS */
   {
-    /*
-    for(i = 1; i < 29; ++i)
-    {
-      printf("recvReadBuff_%d:%d\n",i, recvReadBuff[i]); 
-    }*/
     if(recvReadBuff[1] < 15)
     {
       sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
@@ -247,16 +242,16 @@ void receiveRequest()
     printf("%s\n", outputWriteBuff);
     sendResponse(2);
   }
-  else if(recvReadBuff[0] == 3)
+  else if(recvReadBuff[0] == 3) /* START MOTION */
   {
     step=1;
     sendResponse(3);
   }
-  else if(recvReadBuff[0] == 4)
+  else if(recvReadBuff[0] == 4) /* SEND STEP INFO */
   {
     sendResponse(4);
   }
-  else if(recvReadBuff[0] == 5)
+  else if(recvReadBuff[0] == 5) /* CONTINUE - MOVE FOR ONE STEP */
   {
     if(step != 0) /* or max step */
     {
@@ -264,7 +259,7 @@ void receiveRequest()
     }
     sendResponse(5);
   }
-  else if(recvReadBuff[0] == 6)
+  else if(recvReadBuff[0] == 6) /* GET SELECTED CAN DATA */
   {
     selectedCan = recvReadBuff[1]; 
     writeVariableValue("O_4_i03", 1);
@@ -274,12 +269,12 @@ void receiveRequest()
     writeVariableValue("O_12", 0);
     sendResponse(6);
   }
-  else if(recvReadBuff[0] == 7)
+  else if(recvReadBuff[0] == 7) /* GET PRESS PARAMETER DATA */
   {
     press = (recvReadBuff[1])*1000; 
     sendResponse(7);
   }
-  else if(recvReadBuff[0] == 8)
+  else if(recvReadBuff[0] == 8) /* STOP MOTION */
   {
     step = 0;
     sendResponse(8);
@@ -754,6 +749,7 @@ void diagnostics()
 */
 void diagnostics()
 {
+  sendResponse(4);
   switch(step)
   {
     case 0:

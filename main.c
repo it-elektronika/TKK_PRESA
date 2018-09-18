@@ -137,17 +137,17 @@ void sendRequest(int reqId, int id, int outputState)
       * sendWrite2 = 0;  
       n = send(sockfd,sendWriteBuff, 3, 0); 
       memset(sendWriteBuff, 0, 3);
-      //printf("REQUEST SENT reqId:%d outputId:%d\n", reqId, outputId);
+      //printf("REQUddEST SENT reqId:%d outputId:%d\n", reqId, outputId);
     }
   }
-  else if(reqId == 3)
+  else if(reqId == 3) /* STEP = 1 */
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 3;
     n = send(sockfd,sendWriteBuff, 1, 0); 
     memset(sendWriteBuff, 0, 1);
   }
-  else if(reqId == 4)
+  else if(reqId == 4) /* REQUEST STEP INFO */
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 4;
@@ -172,7 +172,7 @@ void sendRequest(int reqId, int id, int outputState)
     n = send(sockfd,sendWriteBuff, 2, 0); 
     memset(sendWriteBuff, 0, 2);
   }
-  else if(reqId == 7)
+  else if(reqId == 7) /* SEND PRESS PARAMETER DATA */
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     int * sendWrite1 = (int*)(&sendWriteBuff[1]);
@@ -183,7 +183,7 @@ void sendRequest(int reqId, int id, int outputState)
     n = send(sockfd,sendWriteBuff, 2, 0); 
     memset(sendWriteBuff, 0, 2);
   }
-  else if(reqId == 8)
+  else if(reqId == 8) /* STOP - STEP = 0 */
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 8;

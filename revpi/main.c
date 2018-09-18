@@ -892,6 +892,7 @@ void diagnostics()
     case 7: /* presa - premik na spodnjo pozicijo */
       printf("STEP: %d\n", step);
       printf("presa - premik na spodnjo pozicijo\n");
+      writeVariableValue("O_1", 1);
       writeVariableValue("O_10", 1);
       step = 8;
       break;

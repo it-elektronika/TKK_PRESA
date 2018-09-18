@@ -792,7 +792,7 @@ void diagnostics()
         usleep(delay_time);
         writeVariableValue("O_1_i03", 0);      
       }
-      else if(selectedCan ==2) /* srednja */
+      else if(selectedCan == 2) /* srednja */
       {
         writeVariableValue("O_11", 1);
         writeVariableValue("O_13", 1);
@@ -906,7 +906,7 @@ void diagnostics()
       printf("preverim ali sta presa in gripper izvedla pomik\n");
       if(readVariableValue("I_11") && readVariableValue("I_12")) /* second condition used if both moves at the same time*/
       {
-       writeVariableValue("O_7", 0);
+       
        step = 9;
       }
       break;
@@ -988,6 +988,7 @@ void diagnostics()
       printf("preverim ali je bil premik izveden\n");
       if(readVariableValue("I_13"))
       {
+        writeVariableValue("O_7", 0);
         step = 15;
       }
       break;

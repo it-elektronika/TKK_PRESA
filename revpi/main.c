@@ -987,8 +987,8 @@ void diagnostics()
     case 14: /* preverim ali je bil premik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je bil premik izveden\n");
-      detectRise("I_13");
-      if(riseDetected)
+      detectFall("I_13");
+      if(fallDetected)
       {
         writeVariableValue("O_7", 0);
         step = 15;
@@ -1055,3 +1055,23 @@ void detectRise(const char *var)
     oldValue = currentValue;  
   }
 }
+
+
+
+/*
+void timer(float measure)  CASOVNI ZAMIK 
+{
+  struct timespec start, stop;
+  double accum;
+    
+  clock_gettime(CLOCK_REALTIME, &start);    
+  while(accum < measure)
+  {
+    clock_gettime(CLOCK_REALTIME, &stop);
+
+    accum = ( stop.tv_sec - start.tv_sec )
+     + ( stop.tv_nsec - start.tv_nsec )
+     / BILLION;
+  }
+}
+*/

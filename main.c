@@ -19,7 +19,7 @@ int main()
   initMain();
   init();
 
-  /* connecting to DRIVEs */
+  /* connecting to DRIVES */
   while(connectiOn == 0)
   {
     renderBackground();

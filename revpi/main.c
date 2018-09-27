@@ -959,6 +959,9 @@ void diagnostics()
       printf("presa - premik na spodnjo pozicijo\n");
       writeVariableValue("O_1", 1);
       writeVariableValue("O_10", 1);
+      usleep(delay_time); 
+      writeVariableValue("O_10", 0);
+      
       step = 8;
       break;
     
@@ -967,7 +970,6 @@ void diagnostics()
       printf("preverim ali sta presa in gripper izvedla pomik\n");
       if(readVariableValue("I_11")) /* second condition used if both moves at the same time*/
       {
-       
        step = 9;
       }
       break;
@@ -976,6 +978,9 @@ void diagnostics()
       printf("STEP: %d\n", step);
       printf("presa - pomik v zgornjo pozicijo\n");    
       writeVariableValue("O_9", 1);
+      usleep(delay_time); 
+      writeVariableValue("O_9", 0);
+
       step = 10; /*no need to wait here*/
       break;
 
@@ -1040,10 +1045,6 @@ void diagnostics()
       writeVariableValue("O_7", 1);
       usleep(delay_time);
       writeVariableValue("O_7", 0);
-      
-      writeVariableValue("O_9", 0);
-      writeVariableValue("O_10", 0);
-
       step = 14;
       break;
 
@@ -1052,7 +1053,6 @@ void diagnostics()
       printf("preverim ali je bil premik izveden\n");
       if(readVariableValue("I_13"))
       {
-        writeVariableValue("O_7", 0);
         step = 15;
       }
       break;
@@ -1119,6 +1119,12 @@ void detectRise(const char *var)
 }
 
 
+/*
+void toggleOutput(const char *output, int delay)
+{
+  writeVariableValue("%s\n", output
+}
+*/
 
 /*
 void timer(float measure)  CASOVNI ZAMIK 

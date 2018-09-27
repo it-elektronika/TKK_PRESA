@@ -1038,7 +1038,9 @@ void diagnostics()
       printf("miza - pomik za eno dozo\n");
   
       writeVariableValue("O_7", 1);
-      //usleep(delay_time);
+      usleep(delay_time);
+      writeVariableValue("O_7", 0);
+      
       writeVariableValue("O_9", 0);
       writeVariableValue("O_10", 0);
 

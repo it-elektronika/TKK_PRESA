@@ -243,11 +243,11 @@ void receiveRequest()
     {
       sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
     }
-    else if(recvReadBuff[1] > 14 && recvReadBuff[1] < (ioPins+1))
+    else if(recvReadBuff[1] > 14 && recvReadBuff[1] < 29)
     {
       sprintf(outputWriteBuff, "O_%d_i03",  (recvReadBuff[1]-14));
     }
-    else if(recvReadBuff[1] > 28 && recvReadBuff[1] < (ioPins+1))
+    else if(recvReadBuff[1] > 28 && recvReadBuff[1] < 43)
     {
       sprintf(outputWriteBuff, "O_%d_i04",  (recvReadBuff[1]-14));
     }
@@ -357,7 +357,35 @@ void sendResponse(int reqId)
     int * sendWrite54 = (int*)(&sendWriteBuff[54]);
     int * sendWrite55 = (int*)(&sendWriteBuff[55]);
     int * sendWrite56 = (int*)(&sendWriteBuff[56]);
-   
+    int * sendWrite57 = (int*)(&sendWriteBuff[57]);
+    int * sendWrite58 = (int*)(&sendWriteBuff[58]);
+    int * sendWrite59 = (int*)(&sendWriteBuff[59]);
+    int * sendWrite60 = (int*)(&sendWriteBuff[60]);
+    int * sendWrite61 = (int*)(&sendWriteBuff[61]);
+    int * sendWrite62 = (int*)(&sendWriteBuff[62]);
+    int * sendWrite63 = (int*)(&sendWriteBuff[63]);
+    int * sendWrite64 = (int*)(&sendWriteBuff[64]);
+    int * sendWrite65 = (int*)(&sendWriteBuff[65]);
+    int * sendWrite66 = (int*)(&sendWriteBuff[66]);
+    int * sendWrite67 = (int*)(&sendWriteBuff[67]);
+    int * sendWrite68 = (int*)(&sendWriteBuff[68]);
+    int * sendWrite69 = (int*)(&sendWriteBuff[69]);
+    int * sendWrite70 = (int*)(&sendWriteBuff[70]);
+    int * sendWrite71 = (int*)(&sendWriteBuff[71]);
+    int * sendWrite72 = (int*)(&sendWriteBuff[72]);
+    int * sendWrite73 = (int*)(&sendWriteBuff[73]);
+    int * sendWrite74 = (int*)(&sendWriteBuff[74]);
+    int * sendWrite75 = (int*)(&sendWriteBuff[75]);
+    int * sendWrite76 = (int*)(&sendWriteBuff[76]);
+    int * sendWrite77 = (int*)(&sendWriteBuff[77]);
+    int * sendWrite78 = (int*)(&sendWriteBuff[78]);
+    int * sendWrite79 = (int*)(&sendWriteBuff[79]);
+    int * sendWrite80 = (int*)(&sendWriteBuff[80]);
+    int * sendWrite81 = (int*)(&sendWriteBuff[81]);
+    int * sendWrite82 = (int*)(&sendWriteBuff[82]);
+    int * sendWrite83 = (int*)(&sendWriteBuff[83]);
+    int * sendWrite84 = (int*)(&sendWriteBuff[84]);
+  
     * sendWrite0 = 1;
     * sendWrite1 = readVariableValue("I_1");
     * sendWrite2 = readVariableValue("I_2");
@@ -401,7 +429,6 @@ void sendResponse(int reqId)
     * sendWrite40 = readVariableValue("I_12_i04");
     * sendWrite41 = readVariableValue("I_13_i04");
     * sendWrite42 = readVariableValue("I_14_i04");
-
 
     * sendWrite43 = readVariableValue("O_1");
     * sendWrite44 = readVariableValue("O_2");

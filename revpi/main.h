@@ -33,8 +33,8 @@ char sendWriteBuff[256];
 char recvWriteBuff[256];
 
 
-char readBuff[57];
-char readBuff_recv[57];
+char readBuff[85];
+char readBuff_recv[85];
 
 char writePosTenBuff[58];
 char writePosTenBuff_recv[57];

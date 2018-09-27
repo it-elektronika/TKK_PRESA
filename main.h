@@ -8,7 +8,7 @@
 #include <arpa/inet.h>
 #include <time.h>
 #define lastStep 15
-#define ioPins 28
+#define ioPins 42
 #define PORTNO 1500
 #define BILLION 1000000000L
 
@@ -41,16 +41,16 @@ char recvReadBuff[256];
 char sendWriteBuff[256];
 char recvWriteBuff[256];
 
-char inputs[28][40];
-char outputs[28][40];
+char inputs[ioPins][40];
+char outputs[ioPins][40];
 
-char buff_inputs[28][20];
-char buff_outputs[28][20];
+char buff_inputs[ioPins][20];
+char buff_outputs[ioPins][20];
 
-char buff_inputs_val[28][40];
-char buff_outputs_val[28][40];
+char buff_inputs_val[ioPins][40];
+char buff_outputs_val[ioPins][40];
 
-int scrollArr[56];
+int scrollArr[84];
 char stepCounter[lastStep+2];
 char stepCond[lastStep+2][3][50];
 char stepName[lastStep+2][50];

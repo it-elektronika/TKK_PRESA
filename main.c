@@ -199,7 +199,7 @@ void receiveResponse()
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);
     
-  n = recv(sockfd, recvReadBuff, 57, 0);
+  n = recv(sockfd, recvReadBuff, 85, 0);
   //printf("RESPONSE RECEIVED\n");
   if(recvReadBuff[0] == 1)
   {
@@ -210,7 +210,7 @@ void receiveResponse()
     }
     for(i=0; i < ioPins; ++i)
     {
-      sprintf(outputs[i], "%d\0\n", recvReadBuff[i+29]);
+      sprintf(outputs[i], "%d\0\n", recvReadBuff[i+(ioPins+1)]);
       //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
   }
@@ -218,7 +218,7 @@ void receiveResponse()
   {
     step = recvReadBuff[1];
   }
-  memset(recvReadBuff, 0, 57);
+  memset(recvReadBuff, 0, 85);
 }
 
 void initMain()
@@ -449,6 +449,21 @@ void initMain()
   strcpy(buff_inputs[25], "I_12_i03");
   strcpy(buff_inputs[26], "I_13_i03");
   strcpy(buff_inputs[27], "I_14_i03");
+  strcpy(buff_inputs[28], "I_1_i04");
+  strcpy(buff_inputs[29], "I_2_i04");
+  strcpy(buff_inputs[30], "I_3_i04");
+  strcpy(buff_inputs[31], "I_4_i04");
+  strcpy(buff_inputs[32], "I_5_i04");
+  strcpy(buff_inputs[33], "I_6_i04");
+  strcpy(buff_inputs[34], "I_7_i04");
+  strcpy(buff_inputs[35], "I_8_i04");
+  strcpy(buff_inputs[36], "I_9_i04");
+  strcpy(buff_inputs[37], "I_10_i04");
+  strcpy(buff_inputs[38], "I_11_i04");
+  strcpy(buff_inputs[39], "I_12_i04");
+  strcpy(buff_inputs[40], "I_13_i04");
+  strcpy(buff_inputs[41], "I_14_i04");
+
 
   strcpy(buff_outputs[0], "O_1");
   strcpy(buff_outputs[1], "O_2");
@@ -478,6 +493,21 @@ void initMain()
   strcpy(buff_outputs[25], "O_12_i03");
   strcpy(buff_outputs[26], "O_13_i03");
   strcpy(buff_outputs[27], "O_14_i03");
+  strcpy(buff_outputs[28], "O_1_i04");
+  strcpy(buff_outputs[29], "O_2_i04");
+  strcpy(buff_outputs[30], "O_3_i04");
+  strcpy(buff_outputs[31], "O_4_i04");
+  strcpy(buff_outputs[32], "O_5_i04");
+  strcpy(buff_outputs[33], "O_6_i04");
+  strcpy(buff_outputs[34], "O_7_i04");
+  strcpy(buff_outputs[35], "O_8_i04");
+  strcpy(buff_outputs[36], "O_9_i04");
+  strcpy(buff_outputs[37], "O_10_i04");
+  strcpy(buff_outputs[38], "O_11_i04");
+  strcpy(buff_outputs[39], "O_12_i04");
+  strcpy(buff_outputs[40], "O_13_i04");
+  strcpy(buff_outputs[41], "O_14_i04");
+
 
   memset(stepCond, '\0', sizeof(stepCond));
   memset(stepName, '\0', sizeof(stepName));

@@ -243,10 +243,15 @@ void receiveRequest()
     {
       sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
     }
-    else if(recvReadBuff[1] > 14 && recvReadBuff[1] < 29)
+    else if(recvReadBuff[1] > 14 && recvReadBuff[1] < (ioPins+1))
     {
       sprintf(outputWriteBuff, "O_%d_i03",  (recvReadBuff[1]-14));
     }
+    else if(recvReadBuff[1] > 28 && recvReadBuff[1] < (ioPins+1))
+    {
+      sprintf(outputWriteBuff, "O_%d_i04",  (recvReadBuff[1]-14));
+    }
+ 
     writeVariableValue(outputWriteBuff, recvReadBuff[2]);
     printf("%s\n", outputWriteBuff);
     sendResponse(2);
@@ -382,35 +387,64 @@ void sendResponse(int reqId)
     * sendWrite26 = readVariableValue("I_12_i03");
     * sendWrite27 = readVariableValue("I_13_i03");
     * sendWrite28 = readVariableValue("I_14_i03");
+    * sendWrite29 = readVariableValue("I_1_i04");
+    * sendWrite30 = readVariableValue("I_2_i04");
+    * sendWrite31 = readVariableValue("I_3_i04");
+    * sendWrite32 = readVariableValue("I_4_i04");
+    * sendWrite33 = readVariableValue("I_5_i04");
+    * sendWrite34 = readVariableValue("I_6_i04");
+    * sendWrite35 = readVariableValue("I_7_i04");
+    * sendWrite36 = readVariableValue("I_8_i04");
+    * sendWrite37 = readVariableValue("I_9_i04");
+    * sendWrite38 = readVariableValue("I_10_i04");
+    * sendWrite39 = readVariableValue("I_11_i04");
+    * sendWrite40 = readVariableValue("I_12_i04");
+    * sendWrite41 = readVariableValue("I_13_i04");
+    * sendWrite42 = readVariableValue("I_14_i04");
 
-    * sendWrite29 = readVariableValue("O_1");
-    * sendWrite30 = readVariableValue("O_2");
-    * sendWrite31 = readVariableValue("O_3");
-    * sendWrite32 = readVariableValue("O_4");
-    * sendWrite33 = readVariableValue("O_5");
-    * sendWrite34 = readVariableValue("O_6");
-    * sendWrite35 = readVariableValue("O_7");
-    * sendWrite36 = readVariableValue("O_8");
-    * sendWrite37 = readVariableValue("O_9");
-    * sendWrite38 = readVariableValue("O_10");
-    * sendWrite39 = readVariableValue("O_11");
-    * sendWrite40 = readVariableValue("O_12");
-    * sendWrite41 = readVariableValue("O_13");
-    * sendWrite42 = readVariableValue("O_14");
-    * sendWrite43 = readVariableValue("O_1_i03");
-    * sendWrite44 = readVariableValue("O_2_i03");
-    * sendWrite45 = readVariableValue("O_3_i03");
-    * sendWrite46 = readVariableValue("O_4_i03");
-    * sendWrite47 = readVariableValue("O_5_i03");
-    * sendWrite48 = readVariableValue("O_6_i03");
-    * sendWrite49 = readVariableValue("O_7_i03");
-    * sendWrite50 = readVariableValue("O_8_i03");
-    * sendWrite51 = readVariableValue("O_9_i03");
-    * sendWrite52 = readVariableValue("O_10_i03");
-    * sendWrite53 = readVariableValue("O_11_i03");
-    * sendWrite54 = readVariableValue("O_12_i03");
-    * sendWrite55 = readVariableValue("O_13_i03");
-    * sendWrite56 = readVariableValue("O_14_i03");
+
+    * sendWrite43 = readVariableValue("O_1");
+    * sendWrite44 = readVariableValue("O_2");
+    * sendWrite45 = readVariableValue("O_3");
+    * sendWrite46 = readVariableValue("O_4");
+    * sendWrite47 = readVariableValue("O_5");
+    * sendWrite48 = readVariableValue("O_6");
+    * sendWrite49 = readVariableValue("O_7");
+    * sendWrite50 = readVariableValue("O_8");
+    * sendWrite51 = readVariableValue("O_9");
+    * sendWrite52 = readVariableValue("O_10");
+    * sendWrite53 = readVariableValue("O_11");
+    * sendWrite54 = readVariableValue("O_12");
+    * sendWrite55 = readVariableValue("O_13");
+    * sendWrite56 = readVariableValue("O_14");
+    * sendWrite57 = readVariableValue("O_1_i03");
+    * sendWrite58 = readVariableValue("O_2_i03");
+    * sendWrite59 = readVariableValue("O_3_i03");
+    * sendWrite60 = readVariableValue("O_4_i03");
+    * sendWrite61 = readVariableValue("O_5_i03");
+    * sendWrite62 = readVariableValue("O_6_i03");
+    * sendWrite63 = readVariableValue("O_7_i03");
+    * sendWrite64 = readVariableValue("O_8_i03");
+    * sendWrite65 = readVariableValue("O_9_i03");
+    * sendWrite66 = readVariableValue("O_10_i03");
+    * sendWrite67 = readVariableValue("O_11_i03");
+    * sendWrite68 = readVariableValue("O_12_i03");
+    * sendWrite69 = readVariableValue("O_13_i03");
+    * sendWrite70 = readVariableValue("O_14_i03");
+    * sendWrite71 = readVariableValue("O_1_i04");
+    * sendWrite72 = readVariableValue("O_2_i04");
+    * sendWrite73 = readVariableValue("O_3_i04");
+    * sendWrite74 = readVariableValue("O_4_i04");
+    * sendWrite75 = readVariableValue("O_5_i04");
+    * sendWrite76 = readVariableValue("O_6_i04");
+    * sendWrite77 = readVariableValue("O_7_i04");
+    * sendWrite78 = readVariableValue("O_8_i04");
+    * sendWrite79 = readVariableValue("O_9_i04");
+    * sendWrite80 = readVariableValue("O_10_i04");
+    * sendWrite81 = readVariableValue("O_11_i04");
+    * sendWrite82 = readVariableValue("O_12_i04");
+    * sendWrite83 = readVariableValue("O_13_i04");
+    * sendWrite84 = readVariableValue("O_14_i04");
     
     FD_ZERO(&fdsTCP);
     tv.tv_sec = 0;
@@ -418,8 +452,8 @@ void sendResponse(int reqId)
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
   
-    n = send(newsockfd, sendWriteBuff, 57, 0);
-    memset(sendWriteBuff, 0, 57);
+    n = send(newsockfd, sendWriteBuff, 85, 0);
+    memset(sendWriteBuff, 0, 85);
     //printf("RESPONSE SENT reqId:%d\n", reqId);
 
   }
@@ -563,7 +597,7 @@ void diagnostics()
       usleep(3000000);
       writeVariableValue("O_10", 1);
       usleep(100000);
-      writeVariableValue("O_10", 0);
+      writeVariableValue("O_10":, 0);
       printf("measurement position\n");
       step = 4;
       break;

@@ -249,7 +249,7 @@ void receiveRequest()
     }
     else if(recvReadBuff[1] > 28 && recvReadBuff[1] < 43)
     {
-      sprintf(outputWriteBuff, "O_%d_i04",  (recvReadBuff[1]-14));
+      sprintf(outputWriteBuff, "O_%d_i04",  (recvReadBuff[1]-28));
     }
  
     writeVariableValue(outputWriteBuff, recvReadBuff[2]);

@@ -249,7 +249,7 @@ void pageThree(int pageNum)  /* I/O STATUS */
     }
     
     up_button(1220, 120, &modY, 100, 0);
-    down_button(1220, 720, &modY, 100, -13000);
+    down_button(1220, 720, &modY, 100, -2200);
   }
   else if(page_stage[pageNum] == 2)
   {

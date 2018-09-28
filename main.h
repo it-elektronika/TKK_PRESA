@@ -23,7 +23,6 @@ fd_set fdsTCP;
 struct timeval tv;
 int selectedCan;
 int connectiOn;
-char connStat[2][2];
 int n; 
 int conn_presa;
 int conn_hmi;
@@ -33,8 +32,6 @@ int moveTask;
 int transId;
 int posCounter;
 
-char buff_reg[10][10];
-char regs[10];
 char sendReadBuff[256];
 char recvReadBuff[256];
 
@@ -126,7 +123,6 @@ char ibufEd[17];
 char modifierBuff[20];
 int modifier;
 
-void readLine(int fd, char data[], size_t maxlen);
 void sendRequest(int reqId, int id, int outputState);
 void receiveResponse();
 void timer(float measure);

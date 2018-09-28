@@ -7,7 +7,6 @@
 void initMain();
 void initCommAKDPress();
 void initCommTCP();
-void readVarTCP();
 void checkConn();
 void error(const char *msg);
 
@@ -243,7 +242,6 @@ void initMain()
   day = 1;
   hour = 0;
   minute = 0;
-  memset(regs, 0, 10);
   int * clear1 =  (int*)(&obufCl[0]);
   int * clear2 =  (int*)(&obufCl[2]);
   int * clear3 =  (int*)(&obufCl[4]);

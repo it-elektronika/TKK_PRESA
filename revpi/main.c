@@ -100,9 +100,7 @@ void initCommAKDPress()
 
 void initMain()
 {
-  program = 1;
-  PiControlHandle_g = -1; 
-  
+ 
   int * clear1 =  (int*)(&obufCl[0]);
   int * clear2 =  (int*)(&obufCl[2]);
   int * clear3 =  (int*)(&obufCl[4]);
@@ -112,18 +110,7 @@ void initMain()
   int * clear7 =  (int*)(&obufCl[10]);
   int * clear8 =  (int*)(&obufCl[12]);
   int * clear9 =  (int*)(&obufCl[16]);
-
-  memset(obufCl, 0, 17);
-  * clear1 = transId;   
-  * clear2 = htons(0);
-  * clear3 = htons(11);
-  * clear4 = 1;
-  * clear5 = 16;
-  * clear6 = htons(530);
-  * clear7 = htons(2);
-  * clear8 = 4;
-  * clear9 = 2; 
-
+ 
   int * writePosTen1 = (int*)(&writePosTenBuff[0]);
   int * writePosTen2 = (int*)(&writePosTenBuff[2]);
   int * writePosTen3 = (int*)(&writePosTenBuff[4]);
@@ -140,7 +127,48 @@ void initMain()
   int * writePosTen16 = (int*)(&writePosTenBuff[44]);
   int * writePosTen17 = (int*)(&writePosTenBuff[48]);
   int * writePosTen18 = (int*)(&writePosTenBuff[52]);
-      
+ 
+  int * moveTask1 =  (int*)(&obufMT[0]);
+  int * moveTask2 =  (int*)(&obufMT[2]);
+  int * moveTask3 =  (int*)(&obufMT[4]);
+  int * moveTask4 =  (int*)(&obufMT[6]);
+  int * moveTask5 =  (int*)(&obufMT[7]);
+  int * moveTask6 =  (int*)(&obufMT[8]);
+  int * moveTask7 =  (int*)(&obufMT[10]);
+  int * moveTask8 =  (int*)(&obufMT[12]);
+  int * moveTask9 =  (int*)(&obufMT[13]);
+  
+  int * moveTask1Next =  (int*)(&obufMTN[0]);
+  int * moveTask2Next =  (int*)(&obufMTN[2]);
+  int * moveTask3Next =  (int*)(&obufMTN[4]);
+  int * moveTask4Next =  (int*)(&obufMTN[6]);
+  int * moveTask5Next =  (int*)(&obufMTN[7]);
+  int * moveTask6Next =  (int*)(&obufMTN[8]);
+  int * moveTask7Next =  (int*)(&obufMTN[10]);
+  int * moveTask8Next =  (int*)(&obufMTN[12]);
+  int * moveTask9Next =  (int*)(&obufMTN[13]);
+  
+  int * drvSave1 =  (int*)(&obufDS[0]);
+  int * drvSave2 =  (int*)(&obufDS[2]);
+  int * drvSave3 =  (int*)(&obufDS[4]);
+  int * drvSave4 =  (int*)(&obufDS[6]);
+  int * drvSave5 =  (int*)(&obufDS[7]);
+  int * drvSave6 =  (int*)(&obufDS[8]);
+  int * drvSave7 =  (int*)(&obufDS[10]);
+  int * drvSave8 =  (int*)(&obufDS[12]);
+  int * drvSave9 =  (int*)(&obufDS[13]);
+
+  memset(obufCl, 0, 17);
+  * clear1 = transId;   
+  * clear2 = htons(0);
+  * clear3 = htons(11);
+  * clear4 = 1;
+  * clear5 = 16;
+  * clear6 = htons(530);
+  * clear7 = htons(2);
+  * clear8 = 4;
+  * clear9 = 2; 
+    
   memset(writePosTenBuff, 0, 58);
   * writePosTen1 = transId;   
   * writePosTen2 = htons(0);
@@ -158,17 +186,7 @@ void initMain()
   * writePosTen16 = 0;            
   * writePosTen17 = 1;            
   * writePosTen18 = 1;  
-
-  int * moveTask1 =  (int*)(&obufMT[0]);
-  int * moveTask2 =  (int*)(&obufMT[2]);
-  int * moveTask3 =  (int*)(&obufMT[4]);
-  int * moveTask4 =  (int*)(&obufMT[6]);
-  int * moveTask5 =  (int*)(&obufMT[7]);
-  int * moveTask6 =  (int*)(&obufMT[8]);
-  int * moveTask7 =  (int*)(&obufMT[10]);
-  int * moveTask8 =  (int*)(&obufMT[12]);
-  int * moveTask9 =  (int*)(&obufMT[13]);
-  
+ 
   memset(obufMT, 0, 17);
   * moveTask1 = transId;   
   * moveTask2 = htons(0);
@@ -179,16 +197,6 @@ void initMain()
   * moveTask7 = htons(2);
   * moveTask8 = 4;
   * moveTask9 = 2;
- 
-  int * moveTask1Next =  (int*)(&obufMTN[0]);
-  int * moveTask2Next =  (int*)(&obufMTN[2]);
-  int * moveTask3Next =  (int*)(&obufMTN[4]);
-  int * moveTask4Next =  (int*)(&obufMTN[6]);
-  int * moveTask5Next =  (int*)(&obufMTN[7]);
-  int * moveTask6Next =  (int*)(&obufMTN[8]);
-  int * moveTask7Next =  (int*)(&obufMTN[10]);
-  int * moveTask8Next =  (int*)(&obufMTN[12]);
-  int * moveTask9Next =  (int*)(&obufMTN[13]);
   
   memset(obufMTN, 0, 17);
   * moveTask1Next = transId;   
@@ -201,17 +209,7 @@ void initMain()
   * moveTask8Next = 4;
   * moveTask9Next = 2;
 
-  int * drvSave1 =  (int*)(&obufDS[0]);
-  int * drvSave2 =  (int*)(&obufDS[2]);
-  int * drvSave3 =  (int*)(&obufDS[4]);
-  int * drvSave4 =  (int*)(&obufDS[6]);
-  int * drvSave5 =  (int*)(&obufDS[7]);
-  int * drvSave6 =  (int*)(&obufDS[8]);
-  int * drvSave7 =  (int*)(&obufDS[10]);
-  int * drvSave8 =  (int*)(&obufDS[12]);
-  int * drvSave9 =  (int*)(&obufDS[13]);
-
-  memset(obufDS, 0, 17);
+   memset(obufDS, 0, 17);
   * drvSave1 = transId;   
   * drvSave2 = htons(0);
   * drvSave3 = htons(11);
@@ -221,17 +219,19 @@ void initMain()
   * drvSave7 = htons(2);
   * drvSave8 = 4;
   * drvSave9 = htonl(1);
+  
+  program = 1;
+  PiControlHandle_g = -1; 
+  
 }
 
 
 
 void receiveRequest()
 {
-  //printf("RECEIVING REQUEST\n");
   FD_SET(newsockfd, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);
   n = recv(newsockfd, recvReadBuff, 57, 0);
-  //printf("REQUEST RECEIVED\n");
   
   if(recvReadBuff[0] == 1) /* SEND VARIABLE DATA */
   {
@@ -478,11 +478,8 @@ void sendResponse(int reqId)
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
-  
     n = send(newsockfd, sendWriteBuff, 85, 0);
     memset(sendWriteBuff, 0, 85);
-    //printf("RESPONSE SENT reqId:%d\n", reqId);
-
   }
   else if(reqId == 2)
   {
@@ -494,10 +491,8 @@ void sendResponse(int reqId)
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
-   
     n = send(newsockfd, sendReadBuff, 1, 0);
     memset(sendReadBuff, 0, 1);
-    //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
   else if(reqId == 3)
   {
@@ -509,10 +504,8 @@ void sendResponse(int reqId)
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
-    
     n = send(newsockfd, sendWriteBuff, 1, 0);
     memset(sendWriteBuff, 0, 1);
-    //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
   
   else if(reqId == 4)
@@ -527,10 +520,8 @@ void sendResponse(int reqId)
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
-   
     n = send(newsockfd, sendWriteBuff, 2, 0);
     memset(sendWriteBuff, 0, 2);
-    //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
   else if(reqId == 5)
   {
@@ -542,10 +533,8 @@ void sendResponse(int reqId)
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
-   
     n = send(newsockfd, sendWriteBuff, 1, 0);
     memset(sendWriteBuff, 0, 1);
-    //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
   else if(reqId == 6)
   {
@@ -557,10 +546,8 @@ void sendResponse(int reqId)
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
-   
     n = send(newsockfd, sendWriteBuff, 1, 0);
     memset(sendWriteBuff, 0, 1);
-    //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
   else if(reqId == 7)
   {
@@ -572,10 +559,8 @@ void sendResponse(int reqId)
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
-   
     n = send(newsockfd, sendWriteBuff, 1, 0);
     memset(sendWriteBuff, 0, 1);
-    //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
 
   else if(reqId == 8)
@@ -588,10 +573,8 @@ void sendResponse(int reqId)
     tv.tv_usec = 0;
   
     n = select(32, NULL, &fdsTCP, NULL, &tv); 
-   
     n = send(newsockfd, sendWriteBuff, 1, 0);
     memset(sendWriteBuff, 0, 1);
-    //printf("RESPONSE SENT reqId:%d\n", reqId);
   }
 }
 
@@ -668,22 +651,22 @@ void diagnostics()
      * moveTask9Next = htonl(10000);                
          
       * read1 = transId;   
-      sendModbus(conn_AKD, s, readBuff, 12, readBuff_recv, 50, "read feedback position");
+      sendModbus(s, readBuff, 12, readBuff_recv, 50, "read feedback position");
       w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
       * writePosTen10 = htonl(w + press);
       printf("POSITION FEEDBACK:%d\n", w);
      
       * clear1 = transId;
-      sendModbus(conn_AKD, s, obufCl, 17, ibufCl, 50, "position 10 cleared");
+      sendModbus(s, obufCl, 17, ibufCl, 50, "position 10 cleared");
        
       * writePosTen1 = transId;       
-      sendModbus(conn_AKD, s, writePosTenBuff, 53, writePosTenBuff_recv, 50, "position 10 parameter");
+      sendModbus(s, writePosTenBuff, 53, writePosTenBuff_recv, 50, "position 10 parameter");
     
       * moveTask1Next = transId;
-      sendModbus(conn_AKD, s, obufMTN, 17, ibufMTN, 50, "second position parameter");
+      sendModbus(s, obufMTN, 17, ibufMTN, 50, "second position parameter");
       
       * drvSave1 = transId;
-      sendModbus(conn_AKD, s, obufDS, 17, ibufDS, 50, "save to drive");
+      sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
       
       step = 6;
       break;
@@ -803,13 +786,13 @@ void diagnostics()
 	* moveTask9Next = htonl(8000); 
       }
 
-      sendModbus(conn_AKD, s, obufMT, 17, ibufMT, 50, "move task 1 - revert to original positions");
+      sendModbus(s, obufMT, 17, ibufMT, 50, "move task 1 - revert to original positions");
       * moveTask1Next = transId;
 	
-      sendModbus(conn_AKD, s, obufMTN, 17, ibufMTN, 50, "move task 2 - revert to original positions");
+      sendModbus(s, obufMTN, 17, ibufMTN, 50, "move task 2 - revert to original positions");
  
       * drvSave1 = transId;
-      sendModbus(conn_AKD, s, obufDS, 17, ibufDS, 50, "save to drive");
+      sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
  
       transId++;
       step = 0;
@@ -1071,11 +1054,11 @@ void diagnostics()
   }
 }
 
-void sendModbus(int socket, int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text)
+void sendModbus(int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text)
 {
-  socket = send(socket_fd, send_buff, send_buff_size, 0);
+  send(socket_fd, send_buff, send_buff_size, 0);
   printf("%s\n", print_text);
-  socket = recv(socket_fd, receive_buff, receive_buff_size , 0);
+  recv(socket_fd, receive_buff, receive_buff_size , 0);
   transId++;
 }
 

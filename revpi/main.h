@@ -1,3 +1,4 @@
+#include <arpa/inet.h>
 #define delay_time 30000
 #define delay_time2 30000
 
@@ -55,6 +56,6 @@ char obufCl[17];
 char ibufCl[17];
 
 
-void sendModbus(int socket, int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text);
+void sendModbus(int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text);
 void detectFall(const char *var);
 void detectRise(const char *var);

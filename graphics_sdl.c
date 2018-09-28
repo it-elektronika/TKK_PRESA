@@ -492,13 +492,13 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
     transId++;
     */
 
-    sendModbus(conn_presa, s, obufMT, 17, ibufMT, 50, "motion task 1 - press");
+    sendModbus(s, obufMT, 17, ibufMT, 50, "motion task 1 - press");
     * moveTask1Next = transId;
    
-    sendModbus(conn_presa, s, obufMTN, 17, ibufMTN, 50, "motion task - press");    
+    sendModbus(s, obufMTN, 17, ibufMTN, 50, "motion task - press");    
     * drvSave1 = transId;
     
-    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive");
+    sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
 
     fclose(fp_can_size);
     sendRequest(6, 0, 0);
@@ -904,19 +904,19 @@ void savePos(int x, int y, int w, int h)
     * posOneB10 = htonl((AKD_frame_posSmall)*1000);
 
     * firstClear1 = transId;
-    sendModbus(conn_presa, s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
+    sendModbus(s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
 	  
     * posOneA1 = transId;       
-    sendModbus(conn_presa, s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
+    sendModbus(s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
 
     * clear1 = transId;
-    sendModbus(conn_presa, s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
+    sendModbus(s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
   
     * posOneB1 = transId;       
-    sendModbus(conn_presa, s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
+    sendModbus(s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
     
     * drvSave1 = transId;
-    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive - small");
+    sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive - small");
 
 
     /* small 2 */
@@ -928,19 +928,19 @@ void savePos(int x, int y, int w, int h)
     * posOneB10 = htonl((AKD_frame_posSmall2)*1000);
 
     * firstClear1 = transId;
-    sendModbus(conn_presa, s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
+    sendModbus(s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
   
     * posOneA1 = transId;       
-    sendModbus(conn_presa, s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
+    sendModbus(s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
 
     * clear1 = transId;
-    sendModbus(conn_presa, s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
+    sendModbus(s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
 
     * posOneB1 = transId;       
-    sendModbus(conn_presa, s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
+    sendModbus(s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
         
     * drvSave1 = transId;
-    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive - small");
+    sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive - small");
 
 
     /* medium */
@@ -952,19 +952,19 @@ void savePos(int x, int y, int w, int h)
     * posOneB10 = htonl((AKD_frame_posMedium)*1000);
     
     * firstClear1 = transId;           
-    sendModbus(conn_presa, s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
+    sendModbus(s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
 
     * posOneA1 = transId; 
-    sendModbus(conn_presa, s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
+    sendModbus(s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
   
     * clear1 = transId;
-    sendModbus(conn_presa, s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
+    sendModbus(s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
  
     * posOneB1 = transId;       
-    sendModbus(conn_presa, s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
+    sendModbus(s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
    
     * drvSave1 = transId;
-    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive - small");
+    sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive - small");
 
 
     /* big */  
@@ -976,19 +976,19 @@ void savePos(int x, int y, int w, int h)
     * posOneB10 = htonl((AKD_frame_posBig)*1000);
     
     * firstClear1 = transId;           
-    sendModbus(conn_presa, s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
+    sendModbus(s, obufClFirst, 17, ibufClFirst, 50, "clear position - small");
 
     * posOneA1 = transId;  
-    sendModbus(conn_presa, s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
+    sendModbus(s, obufOneA, 53, ibufOneA, 50, "position parameter - small");
 
     * clear1 = transId;
-    sendModbus(conn_presa, s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
+    sendModbus(s, obufCl, 17, ibufCl, 50, "clear position 2 - small");
   
     * posOneB1 = transId;       
-    sendModbus(conn_presa, s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
+    sendModbus(s, obufOneB, 53, ibufOneB, 50, "position parameter 2 - small");
    
     * drvSave1 = transId;
-    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive - small");
+    sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive - small");
 
 
     #ifdef RPI   
@@ -1086,7 +1086,7 @@ void enableButton(int x, int y, int w, int h)
     * intloc8_ed = 4;
     * intloc9_ed = htonl(1);
             
-    sendModbus(conn_presa, s, obufEd, 17, ibufEd, 50, "enable drive - presa");
+    sendModbus(s, obufEd, 17, ibufEd, 50, "enable drive - presa");
   }
 }
 
@@ -1122,7 +1122,7 @@ void disableButton(int x, int y, int w, int h)
     * intloc8_ed = 4;
     * intloc9_ed = htonl(1);
             
-    sendModbus(conn_presa, s, obufEd, 17, ibufEd, 50, "disable drive - presa");
+    sendModbus(s, obufEd, 17, ibufEd, 50, "disable drive - presa");
   }
 }
 
@@ -1153,13 +1153,13 @@ void startButton(int x, int y, int w, int h)
     * posOneA15 = 100;
     
     * firstClear1 = transId;
-    sendModbus(conn_presa, s, obufClFirst, 17, ibufClFirst, 50, "clear position - presa");
+    sendModbus(s, obufClFirst, 17, ibufClFirst, 50, "clear position - presa");
    
     * posOneA1 = transId;       
-    sendModbus(conn_presa, s, obufOneA, 53, ibufOneA, 50, "position parameter - presa");
+    sendModbus(s, obufOneA, 53, ibufOneA, 50, "position parameter - presa");
        
     * drvSave1 = transId;
-    sendModbus(conn_presa, s, obufDS, 17, ibufDS, 50, "save to drive - presa");
+    sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive - presa");
    
     int * intloc1_ed = (int*)(&obufEd[0]);
     int * intloc2_ed = (int*)(&obufEd[2]);
@@ -1181,7 +1181,7 @@ void startButton(int x, int y, int w, int h)
     * intloc8_ed = 4;
     * intloc9_ed = htonl(9);
             
-    sendModbus(conn_presa, s, obufEd, 17, ibufEd, 50, "start motion task - presa");
+    sendModbus(s, obufEd, 17, ibufEd, 50, "start motion task - presa");
   }
 }
 

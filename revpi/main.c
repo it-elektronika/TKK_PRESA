@@ -1047,7 +1047,7 @@ void diagnostics()
       writeVariableValue("O_7", 0);
       
       writeVariableValue("O_1_i04", 1);
-      usleep(50000);
+      usleep(100000);
       writeVariableValue("O_1_i04", 0);
       
 

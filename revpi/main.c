@@ -1045,6 +1045,12 @@ void diagnostics()
       writeVariableValue("O_7", 1);
       usleep(delay_time);
       writeVariableValue("O_7", 0);
+      
+      writeVariableValue("O_1_i04", 1);
+      usleep(delay_time);
+      writeVariableValue("O_1_i04", 0);
+      
+
       step = 14;
       break;
 
@@ -1059,7 +1065,7 @@ void diagnostics()
 
     case 15:
       printf("STEP: %d\n", step);
-      printf("Izklop stopa meritve\n");
+      printf("\n");
       step = 5; /* for purposes of simulation*/
       break;
   }

@@ -933,6 +933,7 @@ void diagnostics()
     
       if(readVariableValue("I_12"))
       {
+    
         step = 7;
       }      
       break;
@@ -960,10 +961,13 @@ void diagnostics()
     case 9: /* presa - pomik v zgornjo pozicijo*/
       printf("STEP: %d\n", step);
       printf("presa - pomik v zgornjo pozicijo\n");    
+      
       writeVariableValue("O_9", 1);
+      writeVariableValue("O_5_i03", 1);
       usleep(delay_time); 
       writeVariableValue("O_9", 0);
-
+      writeVariableValue("O_5_i03", 0);
+	
       step = 10; /*no need to wait here*/
       break;
 

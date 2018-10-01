@@ -267,11 +267,11 @@ void pageFour(int pageNum)  /* DIAGNOSTICS */
   else if(page_stage[pageNum] == 1)
   {
     renderAdmin(1200, 0, 80, 80, pageNum, 1);
-    continue_button(30, 200, 350, 100, lastStep);
+    //continue_button(30, 200, 350, 100, lastStep);
     start_button(700, 200, 250, 100);
     stop_button(1000, 200, 250, 100);
          
-    sprintf(stepCounter, "%d/9", step); 
+    //sprintf(stepCounter, "%d/9", step); 
     renderText(stepCounter, regularText, blackColor);
     render(430, 230, NULL, 0.0, NULL, SDL_FLIP_NONE);
 

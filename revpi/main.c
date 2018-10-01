@@ -222,7 +222,7 @@ void initMain()
   
   program = 1;
   PiControlHandle_g = -1; 
-  
+  step = 0;
 }
 
 

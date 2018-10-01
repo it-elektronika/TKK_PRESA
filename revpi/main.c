@@ -941,6 +941,7 @@ void diagnostics()
     case 7: /* presa - premik na spodnjo pozicijo */
       printf("STEP: %d\n", step);
       printf("presa - premik na spodnjo pozicijo\n");
+      writeVariableValue("O_5_i03", 0);
       writeVariableValue("O_1", 1);
       writeVariableValue("O_10", 1);
       usleep(delay_time); 
@@ -966,8 +967,7 @@ void diagnostics()
       writeVariableValue("O_5_i03", 1);
       usleep(delay_time); 
       writeVariableValue("O_9", 0);
-      writeVariableValue("O_5_i03", 0);
-	
+      
       step = 10; /*no need to wait here*/
       break;
 

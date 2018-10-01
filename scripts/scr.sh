@@ -17,6 +17,6 @@ if ! $bool; then
   cd TKK_PRESA
   make clean
   make
-  sleep 10
+  sleep 13
   ./tkk_presa
 fi

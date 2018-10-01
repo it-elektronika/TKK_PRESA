@@ -1028,7 +1028,6 @@ void diagnostics()
       writeVariableValue("O_7", 1);
       usleep(delay_time);
       writeVariableValue("O_7", 0);
-      
       writeVariableValue("O_1_i04", 1);
       usleep(100000);
       writeVariableValue("O_1_i04", 0);

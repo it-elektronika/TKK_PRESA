@@ -31,6 +31,7 @@ int main()
  
   while(program == 1)
   {
+    printf("Step:%d\n", step);
     if(readVariableValue("I_1_i03") && step == 0)
     {
       step = 1;
@@ -944,8 +945,8 @@ void diagnostics()
       printf("presa - premik na spodnjo pozicijo\n");
       writeVariableValue("O_1", 1);
       writeVariableValue("O_10", 1);
-      writeVariableValue("O_8_i03", 1); /*cilinder 4 navzdol - odpiranje celjusti */
-      writeVariableValue("O_5_i03", 1); /* cilinder 1 navzgor - zapiranje celjusti */
+      writeVariableValue("O_8_i03", 1);  /* cilinder 4 navzdol - odpiranje celjusti */
+      writeVariableValue("O_5_i03", 1);  /* cilinder 1 navzgor - zapiranje celjusti */
       usleep(delay_time); 
       writeVariableValue("O_10", 0);
       
@@ -966,7 +967,7 @@ void diagnostics()
       printf("presa - pomik v zgornjo pozicijo\n");    
       
       writeVariableValue("O_9", 1);
-      writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - odpiranje/zapiranje celjusti */
+      writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - sprostitev */
       usleep(delay_time); 
       writeVariableValue("O_9", 0);
       writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
@@ -1038,7 +1039,6 @@ void diagnostics()
       writeVariableValue("O_1_i04", 1);
       usleep(100000);
       writeVariableValue("O_1_i04", 0);
-      
 
       step = 14;
       break;
@@ -1055,7 +1055,7 @@ void diagnostics()
     case 15:
       printf("STEP: %d\n", step);
       printf("\n");
-      step = 5; /* for purposes of simulation*/
+      step = 5; 
       break;
   }
 }

@@ -945,6 +945,7 @@ void diagnostics()
       writeVariableValue("O_1", 1);
       writeVariableValue("O_10", 1);
       writeVariableValue("O_8_i03", 1); /*cilinder 4 navzdol - odpiranje celjusti */
+      writeVariableValue("O_5_i03", 1); /* cilinder 1 navzgor - zapiranje celjusti */
       usleep(delay_time); 
       writeVariableValue("O_10", 0);
       
@@ -966,7 +967,6 @@ void diagnostics()
       
       writeVariableValue("O_9", 1);
       writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - odpiranje/zapiranje celjusti */
-      writeVariableValue("O_5_i03", 1); /* cilinder 1 navzgor - zapiranje celjusti */
       usleep(delay_time); 
       writeVariableValue("O_9", 0);
       writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/

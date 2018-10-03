@@ -894,7 +894,8 @@ void diagnostics()
     case 5: /* gripper - premik na spodnjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - premik na spodnjo pozicijo\n");
-      writeVariableValue("O_1_i03", 1);
+      writeVariableValue("O_1_i03", 1); /* trak pomik za en pokrov*/
+      writeVariableValue("O_7_i03", 1); /* cilinder 3 - potisne celjust navzdol */
       usleep(delay_time); 
       writeVariableValue("O_1_i03", 0);        
 
@@ -943,6 +944,7 @@ void diagnostics()
       printf("presa - premik na spodnjo pozicijo\n");
       writeVariableValue("O_1", 1);
       writeVariableValue("O_10", 1);
+      writeVariableValue("O_8_i03", 1); /*cilinder 4 navzdol - odpiranje celjusti */
       usleep(delay_time); 
       writeVariableValue("O_10", 0);
       
@@ -963,11 +965,12 @@ void diagnostics()
       printf("presa - pomik v zgornjo pozicijo\n");    
       
       writeVariableValue("O_9", 1);
-      writeVariableValue("O_5_i03", 1);
+      writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - odpiranje/zapiranje celjusti */
+      writeVariableValue("O_5_i03", 1); /* cilinder 1 navzgor - zapiranje celjusti */
       usleep(delay_time); 
       writeVariableValue("O_9", 0);
-      
-      step = 10; /*no need to wait here*/
+      writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
+      step = 10;
       break;
 
     case 10: /* preverim ali je bil pomik izveden */

@@ -14,7 +14,7 @@ fd_set fdsTCP;
 fd_set fdsAKD;
 struct timeval tv;
 int step;
-
+int pageNum;
 int s;
 int n;
 int program;

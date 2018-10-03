@@ -32,6 +32,7 @@ int main()
   while(program == 1)
   {
     printf("Step:%d\n", step);
+    printf("Program:%d\n", program);
     if(readVariableValue("I_1_i03") && step == 0)
     {
       step = 1;
@@ -40,9 +41,12 @@ int main()
     {
       step = 0;
     }
-    receiveRequest();
+
+    if(pageNum == 2 || pageNum == 3 || pageNum == 4 || pageNum == 9 )
+    {
+      receiveRequest();
+    }
     diagnostics();
-    
   }    
   close(newsockfd);
   close(sockfd);
@@ -220,7 +224,7 @@ void initMain()
   * drvSave7 = htons(2);
   * drvSave8 = 4;
   * drvSave9 = htonl(1);
-  
+  pageNum = 2;
   program = 1;
   PiControlHandle_g = -1; 
   step = 0;
@@ -294,6 +298,12 @@ void receiveRequest()
     step = 0;
     sendResponse(8);
   }
+  else if(recvReadBuff[0] == 9) /* STOP MOTION */
+  {
+    pageNum = recvReadBuff[1];
+    sendResponse(9);
+  }
+  
 }
 
 
@@ -568,6 +578,20 @@ void sendResponse(int reqId)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 8;
+    
+    FD_ZERO(&fdsTCP);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    n = select(32, NULL, &fdsTCP, NULL, &tv); 
+    n = send(newsockfd, sendWriteBuff, 1, 0);
+    memset(sendWriteBuff, 0, 1);
+  }
+
+  else if(reqId == 9)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 9;
     
     FD_ZERO(&fdsTCP);
     tv.tv_sec = 0;

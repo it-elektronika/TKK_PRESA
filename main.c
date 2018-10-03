@@ -189,6 +189,14 @@ void sendRequest(int reqId, int id, int outputState)
     n = send(sockfd,sendWriteBuff, 1, 0); 
     memset(sendWriteBuff, 0, 1);
   }
+  else if(reqId == 9) /* PAGE NUMBER = 0 */
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 9;
+    * sendWrite1 = outputState;
+    n = send(sockfd,sendWriteBuff, 2, 0); 
+    memset(sendWriteBuff, 0, 2);
+  }
 }
 
 void receiveResponse()

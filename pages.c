@@ -121,6 +121,9 @@ void pageZero(int pageNum)  /* LANDING PAGE */
    
     sendRequest(7, 0, 0);
     receiveResponse();
+    
+    sendRequest(9, 0, 0);
+    receiveResponse();
  
     page_stage[pageNum] = 1;
   }
@@ -157,6 +160,8 @@ void pageOne(int pageNum) /* MAIN MENU */
 {
   if(page_stage[pageNum] == 0)
   {
+    sendRequest(9, 0, 1);
+    receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -176,6 +181,8 @@ void pageTwo(int pageNum) /* CAN SIZE SELECTION */
 {
  if(page_stage[pageNum] == 0)
   {
+    sendRequest(9, 0, 2);
+    receiveResponse();
     page_stage[pageNum] = 1;
   }
   if(page_stage[pageNum] == 1)
@@ -211,6 +218,8 @@ void pageThree(int pageNum)  /* I/O STATUS */
   y = 100;
   if(page_stage[pageNum] == 0)
   {
+    sendRequest(9, 0, 3);
+    receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -261,7 +270,9 @@ void pageFour(int pageNum)  /* DIAGNOSTICS */
 {
   int i;
   if(page_stage[pageNum] == 0)
-  {
+  { 
+    sendRequest(9, 0, 4);
+    receiveResponse(); 
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -327,6 +338,8 @@ void pageFive(int pageNum) /* TIME */
 {
   if(page_stage[pageNum] == 0)
   {
+    sendRequest(9, 0, 5);
+    receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -375,6 +388,8 @@ void pageSix(int pageNum) /* CONNECTING */
 {
   if(page_stage[pageNum] == 0)
   {
+    sendRequest(9, 0, 6);
+    receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -391,6 +406,8 @@ void pageSeven(int pageNum) /* ERROR DRIVES */
 {
   if(page_stage[pageNum] == 0)
   {
+    sendRequest(9, 0, 7);
+    receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -447,6 +464,8 @@ void pageEight(int pageNum)  /* ERROR */
 {
   if(page_stage[pageNum] == 0)
   {
+    sendRequest(9, 0, 8);
+    receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -464,6 +483,8 @@ void pageNine(int pageNum)  /* ERROR */
 {
   if(page_stage[pageNum] == 0)
   {
+    sendRequest(9, 0, 9);
+    receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -486,7 +507,6 @@ void pageNine(int pageNum)  /* ERROR */
     renderText("SPODAJ", smallText, blackColor);
     render(800, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
   
-
     sprintf(small2Buff, "MALA2:%d mm", firstPosSmall2);
     renderText(small2Buff, smallText, blackColor);
     render(30, 300, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -503,7 +523,6 @@ void pageNine(int pageNum)  /* ERROR */
     renderText("SPODAJ", smallText, blackColor);
     render(800, 350, NULL, 0.0, NULL, SDL_FLIP_NONE);
  
- 
     sprintf(mediumBuff, "SREDNJA:%d mm", firstPosMedium);
     renderText(mediumBuff, smallText, blackColor);
     render(30, 450, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -519,7 +538,6 @@ void pageNine(int pageNum)  /* ERROR */
     down_button(700, 490, &AKD_frame_posMedium, 1, 0);
     renderText("SPODAJ", smallText, blackColor);
     render(800, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
- 
  
     sprintf(bigBuff, "VELIKA:%d mm", firstPosBig);
     renderText(bigBuff, smallText, blackColor);
@@ -555,6 +573,8 @@ void pageTen(int pageNum)
 {
   if(page_stage[pageNum] == 0)
   {
+    sendRequest(9, 0, 10);
+    receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -634,7 +654,9 @@ void pageEleven(int pageNum)
       }
     }
     fclose(AKD_pos);
- 
+
+    sendRequest(9, 0, 11);
+    receiveResponse(); 
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -691,6 +713,8 @@ void pageTwelve(int pageNum)
 {
   if(page_stage[pageNum] == 0)
   {
+    sendRequest(9, 0, 12);
+    receiveResponse(); 
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)

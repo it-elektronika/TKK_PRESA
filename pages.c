@@ -263,7 +263,7 @@ void pageThree(int pageNum)  /* I/O STATUS */
   else if(page_stage[pageNum] == 2)
   {
     page_stage[pageNum] = 0;
-  }¸
+  }
 }
 
 void pageFour(int pageNum)  /* DIAGNOSTICS */

@@ -192,6 +192,7 @@ void sendRequest(int reqId, int id, int outputState)
   else if(reqId == 9) /* PAGE NUMBER = 0 */
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    int * sendWrite1 = (int*)(&sendWriteBuff[1]);
     * sendWrite0 = 9;
     * sendWrite1 = outputState;
     n = send(sockfd,sendWriteBuff, 2, 0); 

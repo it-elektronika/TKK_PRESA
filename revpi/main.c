@@ -33,6 +33,7 @@ int main()
   {
     printf("Step:%d\n", step);
     printf("Program:%d\n", program);
+    printf("PageNum:%d\n", pageNum);
     if(readVariableValue("I_1_i03") && step == 0)
     {
       step = 1;
@@ -45,6 +46,8 @@ int main()
     if(pageNum == 2 || pageNum == 3 || pageNum == 4 || pageNum == 9 )
     {
       receiveRequest();
+      printf("Received response\n");
+      printf("+++++++++++++++++\n");
     }
     diagnostics();
   }    
@@ -240,10 +243,12 @@ void receiveRequest()
   
   if(recvReadBuff[0] == 1) /* SEND VARIABLE DATA */
   {
+    printf("receivesRequest 1\n");
     sendResponse(1);
   } 
   else if(recvReadBuff[0] == 2) /* SWITCH OUTPUTS */
   {
+    printf("receivesRequest 2\n");
     if(recvReadBuff[1] < 15)
     {
       sprintf(outputWriteBuff, "O_%d",  recvReadBuff[1]);
@@ -263,15 +268,18 @@ void receiveRequest()
   }
   else if(recvReadBuff[0] == 3) /* START MOTION */
   {
+    printf("receivesRequest 3\n");
     step=1;
     sendResponse(3);
   }
   else if(recvReadBuff[0] == 4) /* SEND STEP INFO */
   {
+    printf("receivesRequest 4\n");
     sendResponse(4);
   }
   else if(recvReadBuff[0] == 5) /* CONTINUE - MOVE FOR ONE STEP */
   {
+    printf("receivesRequest 5\n");
     if(step != 0) /* or max step */
     {
       step++;
@@ -280,6 +288,7 @@ void receiveRequest()
   }
   else if(recvReadBuff[0] == 6) /* GET SELECTED CAN DATA */
   {
+    printf("receivesRequest 6\n");
     selectedCan = recvReadBuff[1]; 
     writeVariableValue("O_4_i03", 1);
     writeVariableValue("O_12", 1);
@@ -290,16 +299,20 @@ void receiveRequest()
   }
   else if(recvReadBuff[0] == 7) /* GET PRESS PARAMETER DATA */
   {
+    printf("receivesRequest 7\n");
     press = (recvReadBuff[1])*1000; 
     sendResponse(7);
   }
   else if(recvReadBuff[0] == 8) /* STOP MOTION */
   {
+    printf("receivesRequest 8\n");
     step = 0;
     sendResponse(8);
   }
-  else if(recvReadBuff[0] == 9) /* STOP MOTION */
+  else if(recvReadBuff[0] == 9) /* PAGE NUM */
   {
+    printf("receivesRequest 9\n");
+    printf("9\n");
     pageNum = recvReadBuff[1];
     sendResponse(9);
   }

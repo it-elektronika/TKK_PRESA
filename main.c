@@ -21,6 +21,7 @@ int main()
   /* connecting to DRIVES */
   while(connectiOn == 0)
   {
+    printf("PAGE:%d\n", page);
     renderBackground();
     renderStatusBar();
     renderContent();
@@ -44,6 +45,7 @@ int main()
   /* main program loop */
   while(program == 1)
   {
+    printf("PAGE:%d\n", page);
     touchUpdate();
     renderBackground();
     renderStatusBar();
@@ -93,6 +95,7 @@ void initCommTCP()
 
 void sendRequest(int reqId, int id, int outputState)
 {
+  printf("sendRequest:%d\n", reqId);
    /* READ VARIABLES */
   if(reqId == 1)  
   {
@@ -210,12 +213,12 @@ void sendRequest(int reqId, int id, int outputState)
 void receiveResponse()
 {
   int i;
-  //printf("RECEIVING RESPONSE\n");
+  printf("RECEIVING RESPONSE\n");
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);
     
   n = recv(sockfd, recvReadBuff, 85, 0);
-  //printf("RESPONSE RECEIVED\n");
+  printf("RESPONSE RECEIVED:%d\n", recvReadBuff[0]);
   if(recvReadBuff[0] == 1)
   {
     for(i=0; i < ioPins; ++i)
@@ -729,13 +732,14 @@ void checkConn()
   {
     connectiOn = 1;
     page_stage[6] = 0;
+    page_stage[7] = 0;
     page = 0;
 
   }
   else
   {
-    backgroundColor = 2;
-    sbarText = 7; 
+    //backgroundColor = 2;
+    //sbarText = 7; 
     page = 7;
     connectiOn = 0;
   }

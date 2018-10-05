@@ -43,12 +43,9 @@ int main()
       step = 0;
     }
 
-    if(pageNum == 2 || pageNum == 3 || pageNum == 4 || pageNum == 9 )
-    {
-      receiveRequest();
-      printf("Received response\n");
-      printf("+++++++++++++++++\n");
-    }
+    receiveRequest();
+    printf("Received response\n");
+    printf("+++++++++++++++++\n");
     diagnostics();
   }    
   close(newsockfd);

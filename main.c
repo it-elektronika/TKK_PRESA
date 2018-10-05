@@ -231,7 +231,13 @@ void sendMessage()
   * sendMessagePtr5 = press;  
   * sendMessagePtr6 = selectedCan;
   * sendMessagePtr7 = page;  
-   
+  
+  FD_ZERO(&fdsTCP);
+  tv.tv_sec = 0;
+  tv.tv_usec = 0;
+
+  n = select(32, NULL, &fdsTCP, NULL, &tv); 
+  
   n = send(sockfd,sendWriteBuff, 8, 0); 
   memset(sendWriteBuff, 0, 8);
 }

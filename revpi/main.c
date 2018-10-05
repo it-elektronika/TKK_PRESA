@@ -804,19 +804,19 @@ void sendMessage()
   
   * sendMessagePtr84 = step;
 
-  //FD_ZERO(&fdsTCP);
-  //tv.tv_sec = 0;
-  //tv.tv_usec = 0;
+  FD_ZERO(&fdsTCP);
+  tv.tv_sec = 0;
+  tv.tv_usec = 0;
 
-  //n = select(32, NULL, &fdsTCP, NULL, &tv); 
+  n = select(32, NULL, &fdsTCP, NULL, &tv); 
   n = send(newsockfd, sendWriteBuff, 85, 0);
   memset(sendWriteBuff, 0, 85);
 }
 
 void receiveMessage()
 {
-  //FD_SET(s, &fdsTCP);
-  //n = select(32, &fdsTCP, NULL, NULL, &tv);  
+  FD_SET(s, &fdsTCP);
+  n = select(32, &fdsTCP, NULL, NULL, &tv);  
   n = recv(sockfd, receiveMessageBuff, 8, 0);
   if(receiveMessageBuff[0] != -1)
   {

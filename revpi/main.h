@@ -27,6 +27,9 @@ int fall_detected;
 
 int PiControlHandle_g;
 
+char sendMessageBuff[256];
+char receiveMessageBuff[256];
+
 char sendReadBuff[256];
 char recvReadBuff[256];
 
@@ -55,6 +58,9 @@ char ibufDS[17];
 char obufCl[17];
 char ibufCl[17];
 
+
+void sendMessage();
+void receiveMessage();
 
 void sendModbus(int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text);
 void detectFall(const char *var);

@@ -501,8 +501,8 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
     sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
 
     fclose(fp_can_size);
-    sendRequest(6, 0, 0);
-    receiveResponse();
+    //sendRequest(6, 0, 0);
+    //receiveResponse();
   }
   renderText(text, smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
@@ -780,19 +780,27 @@ void outputButton(int x, int y, int w, int h, int id)
   {
     if(strcmp(outputs[id], "0") == 0)
     {
-      sendRequest(2, id, 0);
-      receiveResponse();
+      outputButton1 = id+1;
+      outputButton2 = 0;
+      
+      //sendRequest(2, id, 0);
+      //receiveResponse();
     }
     else if(strcmp(outputs[id], "1") == 0)
     {
-      sendRequest(2, id, 1);
-      receiveResponse();
+      outputButton1 = id+1;
+      outputButton2 = 1;
+     
+      //sendRequest(2, id, 1);
+      //receiveResponse();
     }
   }
   else
   {
-    sendRequest(1,0, id);
-    receiveResponse();
+    outputButton1 = -1;
+    outputButton2 = -1;
+    //sendRequest(1,0, id);
+    //receiveResponse();
   }
 }
 
@@ -808,14 +816,16 @@ void start_button(int x, int y, int w, int h)
   {
     if(step == 0)
     {
-      sendRequest(3, 0, 0);
-      receiveResponse();  
+      startButton1 = 1;
+      //sendRequest(3, 0, 0);
+      //receiveResponse();  
     } 
   }
   else
   {
-    sendRequest(4, 0, 0);
-    receiveResponse();  
+    startButton1 = 0;
+    //sendRequest(4, 0, 0);
+    //receiveResponse();  
   }
   renderText("START", regularText, blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
@@ -831,8 +841,13 @@ void stop_button(int x, int y, int w, int h)
 
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
-    sendRequest(8, 0, 0);
-    receiveResponse();
+    stopButton1 = 1;
+    //sendRequest(8, 0, 0);
+    //receiveResponse();
+  }
+  else
+  {
+    stopButton1 = 0;
   }
   renderText("STOP", regularText, blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
@@ -850,9 +865,14 @@ void continue_button(int x, int y, int w, int h, int stepMax)
   {
     if(step > 0 && step < stepMax)
     {
-      sendRequest(5, 0, 0);
-      receiveResponse();
+      continueButton1 = 1;
+      //sendRequest(5, 0, 0);
+      //receiveResponse();
     }
+  }
+  else
+  { 
+    continueButton1 = 0;
   }
   renderText("NADALJUJ", regularText, blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
@@ -1028,8 +1048,8 @@ void savePos(int x, int y, int w, int h)
     fprintf(fp_press, "%d\n", press);
     fclose(fp_press);
 
-    sendRequest(7, 0, 0);
-    receiveResponse();
+    //sendRequest(7, 0, 0);
+    //receiveResponse();
   }
   renderText("SAVE", smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 

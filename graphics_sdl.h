@@ -23,6 +23,11 @@ char *line;
 size_t len;
 
 int modY;
+int outputButton1;
+int outputButton2;
+int startButton1;
+int stopButton1;
+int continueButton1;
 
 SDL_Window *window;
 SDL_Renderer *renderer;

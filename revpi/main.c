@@ -42,8 +42,9 @@ int main()
     {
       step = 0;
     }
-
-    receiveRequest();
+    receiveMessage();
+    sendMessage();
+    //receiveRequest();
     printf("Received response\n");
     printf("+++++++++++++++++\n");
     diagnostics();
@@ -627,6 +628,198 @@ void sendResponse(int reqId)
     n = send(newsockfd, sendWriteBuff, 1, 0);
     memset(sendWriteBuff, 0, 1);
   }
+}
+
+void sendMessage()
+{
+  int * sendMessagePtr0 = (int*)(&sendMessageBuff[0]);
+  int * sendMessagePtr1 = (int*)(&sendMessageBuff[1]);
+  int * sendMessagePtr2 = (int*)(&sendMessageBuff[2]);
+  int * sendMessagePtr3 = (int*)(&sendMessageBuff[3]);
+  int * sendMessagePtr4 = (int*)(&sendMessageBuff[4]);
+  int * sendMessagePtr5 = (int*)(&sendMessageBuff[5]);
+  int * sendMessagePtr6 = (int*)(&sendMessageBuff[6]);
+  int * sendMessagePtr7 = (int*)(&sendMessageBuff[7]);
+  int * sendMessagePtr8 = (int*)(&sendMessageBuff[8]);
+  int * sendMessagePtr9 = (int*)(&sendMessageBuff[9]);
+  int * sendMessagePtr10 = (int*)(&sendMessageBuff[10]);
+  int * sendMessagePtr11 = (int*)(&sendMessageBuff[11]);
+  int * sendMessagePtr12 = (int*)(&sendMessageBuff[12]);
+  int * sendMessagePtr13 = (int*)(&sendMessageBuff[13]);
+  int * sendMessagePtr14 = (int*)(&sendMessageBuff[14]);
+  int * sendMessagePtr15 = (int*)(&sendMessageBuff[15]);
+  int * sendMessagePtr16 = (int*)(&sendMessageBuff[16]);
+  int * sendMessagePtr17 = (int*)(&sendMessageBuff[17]);
+  int * sendMessagePtr18 = (int*)(&sendMessageBuff[18]);
+  int * sendMessagePtr19 = (int*)(&sendMessageBuff[19]);
+  int * sendMessagePtr20 = (int*)(&sendMessageBuff[20]);
+  int * sendMessagePtr21 = (int*)(&sendMessageBuff[21]);
+  int * sendMessagePtr22 = (int*)(&sendMessageBuff[22]);
+  int * sendMessagePtr23 = (int*)(&sendMessageBuff[23]);
+  int * sendMessagePtr24 = (int*)(&sendMessageBuff[24]);
+  int * sendMessagePtr25 = (int*)(&sendMessageBuff[25]);
+  int * sendMessagePtr26 = (int*)(&sendMessageBuff[26]);
+  int * sendMessagePtr27 = (int*)(&sendMessageBuff[27]);
+  int * sendMessagePtr28 = (int*)(&sendMessageBuff[28]);
+  int * sendMessagePtr29 = (int*)(&sendMessageBuff[29]);
+  int * sendMessagePtr30 = (int*)(&sendMessageBuff[30]);
+  int * sendMessagePtr31 = (int*)(&sendMessageBuff[31]);
+  int * sendMessagePtr32 = (int*)(&sendMessageBuff[32]);
+  int * sendMessagePtr33 = (int*)(&sendMessageBuff[33]);
+  int * sendMessagePtr34 = (int*)(&sendMessageBuff[34]);
+  int * sendMessagePtr35 = (int*)(&sendMessageBuff[35]);
+  int * sendMessagePtr36 = (int*)(&sendMessageBuff[36]);
+  int * sendMessagePtr37 = (int*)(&sendMessageBuff[37]);
+  int * sendMessagePtr38 = (int*)(&sendMessageBuff[38]);
+  int * sendMessagePtr39 = (int*)(&sendMessageBuff[39]);
+  int * sendMessagePtr40 = (int*)(&sendMessageBuff[40]);
+  int * sendMessagePtr41 = (int*)(&sendMessageBuff[41]);
+  int * sendMessagePtr42 = (int*)(&sendMessageBuff[42]);
+  int * sendMessagePtr43 = (int*)(&sendMessageBuff[43]);
+  int * sendMessagePtr44 = (int*)(&sendMessageBuff[44]);
+  int * sendMessagePtr45 = (int*)(&sendMessageBuff[45]);
+  int * sendMessagePtr46 = (int*)(&sendMessageBuff[46]);
+  int * sendMessagePtr47 = (int*)(&sendMessageBuff[47]);
+  int * sendMessagePtr48 = (int*)(&sendMessageBuff[48]);
+  int * sendMessagePtr49 = (int*)(&sendMessageBuff[49]);
+  int * sendMessagePtr50 = (int*)(&sendMessageBuff[50]);
+  int * sendMessagePtr51 = (int*)(&sendMessageBuff[51]);
+  int * sendMessagePtr52 = (int*)(&sendMessageBuff[52]);  
+  int * sendMessagePtr53 = (int*)(&sendMessageBuff[53]);
+  int * sendMessagePtr54 = (int*)(&sendMessageBuff[54]);
+  int * sendMessagePtr55 = (int*)(&sendMessageBuff[55]);
+  int * sendMessagePtr56 = (int*)(&sendMessageBuff[56]);
+  int * sendMessagePtr57 = (int*)(&sendMessageBuff[57]);
+  int * sendMessagePtr58 = (int*)(&sendMessageBuff[58]);
+  int * sendMessagePtr59 = (int*)(&sendMessageBuff[59]);
+  int * sendMessagePtr60 = (int*)(&sendMessageBuff[60]);
+  int * sendMessagePtr61 = (int*)(&sendMessageBuff[61]);
+  int * sendMessagePtr62 = (int*)(&sendMessageBuff[62]);
+  int * sendMessagePtr63 = (int*)(&sendMessageBuff[63]);
+  int * sendMessagePtr64 = (int*)(&sendMessageBuff[64]);
+  int * sendMessagePtr65 = (int*)(&sendMessageBuff[65]);
+  int * sendMessagePtr66 = (int*)(&sendMessageBuff[66]);
+  int * sendMessagePtr67 = (int*)(&sendMessageBuff[67]);
+  int * sendMessagePtr68 = (int*)(&sendMessageBuff[68]);
+  int * sendMessagePtr69 = (int*)(&sendMessageBuff[69]);
+  int * sendMessagePtr70 = (int*)(&sendMessageBuff[70]);
+  int * sendMessagePtr71 = (int*)(&sendMessageBuff[71]);
+  int * sendMessagePtr72 = (int*)(&sendMessageBuff[72]);
+  int * sendMessagePtr73 = (int*)(&sendMessageBuff[73]);
+  int * sendMessagePtr74 = (int*)(&sendMessageBuff[74]);
+  int * sendMessagePtr75 = (int*)(&sendMessageBuff[75]);
+  int * sendMessagePtr76 = (int*)(&sendMessageBuff[76]);
+  int * sendMessagePtr77 = (int*)(&sendMessageBuff[77]);
+  int * sendMessagePtr78 = (int*)(&sendMessageBuff[78]);
+  int * sendMessagePtr79 = (int*)(&sendMessageBuff[79]);
+  int * sendMessagePtr80 = (int*)(&sendMessageBuff[80]);
+  int * sendMessagePtr81 = (int*)(&sendMessageBuff[81]);
+  int * sendMessagePtr82 = (int*)(&sendMessageBuff[82]);
+  int * sendMessagePtr83 = (int*)(&sendMessageBuff[83]);
+  int * sendMessagePtr84 = (int*)(&sendMessageBuff[84]);
+
+  * sendMessagePtr0 = readVariableValue("I_1");
+  * sendMessagePtr1 = readVariableValue("I_2");
+  * sendMessagePtr2 = readVariableValue("I_3");
+  * sendMessagePtr3 = readVariableValue("I_4");
+  * sendMessagePtr4 = readVariableValue("I_5");
+  * sendMessagePtr5 = readVariableValue("I_6");
+  * sendMessagePtr6 = readVariableValue("I_7");
+  * sendMessagePtr7 = readVariableValue("I_8");
+  * sendMessagePtr8 = readVariableValue("I_9");
+  * sendMessagePtr9 = readVariableValue("I_10");
+  * sendMessagePtr10 = readVariableValue("I_11");
+  * sendMessagePtr11 = readVariableValue("I_12");
+  * sendMessagePtr12 = readVariableValue("I_13");
+  * sendMessagePtr13 = readVariableValue("I_14");
+  * sendMessagePtr14 = readVariableValue("I_1_i03");
+  * sendMessagePtr15 = readVariableValue("I_2_i03");
+  * sendMessagePtr16 = readVariableValue("I_3_i03");
+  * sendMessagePtr17 = readVariableValue("I_4_i03");
+  * sendMessagePtr18 = readVariableValue("I_5_i03");
+  * sendMessagePtr19 = readVariableValue("I_6_i03");
+  * sendMessagePtr20 = readVariableValue("I_7_i03");
+  * sendMessagePtr21 = readVariableValue("I_8_i03");
+  * sendMessagePtr22 = readVariableValue("I_9_i03");
+  * sendMessagePtr23 = readVariableValue("I_10_i03");
+  * sendMessagePtr24 = readVariableValue("I_11_i03");
+  * sendMessagePtr25 = readVariableValue("I_12_i03");
+  * sendMessagePtr26 = readVariableValue("I_13_i03");
+  * sendMessagePtr27 = readVariableValue("I_14_i03");
+  * sendMessagePtr28 = readVariableValue("I_1_i04");
+  * sendMessagePtr29 = readVariableValue("I_2_i04");
+  * sendMessagePtr30 = readVariableValue("I_3_i04");
+  * sendMessagePtr31 = readVariableValue("I_4_i04");
+  * sendMessagePtr32 = readVariableValue("I_5_i04");
+  * sendMessagePtr33 = readVariableValue("I_6_i04");
+  * sendMessagePtr34 = readVariableValue("I_7_i04");
+  * sendMessagePtr35 = readVariableValue("I_8_i04");
+  * sendMessagePtr36 = readVariableValue("I_9_i04");
+  * sendMessagePtr37 = readVariableValue("I_10_i04");
+  * sendMessagePtr38 = readVariableValue("I_11_i04");
+  * sendMessagePtr39 = readVariableValue("I_12_i04");
+  * sendMessagePtr40 = readVariableValue("I_13_i04");
+  * sendMessagePtr41 = readVariableValue("I_14_i04");
+ 
+  * sendMessagePtr42 = readVariableValue("O_1");
+  * sendMessagePtr43 = readVariableValue("O_2");
+  * sendMessagePtr44 = readVariableValue("O_3");
+  * sendMessagePtr45 = readVariableValue("O_4");
+  * sendMessagePtr46 = readVariableValue("O_5");
+  * sendMessagePtr47 = readVariableValue("O_6");
+  * sendMessagePtr48 = readVariableValue("O_7");
+  * sendMessagePtr49 = readVariableValue("O_8");
+  * sendMessagePtr50 = readVariableValue("O_9");
+  * sendMessagePtr51 = readVariableValue("O_10");
+  * sendMessagePtr52 = readVariableValue("O_11");
+  * sendMessagePtr53 = readVariableValue("O_12");
+  * sendMessagePtr54 = readVariableValue("O_13");
+  * sendMessagePtr55 = readVariableValue("O_14");
+  * sendMessagePtr56 = readVariableValue("O_1_i03");
+  * sendMessagePtr57 = readVariableValue("O_2_i03");
+  * sendMessagePtr58 = readVariableValue("O_3_i03");
+  * sendMessagePtr59 = readVariableValue("O_4_i03");
+  * sendMessagePtr60 = readVariableValue("O_5_i03");
+  * sendMessagePtr61 = readVariableValue("O_6_i03");
+  * sendMessagePtr62 = readVariableValue("O_7_i03");
+  * sendMessagePtr63 = readVariableValue("O_8_i03");
+  * sendMessagePtr64 = readVariableValue("O_9_i03");
+  * sendMessagePtr65 = readVariableValue("O_10_i03");
+  * sendMessagePtr66 = readVariableValue("O_11_i03");
+  * sendMessagePtr67 = readVariableValue("O_12_i03");
+  * sendMessagePtr68 = readVariableValue("O_13_i03");
+  * sendMessagePtr69 = readVariableValue("O_14_i03");
+  * sendMessagePtr70 = readVariableValue("O_1_i04");
+  * sendMessagePtr71 = readVariableValue("O_2_i04");
+  * sendMessagePtr72 = readVariableValue("O_3_i04");
+  * sendMessagePtr73 = readVariableValue("O_4_i04");
+  * sendMessagePtr74 = readVariableValue("O_5_i04");
+  * sendMessagePtr75 = readVariableValue("O_6_i04");
+  * sendMessagePtr76 = readVariableValue("O_7_i04");
+  * sendMessagePtr77 = readVariableValue("O_8_i04");
+  * sendMessagePtr78 = readVariableValue("O_9_i04");
+  * sendMessagePtr79 = readVariableValue("O_10_i04");
+  * sendMessagePtr80 = readVariableValue("O_11_i04");
+  * sendMessagePtr81 = readVariableValue("O_12_i04");
+  * sendMessagePtr82 = readVariableValue("O_13_i04");
+  * sendMessagePtr83 = readVariableValue("O_14_i04");
+  
+  * sendMessagePtr84 = step;
+
+  //FD_ZERO(&fdsTCP);
+  //tv.tv_sec = 0;
+  //tv.tv_usec = 0;
+
+  //n = select(32, NULL, &fdsTCP, NULL, &tv); 
+  n = send(newsockfd, sendWriteBuff, 85, 0);
+  memset(sendWriteBuff, 0, 85);
+}
+
+void receiveMessage()
+{
+  //FD_SET(s, &fdsTCP);
+  //n = select(32, &fdsTCP, NULL, NULL, &tv);  
+  n = recv(sockfd, receiveMessageBuff, 8, 0);
 }
 
 /*

@@ -46,6 +46,8 @@ int main()
   while(program == 1)
   {
     printf("PAGE:%d\n", page);
+    sendMessage();
+    receiveMessage();
     touchUpdate();
     renderBackground();
     renderStatusBar();
@@ -156,14 +158,14 @@ void sendRequest(int reqId, int id, int outputState)
     n = send(sockfd,sendWriteBuff, 1, 0); 
     memset(sendWriteBuff, 0, 1);
   }
-  else if(reqId == 5)
+  else if(reqId == 5) /* continue*/
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 5;
     n = send(sockfd,sendWriteBuff, 1, 0); 
     memset(sendWriteBuff, 0, 1);
   }
-  else if(reqId == 6)
+  else if(reqId == 6) /* selected can*/
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     int * sendWrite1 = (int*)(&sendWriteBuff[1]);
@@ -210,6 +212,37 @@ void sendRequest(int reqId, int id, int outputState)
   }
 }
 
+void sendMessage()
+{
+  int * sendMessagePtr0 = (int*)(&sendMessageBuff[0]);
+  int * sendMessagePtr1 = (int*)(&sendMessageBuff[1]);
+  int * sendMessagePtr2 = (int*)(&sendMessageBuff[2]);
+  int * sendMessagePtr3 = (int*)(&sendMessageBuff[3]);
+  int * sendMessagePtr4 = (int*)(&sendMessageBuff[4]);
+  int * sendMessagePtr5 = (int*)(&sendMessageBuff[5]);
+  int * sendMessagePtr6 = (int*)(&sendMessageBuff[6]);
+  int * sendMessagePtr7 = (int*)(&sendMessageBuff[7]);
+
+  * sendMessagePtr0 = outputButton1;
+  * sendMessagePtr1 = outputButton2;  
+  * sendMessagePtr2 = startButton1;
+  * sendMessagePtr3 = continueButton1;
+  * sendMessagePtr4 = stopButton1;
+  * sendMessagePtr5 = press;  
+  * sendMessagePtr6 = selectedCan;
+  * sendMessagePtr7 = page;  
+   
+  n = send(sockfd,sendWriteBuff, 8, 0); 
+  memset(sendWriteBuff, 0, 8);
+}
+
+void receiveMessage()
+{
+  FD_SET(s, &fdsTCP);
+  n = select(32, &fdsTCP, NULL, NULL, &tv);   
+  n = recv(sockfd, receiveMessageBuff, 85, 0);
+}
+    
 void receiveResponse()
 {
   int i;

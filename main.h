@@ -32,6 +32,9 @@ int moveTask;
 int transId;
 int posCounter;
 
+char sendMessageBuff[256];
+char receiveMessageBuff[256];
+
 char sendReadBuff[256];
 char recvReadBuff[256];
 
@@ -126,6 +129,9 @@ int modifier;
 void sendRequest(int reqId, int id, int outputState);
 void receiveResponse();
 void timer(float measure);
+
+void sendMessage();
+void receiveMessage();
 
 void initCommTCP();
 void initCommAKDPress();

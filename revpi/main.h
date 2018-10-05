@@ -27,8 +27,8 @@ int fall_detected;
 
 int PiControlHandle_g;
 
-char sendMessageBuff[256];
-char receiveMessageBuff[256];
+signed char sendMessageBuff[256];
+signed char receiveMessageBuff[256];
 
 char sendReadBuff[256];
 char recvReadBuff[256];

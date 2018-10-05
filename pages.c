@@ -392,8 +392,8 @@ void pageSix(int pageNum) /* CONNECTING */
 {
   if(page_stage[pageNum] == 0)
   {
-    sendRequest(9, 0, 6);
-    receiveResponse();
+    //sendRequest(9, 0, 6);
+    //receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -410,8 +410,8 @@ void pageSeven(int pageNum) /* ERROR DRIVES */
 {
   if(page_stage[pageNum] == 0)
   {
-    sendRequest(9, 0, 7);
-    receiveResponse();
+    //sendRequest(9, 0, 7);
+    //receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)

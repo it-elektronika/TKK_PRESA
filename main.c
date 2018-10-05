@@ -302,6 +302,8 @@ void initMain()
   firstPosSmall = 0;
   firstPosMedium = 0;
   firstPosBig = 0;
+  outputButton1 = -1;
+  outputButton2 = -1;
 
   year = 2018;
   month = 1;

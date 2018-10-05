@@ -45,8 +45,6 @@ int main()
     receiveMessage();
     sendMessage();
     //receiveRequest();
-    printf("Received response\n");
-    printf("+++++++++++++++++\n");
     diagnostics();
   }    
   close(newsockfd);

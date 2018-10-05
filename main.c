@@ -238,9 +238,23 @@ void sendMessage()
 
 void receiveMessage()
 {
+  int i;
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);   
   n = recv(sockfd, receiveMessageBuff, 85, 0);
+
+  for(i=0; i < ioPins; ++i)
+  {
+    sprintf(inputs[i], "%d\0\n", receiveMessageBuff[i]);
+    //printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
+  }
+  for(i=0; i < ioPins; ++i)
+  {
+    sprintf(outputs[i], "%d\0\n", receiveMessageBuff[i+(ioPins)]);
+    //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
+  }
+
+  step = receiveMessageBuff[84];
 }
     
 void receiveResponse()

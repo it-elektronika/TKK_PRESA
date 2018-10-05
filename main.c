@@ -242,7 +242,7 @@ void receiveMessage()
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);   
   n = recv(sockfd, receiveMessageBuff, 85, 0);
-
+  
   for(i=0; i < ioPins; ++i)
   {
     sprintf(inputs[i], "%d\0\n", receiveMessageBuff[i]);

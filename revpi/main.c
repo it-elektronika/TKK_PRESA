@@ -818,24 +818,25 @@ void receiveMessage()
   //FD_SET(s, &fdsTCP);
   //n = select(32, &fdsTCP, NULL, NULL, &tv);  
   n = recv(sockfd, receiveMessageBuff, 8, 0);
-
-  if(receiveMessageBuff[0] < 15 && receiveMessageBuff[0] != -1)
+  if(receiveMessageBuff[0] != -1)
   {
-    sprintf(outputWriteBuff, "O_%d",  receiveMessageBuff[0]);
+    if(receiveMessageBuff[0] < 15)
+    {
+      sprintf(outputWriteBuff, "O_%d",  receiveMessageBuff[0]);
+    }
+    else if(receiveMessageBuff[0] > 14 && receiveMessageBuff[0] < 29)
+    {
+      sprintf(outputWriteBuff, "O_%d_i03",  (receiveMessageBuff[0]-14));
+    }
+    else if(receiveMessageBuff[0] > 28 && receiveMessageBuff[0] < 43)
+    {
+      sprintf(outputWriteBuff, "O_%d_i04",  (receiveMessageBuff[0]-28));
+    }
+    if(receiveMessageBuff[1] != -1)
+    {
+      writeVariableValue(outputWriteBuff, receiveMessageBuff[1]);
+    }
   }
-  else if(receiveMessageBuff[0] > 14 && receiveMessageBuff[0] < 29 && receiveMessageBuff[0] != -1)
-  {
-    sprintf(outputWriteBuff, "O_%d_i03",  (receiveMessageBuff[0]-14));
-  }
-  else if(receiveMessageBuff[0] > 28 && receiveMessageBuff[0] < 43 && receiveMessageBuff[0] != -1)
-  {
-    sprintf(outputWriteBuff, "O_%d_i04",  (receiveMessageBuff[0]-28));
-  }
-  if(receiveMessageBuff[1] != -1)
-  {
-    writeVariableValue(outputWriteBuff, receiveMessageBuff[1]);
-  }
-  
   if(receiveMessageBuff[2])
   {
     step = 1;

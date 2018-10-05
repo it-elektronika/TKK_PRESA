@@ -316,7 +316,10 @@ void receiveRequest()
     pageNum = recvReadBuff[1];
     sendResponse(9);
   }
-  
+  else if(recvReadBuff[0] == 10)
+  {
+    sendResponse(10);
+  }
 }
 
 
@@ -605,6 +608,19 @@ void sendResponse(int reqId)
   {
     int * sendWrite0 = (int*)(&sendWriteBuff[0]);
     * sendWrite0 = 9;
+    
+    FD_ZERO(&fdsTCP);
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+  
+    n = select(32, NULL, &fdsTCP, NULL, &tv); 
+    n = send(newsockfd, sendWriteBuff, 1, 0);
+    memset(sendWriteBuff, 0, 1);
+  }
+  else if(reqId == 10)
+  {
+    int * sendWrite0 = (int*)(&sendWriteBuff[0]);
+    * sendWrite0 = 10;
     
     FD_ZERO(&fdsTCP);
     tv.tv_sec = 0;

@@ -129,6 +129,10 @@ void pageZero(int pageNum)  /* LANDING PAGE */
   }
   else if(page_stage[pageNum] == 1)
   {
+    sendRequest(10, 0, 0);
+    receiveResponse();
+ 
+ 
     renderAdmin(1200, 0, 80, 80, pageNum, 1);
 
     if(selected[0])

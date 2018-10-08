@@ -816,9 +816,14 @@ void sendMessage()
 void receiveMessage()
 {
   int i;
+  int currentState;
+  int lastState;
+  lastState = currentState;
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);  
   n = recv(newsockfd, receiveMessageBuff, 8, 0);
+  currentState = receiveMessageBuff[1];
+  
   if(receiveMessageBuff[0] != -1)
   {
     if(receiveMessageBuff[0] < 15)
@@ -835,7 +840,10 @@ void receiveMessage()
     }
     if(receiveMessageBuff[1] != -1)
     {
-      writeVariableValue(outputWriteBuff, receiveMessageBuff[1]);
+      if(lastState != currentState)
+      {
+        writeVariableValue(outputWriteBuff, receiveMessageBuff[1]);
+      }
     }
   }
   if(receiveMessageBuff[2])

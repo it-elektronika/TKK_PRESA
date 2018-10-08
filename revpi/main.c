@@ -809,8 +809,8 @@ void sendMessage()
   tv.tv_usec = 0;
 
   n = select(32, NULL, &fdsTCP, NULL, &tv); 
-  n = send(newsockfd, sendWriteBuff, 85, 0);
-  memset(sendWriteBuff, 0, 85);
+  n = send(newsockfd, sendMessageBuff, 85, 0);
+  memset(sendMessageBuff, 0, 85);
 }
 
 void receiveMessage()

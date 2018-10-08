@@ -238,8 +238,8 @@ void sendMessage()
 
   n = select(32, NULL, &fdsTCP, NULL, &tv); 
   
-  n = send(sockfd,sendWriteBuff, 8, 0); 
-  memset(sendWriteBuff, 0, 8);
+  n = send(sockfd,sendMessageBuff, 8, 0); 
+  memset(sendMessageBuff, 0, 8);
 }
 
 void receiveMessage()

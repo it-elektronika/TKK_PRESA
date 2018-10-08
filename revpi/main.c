@@ -853,7 +853,7 @@ void receiveMessage()
   press = receiveMessageBuff[5];
   selectedCan = receiveMessageBuff[6];
   pageNum = receiveMessageBuff[7];
-  for(i = 0; i < 85; i++)
+  for(i = 0; i < 9; i++)
   {
     printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
   }

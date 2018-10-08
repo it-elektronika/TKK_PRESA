@@ -818,7 +818,7 @@ void receiveMessage()
   int i;
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);  
-  n = recv(sockfd, receiveMessageBuff, 8, 0);
+  n = recv(newsockfd, receiveMessageBuff, 8, 0);
   if(receiveMessageBuff[0] != -1)
   {
     if(receiveMessageBuff[0] < 15)

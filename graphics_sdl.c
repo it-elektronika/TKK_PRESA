@@ -782,25 +782,17 @@ void outputButton(int x, int y, int w, int h, int id)
     {
       outputButton1 = id+1;
       outputButton2 = 1;
-      
-      //sendRequest(2, id, 0);
-      //receiveResponse();
     }
     else if(strcmp(outputs[id], "1") == 0)
     {
       outputButton1 = id+1;
       outputButton2 = 0;
-     
-      //sendRequest(2, id, 1);
-      //receiveResponse();
     }
   }
   else
   {
     //outputButton1 = -1;
     //outputButton2 = -1;
-    //sendRequest(1,0, id);
-    //receiveResponse();
   }
 }
 

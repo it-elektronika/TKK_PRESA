@@ -34,6 +34,7 @@ int main()
     printf("Step:%d\n", step);
     printf("Program:%d\n", program);
     printf("PageNum:%d\n", pageNum);
+    
     if(readVariableValue("I_1_i03") && step == 0)
     {
       step = 1;

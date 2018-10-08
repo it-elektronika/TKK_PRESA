@@ -120,8 +120,10 @@ void pageZero(int pageNum)  /* LANDING PAGE */
   }
   else if(page_stage[pageNum] == 1)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 1);
-
+    if(step == 0)
+    {
+      renderAdmin(1200, 0, 80, 80, pageNum, 1);
+    }
     if(selected[0])
     {
       renderText("VELIKOST DOZE: MALA", regularText, blackColor);

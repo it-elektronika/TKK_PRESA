@@ -815,6 +815,7 @@ void sendMessage()
 
 void receiveMessage()
 {
+  int i;
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);  
   n = recv(sockfd, receiveMessageBuff, 8, 0);
@@ -852,8 +853,10 @@ void receiveMessage()
   press = receiveMessageBuff[5];
   selectedCan = receiveMessageBuff[6];
   pageNum = receiveMessageBuff[7];
-  
-
+  for(i = 0; i < 85; i++)
+  {
+    printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
+  }
 }
 
 /*

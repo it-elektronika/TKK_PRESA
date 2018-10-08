@@ -259,8 +259,12 @@ void receiveMessage()
     sprintf(outputs[i], "%d\0\n", receiveMessageBuff[i+(ioPins)]);
     //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
   }
-
   step = receiveMessageBuff[84];
+
+  for(i = 0; i < 85; i++)
+  {
+    printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
+  }
 }
     
 void receiveResponse()

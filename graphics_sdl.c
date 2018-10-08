@@ -501,8 +501,6 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
     sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
 
     fclose(fp_can_size);
-    //sendRequest(6, 0, 0);
-    //receiveResponse();
   }
   renderText(text, smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
@@ -809,15 +807,11 @@ void start_button(int x, int y, int w, int h)
     if(step == 0)
     {
       startButton1 = 1;
-      //sendRequest(3, 0, 0);
-      //receiveResponse();  
     } 
   }
   else
   {
     startButton1 = 0;
-    //sendRequest(4, 0, 0);
-    //receiveResponse();  
   }
   renderText("START", regularText, blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
@@ -834,8 +828,6 @@ void stop_button(int x, int y, int w, int h)
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
     stopButton1 = 1;
-    //sendRequest(8, 0, 0);
-    //receiveResponse();
   }
   else
   {
@@ -858,8 +850,6 @@ void continue_button(int x, int y, int w, int h, int stepMax)
     if(step > 0 && step < stepMax)
     {
       continueButton1 = 1;
-      //sendRequest(5, 0, 0);
-      //receiveResponse();
     }
   }
   else
@@ -1039,9 +1029,6 @@ void savePos(int x, int y, int w, int h)
  
     fprintf(fp_press, "%d\n", press);
     fclose(fp_press);
-
-    //sendRequest(7, 0, 0);
-    //receiveResponse();
   }
   renderText("SAVE", smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 

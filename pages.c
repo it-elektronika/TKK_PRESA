@@ -116,22 +116,10 @@ void pageZero(int pageNum)  /* LANDING PAGE */
     }
     fclose(AKD_pos);
   
-    //sendRequest(6, 0, 0);
-    //receiveResponse();
-   
-    //sendRequest(7, 0, 0);
-    //receiveResponse();
-    
-    //sendRequest(9, 0, 0);
-    //receiveResponse();
- 
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
   {
-    //sendRequest(10, 0, 0);
-    //receiveResponse();
- 
     renderAdmin(1200, 0, 80, 80, pageNum, 1);
 
     if(selected[0])
@@ -163,8 +151,6 @@ void pageOne(int pageNum) /* MAIN MENU */
 {
   if(page_stage[pageNum] == 0)
   {
-    //sendRequest(9, 0, 1);
-    //receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -184,8 +170,6 @@ void pageTwo(int pageNum) /* CAN SIZE SELECTION */
 {
  if(page_stage[pageNum] == 0)
   {
-    //sendRequest(9, 0, 2);
-    //receiveResponse();
     page_stage[pageNum] = 1;
   }
   if(page_stage[pageNum] == 1)
@@ -221,8 +205,6 @@ void pageThree(int pageNum)  /* I/O STATUS */
   y = 100;
   if(page_stage[pageNum] == 0)
   {
-    //sendRequest(9, 0, 3);
-    //receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -248,9 +230,6 @@ void pageThree(int pageNum)  /* I/O STATUS */
  
       if(scrollArr[i] < 1)
       {
-        //renderText(buff_inputs[i], regularText, blackColor);
-        //render(30, y+modY, NULL, 0.0, NULL, SDL_FLIP_NONE);
-        
         sprintf(buff_inputs_val[i], "%s: %s", buff_inputs[i], inputs[i]);
         renderText(buff_inputs_val[i], regularText, blackColor);
         render(30, y+modY, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -274,8 +253,6 @@ void pageFour(int pageNum)  /* DIAGNOSTICS */
   int i;
   if(page_stage[pageNum] == 0)
   { 
-    //sendRequest(9, 0, 4);
-    //receiveResponse(); 
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -341,8 +318,6 @@ void pageFive(int pageNum) /* TIME */
 {
   if(page_stage[pageNum] == 0)
   {
-    //sendRequest(9, 0, 5);
-    //receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -391,8 +366,6 @@ void pageSix(int pageNum) /* CONNECTING */
 {
   if(page_stage[pageNum] == 0)
   {
-    //sendRequest(9, 0, 6);
-    //receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -409,8 +382,6 @@ void pageSeven(int pageNum) /* ERROR DRIVES */
 {
   if(page_stage[pageNum] == 0)
   {
-    //sendRequest(9, 0, 7);
-    //receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -454,8 +425,6 @@ void pageSeven(int pageNum) /* ERROR DRIVES */
       renderText("DRIVE MIZA: NOK", regularText, blackColor);
     }
     render(50, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);*/
-   
-
   }
   else if(page_stage[pageNum] == 2)
   {
@@ -467,8 +436,6 @@ void pageEight(int pageNum)  /* ERROR */
 {
   if(page_stage[pageNum] == 0)
   {
-    //sendRequest(9, 0, 8);
-    //receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -486,8 +453,6 @@ void pageNine(int pageNum)  /* ERROR */
 {
   if(page_stage[pageNum] == 0)
   {
-    //sendRequest(9, 0, 9);
-    //receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -576,8 +541,6 @@ void pageTen(int pageNum)
 {
   if(page_stage[pageNum] == 0)
   {
-    //sendRequest(9, 0, 10);
-    //receiveResponse();
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -657,9 +620,6 @@ void pageEleven(int pageNum)
       }
     }
     fclose(AKD_pos);
-
-    //sendRequest(9, 0, 11);
-    //receiveResponse(); 
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)
@@ -716,8 +676,6 @@ void pageTwelve(int pageNum)
 {
   if(page_stage[pageNum] == 0)
   {
-    //sendRequest(9, 0, 12);
-    //receiveResponse(); 
     page_stage[pageNum] = 1;
   }
   else if(page_stage[pageNum] == 1)

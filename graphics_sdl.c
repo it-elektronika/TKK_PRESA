@@ -781,7 +781,7 @@ void outputButton(int x, int y, int w, int h, int id)
     if(strcmp(outputs[id], "0") == 0)
     {
       outputButton1 = id+1;
-      outputButton2 = 0;
+      outputButton2 = 1;
       
       //sendRequest(2, id, 0);
       //receiveResponse();
@@ -789,7 +789,7 @@ void outputButton(int x, int y, int w, int h, int id)
     else if(strcmp(outputs[id], "1") == 0)
     {
       outputButton1 = id+1;
-      outputButton2 = 1;
+      outputButton2 = 0;
      
       //sendRequest(2, id, 1);
       //receiveResponse();
@@ -797,8 +797,8 @@ void outputButton(int x, int y, int w, int h, int id)
   }
   else
   {
-    outputButton1 = -1;
-    outputButton2 = -1;
+    //outputButton1 = -1;
+    //outputButton2 = -1;
     //sendRequest(1,0, id);
     //receiveResponse();
   }

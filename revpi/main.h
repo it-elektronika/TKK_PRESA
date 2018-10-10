@@ -15,6 +15,7 @@ fd_set fdsAKD;
 struct timeval tv;
 int step;
 int pageNum;
+int counter;
 int s;
 int n;
 int program;

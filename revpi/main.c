@@ -55,6 +55,16 @@ int main()
     {
       receiveMessage();
       sendMessage();
+      counter = 0;
+    }
+    else
+    {
+      while(counter < 4)
+      {
+        receiveMessage();
+        sendMessage();
+        counter++;
+      }
     }
  
    diagnostics();

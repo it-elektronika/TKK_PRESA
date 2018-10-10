@@ -434,11 +434,6 @@ void receiveMessage()
   int currentState;
   int lastState;
   
-  //struct timeval tv;
-  //tv.tv_sec = 0;
-  //tv.tv_usec = 100;
-  //setsockopt(newsockfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
-  
   lastState = currentState;
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);  

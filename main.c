@@ -46,6 +46,7 @@ int main()
   while(program == 1)
   {
     printf("PAGE:%d\n", page);
+    
     if(step!=0)
     {
       inCycle = 1;
@@ -54,11 +55,10 @@ int main()
     {
       inCycle = 0;
     }
-    if(!inCycle)
-    {
-      sendMessage();
-      receiveMessage();
-    }
+    
+    sendMessage();
+    receiveMessage();
+    
     touchUpdate();
     renderBackground();
     renderStatusBar();

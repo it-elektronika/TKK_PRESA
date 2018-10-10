@@ -132,7 +132,6 @@ void sendMessage()
   tv.tv_usec = 0;
 
   n = select(32, NULL, &fdsTCP, NULL, &tv); 
-  
   n = send(sockfd,sendMessageBuff, 8, 0); 
   memset(sendMessageBuff, 0, 8);
 }
@@ -140,7 +139,7 @@ void sendMessage()
 void receiveMessage()
 {
   int i;
-  struct timeval tv;
+  //struct timeval tv;
   //tv.tv_sec = 0;
   //tv.tv_usec = 100;
   //setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);

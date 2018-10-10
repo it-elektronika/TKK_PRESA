@@ -53,8 +53,8 @@ int main()
 
     if(!inCycle)
     {
-      receiveMessage();
-      sendMessage();
+    receiveMessage();
+    sendMessage();
     }
  
    diagnostics();

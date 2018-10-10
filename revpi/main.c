@@ -15,8 +15,6 @@ void initServer();
 void initMain();
 void initCommAKDPress();
 void diagnostics();
-void receiveRequest();
-void sendResponse(int reqId);
 void error(const char *msg)
 {
   perror(msg);
@@ -434,6 +432,9 @@ void receiveMessage()
   int i;
   int currentState;
   int lastState;
+  struct timeval tv = {1, 0};
+  setsockopt(newsockfd, SOL_SOCKET, SO_RCVTIMEO, (struct timeval *)&tv, sizeof(struct timeval));
+
   lastState = currentState;
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);  

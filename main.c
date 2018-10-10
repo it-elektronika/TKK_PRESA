@@ -129,6 +129,9 @@ void sendMessage()
 void receiveMessage()
 {
   int i;
+  struct timeval tv = {1, 0};
+  setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (struct timeval *)&tv, sizeof(struct timeval));
+
   FD_SET(s, &fdsTCP);
   n = select(32, &fdsTCP, NULL, NULL, &tv);   
   n = recv(sockfd, receiveMessageBuff, 85, 0);

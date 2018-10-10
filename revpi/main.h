@@ -21,6 +21,7 @@ int program;
 int transId;
 int conn_AKD;
 
+int inCycle;
 int selectedCan;
 int rise_detected;
 int fall_detected;

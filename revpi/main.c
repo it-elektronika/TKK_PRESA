@@ -43,8 +43,21 @@ int main()
     {
       step = 0;
     }
-    receiveMessage();
-    sendMessage();
+
+    if(step != 0)
+    {
+      inCycle = 1;
+    }
+    else
+    { 
+      inCycle = 0;
+    }
+
+    if(!inCycle)
+    {
+      receiveMessage();
+      sendMessage();
+    }
     diagnostics();
   }    
   close(newsockfd);

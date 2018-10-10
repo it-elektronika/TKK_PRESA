@@ -42,12 +42,6 @@ int main()
       step = 0;
     }
 
-    if(!inCycle)
-    {
-      receiveMessage();
-      sendMessage();
-    }
- 
     if(step != 0)
     {
       inCycle = 1;
@@ -57,6 +51,12 @@ int main()
       inCycle = 0;
     }
 
+    if(!inCycle)
+    {
+      receiveMessage();
+      sendMessage();
+    }
+ 
    diagnostics();
   }    
   close(newsockfd);

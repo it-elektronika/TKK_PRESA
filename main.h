@@ -20,6 +20,8 @@ char *ip_adrs;
 fd_set fds;
 fd_set fdsTCP;
 
+int inCycle;
+
 struct timeval tv;
 int selectedCan;
 int connectiOn;

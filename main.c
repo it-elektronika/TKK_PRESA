@@ -46,8 +46,19 @@ int main()
   while(program == 1)
   {
     printf("PAGE:%d\n", page);
-    sendMessage();
-    receiveMessage();
+    if(step!=0)
+    {
+      inCycle = 1;
+    }
+    else
+    {
+      inCycle = 0;
+    }
+    if(!inCycle)
+    {
+      sendMessage();
+      receiveMessage();
+    }
     touchUpdate();
     renderBackground();
     renderStatusBar();

@@ -432,7 +432,7 @@ void receiveMessage()
   int i;
   int currentState;
   int lastState;
-  struct timeval tv = {1, 0};
+  struct timeval tv = {0, 1};
   setsockopt(newsockfd, SOL_SOCKET, SO_RCVTIMEO, (struct timeval *)&tv, sizeof(struct timeval));
 
   lastState = currentState;

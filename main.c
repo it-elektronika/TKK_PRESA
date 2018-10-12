@@ -657,16 +657,14 @@ void checkConn()
   if(conn_presa == 0 && conn_hmi == 0)
   {
     connectiOn = 1;
-    //page_stage[6] = 0;
-    //page_stage[7] = 0;
     page = 0;
-
+    page_stage = ENTER;
+    
   }
   else
   {
-    //backgroundColor = 2;
-    //sbarText = 7; 
     page = 7;
+    page_stage = ENTER;
     connectiOn = 0;
   }
 }

@@ -165,6 +165,7 @@ void receiveMessage()
 void initMain()
 {
   int i;
+  page_stage = ENTER;
   conn_presa = -99;
   conn_hmi = -99;
   backgroundColor = 1;
@@ -656,8 +657,8 @@ void checkConn()
   if(conn_presa == 0 && conn_hmi == 0)
   {
     connectiOn = 1;
-    page_stage[6] = 0;
-    page_stage[7] = 0;
+    //page_stage[6] = 0;
+    //page_stage[7] = 0;
     page = 0;
 
   }

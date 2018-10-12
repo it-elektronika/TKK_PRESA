@@ -290,79 +290,79 @@ void renderContent()
   switch(page)
   {
     case 0:
-      pageZero(0); /* main - landing page */
+      pageZero(); /* main - landing page */
       backgroundColor = 1;
       sbarText = 0;
       break;
     
     case 1:
-      pageOne(1); /* menu */
+      pageOne(); /* menu */
       backgroundColor = 1;
       sbarText = 1;
       break;
    
     case 2:
-      pageTwo(2);   /* can size */
+      pageTwo();   /* can size */
       backgroundColor = 1;
       sbarText = 2;
       break;
     
     case 3:
-      pageThree(3);   /*i/o status */
+      pageThree();   /*i/o status */
       backgroundColor = 1;
       sbarText = 3;
       break;
     
     case 4:
-      pageFour(4);  /* diagnostics */
+      pageFour();  /* diagnostics */
       backgroundColor = 1;
       sbarText = 4;
       break;
 
     case 5:
-      pageFive(5);  /* clock */
+      pageFive();  /* clock */
       backgroundColor = 1;
       sbarText = 5;
       break;
 
     case 6:  
-      pageSix(6);  /* connecting */
+      pageSix();  /* connecting */
       backgroundColor = 1;
       sbarText = 6;
       break;
 
     case 7:
-      pageSeven(7); /* error connecting */
+      pageSeven(); /* error connecting */
       backgroundColor = 2;
       sbarText = 7;
       break;
 
     case 8:
-      pageEight(8); /* error */
+      pageEight(); /* error */
       backgroundColor = 2;
       sbarText = 8;
       break;
     
     case 9:
-      pageNine(9);
+      pageNine();
       backgroundColor = 1;
       sbarText = 9;
       break;
     
     case 10:  
-      pageTen(10);
+      pageTen();
       backgroundColor = 1;
       sbarText = 10;
       break;
 
     case 11:
-      pageEleven(11);
+      pageEleven();
       backgroundColor = 1;
       sbarText = 11;
       break;
    
     case 12:
-      pageTwelve(12);
+      pageTwelve();
       backgroundColor = 1;
       sbarText = 12;
       break;
@@ -506,7 +506,7 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
 }
 
-void renderAdmin(int x, int y, int w, int h, int curr_page, int gotoNum) 
+void renderAdmin(int x, int y, int w, int h, int gotoNum) 
 {
   int i;
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
@@ -524,7 +524,7 @@ void renderAdmin(int x, int y, int w, int h, int curr_page, int gotoNum)
   {
     cycleCheck = cycleCounter;
     page = gotoNum;
-    page_stage[curr_page] = 2;
+    page_stage = EXIT;
   }
 }
 
@@ -719,7 +719,7 @@ void button(int x, int y, int w, int h, char *text, int id)
   }
 }
 
-void goToButton(int x, int y, int w, int h, char *text, int curr_page, int goToNum)
+void goToButton(int x, int y, int w, int h, char *text, int goToNum)
 {
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
   SDL_RenderDrawLine(renderer, x, y, (x+w), y);
@@ -733,7 +733,7 @@ void goToButton(int x, int y, int w, int h, char *text, int curr_page, int goToN
   {
     cycleCheck = cycleCounter;
     page = goToNum;
-    page_stage[curr_page] = 2;
+    page_stage = EXIT;
   }
 }
 
@@ -764,7 +764,7 @@ void clockButton(int x, int y, int h, int w, char *tmBuff)
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
   {
     page = 5;
-    page_stage[page] = 0;
+    page_stage = ENTER;
   }
 }
 

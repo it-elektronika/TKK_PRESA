@@ -5,10 +5,10 @@
 #include "graphics_sdl.h"
 #include "main.h"
 
-void pageZero(int pageNum)  /* LANDING PAGE */
+void pageZero()  /* LANDING PAGE */
 {
   int i;
-  if(page_stage[pageNum] == 0) /* loading page */
+  if(page_stage == ENTER) /* loading page */
   {
     #ifdef RPI   
     fp_can_size = fopen("/home/pi/TKK_PRESA/data/can_size.txt", "r");
@@ -116,13 +116,13 @@ void pageZero(int pageNum)  /* LANDING PAGE */
     }
     fclose(AKD_pos);
   
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
     if(!inCycle)
     {
-      renderAdmin(1200, 0, 80, 80, pageNum, 1);
+      renderAdmin(1200, 0, 80, 80, 1);
     }
     if(selected[0])
     {
@@ -143,40 +143,40 @@ void pageZero(int pageNum)  /* LANDING PAGE */
     }
     render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
   }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
-void pageOne(int pageNum) /* MAIN MENU */
+void pageOne() /* MAIN MENU */
 {
-  if(page_stage[pageNum] == 0)
+  if(page_stage == ENTER)
   {
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 0);
-    goToButton(30, 200, 350, 100, "IZBIRA DOZE", pageNum, 2);
-    goToButton(30, 350, 500, 100, "ROCNO NASTAVLJANJE", pageNum, 10);
-    goToButton(30, 500, 350, 100, "DIAGNOSTIKA", pageNum, 4);
+    renderAdmin(1200, 0, 80, 80, 0);
+    goToButton(30, 200, 350, 100, "IZBIRA DOZE", 2);
+    goToButton(30, 350, 500, 100, "ROCNO NASTAVLJANJE", 10);
+    goToButton(30, 500, 350, 100, "DIAGNOSTIKA", 4);
   }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
-void pageTwo(int pageNum) /* CAN SIZE SELECTION */
+void pageTwo() /* CAN SIZE SELECTION */
 {
- if(page_stage[pageNum] == 0)
+ if(page_stage == ENTER)
   {
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  if(page_stage[pageNum] == 1)
+  if(page_stage == ENABLE)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 1);
+    renderAdmin(1200, 0, 80, 80, 1);
     button(30, 150, 200, 100, "MALA", 0);
     button(30, 300, 200, 100, "MALA2", 1);
     button(30, 450, 200, 100, "SREDNJA", 2);
@@ -194,24 +194,24 @@ void pageTwo(int pageNum) /* CAN SIZE SELECTION */
 
     saveButton(400, 600, 200, 100, "SHRANI");
   }
-  if(page_stage[pageNum] == 2)
+  if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
-void pageThree(int pageNum)  /* I/O STATUS */
+void pageThree()  /* I/O STATUS */
 {
   int i;
   int y;
   y = 100;
-  if(page_stage[pageNum] == 0)
+  if(page_stage == ENTER)
   {
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 10);
+    renderAdmin(1200, 0, 80, 80, 10);
     
     for(i = 0; i < 5; ++i)
     {
@@ -244,22 +244,22 @@ void pageThree(int pageNum)  /* I/O STATUS */
     up_button(1220, 120, &modY, 100, 0);
     down_button(1220, 720, &modY, 100, -2200);
   }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
-void pageFour(int pageNum)  /* DIAGNOSTICS */
+void pageFour()  /* DIAGNOSTICS */
 {
   int i;
-  if(page_stage[pageNum] == 0)
+  if(page_stage == ENTER)
   { 
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 1);
+    renderAdmin(1200, 0, 80, 80, 1);
     continue_button(30, 200, 350, 100, lastStep);
     start_button(700, 200, 250, 100);
     stop_button(1000, 200, 250, 100);
@@ -310,19 +310,19 @@ void pageFour(int pageNum)  /* DIAGNOSTICS */
       render(700, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);
     }*/
   }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
-void pageFive(int pageNum) /* TIME */
+void pageFive() /* TIME */
 {
-  if(page_stage[pageNum] == 0)
+  if(page_stage == ENTER)
   {
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
     sprintf(yearBuff, "LETO: %04d", year);
     sprintf(monthBuff, "MESEC: %02d", month);
@@ -356,37 +356,37 @@ void pageFive(int pageNum) /* TIME */
     down_button(500, 600, &minute, 1, 0);
 
     saveTime(50, 700, 100, 100, "SHRANI");
-    renderAdmin(1200, 0, 80, 80, pageNum, 0);
+    renderAdmin(1200, 0, 80, 80, 0);
   }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
-void pageSix(int pageNum) /* CONNECTING */
+void pageSix() /* CONNECTING */
 {
-  if(page_stage[pageNum] == 0)
+  if(page_stage == ENTER)
   {
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 1); 
+    renderAdmin(1200, 0, 80, 80, 1); 
   }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
-void pageSeven(int pageNum) /* ERROR DRIVES */
+void pageSeven() /* ERROR DRIVES */
 {
-  if(page_stage[pageNum] == 0)
+  if(page_stage == ENTER)
   {
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
     if(conn_presa == 0)
     {
@@ -428,38 +428,38 @@ void pageSeven(int pageNum) /* ERROR DRIVES */
     }
     render(50, 600, NULL, 0.0, NULL, SDL_FLIP_NONE);*/
   }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
-void pageEight(int pageNum)  /* ERROR */
+void pageEight()  /* ERROR */
 {
-  if(page_stage[pageNum] == 0)
+  if(page_stage == ENTER)
   {
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 0);
+    renderAdmin(1200, 0, 80, 80, 0);
   }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
 
-void pageNine(int pageNum)  /* ERROR */
+void pageNine()  
 {
-  if(page_stage[pageNum] == 0)
+  if(page_stage == ENTER)
   {
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 10);
+    renderAdmin(1200, 0, 80, 80, 10);
     
     sprintf(smallBuff, "MALA:%d mm", firstPosSmall);
     renderText(smallBuff, smallText, blackColor);
@@ -533,36 +533,36 @@ void pageNine(int pageNum)  /* ERROR */
  
     savePos(30, 720, 200, 50);
  }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
-void pageTen(int pageNum)
+void pageTen()
 {
-  if(page_stage[pageNum] == 0)
+  if(page_stage == ENTER)
   {
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 1);
-    goToButton(30, 200, 500, 100, "NASTAVITVE POZICIJ" , pageNum, 9); 
-    goToButton(30, 400, 350, 100, "DRIVE ROCNO", pageNum, 11);
-    goToButton(30, 600, 350, 100, "I / O ", pageNum, 3);
+    renderAdmin(1200, 0, 80, 80, 1);
+    goToButton(30, 200, 500, 100, "NASTAVITVE POZICIJ", 9); 
+    goToButton(30, 400, 350, 100, "DRIVE ROCNO", 11);
+    goToButton(30, 600, 350, 100, "I / O ", 3);
     
   }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
-void pageEleven(int pageNum)
+void pageEleven()
 {
   int i;
-  if(page_stage[pageNum] == 0)
+  if(page_stage == ENTER)
   {
     
     #ifdef RPI   
@@ -622,11 +622,11 @@ void pageEleven(int pageNum)
       }
     }
     fclose(AKD_pos);
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 10);
+    renderAdmin(1200, 0, 80, 80, 10);
     
     renderText("MALA", smallText, blackColor);
     render(30, 180, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -668,21 +668,21 @@ void pageEleven(int pageNum)
     
     startButton(800, 600, 200, 100);
   }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }
 
-void pageTwelve(int pageNum)
+void pageTwelve()
 {
-  if(page_stage[pageNum] == 0)
+  if(page_stage == ENTER)
   {
-    page_stage[pageNum] = 1;
+    page_stage = ENABLE;
   }
-  else if(page_stage[pageNum] == 1)
+  else if(page_stage == ENABLE)
   {
-    renderAdmin(1200, 0, 80, 80, pageNum, 1);
+    renderAdmin(1200, 0, 80, 80, 1);
     sprintf(posUpBuff, "ZGORNJA POZICIJA: %d mm", posUp);
     renderText(posUpBuff, smallText, blackColor);
     render(30, 160, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -697,8 +697,8 @@ void pageTwelve(int pageNum)
     up_button(600, 250, &posDown, 1, 150);
     down_button(700, 250, &posDown, 1, 0);
   }
-  else if(page_stage[pageNum] == 2)
+  else if(page_stage == EXIT)
   {
-    page_stage[pageNum] = 0;
+    page_stage = ENTER;
   }
 }

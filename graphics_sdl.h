@@ -8,10 +8,6 @@
 int program;
 int sbarText;
 int page;
-
-//int page_stage[20];  /* number of pages */
-//int curr_page;
-
 int backgroundColor;
 
 FILE *fp_can_size;

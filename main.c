@@ -127,38 +127,47 @@ void sendMessage()
   * sendMessagePtr6 = selectedCan;
   * sendMessagePtr7 = page;  
   
-  FD_ZERO(&fdsTCP);
-  tv.tv_sec = 0;
-  tv.tv_usec = 0;
+  //FD_ZERO(&fdsTCP);
+  //tv.tv_sec = 0;
+  //tv.tv_usec = 0;
 
-  n = select(32, NULL, &fdsTCP, NULL, &tv); 
-  n = send(sockfd,sendMessageBuff, 8, 0); 
+  //n = select(32, NULL, &fdsTCP, NULL, &tv); 
+  //n = send(sockfd,sendMessageBuff, 8, 0); 
   memset(sendMessageBuff, 0, 8);
 }
 
 void receiveMessage()
 {
   int i;
- 
-  FD_SET(s, &fdsTCP);
-  n = select(32, &fdsTCP, NULL, NULL, &tv);   
-  n = recv(sockfd, receiveMessageBuff, 85, 0);
-  
-  for(i=0; i < ioPins; ++i)
+  struct timeval timeout;
+  timeout.tv_sec = 5;
+  timeout.tv_usec = 0;
+  FD_ZERO(&fdsTCP);
+  FD_SET(sockfd, &fdsTCP);
+  n = select(32, &fdsTCP, NULL, NULL, &timeout);   
+  recv(sockfd, receiveMessageBuff, 85, 0);
+  if(n == 0)
   {
-    sprintf(inputs[i], "%d\0\n", receiveMessageBuff[i]);
-    //printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
+    printf("\t TIMEOUT \n");
   }
-  for(i=0; i < ioPins; ++i)
+  else
   {
-    sprintf(outputs[i], "%d\0\n", receiveMessageBuff[i+(ioPins)]);
-    //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
-  }
-  step = receiveMessageBuff[84];
+    for(i=0; i < ioPins; ++i)
+    {
+      sprintf(inputs[i], "%d\0\n", receiveMessageBuff[i]);
+      //printf("INPUTs:%d: %d\n", i, recvReadBuff[i]);
+    }
+    for(i=0; i < ioPins; ++i)
+    {
+      sprintf(outputs[i], "%d\0\n", receiveMessageBuff[i+(ioPins)]);
+      //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
+    }
+    step = receiveMessageBuff[84];
 
-  for(i = 0; i < 85; i++)
-  {
-    printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
+    for(i = 0; i < 85; i++)
+    {
+      printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
+    }
   }
 }
 

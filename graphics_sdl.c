@@ -5,8 +5,6 @@
 #include "main.h"
 #include <unistd.h>
 #include <time.h>
-void error(const char *msg);
-
 
 int init()    /* things needed to start sdl2 properly */
 {

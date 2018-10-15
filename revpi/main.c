@@ -51,7 +51,7 @@ int main()
       inCycle = 0;
     }
 
-    if(!inCycle)
+    if(page != 10)
     {
       receiveMessage();
       sendMessage();
@@ -429,11 +429,11 @@ void sendMessage()
   
   * sendMessagePtr84 = step;
 
-  FD_ZERO(&fdsTCP);
-  tv.tv_sec = 0;
-  tv.tv_usec = 0;
+  //FD_ZERO(&fdsTCP);
+  //tv.tv_sec = 0;
+  //tv.tv_usec = 0;
 
-  n = select(32, NULL, &fdsTCP, NULL, &tv); 
+  //n = select(32, NULL, &fdsTCP, NULL, &tv); 
   n = send(newsockfd, sendMessageBuff, 85, 0);
   memset(sendMessageBuff, 0, 85);
 }
@@ -445,8 +445,12 @@ void receiveMessage()
   int lastState;
   
   lastState = currentState;
-  FD_SET(s, &fdsTCP);
-  n = select(32, &fdsTCP, NULL, NULL, &tv);  
+  struct timeval timeout;
+  timeout.tv_sec = 5;
+  timeout.tv_usec = 0;
+  FD_ZERO(&fdsTCP);
+  FD_SET(newsockfd, &fdsTCP);
+  n = select(32, &fdsTCP, NULL, NULL, &timeout);  
   n = recv(newsockfd, receiveMessageBuff, 8, 0);
   currentState = receiveMessageBuff[1];
   

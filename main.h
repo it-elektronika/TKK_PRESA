@@ -19,7 +19,6 @@ struct sockaddr_in server;     /* AKD_PRESA */
 char *ip_adrs;
 fd_set fds;
 fd_set fdsTCP;
-
 int inCycle;
 
 enum page_stage_t {ENTER, ENABLE, EXIT};  

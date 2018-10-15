@@ -8,7 +8,7 @@
 #include <time.h>
 #include "kunbus.h"
 #include "main.h"
-
+#include <fcntl.h>
 #define PORTNO 1500
 
 void initServer();
@@ -51,21 +51,21 @@ int main()
       inCycle = 0;
     }
 
-    if(page != 10)
-    {
-      receiveMessage();
-      sendMessage();
-      counter = 0;
-    }
-    else
-    {
-      while(counter < 4)
-      {
-        receiveMessage();
-        sendMessage();
-        counter++;
-      }
-    }
+    //if(page != 10)
+    //{
+    receiveMessage();
+    sendMessage();
+    //  counter = 0;
+    //}
+    //else
+    //{
+    //  while(counter < 4)
+    //  {
+    //    receiveMessage();
+    //    sendMessage();
+    //    counter++;
+    //  }
+    //}
  
    diagnostics();
   }    
@@ -443,14 +443,15 @@ void receiveMessage()
   int i;
   int currentState;
   int lastState;
-  
+  //int flags = fcntl(newsockfd, F_GETFL, 0);
+  fcntl(newsockfd, F_SETFL, O_NONBLOCK);
   lastState = currentState;
-  struct timeval timeout;
-  timeout.tv_sec = 5;
-  timeout.tv_usec = 0;
-  FD_ZERO(&fdsTCP);
-  FD_SET(newsockfd, &fdsTCP);
-  n = select(32, &fdsTCP, NULL, NULL, &timeout);  
+  ///struct timeval timeout;
+  //timeout.tv_sec = 5;
+  //timeout.tv_usec = 0;
+  //FD_ZERO(&fdsTCP);
+  //FD_SET(newsockfd, &fdsTCP);
+  //n = select(32, &fdsTCP, NULL, NULL, &timeout);  
   n = recv(newsockfd, receiveMessageBuff, 8, 0);
   currentState = receiveMessageBuff[1];
   

@@ -444,19 +444,15 @@ void receiveMessage()
   int lastState;
   lastState = currentState;
   struct timeval timeout;
-  timeout.tv_sec = 1;
+  timeout.tv_sec = 5;
   timeout.tv_usec = 0;
   FD_ZERO(&fdsTCP);
   FD_SET(newsockfd, &fdsTCP);
-  n = select(32, &fdsTCP, NULL, NULL, &timeout);  
-  currentState = receiveMessageBuff[1];
-  if(n == 0)
-  {
-    printf("\t TIMEOUT \n");
-  }
-  else
+  select(newsockfd+1, &fdsTCP, NULL, NULL, &timeout);  
+  if(FD_ISSET(newsockfd, &fdsTCP))
   {
     recv(newsockfd, receiveMessageBuff, 8, 0);
+    currentState = receiveMessageBuff[1];
     if(receiveMessageBuff[0] != -1)
     {
       if(receiveMessageBuff[0] < 15)
@@ -498,6 +494,10 @@ void receiveMessage()
     {
       printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
     }
+  }
+  else
+  {
+    printf("\t TIMEOUT \n");
   }
 }
 

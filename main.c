@@ -55,10 +55,7 @@ int main()
     {
       inCycle = 0;
     }
-    if(page != 10)  
-    {
-      sendMessage();
-    }
+    sendMessage();
     receiveMessage();
     
     touchUpdate();

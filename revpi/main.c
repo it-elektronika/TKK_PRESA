@@ -8,7 +8,6 @@
 #include <time.h>
 #include "kunbus.h"
 #include "main.h"
-#include <fcntl.h>
 #define PORTNO 1500
 
 void initServer();
@@ -443,58 +442,62 @@ void receiveMessage()
   int i;
   int currentState;
   int lastState;
-  //int flags = fcntl(newsockfd, F_GETFL, 0);
-  fcntl(newsockfd, F_SETFL, O_NONBLOCK);
   lastState = currentState;
-  ///struct timeval timeout;
-  //timeout.tv_sec = 5;
-  //timeout.tv_usec = 0;
-  //FD_ZERO(&fdsTCP);
-  //FD_SET(newsockfd, &fdsTCP);
-  //n = select(32, &fdsTCP, NULL, NULL, &timeout);  
-  n = recv(newsockfd, receiveMessageBuff, 8, 0);
+  struct timeval timeout;
+  timeout.tv_sec = 5;
+  timeout.tv_usec = 0;
+  FD_ZERO(&fdsTCP);
+  FD_SET(newsockfd, &fdsTCP);
+  n = select(32, &fdsTCP, NULL, NULL, &timeout);  
   currentState = receiveMessageBuff[1];
-  
-  if(receiveMessageBuff[0] != -1)
+  if(n == 0)
   {
-    if(receiveMessageBuff[0] < 15)
+    printf("\t TIMEOUT \n");
+  }
+  else
+  {
+    recv(newsockfd, receiveMessageBuff, 8, 0);
+    if(receiveMessageBuff[0] != -1)
     {
-      sprintf(outputWriteBuff, "O_%d",  receiveMessageBuff[0]);
-    }
-    else if(receiveMessageBuff[0] > 14 && receiveMessageBuff[0] < 29)
-    {
-      sprintf(outputWriteBuff, "O_%d_i03",  (receiveMessageBuff[0]-14));
-    }
-    else if(receiveMessageBuff[0] > 28 && receiveMessageBuff[0] < 43)
-    {
-      sprintf(outputWriteBuff, "O_%d_i04",  (receiveMessageBuff[0]-28));
-    }
-    if(receiveMessageBuff[1] != -1)
-    {
-      if(lastState != currentState)
+      if(receiveMessageBuff[0] < 15)
       {
-        writeVariableValue(outputWriteBuff, receiveMessageBuff[1]);
+	sprintf(outputWriteBuff, "O_%d",  receiveMessageBuff[0]);
+      }
+      else if(receiveMessageBuff[0] > 14 && receiveMessageBuff[0] < 29)
+      {
+	sprintf(outputWriteBuff, "O_%d_i03",  (receiveMessageBuff[0]-14));
+      }
+      else if(receiveMessageBuff[0] > 28 && receiveMessageBuff[0] < 43)
+      {
+	sprintf(outputWriteBuff, "O_%d_i04",  (receiveMessageBuff[0]-28));
+      }
+      if(receiveMessageBuff[1] != -1)
+      {
+	if(lastState != currentState)
+	{
+	  writeVariableValue(outputWriteBuff, receiveMessageBuff[1]);
+	}
       }
     }
-  }
-  if(receiveMessageBuff[2])
-  {
-    step = 1;
-  }
-  if(receiveMessageBuff[3])
-  {
-    step++;
-  }
-  if(receiveMessageBuff[4])
-  {
-    step = 0;
-  }
-  press = receiveMessageBuff[5];
-  selectedCan = receiveMessageBuff[6];
-  pageNum = receiveMessageBuff[7];
-  for(i = 0; i < 9; i++)
-  {
-    printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
+    if(receiveMessageBuff[2])
+    {
+      step = 1;
+    }
+    if(receiveMessageBuff[3])
+    {
+      step++;
+    }
+    if(receiveMessageBuff[4])
+    {
+      step = 0;
+    }
+    press = receiveMessageBuff[5];
+    selectedCan = receiveMessageBuff[6];
+    pageNum = receiveMessageBuff[7];
+    for(i = 0; i < 9; i++)
+    {
+      printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
+    }
   }
 }
 

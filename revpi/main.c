@@ -444,7 +444,7 @@ void receiveMessage()
   int lastState;
   lastState = currentState;
   struct timeval timeout;
-  timeout.tv_sec = 5;
+  timeout.tv_sec = 1;
   timeout.tv_usec = 0;
   FD_ZERO(&fdsTCP);
   FD_SET(newsockfd, &fdsTCP);

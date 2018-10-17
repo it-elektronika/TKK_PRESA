@@ -848,7 +848,7 @@ void diagnostics()
 	writeVariableValue("O_13", 1);
       } 
 
-      step = 6;
+      step = 7;
       break;
   
     case 6: /* preverim ali je bil premik izveden */
@@ -878,7 +878,7 @@ void diagnostics()
     case 8: /* preverim ali sta presa in gripper izvedla pomik */
       printf("STEP: %d\n", step);
       printf("preverim ali sta presa in gripper izvedla pomik\n");
-      if(readVariableValue("I_11")) /* second condition used if both moves at the same time*/
+      if(readVariableValue("I_11") && readVariableValue("I_12")) /* second condition used if both moves at the same time*/
       {
        step = 9;
       }
@@ -893,7 +893,7 @@ void diagnostics()
       usleep(delay_time); 
       writeVariableValue("O_9", 0);
       writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
-      step = 10;
+      step = 11;
       break;
 
     case 10: /* preverim ali je bil pomik izveden */
@@ -945,7 +945,7 @@ void diagnostics()
       printf("STEP: %d\n", step);
       printf("preverim ali je pomik izveden\n");
       
-      if(readVariableValue("I_12"))
+      if(readVariableValue("I_12") && readVariableValue("I_11"))
       {
         step = 13;
       }

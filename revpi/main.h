@@ -1,5 +1,5 @@
 #include <arpa/inet.h>
-#define delay_time  90000
+#define delay_time  30000
 #define delay_time2 30000
 
 int sockfd, newsockfd;

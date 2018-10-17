@@ -50,21 +50,21 @@ int main()
       inCycle = 0;
     }
 
-    //if(page != 10)
-    //{
-    receiveMessage();
-    sendMessage();
-    //  counter = 0;
-    //}
-    //else
-    //{
-    //  while(counter < 4)
-    //  {
-    //    receiveMessage();
-    //    sendMessage();
-    //    counter++;
-    //  }
-    //}
+    if(!inCycle)
+    {
+      receiveMessage();
+      sendMessage();
+      counter = 0;
+    }
+    else
+    {
+      while(counter < 4)
+      {
+        receiveMessage();
+        sendMessage();
+        counter++;
+      }
+    }
  
    diagnostics();
   }    

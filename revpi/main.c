@@ -869,7 +869,41 @@ void diagnostics()
       writeVariableValue("O_10", 1);
       writeVariableValue("O_8_i03", 1);  /* cilinder 4 navzdol - odpiranje celjusti */
       writeVariableValue("O_5_i03", 1);  /* cilinder 1 navzgor - zapiranje celjusti */
+    
+      writeVariableValue("O_1_i03", 1); /* trak pomik za en pokrov*/
+      writeVariableValue("O_7_i03", 1); /* cilinder 3 - potisne celjust navzdol */
+     
       usleep(delay_time); 
+    
+      writeVariableValue("O_1_i03", 0);        
+
+      writeVariableValue("O_11", 0);
+      writeVariableValue("O_12", 0);
+      writeVariableValue("O_13", 0);
+      writeVariableValue("O_14", 0);
+    
+      if(selectedCan == 0) /* mala */
+      {
+	writeVariableValue("O_11", 1);
+      }
+      else if(selectedCan == 1) /* mala 2 */
+      {
+	writeVariableValue("O_11", 1);
+	writeVariableValue("O_12", 1);
+      }
+      else if(selectedCan == 2) /* srednja */
+      {
+	writeVariableValue("O_11", 1);
+	writeVariableValue("O_13", 1);
+      }
+      else if(selectedCan == 3) /* velika*/
+      {
+	writeVariableValue("O_11", 1);
+	writeVariableValue("O_12", 1);
+	writeVariableValue("O_13", 1);
+      } 
+
+
       writeVariableValue("O_10", 0);
       
       step = 8;
@@ -880,7 +914,7 @@ void diagnostics()
       printf("preverim ali sta presa in gripper izvedla pomik\n");
       if(readVariableValue("I_11") && readVariableValue("I_12")) /* second condition used if both moves at the same time*/
       {
-       step = 9;
+       step = 11;
       }
       break;
     
@@ -912,7 +946,13 @@ void diagnostics()
       writeVariableValue("O_1_i03", 1);
       writeVariableValue("O_2", 1);
       writeVariableValue("O_1", 0);
+      writeVariableValue("O_9", 1);
+      writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - sprostitev */
+     
       usleep(delay_time);
+      writeVariableValue("O_9", 0);
+      writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
+     
       writeVariableValue("O_2", 0);
       writeVariableValue("O_1_i03", 0);      
       writeVariableValue("O_11", 0);
@@ -977,7 +1017,7 @@ void diagnostics()
     case 15:
       printf("STEP: %d\n", step);
       printf("\n");
-      step = 5; 
+      step = 7; 
       break;
   }
 }

@@ -660,6 +660,9 @@ void timer(float measure) /* CASOVNI ZAMIK */
   }
 }
 
+
+
+
 void checkConn()
 {
   if(conn_presa == 0 && conn_hmi == 0)

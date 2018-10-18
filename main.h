@@ -10,7 +10,10 @@
 #define lastStep 15
 #define ioPins 42
 #define PORTNO 1500
-#define BILLION 1000000000L
+#define BILLION 1000000L
+
+
+
 
 int sockfd;
 struct sockaddr_in serv_addr;  /* REVPI */

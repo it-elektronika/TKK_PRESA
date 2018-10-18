@@ -65,8 +65,9 @@ int main()
     //    counter++;
     // }
     //}
- 
+   timers();
    diagnostics();
+   
   }    
   close(newsockfd);
   close(sockfd);
@@ -869,8 +870,15 @@ void diagnostics()
       writeVariableValue("O_10", 1);
       writeVariableValue("O_8_i03", 1);  /* cilinder 4 navzdol - odpiranje celjusti */
       writeVariableValue("O_5_i03", 1);  /* cilinder 1 navzgor - zapiranje celjusti */
+  
+      if(!timer1)  
+      {
+        writeVariableValue("O_1_i03", 1);
+        clock_gettime(CLOCK_REALTIME, &start1);
+        timer1 = 1;    
+      }
     
-      writeVariableValue("O_1_i03", 1); /* trak pomik za en pokrov*/
+      //writeVariableValue("O_1_i03", 1); /* trak pomik za en pokrov*/
       writeVariableValue("O_7_i03", 1); /* cilinder 3 - potisne celjust navzdol */
      
       usleep(delay_time); 
@@ -1029,6 +1037,22 @@ void sendModbus(int socket_fd, char *send_buff, int send_buff_size, char *receiv
   recv(socket_fd, receive_buff, receive_buff_size , 0);
   transId++;
 }
+
+
+void timers() /* CASOVNI ZAMIK */
+{
+  clock_gettime(CLOCK_REALTIME, &stop1);
+  target1 = ( stop1.tv_sec - start1.tv_sec ) + ( stop1.tv_nsec - start1.tv_nsec ) / MILLION;
+  
+  if(elapsedTime1 >= 30)
+  {
+    writeVariableValue("O_1_i03", 0);
+    timer1 = 0;
+  }
+}
+
+
+
 
 void detectFall(const char *var)
 {

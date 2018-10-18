@@ -1,6 +1,14 @@
 #include <arpa/inet.h>
 #define delay_time  30000
 #define delay_time2 30000
+#define MILLION 1000000L
+
+
+int timer1;
+struct timespec start1, stop1;
+double elapsedTime1;
+double target1;
+ 
 
 int sockfd, newsockfd;
 socklen_t clilen;
@@ -60,7 +68,7 @@ char ibufDS[17];
 char obufCl[17];
 char ibufCl[17];
 
-
+void timers();
 void sendMessage();
 void receiveMessage();
 

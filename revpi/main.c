@@ -65,8 +65,7 @@ int main()
     //    counter++;
     // }
     //}
-   timers();
-   diagnostics();
+    diagnostics();
    
   }    
   close(newsockfd);
@@ -870,19 +869,9 @@ void diagnostics()
       writeVariableValue("O_10", 1);
       writeVariableValue("O_8_i03", 1);  /* cilinder 4 navzdol - odpiranje celjusti */
       writeVariableValue("O_5_i03", 1);  /* cilinder 1 navzgor - zapiranje celjusti */
-  
-      if(!timer1)  
-      {
-        writeVariableValue("O_1_i03", 1);
-        clock_gettime(CLOCK_REALTIME, &start1);
-        timer1 = 1;    
-      }
-    
-      //writeVariableValue("O_1_i03", 1); /* trak pomik za en pokrov*/
+      writeVariableValue("O_1_i03", 1);
       writeVariableValue("O_7_i03", 1); /* cilinder 3 - potisne celjust navzdol */
-     
       usleep(delay_time); 
-    
       writeVariableValue("O_1_i03", 0);        
 
       writeVariableValue("O_11", 0);
@@ -910,8 +899,6 @@ void diagnostics()
 	writeVariableValue("O_12", 1);
 	writeVariableValue("O_13", 1);
       } 
-
-
       writeVariableValue("O_10", 0);
       
       step = 8;

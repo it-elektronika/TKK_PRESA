@@ -9,6 +9,7 @@ struct timespec start1, stop1;
 double elapsedTime1;
 double target1;
  
+int cylCond;
 
 int sockfd, newsockfd;
 socklen_t clilen;

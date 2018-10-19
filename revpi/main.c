@@ -868,35 +868,34 @@ void diagnostics()
       writeVariableValue("O_1", 1);
       writeVariableValue("O_10", 1);
   
-      
-      if(readVariableValue("I_4_i03") == 0 && readVariableValue("I_3_i03") == 1)
+      do
       {
-        writeVariableValue("O_5_i03", 1);  /* cilinder 1 navzgor - zapiranje celjusti */
+        cylCond = 0;  
+        int a = 0;
+        int b = 0;
+        int c = 0;
+        if(readVariableValue("I_4_i03") == 0 && readVariableValue("I_3_i03") == 1)
+        {
+          writeVariableValue("O_5_i03", 1);  /* cilinder 1 navzgor - zapiranje celjusti */
+          a = 1;
+        }
+        if(readVariableValue("I_9_i03") == 0 && readVariableValue("I_10_i03") == 1)
+        {
+          writeVariableValue("O_7_i03", 1); /* cilinder 3 - potisne celjust navzdol */
+          b = 1;
+        }
+        if(readVariableValue("I_11_i03") == 0 && readVariableValue("I_12_i03") == 1)
+        {    
+          writeVariableValue("O_8_i03", 1);  /* cilinder 4 navzdol - odpiranje celjusti */
+          c = 1;
+        }
+        if(a && b && c)
+        {  
+          cylCond = 1;
+        }
       }
-      else
-      {
-        step = 0;
-        /* handle error - wrong cylinder position */
-      }
-      if(readVariableValue("I_9_i03") == 0 && readVariableValue("I_10_i03") == 1)
-      {
-        writeVariableValue("O_7_i03", 1); /* cilinder 3 - potisne celjust navzdol */
-      }
-      else
-      {
-        step = 0;
-        /* handle error - wrong cylinder position */
-      }
-      if(readVariableValue("I_11_i03") == 0 && readVariableValue("I_12_i03") == 1)
-      {   
-        writeVariableValue("O_8_i03", 1);  /* cilinder 4 navzdol - odpiranje celjusti */
-      }
-      else
-      {
-        step = 0;
-        /* handle error - wrong cylinder position */
-      }
-  
+      while(!cylCond);
+
       writeVariableValue("O_1_i03", 1);
       usleep(delay_time); 
       writeVariableValue("O_1_i03", 0);        
@@ -946,27 +945,30 @@ void diagnostics()
       
       writeVariableValue("O_9", 1);
       
-      if(readVariableValue("I_11_i03") == 1 && readVariableValue("I_12_i03") == 0)
+      do
       {
-        writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - sprostitev */
+        cylCond = 0;
+        if(readVariableValue("I_11_i03") == 1 && readVariableValue("I_12_i03") == 0)
+        {
+          writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - sprostitev */
+          cylCond = 1;
+        }
       }
-      else
-      {
-        step = 0;
-        /* handle error - wrong cylinder position */
-      }
-   
+      while(!cylCond);
+
       usleep(delay_time); 
       writeVariableValue("O_9", 0);
-      if(readVariableValue("I_9_i03") == 1 && readVariableValue("I_10_i03") == 0)
+      do
       {
-        writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
+        cylCond = 0;
+        if(readVariableValue("I_9_i03") == 1 && readVariableValue("I_10_i03") == 0)
+        {
+          writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
+          cylCond = 1;
+        }
       }
-      else
-      {
-        step = 0;
-        /* handle error - wrong cylinder position */
-      }
+      while(!cylCond);
+
       step = 11;
       break;
 
@@ -982,16 +984,18 @@ void diagnostics()
     case 11: /* gripper - pomik v zgornjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - pomik v zgornjo pozicijo\n");
-      if(readVariableValue("I_11_i03") == 1 && readVariableValue("I_12_i03") == 0)
+
+      do
       {
-        writeVariableValue("O_5_i03", 0);
+        cylCond = 0;
+        if(readVariableValue("I_11_i03") == 1 && readVariableValue("I_12_i03") == 0)
+        {
+          writeVariableValue("O_5_i03", 0);
+          cylCond = 1;
+        }
       }
-       else
-      {
-        step = 0;
-        /* handle error - wrong cylinder position */
-      }
-      
+      while(!cylCond);
+
       writeVariableValue("O_1_i03", 1);
       writeVariableValue("O_2", 1);
       writeVariableValue("O_1", 0);

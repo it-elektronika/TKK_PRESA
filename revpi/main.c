@@ -867,10 +867,37 @@ void diagnostics()
       printf("presa - premik na spodnjo pozicijo\n");
       writeVariableValue("O_1", 1);
       writeVariableValue("O_10", 1);
-      writeVariableValue("O_8_i03", 1);  /* cilinder 4 navzdol - odpiranje celjusti */
-      writeVariableValue("O_5_i03", 1);  /* cilinder 1 navzgor - zapiranje celjusti */
+  
+      
+      if(readVariableValue("I_4_i03") == 0 && readVariableValue("I_3_i03") == 1)
+      {
+        writeVariableValue("O_5_i03", 1);  /* cilinder 1 navzgor - zapiranje celjusti */
+      }
+      else
+      {
+        step = 0;
+        /* handle error - wrong cylinder position */
+      }
+      if(readVariableValue("I_9_i03") == 0 && readVariableValue("I_10_i03") == 1)
+      {
+        writeVariableValue("O_7_i03", 1); /* cilinder 3 - potisne celjust navzdol */
+      }
+      else
+      {
+        step = 0;
+        /* handle error - wrong cylinder position */
+      }
+      if(readVariableValue("I_11_i03") == 0 && readVariableValue("I_12_i03") == 1)
+      {   
+        writeVariableValue("O_8_i03", 1);  /* cilinder 4 navzdol - odpiranje celjusti */
+      }
+      else
+      {
+        step = 0;
+        /* handle error - wrong cylinder position */
+      }
+  
       writeVariableValue("O_1_i03", 1);
-      writeVariableValue("O_7_i03", 1); /* cilinder 3 - potisne celjust navzdol */
       usleep(delay_time); 
       writeVariableValue("O_1_i03", 0);        
 
@@ -918,10 +945,28 @@ void diagnostics()
       printf("presa - pomik v zgornjo pozicijo\n");    
       
       writeVariableValue("O_9", 1);
-      writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - sprostitev */
+      
+      if(readVariableValue("I_11_i03") == 1 && readVariableValue("I_12_i03") == 0)
+      {
+        writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - sprostitev */
+      }
+      else
+      {
+        step = 0;
+        /* handle error - wrong cylinder position */
+      }
+   
       usleep(delay_time); 
       writeVariableValue("O_9", 0);
-      writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
+      if(readVariableValue("I_9_i03") == 1 && readVariableValue("I_10_i03") == 0)
+      {
+        writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
+      }
+      else
+      {
+        step = 0;
+        /* handle error - wrong cylinder position */
+      }
       step = 11;
       break;
 
@@ -937,16 +982,25 @@ void diagnostics()
     case 11: /* gripper - pomik v zgornjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - pomik v zgornjo pozicijo\n");
-      writeVariableValue("O_5_i03", 0);
+      if(readVariableValue("I_11_i03") == 1 && readVariableValue("I_12_i03") == 0)
+      {
+        writeVariableValue("O_5_i03", 0);
+      }
+       else
+      {
+        step = 0;
+        /* handle error - wrong cylinder position */
+      }
+      
       writeVariableValue("O_1_i03", 1);
       writeVariableValue("O_2", 1);
       writeVariableValue("O_1", 0);
       writeVariableValue("O_9", 1);
-      writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - sprostitev */
+      //writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - sprostitev */
      
       usleep(delay_time);
       writeVariableValue("O_9", 0);
-      writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
+      //writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
      
       writeVariableValue("O_2", 0);
       writeVariableValue("O_1_i03", 0);      

@@ -945,30 +945,6 @@ void diagnostics()
       
       writeVariableValue("O_9", 1);
       
-      do
-      {
-        cylCond = 0;
-        if(readVariableValue("I_11_i03") == 1 && readVariableValue("I_12_i03") == 0)
-        {
-          writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - sprostitev */
-          cylCond = 1;
-        }
-      }
-      while(!cylCond);
-
-      usleep(delay_time); 
-      writeVariableValue("O_9", 0);
-      do
-      {
-        cylCond = 0;
-        if(readVariableValue("I_9_i03") == 1 && readVariableValue("I_10_i03") == 0)
-        {
-          writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
-          cylCond = 1;
-        }
-      }
-      while(!cylCond);
-
       step = 11;
       break;
 
@@ -984,13 +960,34 @@ void diagnostics()
     case 11: /* gripper - pomik v zgornjo pozicijo */
       printf("STEP: %d\n", step);
       printf("gripper - pomik v zgornjo pozicijo\n");
-
+      writeVariableValue("O_9", 0);
+ 
       do
       {
+        int a = 0;
+        int b = 0;
+        int c = 0;
         cylCond = 0;
+        
+        if(readVariableValue("I_11_i03") == 1 && readVariableValue("I_12_i03") == 0)
+        {
+          writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - sprostitev */
+          a = 1;
+        }
+
+        if(readVariableValue("I_9_i03") == 1 && readVariableValue("I_10_i03") == 0)
+        {
+          writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
+          b = 1;
+        }
+
         if(readVariableValue("I_11_i03") == 1 && readVariableValue("I_12_i03") == 0)
         {
           writeVariableValue("O_5_i03", 0);
+          c = 1;
+        }
+        if(a &&& b && c)
+        {
           cylCond = 1;
         }
       }
@@ -1000,11 +997,9 @@ void diagnostics()
       writeVariableValue("O_2", 1);
       writeVariableValue("O_1", 0);
       writeVariableValue("O_9", 1);
-      //writeVariableValue("O_8_i03", 0); /* cilinder 4 navzgor - sprostitev */
      
       usleep(delay_time);
       writeVariableValue("O_9", 0);
-      //writeVariableValue("O_7_i03", 0); /* cilinder 3 navzgor - dviganje celjusti*/
      
       writeVariableValue("O_2", 0);
       writeVariableValue("O_1_i03", 0);      

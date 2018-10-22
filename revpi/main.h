@@ -1,6 +1,6 @@
 #include <arpa/inet.h>
-#define delay_time  30000
-#define delay_time2 30000
+#define delay_time  100000
+#define delay_time2 100000
 #define MILLION 1000000L
 
 

@@ -53,6 +53,12 @@ char readBuff_recv[85];
 
 char writePosTenBuff[58];
 char writePosTenBuff_recv[57];
+char writePosUpBuff[58];
+char writePosUpBuff_recv[57];
+char writePosDownBuff[58];
+char writePosDownBuff_recv[57];
+
+
 
 char outputWriteBuff[256];
 
@@ -63,7 +69,8 @@ char ibufMT[21];
 char obufMTN[21];
 char ibufMTN[21];
 
-
+char obufDMC[17];
+char ibufDMC[17];
 char obufDS[17];
 char ibufDS[17];
 char obufCl[17];

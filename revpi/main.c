@@ -151,7 +151,42 @@ void initMain()
   int * writePosTen16 = (int*)(&writePosTenBuff[44]);
   int * writePosTen17 = (int*)(&writePosTenBuff[48]);
   int * writePosTen18 = (int*)(&writePosTenBuff[52]);
+  
+  int * writePosUp1 = (int*)(&writePosUpBuff[0]);
+  int * writePosUp2 = (int*)(&writePosUpBuff[2]);
+  int * writePosUp3 = (int*)(&writePosUpBuff[4]);
+  int * writePosUp4 = (int*)(&writePosUpBuff[6]);
+  int * writePosUp5 = (int*)(&writePosUpBuff[7]);
+  int * writePosUp6 = (int*)(&writePosUpBuff[8]);
+  int * writePosUp7 = (int*)(&writePosUpBuff[10]);
+  int * writePosUp8 = (int*)(&writePosUpBuff[12]);
+  int * writePosUp11 = (int*)(&writePosUpBuff[21]);
+  int * writePosUp12 = (int*)(&writePosUpBuff[28]);
+  int * writePosUp13 = (int*)(&writePosUpBuff[29]);
+  int * writePosUp14 = (int*)(&writePosUpBuff[33]);
+  int * writePosUp15 = (int*)(&writePosUpBuff[40]);
+  int * writePosUp16 = (int*)(&writePosUpBuff[44]);
+  int * writePosUp17 = (int*)(&writePosUpBuff[48]);
+  int * writePosUp18 = (int*)(&writePosUpBuff[52]);
  
+  int * writePosDown1 = (int*)(&writePosDownBuff[0]);
+  int * writePosDown2 = (int*)(&writePosDownBuff[2]);
+  int * writePosDown3 = (int*)(&writePosDownBuff[4]);
+  int * writePosDown4 = (int*)(&writePosDownBuff[6]);
+  int * writePosDown5 = (int*)(&writePosDownBuff[7]);
+  int * writePosDown6 = (int*)(&writePosDownBuff[8]);
+  int * writePosDown7 = (int*)(&writePosDownBuff[10]);
+  int * writePosDown8 = (int*)(&writePosDownBuff[12]);
+  int * writePosDown11 = (int*)(&writePosDownBuff[21]);
+  int * writePosDown12 = (int*)(&writePosDownBuff[28]);
+  int * writePosDown13 = (int*)(&writePosDownBuff[29]);
+  int * writePosDown14 = (int*)(&writePosDownBuff[33]);
+  int * writePosDown15 = (int*)(&writePosDownBuff[40]);
+  int * writePosDown16 = (int*)(&writePosDownBuff[44]);
+  int * writePosDown17 = (int*)(&writePosDownBuff[48]);
+  int * writePosDown18 = (int*)(&writePosDownBuff[52]);
+ 
+
   int * moveTask1 =  (int*)(&obufMT[0]);
   int * moveTask2 =  (int*)(&obufMT[2]);
   int * moveTask3 =  (int*)(&obufMT[4]);
@@ -171,6 +206,17 @@ void initMain()
   int * moveTask7Next =  (int*)(&obufMTN[10]);
   int * moveTask8Next =  (int*)(&obufMTN[12]);
   int * moveTask9Next =  (int*)(&obufMTN[13]);
+ 
+
+  int * dinModeChange1 =  (int*)(&obufDMC[0]);
+  int * dinModeChange2 =  (int*)(&obufDMC[2]);
+  int * dinModeChange3 =  (int*)(&obufDMC[4]);
+  int * dinModeChange4 =  (int*)(&obufDMC[6]);
+  int * dinModeChange5 =  (int*)(&obufDMC[7]);
+  int * dinModeChange6 =  (int*)(&obufDMC[8]);
+  int * dinModeChange7 =  (int*)(&obufDMC[10]);
+  int * dinModeChange8 =  (int*)(&obufDMC[12]);
+  int * dinModeChange9 =  (int*)(&obufDMC[13]);
   
   int * drvSave1 =  (int*)(&obufDS[0]);
   int * drvSave2 =  (int*)(&obufDS[2]);
@@ -211,6 +257,42 @@ void initMain()
   * writePosTen17 = 1;            
   * writePosTen18 = 1;  
  
+  memset(writePosUpBuff, 0, 58);
+  * writePosUp1 = transId;   
+  * writePosUp2 = htons(0);
+  * writePosUp3 = htons(47);
+  * writePosUp4 = 1;
+  * writePosUp5 = 16;
+  * writePosUp6 = htons(8192);
+  * writePosUp7 = htons(20);
+  * writePosUp8 = 40;
+  * writePosUp11 = htonl(2000000);   
+  * writePosUp12 = 16;           
+  * writePosUp13 = htonl(5000000);  
+  * writePosUp14 = htonl(5000000);  
+  * writePosUp15 = 100;            
+  * writePosUp16 = 0;            
+  * writePosUp17 = 1;            
+  * writePosUp18 = 1;  
+ 
+  memset(writePosDownBuff, 0, 58);
+  * writePosDown1 = transId;   
+  * writePosDown2 = htons(0);
+  * writePosDown3 = htons(47);
+  * writePosDown4 = 1;
+  * writePosDown5 = 16;
+  * writePosDown6 = htons(8192);
+  * writePosDown7 = htons(20);
+  * writePosDown8 = 40;
+  * writePosDown11 = htonl(2000000);   
+  * writePosDown12 = 16;           
+  * writePosDown13 = htonl(5000000);  
+  * writePosDown14 = htonl(5000000);  
+  * writePosDown15 = 100;            
+  * writePosDown16 = 0;            
+  * writePosDown17 = 1;            
+  * writePosDown18 = 1;  
+ 
   memset(obufMT, 0, 17);
   * moveTask1 = transId;   
   * moveTask2 = htons(0);
@@ -233,6 +315,19 @@ void initMain()
   * moveTask8Next = 4;
   * moveTask9Next = 2;
 
+
+  memset(obufDMC, 0, 17);
+  * dinModeChange1 = transId;   
+  * dinModeChange2 = htons(0);
+  * dinModeChange3 = htons(11);
+  * dinModeChange4 = 1;
+  * dinModeChange5 = 16;
+  * dinModeChange6 = htons(152);
+  * dinModeChange7 = htons(2);
+  * dinModeChange8 = 4;
+  * dinModeChange9 = htons(1);
+ 
+
    memset(obufDS, 0, 17);
   * drvSave1 = transId;   
   * drvSave2 = htons(0);
@@ -243,6 +338,8 @@ void initMain()
   * drvSave7 = htons(2);
   * drvSave8 = 4;
   * drvSave9 = htonl(1);
+ 
+
   pageNum = 2;
   program = 1;
   PiControlHandle_g = -1; 
@@ -522,37 +619,73 @@ void diagnostics()
       int * moveTask1Next =  (int*)(&obufMTN[0]); 
       int * moveTask9Next =  (int*)(&obufMTN[13]);
       int * drvSave1 = (int*)(&obufDS[0]);
-   
+      int * dinModeChange1 = (int*)(&obufDMC[0]);
+      int * dinModeChange9 = (int*)(&obufDMC[13]);
+      int * writePosUp1 = (int*)(&writePosUpBuff[0]);
+      int * writePosUp9 =  (int*)(&writePosUpBuff[16]);
+      int * writePosUp10 = (int*)(&writePosUpBuff[17]);
+      int * writePosDown1 = (int*)(&writePosDownBuff[0]);
+      int * writePosDown9 =  (int*)(&writePosDownBuff[16]);
+      int * writePosDown10 = (int*)(&writePosDownBuff[17]);  
+      int * writePosDown11 = (int*)(&writePosDownBuff[21]);
+     
       * moveTask1 = transId;
       if(selectedCan == 0)
       {
 	* moveTask9 = htonl(1000);                
 	* moveTask9Next = htonl(2000);
+        * writePosUp9 = 1;       
+        * writePosUp10 = htonl((0)*1000); /*some value*/
+        * writePosDown9 = 2;       
+        * writePosDown10 = htonl((0)*1000); /*some value*/
       }
       else if(selectedCan == 1)
       {
 	* moveTask9 = htonl(3000);
 	* moveTask9Next = htonl(4000);
+        * writePosUp9 = 3;       
+        * writePosUp10 = htonl((0)*1000); /*some value*/
+        * writePosDown9 = 4;       
+        * writePosDown10 = htonl((0)*1000); /*some value*/
       }
       else if(selectedCan == 2)
       {
-       * moveTask9 = htonl(5000);
-       * moveTask9Next = htonl(6000);     
+        * moveTask9 = htonl(5000);
+        * moveTask9Next = htonl(6000);     
+        * writePosUp9 = 5;       
+        * writePosUp10 = htonl((0)*1000); /*some value*/
+        * writePosDown9 = 6;       
+        * writePosDown10 = htonl((0)*1000); /*some value*/
       }
       else if(selectedCan == 3)
       {
 	* moveTask9 = htonl(7000);
 	* moveTask9Next = htonl(8000); 
+        * writePosUp9 = 7;       
+        * writePosUp10 = htonl((0)*1000);
+        * writePosDown9 = 8;       
+        * writePosDown10 = htonl((35)*1000);
       }
 
       sendModbus(s, obufMT, 17, ibufMT, 50, "move task 1 - revert to original positions");
       * moveTask1Next = transId;
-	
       sendModbus(s, obufMTN, 17, ibufMTN, 50, "move task 2 - revert to original positions");
+   
+      /* write template position values */
+      * writePosUp1 = transId;       
+      sendModbus(s, writePosUpBuff, 53, writePosUpBuff_recv, 50, "template position parameter saved");
+      * writePosDown1 = transId;       
+      * writePosDown11 = htonl(20000); /* set speed to 20 */
+      sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "template position parameter saved");
+ 
+      /* to be added -  change din4 mode to quick stop15 */
+       * dinModeChange1 = transId;
+       * dinModeChange9 = htonl(15);
+      sendModbus(s, obufDMC, 17, ibufDMC, 50, "save to drive");
  
       * drvSave1 = transId;
       sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
- 
+    
 
       writeVariableValue("O_5_i03", 0);
       writeVariableValue("O_7_i03", 0);
@@ -652,6 +785,7 @@ void diagnostics()
     
     case 6:
       printf("STEP: %d\n", step);
+      printf("preberem podatek o trenutni poziciji in ga shranim v ustrezne motion taske");
       int w;
       int * read1 = (int*)(&readBuff[0]);
       int * read2 = (int*)(&readBuff[2]);
@@ -660,13 +794,15 @@ void diagnostics()
       int * read5 = (int*)(&readBuff[7]);
       int * read6 = (int*)(&readBuff[8]);
       int * read7 = (int*)(&readBuff[10]);
-      int * clear1 =  (int*)(&obufCl[0]);
-      int * clear9 =  (int*)(&obufCl[16]);
       int * writePosTen1 = (int*)(&writePosTenBuff[0]);
       int * writePosTen9 =  (int*)(&writePosTenBuff[16]);
       int * writePosTen10 = (int*)(&writePosTenBuff[17]);
-      int * moveTask1Next =  (int*)(&obufMTN[0]); 
-      int * moveTask9Next =  (int*)(&obufMTN[13]);
+      int * writePosDown1 = (int*)(&writePosDownBuff[0]);
+      int * writePosDown9 =  (int*)(&writePosDownBuff[16]);
+      int * writePosDown10 = (int*)(&writePosDownBuff[17]);
+      int * writePosDown11 = (int*)(&writePosDownBuff[21]);
+      int * dinModeChange1 =  (int*)(&obufDMC[0]);
+      int * dinModeChange9 =  (int*)(&obufDMC[13]);
       int * drvSave1 = (int*)(&obufDS[0]);
    
       memset(readBuff, 0, 12);
@@ -676,24 +812,45 @@ void diagnostics()
       * read5 = 3;
       * read6 = htons(2072);
       * read7 = htons(2);
-      * clear9 = 10;      
       * writePosTen9 = 10;       
-     * moveTask9Next = htonl(10000);                
+      // * moveTask9Next = htonl(10000);                
          
       * read1 = transId;   
       sendModbus(s, readBuff, 12, readBuff_recv, 50, "read feedback position");
       w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
-      * writePosTen10 = htonl(w + press);
+      * writePosTen10 = htonl(w);
       printf("POSITION FEEDBACK:%d\n", w);
      
-      * clear1 = transId;
-      sendModbus(s, obufCl, 17, ibufCl, 50, "position 10 cleared");
-       
       * writePosTen1 = transId;       
       sendModbus(s, writePosTenBuff, 53, writePosTenBuff_recv, 50, "position 10 parameter");
     
-      * moveTask1Next = transId;
-      sendModbus(s, obufMTN, 17, ibufMTN, 50, "second position parameter");
+      if(selectedCan == 0) /* mala */
+      {
+        * writePosDown9 = 2;    
+      }
+      else if(selectedCan == 1) /* mala 2 */
+      {
+        * writePosDown9 = 4;    
+      }
+      else if(selectedCan == 2) /* srednja */
+      {
+        * writePosDown9 = 6;       
+      }
+      else if(selectedCan == 3) /* velika*/
+      {
+        * writePosDown9 = 8;       
+      }
+ 
+      w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
+      * writePosDown10 = htonl(w + press);
+      * writePosDown1 = transId;       
+      * writePosDown11 = htonl(2000000); /* set speed to 2000 */
+     
+      sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "position 10 parameter");
+
+      * dinModeChange1 = transId;
+      * dinModeChange9 = htonl(0);
+      sendModbus(s, obufDMC, 17, ibufDMC, 50, "save to drive");
       
       * drvSave1 = transId;
       sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
@@ -722,7 +879,8 @@ void diagnostics()
       printf("STEP: %d\n", step);
       printf("premik na spodnjo pozicijo\n");
       writeVariableValue("O_1", 1);
-      writeVariableValue("O_10", 1);
+      //writeVariableValue("O_10", 1);
+      writeVariableValue("O_14_i03", 1); /* premik na vmesno pozicijo*/
       writeVariableValue("O_1_i03", 1);
       usleep(delay_time); 
       writeVariableValue("O_1_i03", 0);        
@@ -752,49 +910,62 @@ void diagnostics()
 	writeVariableValue("O_12", 1);
 	writeVariableValue("O_13", 1);
       } 
-      writeVariableValue("O_10", 0);
+      //writeVariableValue("O_10", 0);
+      writeVariableValue("O_14_i03", 0);
       
       step = 10;
       break;
     
     case 10: /* preverim ali sta presa in gripper izvedla pomik */
       printf("STEP: %d\n", step);
-      if(readVariableValue("I_12")) /* second condition used if both moves at the same time*/
+      if(readVariableValue("I_12") && readVariableValue("I_14_i03")) /* premik izveden*/
       {
-        do
+        if(readVariableValue("I_13_i03"))
         {
-          cylCond = 0;
-          if(readVariableValue("I_11_i03") == 0 && readVariableValue("I_12_i03") == 1)
-	  {    
-	    writeVariableValue("O_8_i03", 1);  /* cilinder 4 navzdol - odpiranje celjusti */
-	    cylCond = 1;
-	  }
-          printf("step:%d, I_11:%d, I_12:%d\n", step, readVariableValue("I_11_i03"), readVariableValue("I_12_i03"));
-        }
-        while(!cylCond);
-        
-        do
-        {
-          cylCond = 0;
-          if(readVariableValue("I_3_i03") == 1 && readVariableValue("I_4_i03") == 0)
+	  do
 	  {
-	    writeVariableValue("O_5_i03", 1);  /* cilinder 1 navzgor - zapiranje celjusti */
-	    cylCond = 1;
-          }
-          printf("step:%d, I_3:%d, I_4:%d\n", step, readVariableValue("I_3_i03"), readVariableValue("I_4_i03"));
-        }
-        while(!cylCond);
-        printf("preverim ali je pomik izveden I_11:%d I_12:%d\n", readVariableValue("I_11"), readVariableValue("I_12"));
-        
-        while(!readVariableValue("I_11"))
+	    cylCond = 0;
+	    if(readVariableValue("I_11_i03") == 0 && readVariableValue("I_12_i03") == 1)
+	    {    
+	      writeVariableValue("O_8_i03", 1);  /* cilinder 4 navzdol - odpiranje celjusti */
+	      cylCond = 1;
+	    }
+	    printf("step:%d, I_11:%d, I_12:%d\n", step, readVariableValue("I_11_i03"), readVariableValue("I_12_i03"));
+	  }
+	  while(!cylCond);
+	  
+	  do
+	  {
+	    cylCond = 0;
+	    if(readVariableValue("I_3_i03") == 1 && readVariableValue("I_4_i03") == 0)
+	    {
+	      writeVariableValue("O_5_i03", 1);  /* cilinder 1 navzgor - zapiranje celjusti */
+	      cylCond = 1;
+	    }
+	    printf("step:%d, I_3:%d, I_4:%d\n", step, readVariableValue("I_3_i03"), readVariableValue("I_4_i03"));
+	  }
+	  while(!cylCond);
+	  printf("preverim ali je pomik izveden I_11:%d I_12:%d\n", readVariableValue("I_11"), readVariableValue("I_12"));
+          step = 11;
+	}
+        else
         {
-          ;
-        }
-        step = 11;
+          step = 0;
+          /* handle error */
+        }  
       }
       break;
     
-    case 11: /* pomik v zgornjo pozicijo */
+    case 11:
+      printf("STEP: %d\n", step);
+      printf("pomik v zgornjo pozicijo\n");
+      writeVariableValue("O_10", 1);
+      usleep(delay_time);
+      writeVariableValue("O_10", 0);
+      step = 12; 
+      break;
+
+    case 12: /* pomik v zgornjo pozicijo */
       printf("STEP: %d\n", step);
       printf("pomik v zgornjo pozicijo\n");
       writeVariableValue("O_1_i03", 1);
@@ -852,10 +1023,10 @@ void diagnostics()
         printf("step:%d, I_9:%d, I_10:%d\n", step, readVariableValue("I_9_i03"), readVariableValue("I_10_i03"));
       }
       while(!cylCond);
-      step = 12;
+      step = 13;
       break;
     
-    case 12:  /* preverim ali je pomik izveden */
+    case 13:  /* preverim ali je pomik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je pomik izveden I_11:%d I_12:%d\n", readVariableValue("I_11"), readVariableValue("I_12"));
       
@@ -872,11 +1043,11 @@ void diagnostics()
           printf("step:%d, I_3:%d, I_4:%d\n", step, readVariableValue("I_3_i03"), readVariableValue("I_4_i03"));
         } 
         while(!cylCond);
-        step = 13;
+        step = 14;
       }
       break;
 
-    case 13: /* miza - pomik za eno dozo */
+    case 14: /* miza - pomik za eno dozo */
       printf("STEP: %d\n", step);
       printf("pomik za eno dozo\n");
   
@@ -887,10 +1058,10 @@ void diagnostics()
       usleep(100000);
       writeVariableValue("O_1_i04", 0);
 
-      step = 14;
+      step = 15;
       break;
 
-    case 14: /* preverim ali je bil premik izveden */
+    case 15: /* preverim ali je bil premik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je premik izveden I_13:%d\n", readVariableValue("I_13"));
       if(readVariableValue("I_13"))

@@ -879,8 +879,9 @@ void savePos(int x, int y, int w, int h)
     }
 
     posCounter = 0;
-
+    
     /* writing position values to AKD registers and saving values to file */
+    /*
     int * firstClear1 =  (int*)(&obufClFirst[0]);
     int * firstClear9 =  (int*)(&obufClFirst[16]);
     int * posOneA1 = (int*)(&obufOneA[0]);
@@ -895,7 +896,7 @@ void savePos(int x, int y, int w, int h)
     int * posOneB10 = (int*)(&obufOneB[17]);
    
 
-    /* small */
+    small 
     * firstClear9 = 1;      
     * posOneA9 = 1;       
     * posOneA10 = htonl((firstPosSmall)*1000);
@@ -919,7 +920,7 @@ void savePos(int x, int y, int w, int h)
     sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive - small");
 
 
-    /* small 2 */
+    small 2 
     * firstClear9 = 3;      
     * posOneA9 = 3;       
     * posOneA10 = htonl((firstPosSmall2)*1000);
@@ -943,7 +944,7 @@ void savePos(int x, int y, int w, int h)
     sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive - small");
 
 
-    /* medium */
+    medium 
     * firstClear9 = 5;           
     * posOneA9 = 5;
     * posOneA10 = htonl((firstPosMedium)*1000); 
@@ -967,7 +968,7 @@ void savePos(int x, int y, int w, int h)
     sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive - small");
 
 
-    /* big */  
+    big   
     * firstClear9 = 7;           
     * posOneA9 = 7;  
     * posOneA10 = htonl((firstPosBig)*1000);  
@@ -1017,7 +1018,7 @@ void savePos(int x, int y, int w, int h)
     fprintf(AKD_pos, "%d\n", AKD_frame_posMedium);
     fprintf(AKD_pos, "%d\n", AKD_frame_posBig);
     fclose(AKD_pos);
-
+    */
     #ifdef RPI   
     fp_press = fopen("/home/pi/TKK_PRESA/data/press.txt", "w");
     #endif

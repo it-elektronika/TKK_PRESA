@@ -460,7 +460,7 @@ void pageNine()
   else if(page_stage == ENABLE)
   {
     renderAdmin(1200, 0, 80, 80, 10);
-    
+    /*
     sprintf(smallBuff, "MALA:%d mm", firstPosSmall);
     renderText(smallBuff, smallText, blackColor);
     render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -524,7 +524,7 @@ void pageNine()
     down_button(700, 640, &AKD_frame_posBig, 1, 0);
     renderText("SPODAJ", smallText, blackColor);
     render(800, 650, NULL, 0.0, NULL, SDL_FLIP_NONE);
- 
+    */
     sprintf(pressBuff, "STISK:%d mm", press);
     renderText(pressBuff, smallText, blackColor);
     render(950, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);

@@ -51,10 +51,10 @@ int main()
     }
 
     /*if(!inCycle)
-    //{
+    //{*/
     receiveMessage();
     sendMessage();
-    //  counter = 0;
+    /*//  counter = 0;
     //}
     //else
     //{

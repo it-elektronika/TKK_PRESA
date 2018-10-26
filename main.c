@@ -708,6 +708,7 @@ void checkError()
     case 8:
       page = 8;
       break;
+  }
 }
 
 

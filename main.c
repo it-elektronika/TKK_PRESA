@@ -131,8 +131,8 @@ void sendMessage()
   //tv.tv_usec = 0;
 
   //n = select(32, NULL, &fdsTCP, NULL, &tv); 
-  n = send(sockfd,sendMessageBuff, 8, 0); 
-  memset(sendMessageBuff, 0, 8);
+  n = send(sockfd,sendMessageBuff, 9, 0); 
+  memset(sendMessageBuff, 0, 9);
 }
 
 void receiveMessage()

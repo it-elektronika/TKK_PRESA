@@ -146,7 +146,7 @@ void receiveMessage()
   n = select(sockfd+1, &fdsTCP, NULL, NULL, &timeout);   
   if(FD_ISSET(sockfd, &fdsTCP))
   {
-    recv(sockfd, receiveMessageBuff, 85, 0);
+    recv(sockfd, receiveMessageBuff, 86, 0);
     for(i=0; i < ioPins; ++i)
     {
       sprintf(inputs[i], "%d\0\n", receiveMessageBuff[i]);
@@ -158,7 +158,7 @@ void receiveMessage()
       //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
     step = receiveMessageBuff[84];
-
+    errorNum = receiveMessageBuff[85];
     for(i = 0; i < 85; i++)
     {
       printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);

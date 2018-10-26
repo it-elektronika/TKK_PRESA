@@ -29,6 +29,7 @@ enum page_stage_t page_stage;
   
 struct timeval tv;
 int selectedCan;
+int errorNum;
 int connectiOn;
 int n; 
 int conn_presa;

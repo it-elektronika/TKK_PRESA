@@ -10,7 +10,7 @@ double elapsedTime1;
 double target1;
  
 int cylCond;
-
+int errorNum;
 int sockfd, newsockfd;
 socklen_t clilen;
 
@@ -18,6 +18,9 @@ struct sockaddr_in serv_addr, cli_addr;
 struct sockaddr_in AKD_server;
 char *ip_adrs;
 int press;
+
+int lastState;
+int currentState;
 
 fd_set fdsTCP;
 fd_set fdsAKD;

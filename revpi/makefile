@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -pedantic -I /usr/local/include/modbus
+CFLAGS=-g -Wall -Wextra -pedantic -I /usr/local/include/modbus
 LIBS= -lm -lmodbus
 
 tkk_presa_revpi:  main.o kunbus.o 

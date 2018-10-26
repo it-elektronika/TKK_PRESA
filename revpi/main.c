@@ -28,10 +28,10 @@ int main()
  
   while(program == 1)
   {
-    printf("Step:%d\n", step);
+    /*printf("Step:%d\n", step);
     printf("Program:%d\n", program);
     printf("PageNum:%d\n", pageNum);
-    
+    */
     if(readVariableValue("I_1_i03") && step == 0)
     {
       step = 1;
@@ -337,12 +337,12 @@ void initMain()
   * drvSave8 = 4;
   * drvSave9 = htonl(1);
  
-
+  n = 0;
   pageNum = 2;
   program = 1;
   PiControlHandle_g = -1; 
   step = -1;
-
+  memset(sendMessageBuff, 0, 86);
   lastState = 0;
   currentState = 0;
 }
@@ -867,6 +867,7 @@ void diagnostics()
       break;
    
     case 12:
+      printf("STEP: %d\n", step);
       if(readVariableValue("I_12")) /* premik izveden*/
       {
         preCheckCylinder("I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1);
@@ -875,6 +876,7 @@ void diagnostics()
       break;
 
     case 13:
+      printf("STEP: %d\n", step);
       writeVariableValue("O_14_i03", 1);
       usleep(delay_time);
       writeVariableValue("O_14_i03", 0);
@@ -882,6 +884,7 @@ void diagnostics()
       break;
     
     case 14:
+      printf("STEP: %d\n", step);
       if(readVariableValue("I_12"))
       {
         step = 15;
@@ -898,6 +901,9 @@ void diagnostics()
       break;
 
     case 16:
+      
+       printf("STEP: %d\n", step);
+     
       if(readVariableValue("I_11"))
       {
         step = 17;
@@ -956,7 +962,6 @@ void diagnostics()
       printf("preverim ali je premik izveden I_13:%d\n", readVariableValue("I_13"));
       if(readVariableValue("I_13"))
       {
- 
         preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
         step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 10);
       }

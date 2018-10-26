@@ -81,13 +81,26 @@ int piControlRead(uint32_t Offset, uint32_t Length, uint8_t *pData)
 
 uint16_t readVariableValue(const char *pszVariableName)
 {
+
+
     int rc;
     SPIVariable sPiVariable;
     SPIValue sPIValue;
     uint8_t i8uValue;
     uint16_t i16uValue;
     uint32_t i32uValue;
+    sPiVariable.i16uLength = 0;
+    sPiVariable.i8uBit = 0;
+    sPiVariable.i16uAddress = 0;
     
+    sPIValue.i16uAddress = 0;
+    sPIValue.i8uBit = 0;
+    sPIValue.i8uValue = 0;
+
+    i8uValue = 0;
+    i16uValue = 0;
+    i32uValue = 0;
+
     strncpy(sPiVariable.strVarName, pszVariableName, sizeof(sPiVariable.strVarName));
     rc = piControlGetVariableInfo(&sPiVariable);
     if (rc < 0)
@@ -217,7 +230,17 @@ void writeVariableValue(const char *pszVariableName, uint32_t i32uValue)
     SPIValue sPIValue;
     uint8_t i8uValue;
     uint16_t i16uValue;
+    sPiVariable.i16uLength = 0;
+    sPiVariable.i8uBit = 0;
+    sPiVariable.i16uAddress = 0;
+    
+    sPIValue.i16uAddress = 0;
+    sPIValue.i8uBit = 0;
+    sPIValue.i8uValue = 0;
 
+    i8uValue = 0;
+    i16uValue = 0;
+    i32uValue = 0;
     strncpy(sPiVariable.strVarName, pszVariableName, sizeof(sPiVariable.strVarName));
     rc = piControlGetVariableInfo(&sPiVariable);
     if (rc < 0) {

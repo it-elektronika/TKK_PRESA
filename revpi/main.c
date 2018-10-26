@@ -591,7 +591,7 @@ void receiveMessage()
     selectedCan = receiveMessageBuff[6];
     pageNum = receiveMessageBuff[7];
     
-    for(i = 0; i < 10; i++)
+    for(i = 0; i < 9; i++)
     {
       printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
     }

@@ -349,7 +349,7 @@ void renderContent()
       {     
         case 1:
           break;
-        case 2;
+        case 2:
           sbarText = 8;
           break;
       }

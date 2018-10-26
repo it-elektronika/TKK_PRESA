@@ -1,7 +1,7 @@
 #include <arpa/inet.h>
 #define delay_time  100000
 #define delay_time2 100000
-#define MILLION 1000000L
+#define THOUSAND 1000L
 
 
 int timer1;
@@ -86,3 +86,6 @@ void receiveMessage();
 void sendModbus(int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text);
 void detectFall(const char *var);
 void detectRise(const char *var);
+
+
+int checkCylinder(const char* input1, int input1_val, const char* input2, int input2_val, int nextStep);

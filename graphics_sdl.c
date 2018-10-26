@@ -220,7 +220,7 @@ void renderStatusBar()
       break;    
  
     case 8:
-      renderText("NAPAKA - ", regularText, blackColor);
+      renderText("NAPAKA - cilinder ni dosegel pozicije (preveri zrak/cevi)", regularText, blackColor);
       break;
 
     case 9:
@@ -295,7 +295,14 @@ void renderContent()
     
     case 1:
       pageOne(); /* menu */
-      backgroundColor = 1;
+      if(step == 0)
+      {
+        backgroundColor = 1;
+      }
+      else
+      {   
+        backgroundColor = 0;
+      }    
       sbarText = 1;
       break;
    

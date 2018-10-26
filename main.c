@@ -57,7 +57,6 @@ int main()
     }
     sendMessage();
     receiveMessage();
-    checkError();
     touchUpdate();
     renderBackground();
     renderStatusBar();
@@ -159,7 +158,7 @@ void receiveMessage()
     }
     step = receiveMessageBuff[84];
     errorNum = receiveMessageBuff[85];
-    if(errorNum == 8)
+    if(errorNum != 0)
     {
       page = 8;
     }   
@@ -693,22 +692,4 @@ void sendModbus(int socket_fd, char *send_buff, int send_buff_size, char *receiv
   recv(socket_fd, receive_buff, receive_buff_size , 0);
   transId++;
 }
-
-
-void checkError()
-{
-  switch(errorNum)
-  {
-    case 0:
-      break;
-
-    case 1:
-      break;
-
-    case 8:
-      page = 8;
-      break;
-  }
-}
-
 

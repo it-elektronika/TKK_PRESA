@@ -345,7 +345,14 @@ void renderContent()
     case 8:
       pageEight(); /* error */
       backgroundColor = 2;
-      sbarText = 8;
+      switch(errorNum)
+      {     
+        case 1:
+          break;
+        case 2;
+          sbarText = 8;
+          break;
+      }
       break;
     
     case 9:

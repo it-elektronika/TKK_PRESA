@@ -537,9 +537,7 @@ void sendMessage()
 
 void receiveMessage()
 {
-  /*////int i;
-  //int currentState;
-  //int lastState;*/
+  int i;
   struct timeval timeout;
   lastState = currentState;
   timeout.tv_sec = 5;
@@ -585,7 +583,7 @@ void receiveMessage()
     {
       step = -1;
     }
-    if(receiveMessage[8]) /* erorr can be cleared*/
+    if(receiveMessageBuff[8]) /* erorr can be cleared*/
     {
       errorNum = 0;
     }
@@ -593,10 +591,10 @@ void receiveMessage()
     selectedCan = receiveMessageBuff[6];
     pageNum = receiveMessageBuff[7];
     
-    /*//for(i = 0; i < 9; i++)
-    //{
-    //  printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
-    //}*/
+    for(i = 0; i < 10; i++)
+    {
+      printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
+    }
   }
   else
   {

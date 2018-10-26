@@ -62,6 +62,10 @@ int main()
     renderStatusBar();
     renderContent();
     SDL_RenderPresent(renderer);
+    if(errorNum != 0)
+    {
+      page = 8;
+    }   
     cycle++;
   }
   return 0;
@@ -159,11 +163,6 @@ void receiveMessage()
     }
     step = receiveMessageBuff[84];
     errorNum = receiveMessageBuff[85];
-    if(errorNum != 0)
-    {
-      page = 8;
-    }   
-
     for(i = 0; i < 86; i++)
     {
       printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);

@@ -443,9 +443,13 @@ void pageEight()  /* ERROR */
   else if(page_stage == ENABLE)
   {
     renderAdmin(1200, 0, 80, 80, 0);
+    renderText("PREVERI DOTOK ZRAKA", regularText, blackColor);
+    render(100, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
+ 
   }
   else if(page_stage == EXIT)
   {
+    errorNum = 0;
     page_stage = ENTER;
   }
 }

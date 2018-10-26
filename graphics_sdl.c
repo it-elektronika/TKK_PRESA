@@ -220,7 +220,7 @@ void renderStatusBar()
       break;    
  
     case 8:
-      renderText("NAPAKA - cilinder ni dosegel pozicije (preveri zrak/cevi)", regularText, blackColor);
+      renderText("NAPAKA - cilinder ni dosegel pozicije", regularText, blackColor);
       break;
 
     case 9:

@@ -145,3 +145,4 @@ void initCommTCP();
 void initCommAKDPress();
 void initMain();
 void sendModbus(int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text);
+void checkError();

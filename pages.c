@@ -450,7 +450,6 @@ void pageEight()  /* ERROR */
   }
   else if(page_stage == EXIT)
   {
-    clearError = 1;
     page_stage = ENTER;
   }
 }

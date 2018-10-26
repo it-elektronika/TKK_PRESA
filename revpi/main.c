@@ -547,7 +547,7 @@ void receiveMessage()
   select(newsockfd+1, &fdsTCP, NULL, NULL, &timeout);  
   if(FD_ISSET(newsockfd, &fdsTCP))
   {
-    recv(newsockfd, receiveMessageBuff, 9, 0);
+    recv(newsockfd, receiveMessageBuff, 8, 0);
     currentState = receiveMessageBuff[1];
     if(receiveMessageBuff[0] != -1)
     {
@@ -583,15 +583,11 @@ void receiveMessage()
     {
       step = -1;
     }
-    if(receiveMessageBuff[8]) /* erorr can be cleared*/
-    {
-      errorNum = 0;
-    }
     press = receiveMessageBuff[5];
     selectedCan = receiveMessageBuff[6];
     pageNum = receiveMessageBuff[7];
     
-    for(i = 0; i < 9; i++)
+    for(i = 0; i < 8; i++)
     {
       printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
     }
@@ -614,6 +610,7 @@ void diagnostics()
       break;
 
     case 0:
+      errorNum = 0;
       break;
    
     case 1:

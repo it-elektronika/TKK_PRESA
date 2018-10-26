@@ -62,10 +62,6 @@ int main()
     renderStatusBar();
     renderContent();
     SDL_RenderPresent(renderer);
-    if(errorNum != 0)
-    {
-      page = 8;
-    }   
     cycle++;
   }
   return 0;
@@ -119,7 +115,6 @@ void sendMessage()
   int * sendMessagePtr5 = (int*)(&sendMessageBuff[5]);
   int * sendMessagePtr6 = (int*)(&sendMessageBuff[6]);
   int * sendMessagePtr7 = (int*)(&sendMessageBuff[7]);
-  int * sendMessagePtr8 = (int*)(&sendMessageBuff[8]);
 
   * sendMessagePtr0 = outputButton1;
   * sendMessagePtr1 = outputButton2;  
@@ -129,14 +124,13 @@ void sendMessage()
   * sendMessagePtr5 = press;  
   * sendMessagePtr6 = selectedCan;
   * sendMessagePtr7 = page;  
-  * sendMessagePtr8 = clearError;  
   //FD_ZERO(&fdsTCP);
   //tv.tv_sec = 0;
   //tv.tv_usec = 0;
 
   //n = select(32, NULL, &fdsTCP, NULL, &tv); 
-  n = send(sockfd,sendMessageBuff, 9, 0); 
-  memset(sendMessageBuff, 0, 9);
+  n = send(sockfd,sendMessageBuff, 8, 0); 
+  memset(sendMessageBuff, 0, 8);
 }
 
 void receiveMessage()
@@ -163,7 +157,12 @@ void receiveMessage()
     }
     step = receiveMessageBuff[84];
     errorNum = receiveMessageBuff[85];
-    for(i = 0; i < 86; i++)
+    if(errorNum != 0)
+    {
+      page = 8;
+    }   
+  
+   for(i = 0; i < 86; i++)
     {
       printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
     }

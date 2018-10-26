@@ -1,7 +1,7 @@
 #include <arpa/inet.h>
 #define delay_time  100000
 #define delay_time2 100000
-#define THOUSAND 1000L
+#define THOUSAND 1000000L
 
 
 int timer1;
@@ -89,3 +89,6 @@ void detectRise(const char *var);
 
 
 int checkCylinder(const char* input1, int input1_val, const char* input2, int input2_val, int nextStep);
+void preCheckCylinder(const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val);
+void upPosPrep();
+void downPosPrep();

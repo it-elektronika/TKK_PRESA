@@ -115,6 +115,7 @@ void sendMessage()
   int * sendMessagePtr5 = (int*)(&sendMessageBuff[5]);
   int * sendMessagePtr6 = (int*)(&sendMessageBuff[6]);
   int * sendMessagePtr7 = (int*)(&sendMessageBuff[7]);
+  int * sendMessagePtr8 = (int*)(&sendMessageBuff[8]);
 
   * sendMessagePtr0 = outputButton1;
   * sendMessagePtr1 = outputButton2;  
@@ -124,7 +125,7 @@ void sendMessage()
   * sendMessagePtr5 = press;  
   * sendMessagePtr6 = selectedCan;
   * sendMessagePtr7 = page;  
-  
+  * sendMessagePtr8 = clearError;  
   //FD_ZERO(&fdsTCP);
   //tv.tv_sec = 0;
   //tv.tv_usec = 0;
@@ -163,7 +164,7 @@ void receiveMessage()
       page = 8;
     }   
 
-    for(i = 0; i < 85; i++)
+    for(i = 0; i < 86; i++)
     {
       printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
     }
@@ -193,7 +194,7 @@ void initMain()
   firstPosBig = 0;
   outputButton1 = -1;
   outputButton2 = -1;
-
+  clearError = 0;
   year = 2018;
   month = 1;
   day = 1;

@@ -16,7 +16,8 @@ void pageZero()  /* LANDING PAGE */
     #ifdef LUKA
     fp_can_size = fopen("/home/luka/TKK_PRESA_/data/can_size.txt", "r");
     #endif
- 
+    clearError = 0;
+
     for(i = 0; i < 1; ++i)
     {
       getline(&line, &len, fp_can_size);
@@ -443,13 +444,13 @@ void pageEight()  /* ERROR */
   else if(page_stage == ENABLE)
   {
     renderAdmin(1200, 0, 80, 80, 0);
-    renderText("PREVERI DOTOK ZRAKA", regularText, blackColor);
-    render(100, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    renderText("- PREVERI DOTOK ZRAKA", regularText, blackColor);
+    render(50, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
  
   }
   else if(page_stage == EXIT)
   {
-    errorNum = 0;
+    clearError = 1;
     page_stage = ENTER;
   }
 }

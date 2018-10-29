@@ -22,6 +22,8 @@ int press;
 
 int lastState;
 int currentState;
+int lastOutput;
+int currentOutput;
 
 fd_set fdsTCP;
 fd_set fdsAKD;

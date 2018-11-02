@@ -95,3 +95,5 @@ int checkCylinder(const char* input1, int input1_val, const char* input2, int in
 void preCheckCylinder(const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val);
 void upPosPrep();
 void downPosPrep();
+void turnTable();
+

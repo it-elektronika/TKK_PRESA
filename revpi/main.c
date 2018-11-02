@@ -712,7 +712,7 @@ void diagnostics()
       step = 2;
       break;
     }
-    case 2:  /* presa pomik na zgornjo pozicijo in gripper pomik na spodnjo */
+    case 2:  /* pomik na zgornjo pozicijo */
       printf("STEP: %d\n", step);
       printf("pomik na zgornjo pozicijo\n");
       writeVariableValue("O_1_i03", 1);
@@ -736,24 +736,22 @@ void diagnostics()
         if(step != 0)
         {
           preCheckCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0);
-          step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 5);
+          step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 4);
         }
         break;
       }
    
-    case 5:
+    case 4:
       printf("count_turns:%d\n", count_turns);
       if(readVariableValue("I_2_i04") == 0 && readVariableValue("I_4_i04") == 0 && count_turns < 2)
       {
         printf("pomik za eno dozo\n");
-        writeVariableValue("O_7", 1);
-        usleep(delay_time);
-        writeVariableValue("O_7", 0);
+        turnTable();
         count_turns++;
-        step = 6;
+        step = 5;
       }
  
-    case 6:
+    case 5:
       printf("count_turns:%d\n", count_turns);
       printf("preverim ali je premik izveden I_13:%d\n", readVariableValue("I_13"));
       if(readVariableValue("I_13"))
@@ -766,65 +764,61 @@ void diagnostics()
         else
         {
           preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
-          step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 7);
+          step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 6);
           writeVariableValue("O_1_i04", 1);
           count_turns = 0;
         }
       }
       break;
 
-    case 7:
+    case 6:
       if(!readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
       {
         writeVariableValue("O_1_i04", 0);
         usleep(500000);
         preCheckCylinder("I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1);
-        step = checkCylinder("I_3_i03", 0, "I_4_i03", 1, 8);
+        step = checkCylinder("I_3_i03", 0, "I_4_i03", 1, 7);
         usleep(500000);
         if(step != 0)
         {
           preCheckCylinder("I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0);
-          step = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 8);
+          step = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 7);
         }
         if(step != 0)
         {
           preCheckCylinder("I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0);
-          step = checkCylinder("I_3_i03", 1, "I_4_i03", 0, 8);       
+          step = checkCylinder("I_3_i03", 1, "I_4_i03", 0, 7);       
         }
         if(step != 0)
         {
           preCheckCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1);
-          step =checkCylinder("I_11_i03", 1, "I_12_i03", 0, 8);
+          step =checkCylinder("I_11_i03", 1, "I_12_i03", 0, 7);
         }
         if(step != 0)
         {
           preCheckCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0);
-          step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 8);
+          step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 7);
         }
       }
       break;
 
-    case 8:
+    case 7:
       if(readVariableValue("I_2_i04") == 0 && readVariableValue("I_4_i04") == 0 && count_turns == 0)
       {
         printf("pomik za eno dozo\n");
-        writeVariableValue("O_7", 1);
-        usleep(delay_time);
-        writeVariableValue("O_7", 0);
+        turnTable();
         count_turns++;
-        step = 9;
+        step = 8;
       }
       else if(readVariableValue("I_2_i04") == 0 && readVariableValue("I_4_i04") == 1 && count_turns == 1)
       {
-        writeVariableValue("O_7", 1);
-        usleep(delay_time);
-        writeVariableValue("O_7", 0);
+        turnTable();
         count_turns++;
-        step = 9;
+        step = 8;
       }
       break;
     
-    case 9:
+    case 8:
       printf("preverim ali je premik izveden I_13:%d\n", readVariableValue("I_13"));
       if(readVariableValue("I_13"))
       {
@@ -837,22 +831,22 @@ void diagnostics()
           if(readVariableValue("I_2_i04"))
           {
             preCheckCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1);
-            step = checkCylinder("I_11_i03", 1, "I_12_i03", 0, 10);
+            step = checkCylinder("I_11_i03", 1, "I_12_i03", 0, 9);
             count_turns = 0;    
           }          
         }
       }
       break;
      
-    case 10:
+    case 9:
       writeVariableValue("O_10", 1);
       usleep(delay_time); 
       writeVariableValue("O_10", 0);
       preCheckCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0);
-      step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 11);
+      step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 10);
       break;
 
-    case 11:
+    case 10:
       printf("STEP: %d\n", step);
       printf("preverim ali je bil pomik izveden\n");
       if(readVariableValue("I_13_i03")) /* quick stop */
@@ -926,25 +920,25 @@ void diagnostics()
 	* drvSave1 = transId;
 	sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
 	
-	step = 12;
+	step = 11;
       }
       break;
     
-    case 12:	
+    case 11:	
       printf("STEP: %d\n", step);
       printf("presa - pomik v zgornjo pozicijo\n");
       writeVariableValue("O_9", 1);
       usleep(delay_time);
       writeVariableValue("O_9", 0);
-      step = 14;
+      step = 13;
 
-    case 13:
+    case 12:
       if(readVariableValue("I_13"))
       {
-        step = 14;
+        step = 13;
       }
 
-    case 14: /* preverim ali je bil pomik izveden */
+    case 13: /* preverim ali je bil pomik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je bil pomik izveden\n");
       if(readVariableValue("I_11") && readVariableValue("I_2_i04"))
@@ -960,28 +954,26 @@ void diagnostics()
 	/* priprava izhodov za pomik na zgornjo pozicijo */  
 	upPosPrep();
 	//writeVariableValue("O_14_i03", 0);
-	step = 15;
+	step = 14;
       }
       else if(readVariableValue("I_11") && readVariableValue("I_2_i04") == 0 && readVariableValue("I_4_i04"))
       {
-        writeVariableValue("O_7", 1);
-        usleep(delay_time);
-        writeVariableValue("O_7", 0);
-        step = 13; 
+        turnTable();
+        step = 12; 
       }
       
       break;
 
-    case 15: /* preverim ali je gripper izvedel premik*/
+    case 14: /* preverim ali je gripper izvedel premik*/
       printf("STEP: %d\n", step);
       if(readVariableValue("I_12")) /* premik izveden*/
       {
         preCheckCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1);
-        step = checkCylinder("I_11_i03", 1, "I_12_i03", 0, 16);
+        step = checkCylinder("I_11_i03", 1, "I_12_i03", 0, 15);
         if(step != 0)
         {
           preCheckCylinder("I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1);
-          step = checkCylinder("I_3_i03", 0, "I_4_i03", 1, 16);
+          step = checkCylinder("I_3_i03", 0, "I_4_i03", 1, 15);
           writeVariableValue("O_14_i03", 1);
           usleep(delay_time);
           writeVariableValue("O_14_i03", 0);
@@ -989,18 +981,23 @@ void diagnostics()
       }
       break;
 
-    case 16:
+    case 15:
       printf("STEP: %d\n", step);
       if(readVariableValue("I_11") && readVariableValue("I_13_i03"))
       {
         writeVariableValue("O_10", 1);
         usleep(delay_time);
         writeVariableValue("O_10", 0);
-        step = 17; 
-      } 
+        step = 16; 
+      }
+      /*else
+      {
+        handle error - no cap
+      }
+      */ 
       break;
 
-    case 17:
+    case 16:
       printf("STEP: %d\n", step);
       if(readVariableValue("I_11"))
       {
@@ -1017,43 +1014,41 @@ void diagnostics()
 	/* priprava izhodov za pomik v spodnjo pozicijo */   
 	downPosPrep();
 	preCheckCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0);
-	step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 18);
+	step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 17);
         if(step != 0)
         {
           preCheckCylinder("I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0);
-          step = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 18);
+          step = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 17);
         }
       }
       break;
 
-    case 18:  /* preverim ali je pomik izveden */
+    case 17:  /* preverim ali je pomik izveden */
       printf("STEP: %d\n", step);
       if(readVariableValue("I_12") && readVariableValue("I_11"))
       {
         preCheckCylinder("I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0);
-        step = checkCylinder("I_3_i03", 1, "I_4_i03", 0, 19);
-        writeVariableValue("O_7", 1);
-        usleep(delay_time);
-        writeVariableValue("O_7", 0);
+        step = checkCylinder("I_3_i03", 1, "I_4_i03", 0, 18);
+        turnTable();
         writeVariableValue("O_1_i04", 1);
       }
       break;
 
-    case 19: /* preverim ali je bil premik izveden */
+    case 18: /* preverim ali je bil premik izveden */
       printf("STEP: %d\n", step);
       printf("preverim ali je premik izveden I_13:%d\n", readVariableValue("I_13"));
       if(readVariableValue("I_13"))
       {
         preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
-        step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 20);
+        step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 19);
       }
       break;
      
-    case 20:
+    case 19:
       if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
       {
         writeVariableValue("O_1_i04", 0); 
-        step = 14;  
+        step = 13;  
       }
       break;
   }
@@ -1227,4 +1222,24 @@ void upPosPrep()
     writeVariableValue("O_12", 1);
     writeVariableValue("O_13", 1);
   } 
+} 
+
+void turnTable()
+{
+  int cond;
+  
+  cond = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
+  cond = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
+
+  if(cond)
+  {
+    writeVariableValue("O_7", 1);
+    usleep(delay_time);
+    writeVariableValue("O_7", 0);
+  }
+  else
+  {
+    step = 0;  
+    /* go to error page*/
+  }
 } 

@@ -452,6 +452,9 @@ void pageEight()  /* ERROR */
       case 3:
         renderText("- NA DOZI NI POKROVCKA", regularText, blackColor);
         break;
+      default:
+        break;
+
     }
     render(50, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
  

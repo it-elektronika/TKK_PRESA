@@ -180,6 +180,7 @@ void initMain()
   page_stage = ENTER;
   conn_presa = -99;
   conn_hmi = -99;
+  errorNumber = 0;
   backgroundColor = 1;
   page = 6;
   sbarText = 6;

@@ -36,6 +36,7 @@ int n;
 int conn_presa;
 int conn_hmi;
 int s;
+int errorNumber;
 
 int moveTask;
 int transId;

@@ -159,10 +159,11 @@ void receiveMessage()
     errorNum = receiveMessageBuff[85];
     if(errorNum != 0)
     {
+      errorNumber = errorNum;
       page = 8;
     }   
   
-   for(i = 0; i < 86; i++)
+    for(i = 0; i < 86; i++)
     {
       printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
     }

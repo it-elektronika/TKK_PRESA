@@ -444,7 +444,7 @@ void pageEight()  /* ERROR */
   else if(page_stage == ENABLE)
   {
     renderAdmin(1200, 0, 80, 80, 0);
-    switch(errorNum)
+    switch(errorNumber)
     {  
       case 2:
         renderText("- PREVERI DOTOK ZRAKA", regularText, blackColor);
@@ -458,6 +458,7 @@ void pageEight()  /* ERROR */
   }
   else if(page_stage == EXIT)
   {
+    errorNumber = 0;
     page_stage = ENTER;
   }
 }

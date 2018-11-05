@@ -756,6 +756,7 @@ void diagnostics()
       printf("preverim ali je premik izveden I_13:%d\n", readVariableValue("I_13"));
       if(readVariableValue("I_13"))
       {
+        writeVariableValue("O_1_i04", 1);
         if(count_turns < 2)
         {
           step = 3;
@@ -763,45 +764,44 @@ void diagnostics()
         }
         else
         {
-          preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
-          step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 6);
-          writeVariableValue("O_1_i04", 1);
-          count_turns = 0;
+          if(!readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+          {
+            preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
+            step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 6);
+            writeVariableValue("O_1_i04", 0);
+            count_turns = 0;
+          }
         }
       }
       break;
 
     case 6:
       printf("I_1i04:%d I_3_i04:%d\n", readVariableValue("I_1_i04"), readVariableValue("I_3_i04"));
-      if(!readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+      usleep(500000);
+      preCheckCylinder("I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1);
+      step = checkCylinder("I_3_i03", 0, "I_4_i03", 1, 6);
+      usleep(500000);
+      if(step != 0)
       {
-        writeVariableValue("O_1_i04", 0);
-        usleep(500000);
-        preCheckCylinder("I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1);
-        step = checkCylinder("I_3_i03", 0, "I_4_i03", 1, 6);
-        usleep(500000);
-        if(step != 0)
-        {
-          preCheckCylinder("I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0);
-          step = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 6);
-        }
-        if(step != 0)
-        {
-          preCheckCylinder("I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0);
-          step = checkCylinder("I_3_i03", 1, "I_4_i03", 0, 6);       
-        }
-        if(step != 0)
-        {
-          preCheckCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1);
-          step =checkCylinder("I_11_i03", 1, "I_12_i03", 0, 6);
-        }
-        if(step != 0)
-        {
-          preCheckCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0);
-          step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 7);
-        }
+	preCheckCylinder("I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0);
+	step = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 6);
       }
-      break;
+      if(step != 0)
+      {
+	preCheckCylinder("I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0);
+	step = checkCylinder("I_3_i03", 1, "I_4_i03", 0, 6);       
+      }
+      if(step != 0)
+      {
+	preCheckCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1);
+	step =checkCylinder("I_11_i03", 1, "I_12_i03", 0, 6);
+      }
+      if(step != 0)
+      {
+	preCheckCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0);
+	step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 7);
+      }
+    break;
 
     case 7:
       printf("step:%d\t", step);
@@ -827,9 +827,13 @@ void diagnostics()
       {
         if(count_turns < 2)
         { 
-          preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
           writeVariableValue("O_1_i04", 1);
-          step = 6;
+          if(!readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+          {
+            preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
+            writeVariableValue("O_1_i04", 0);
+            step = 6;
+          }
         }
         else
         {
@@ -1079,16 +1083,12 @@ void diagnostics()
       printf("preverim ali je premik izveden I_13:%d\n", readVariableValue("I_13"));
       if(readVariableValue("I_13"))
       {
-        preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
-        step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 19);
-      }
-      break;
-     
-    case 19:
-      if(!readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
-      {
-        writeVariableValue("O_1_i04", 0); 
-        step = 13;  
+        if(!readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+        {
+          writeVariableValue("O_1_i04", 0); 
+          preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
+          step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 13); 
+        }
       }
       break;
   }

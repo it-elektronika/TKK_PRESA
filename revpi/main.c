@@ -1029,6 +1029,7 @@ void diagnostics()
 	  {
 	    step = 0;
 	    errorNum = 3; 
+            inWhile = 0;
 	  }
         }
 	printf("elapsedTime:%f\n", elapsedTime);

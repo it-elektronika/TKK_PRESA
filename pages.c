@@ -444,7 +444,15 @@ void pageEight()  /* ERROR */
   else if(page_stage == ENABLE)
   {
     renderAdmin(1200, 0, 80, 80, 0);
-    renderText("- PREVERI DOTOK ZRAKA", regularText, blackColor);
+    switch(errorNum)
+    {  
+      case 2:
+        renderText("- PREVERI DOTOK ZRAKA", regularText, blackColor);
+        break;
+      case 3:
+        renderText("- NA DOZI NI POKROVCKA", regularText, blackColor);
+        break;
+    }
     render(50, 200, NULL, 0.0, NULL, SDL_FLIP_NONE);
  
   }

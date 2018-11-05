@@ -1007,6 +1007,7 @@ void diagnostics()
 
     case 15:
       printf("STEP: %d\n", step);
+     
       if(readVariableValue("I_11") && readVariableValue("I_13_i03"))
       {
         writeVariableValue("O_10", 1);
@@ -1018,27 +1019,28 @@ void diagnostics()
       {
         struct timespec start, stop;
         double elapsedTime;  
-        int inWhile = 0;
-        
-	clock_gettime(CLOCK_REALTIME, &start);
-	inWhile = 1;
-	
+        int inWhile;
+        inWhile = 1;
+        clock_gettime(CLOCK_REALTIME, &start);
         while(inWhile)
         {
-	  clock_gettime(CLOCK_REALTIME, &stop);
+          clock_gettime(CLOCK_REALTIME, &stop);
 	  elapsedTime = ( stop.tv_sec - start.tv_sec );
-	  elapsedTime = ( stop.tv_sec - start.tv_sec );
-	
+	  
 	  if(elapsedTime > 1) /* NI POKROVCKA NA DOZI */
 	  {
 	    step = 0;
 	    errorNum = 3; 
-            inWhile = 0;
+	    inWhile = 0;
+	    elapsedTime = 0;
 	  }
+          if(readVariableValue("I_11") && readVariableValue("I_13_i03"))
+          {
+            step = 16;
+            break;
+          }
         }
-	printf("elapsedTime:%f\n", elapsedTime);
       }
-      
       break;
 
     case 16:

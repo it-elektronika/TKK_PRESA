@@ -20,6 +20,7 @@ struct sockaddr_in AKD_server;
 char *ip_adrs;
 int press;
 
+
 int lastState;
 int currentState;
 int lastOutput;

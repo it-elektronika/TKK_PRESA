@@ -162,11 +162,12 @@ void receiveMessage()
       errorNumber = errorNum;
       page = 8;
     }   
-  
+    /*
     for(i = 0; i < 86; i++)
     {
       printf("receiveMessageBuff[%d]:%d\n", i, receiveMessageBuff[i]);
-    }
+    }*/
+    printf("errorNumber:%d\n", errorNumber);
   }
   else
   {

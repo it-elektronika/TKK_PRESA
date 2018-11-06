@@ -452,6 +452,10 @@ void pageEight()  /* ERROR */
       case 3:
         renderText("- NA DOZI NI POKROVCKA", regularText, blackColor);
         break;
+      case 4:
+        renderText("- CILINDER NI NA POZICIJI", regularText, blackColor);
+        break;
+
       default:
         break;
 

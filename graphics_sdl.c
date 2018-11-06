@@ -244,7 +244,7 @@ void renderStatusBar()
       break;
     
     case 14:
-      renderText("NAPAKA -", regularText, blackColor);
+      renderText("NAPAKA - cilinder ni na poziciji", regularText, blackColor);
       break;
 
     case 15:
@@ -354,6 +354,9 @@ void renderContent()
           break;
         case 3:
           sbarText = 13;
+          break;
+        case 4:
+          sbarText = 14;
           break;
         default:
           break;

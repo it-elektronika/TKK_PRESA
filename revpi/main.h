@@ -4,6 +4,7 @@
 #define THOUSAND 1000000L
 
 
+int skipPick;
 int timer1;
 struct timespec start1, stop1;
 double elapsedTime1;
@@ -97,4 +98,5 @@ void preCheckCylinder(const char *input1, int input1_val, const char* input2, in
 void upPosPrep();
 void downPosPrep();
 void turnTable();
+int moveCylinder(const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val, int nextStep);
 

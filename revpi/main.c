@@ -608,6 +608,9 @@ void diagnostics()
       errorNum = 0;
       break;
    
+    /*
+    start home sequence for all three axes
+    */
     case 1:
     { 
       int * moveTask1 =  (int*)(&obufMT[0]); 
@@ -719,12 +722,12 @@ void diagnostics()
       {
         //preCheckCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1);
         //step = checkCylinder("I_11_i03", 1, "I_12_i03", 0, 4);
-        step = moveCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1, 4);
+        step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1, 4);
         if(step != 0)
         {
           //preCheckCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0);
           //step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 4);
-          step = moveCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 4);
+          step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 4);
         }
         break;
       }
@@ -756,7 +759,7 @@ void diagnostics()
           {
             //preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
             //step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 6);
-            step = moveCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 6);
+            step = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 6);
             writeVariableValue("O_1_i04", 0);
             count_turns = 0;
           }
@@ -769,31 +772,31 @@ void diagnostics()
       usleep(500000);
       //preCheckCylinder("I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1);
       //step = checkCylinder("I_3_i03", 0, "I_4_i03", 1, 6);
-      step = moveCylinder("I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 6);
+      step = moveCylinder(1, "I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 6);
       usleep(500000);
       if(step != 0)
       {
 	//preCheckCylinder("I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0);
 	//step = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 6);
-        step = moveCylinder("I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0, 6);
+        step = moveCylinder(2, "I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0, 6);
       }
       if(step != 0)
       {
 	//preCheckCylinder("I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0);
 	//step = checkCylinder("I_3_i03", 1, "I_4_i03", 0, 6);       
-        step = moveCylinder("I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 6);       
+        step = moveCylinder(1, "I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 6);       
       }
       if(step != 0)
       {
 	//preCheckCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1);
 	//step =checkCylinder("I_11_i03", 1, "I_12_i03", 0, 6);
-        step = moveCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1, 6);
+        step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1, 6);
       }
       if(step != 0)
       {
 	//preCheckCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0);
 	//step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 7);
-        step = moveCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 7);
+        step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 7);
       }
     break;
 
@@ -835,7 +838,7 @@ void diagnostics()
           {
             //preCheckCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1);
             //step = checkCylinder("I_11_i03", 1, "I_12_i03", 0, 9);
-            step = moveCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1, 9);
+            step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1, 9);
             count_turns = 0;    
           }          
         }
@@ -848,7 +851,7 @@ void diagnostics()
       writeVariableValue("O_10", 0);
       //preCheckCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0);
       //step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 10);
-      step = moveCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 10);
+      step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 10);
       break;
 
     case 10:
@@ -939,7 +942,7 @@ void diagnostics()
       {
         //preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
         //step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 13);
-        step = moveCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 13);
+        step = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 13);
         skipPick = 0;
       }
       else
@@ -955,7 +958,7 @@ void diagnostics()
         {
           //preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
           //step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 13);
-          step = moveCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 13);
+          step = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 13);
           skipPick = 0;
         }
         else
@@ -988,20 +991,20 @@ void diagnostics()
         { 
           //preCheckCylinder("I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1);
           //step = checkCylinder("I_3_i03", 0, "I_4_i03", 1, 13);
-          step = moveCylinder("I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 13);
+          step = moveCylinder(1, "I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 13);
         } 
         if(step != 0)
         {
  	  //preCheckCylinder("I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0);
           //step = checkCylinder("I_3_i03", 1, "I_4_i03", 0, 13);
-          step = moveCylinder("I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 13);
+          step = moveCylinder(1, "I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 13);
         }
      
         if(!skipPick)
         {
           //preCheckCylinder("I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0);
           //step = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 13);
-          step = moveCylinder("I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0, 13);
+          step = moveCylinder(2, "I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0, 13);
         }
         if(step != 0)
         {
@@ -1017,12 +1020,12 @@ void diagnostics()
       {
         //preCheckCylinder("I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1);
         //step = checkCylinder("I_11_i03", 1, "I_12_i03", 0, 15);
-        step = moveCylinder("I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 15);
+        step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 15);
         if(step != 0)
         {
           //preCheckCylinder("I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1);
           //step = checkCylinder("I_3_i03", 0, "I_4_i03", 1, 15);
-          step = moveCylinder("I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 15);
+          step = moveCylinder(1, "I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 15);
           writeVariableValue("O_14_i03", 1);
           usleep(delay_time);
           writeVariableValue("O_14_i03", 0);
@@ -1054,7 +1057,7 @@ void diagnostics()
 	  if(elapsedTime > 1) /* NI POKROVCKA NA DOZI */
 	  {
 	    step = 0;
-	    errorNum = 3; 
+	    errorNum = 12; 
 	    inWhile = 0;
 	    elapsedTime = 0;
 	  }
@@ -1085,14 +1088,14 @@ void diagnostics()
 	downPosPrep();
 	//preCheckCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0);
 	//step = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 16);
-        step = moveCylinder("I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 16);
+        step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 16);
         if(step != 0)
         {
           if(!skipPick)
           {
             //preCheckCylinder("I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0);
             //step = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 17);
-            step = moveCylinder("I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0, 17);
+            step = moveCylinder(2, "I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0, 17);
           }
           else
           {
@@ -1108,7 +1111,7 @@ void diagnostics()
       {
         //preCheckCylinder("I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0);
         //step = checkCylinder("I_3_i03", 1, "I_4_i03", 0, 18);
-        step = moveCylinder("I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 18);
+        step = moveCylinder(1, "I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 18);
         turnTable();
         writeVariableValue("O_1_i04", 1);
       }
@@ -1126,7 +1129,7 @@ void diagnostics()
           {
             //preCheckCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1);
             //step = checkCylinder("I_9_i03", 1, "I_10_i03", 0, 13); 
-            step = moveCylinder("I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 13); 
+            step = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 13); 
             skipPick = 0;
           }
           else
@@ -1256,7 +1259,7 @@ void preCheckCylinder(const char *input1, int input1_val, const char* input2, in
   while(!cylCond);
 }  
 
-int moveCylinder(const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val, int nextStep)
+int moveCylinder(int id, const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val, int nextStep)
 {
   struct timespec start1, stop1;
   double elapsedTime1;  
@@ -1281,7 +1284,21 @@ int moveCylinder(const char *input1, int input1_val, const char* input2, int inp
     if(elapsedTime1 > 1)
     {
       step = 0;
-      errorNum = 4; /* cilinder ni na mestu */
+      switch(id)
+      {
+        case 1:
+          errorNum = 1;
+          break;
+        case 2:
+          errorNum = 3;
+          break;
+        case 3: 
+          errorNum = 5; 
+          break;
+        /*case 4:
+          errorNum = 7;
+          break;*/
+      }
       return step;  
     }
     printf("elapsedTime:%f\n", elapsedTime1);
@@ -1304,9 +1321,23 @@ int moveCylinder(const char *input1, int input1_val, const char* input2, int inp
     //elapsedTime = ( stop.tv_sec - start.tv_sec ) + ( stop.tv_nsec - start.tv_nsec );// / THOUSAND;
     
     if(elapsedTime2 > 1)
-    {
+    { 
+      switch(id)
+      {
+        case 1:
+          errorNum = 2;
+          break;
+        case 2:
+          errorNum = 4;
+          break;
+        case 3: 
+          errorNum = 6; 
+          break;
+        /*case 4:
+          errorNum = 8;
+          break;*/
+      }
       step = 0;
-      errorNum = 2; /* cilinder ni prisel na mesto */
       return step;  
     }
     printf("elapsedTime:%f\n", elapsedTime2);

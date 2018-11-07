@@ -446,14 +446,60 @@ void pageEight()  /* ERROR */
     renderAdmin(1200, 0, 80, 80, 0);
     switch(errorNumber)
     {  
+      sprintf(errorMessageBuff, "MALA:%d mm", step);
+      case 1:
+        sprintf(errorMessageBuff, "KORAK_%d: cilinder zapiranje celjusti", step);
+        renderText(errorMessageBuff, regularText, blackColor);
+        break;
       case 2:
-        renderText("- PREVERI DOTOK ZRAKA", regularText, blackColor);
+        sprintf(errorMessageBuff, "KORAK_%d: cilinder zapiranje celjusti", step);
+        renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 3:
-        renderText("- NA DOZI NI POKROVCKA", regularText, blackColor);
+        sprintf(errorMessageBuff, "KORAK_%d: cilinder spuscanje celjusti", step);
+        renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 4:
-        renderText("- CILINDER NI NA POZICIJI", regularText, blackColor);
+        sprintf(errorMessageBuff, "KORAK_%d: cilinder spuscanje celjusti", step);
+        renderText(errorMessageBuff, regularText, blackColor);
+        break;
+      case 5:
+        sprintf(errorMessageBuff, "KORAK_%d: cilinder odpiranje celjusti", step);
+        renderText(errorMessageBuff, regularText, blackColor);
+        break;
+      case 6:
+        sprintf(errorMessageBuff, "KORAK_%d: cilinder odpiranje celjusti", step);
+        renderText(errorMessageBuff, regularText, blackColor);
+        break;
+      case 7:
+        sprintf(errorMessageBuff, "KORAK_%d: cilinder -", step);
+        renderText(errorMessageBuff, regularText, blackColor);
+        break;
+      case 8:
+        sprintf(errorMessageBuff, "KORAK_%d: cilinder -", step);
+        renderText(errorMessageBuff, regularText, blackColor);
+        break;
+      case 9:
+        sprintf(errorMessageBuff, "KORAK_%d: cilinder -", step);
+        renderText(errorMessageBuff, regularText, blackColor);
+        break;
+      case 10:
+        sprintf(errorMessageBuff, "KORAK_%d: cilinder -", step);
+        renderText(errorMessageBuff, regularText, blackColor);
+        break;
+      case 11:
+        sprintf(errorMessageBuff, "KORAK_%d: cilinder -", step);
+        renderText(errorMessageBuff, regularText, blackColor);
+        break;
+      case 12:
+        sprintf(errorMessageBuff, "KORAK_%d: na dozi ni pokrovcka", step);
+        renderText(errorMessageBuff, regularText, blackColor);
+        break;
+      case 13:
+        renderText("- PREVERI DOTOK ZRAKA", regularText, blackColor);
+        break;
+      case 14:
+        renderText("- PREVERI DOTOK ZRAKA", regularText, blackColor);
         break;
 
       default:

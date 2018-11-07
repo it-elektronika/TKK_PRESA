@@ -82,6 +82,8 @@ char small2Buff[20];
 char mediumBuff[20];
 char bigBuff[20];
 
+char errorMessageBuff[50];
+
 char posManBuff[20]; 
 char posUpBuff[30]; 
 char posDownBuff[30]; 

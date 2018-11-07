@@ -240,15 +240,15 @@ void renderStatusBar()
       break;
   
     case 13: 
-      renderText("NAPAKA - ni pokrovcka", regularText, blackColor);
+      renderText("NAPAKA - cilinder ni na poziciji", regularText, blackColor);
       break;
     
     case 14:
-      renderText("NAPAKA - cilinder ni na poziciji", regularText, blackColor);
+      renderText("NAPAKA - cilinder ni dosegel pozicije", regularText, blackColor);
       break;
 
     case 15:
-      renderText("NAPAKA -", regularText, blackColor);
+      renderText("NAPAKA - ni pokrovcka", regularText, blackColor);
       break;
 
     case 16:
@@ -348,9 +348,10 @@ void renderContent()
       switch(errorNumber)
       {     
         case 1:
+          sbarText = 13;
           break;
         case 2:
-          sbarText = 8;
+          sbarText = 14;
           break;
         case 3:
           sbarText = 13;
@@ -358,6 +359,31 @@ void renderContent()
         case 4:
           sbarText = 14;
           break;
+        case 5:
+          sbarText = 13;
+          break;
+        case 6:
+          sbarText = 14;
+          break;
+        case 7:
+          sbarText = 13;
+          break;
+        case 8:
+          sbarText = 14;
+          break;
+        case 9:
+          sbarText = 13;
+          break;
+        case 10:
+          sbarText = 14;
+          break;
+        case 11:
+          sbarText = 13;
+          break;
+        case 12:
+          sbarText = 15;
+          break;
+   
         default:
           break;
       }

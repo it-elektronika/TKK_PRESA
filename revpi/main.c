@@ -23,17 +23,51 @@ void error(const char *msg)
 
 int main()
 {
+  
+  int turnTableStep = 0;
+  int turnTableDone = 0;
+  int movePressZeroPosStep = 0;
+  int movePressZeroPosDone = 0;
+  int moveGripperLowerStep = 0;
+  int moveGripperLowerDone = 0;
+  int moveGripperUpperStep = 0;
+  int moveGripperUpperDone = 0;
+  int movePressLowerStep = 0;
+  int movePressLowerDone = 0;
+  int movePressUpperStep = 0;
+  int movePressUpperDone = 0;
+  int movePressMiddleStep = 0;
+  int movePressMiddleDone = 0;
+  int pickCapStep = 0;
+  int pickCapDone = 0;
+  int lastStateConveyor = 0;
+  int currentStateConveyor = 0;
+
+
+
   initServer();
   initCommAKDPress();
   initMain();
  
   while(program == 1)
   {
-    /*printf("Step:%d\n", step);
-    printf("Program:%d\n", program);
+    printf("Step:%d\n", step);
+    printf("turnTableStep:%d\n", turnTableStep);
+    printf("turnTableDone:%d\n", turnTableDone);
+    //printf("moveGripperLowerDone:%d\n", moveGripperLowerDone);
+    //printf("moevGripperUpperDone:%d\n", moveGripperUpperDone);
+   /* printf("movePressMiddleStep:%d\n", movePressMiddleStep);
+    printf("movePressMiddleDone:%d\n", movePressMiddleDone);*/
+    printf("pickCapStep:%d\n", pickCapStep);
+    printf("pickCapDone:%d\n", pickCapDone);
+
+
+
+
+   /* printf("Program:%d\n", program);
     printf("PageNum:%d\n", pageNum);
     */
-    if(readVariableValue("I_1_i03") && step == 0)
+    if(readVariableValue("I_1_i03") && !inCycle)
     {
       step = 1;
     }
@@ -42,20 +76,37 @@ int main()
       step = -1;
     }
 
-    if(step != 0)
+    if(step == 0)
     {
-      inCycle = 1;
+      inCycle = 0;
     }
     else
     { 
-      inCycle = 0;
+      inCycle = 1;
     }
 
     receiveMessage();
     sendMessage();
-    diagnostics();
-   
-  }    
+    //diagnostics();
+    //turnTable(&step, &turnTableStep, &turnTableDone);  
+    coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &lastStateConveyor, &currentStateConveyor);
+    /*
+    if(step != 0)
+    {
+      lastStateConveyor = currentStateConveyor;
+      writeVariableValue("O_1_i04", 1);
+      currentStateConveyor = 1;
+      if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+      {
+        currentStateConveyor = 0;
+        if(lastStateConveyor != currentStateConveyor)
+        {
+  	  writeVariableValue("O_1_i04", 0);  
+        }
+      }
+    }*/ 
+  } 
+  
   close(newsockfd);
   close(sockfd);
   return 0; 
@@ -112,7 +163,7 @@ void initCommAKDPress()
 
 
 void initMain()
-{
+{  
   int * clear1 =  (int*)(&obufCl[0]);
   int * clear2 =  (int*)(&obufCl[2]);
   int * clear3 =  (int*)(&obufCl[4]);
@@ -194,7 +245,6 @@ void initMain()
   int * moveTask7Next =  (int*)(&obufMTN[10]);
   int * moveTask8Next =  (int*)(&obufMTN[12]);
   int * moveTask9Next =  (int*)(&obufMTN[13]);
- 
 
   int * dinModeChange1 =  (int*)(&obufDMC[0]);
   int * dinModeChange2 =  (int*)(&obufDMC[2]);
@@ -593,7 +643,7 @@ void receiveMessage()
   }
 }
 
-void diagnostics()
+/*void diagnostics()
 {
   switch(step)
   {
@@ -683,27 +733,27 @@ void diagnostics()
 	* moveTask9 = htonl(1000);                
 	* moveTask9Next = htonl(2000);
         * writePosUp9 = 1;       
-        * writePosUp10 = htonl((0)*1000); /*some value*/
+        * writePosUp10 = htonl((0)*1000); some value
         * writePosDown9 = 2;       
-        * writePosDown10 = htonl((0)*1000); /*some value*/
+        * writePosDown10 = htonl((0)*1000); some value
       }
       else if(selectedCan == 1)
       {
 	* moveTask9 = htonl(3000);
 	* moveTask9Next = htonl(4000);
         * writePosUp9 = 3;       
-        * writePosUp10 = htonl((0)*1000); /*some value*/
+        * writePosUp10 = htonl((0)*1000); some value
         * writePosDown9 = 4;       
-        * writePosDown10 = htonl((0)*1000); /*some value*/
+        * writePosDown10 = htonl((0)*1000); some value
       }
       else if(selectedCan == 2)
       {
         * moveTask9 = htonl(5000);
         * moveTask9Next = htonl(6000);     
         * writePosUp9 = 5;       
-        * writePosUp10 = htonl((0)*1000); /*some value*/
+        * writePosUp10 = htonl((0)*1000); some value
         * writePosDown9 = 6;       
-        * writePosDown10 = htonl((0)*1000); /*some value*/
+        * writePosDown10 = htonl((0)*1000); some value
       }
       else if(selectedCan == 3)
       {
@@ -719,11 +769,11 @@ void diagnostics()
       * moveTask1Next = transId;
       sendModbus(s, obufMTN, 17, ibufMTN, 50, "move task 2 - revert to original positions");
    
-      /* write template position values */
+      write template position values 
       * writePosUp1 = transId;       
       sendModbus(s, writePosUpBuff, 53, writePosUpBuff_recv, 50, "template position parameter saved");
       * writePosDown1 = transId;       
-      * writePosDown11 = htonl(100000); /* set speed to 20 */
+      * writePosDown11 = htonl(100000);  set speed to 20 
       sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "template position parameter saved");
  
        * dinModeChange1 = transId;
@@ -735,7 +785,7 @@ void diagnostics()
     
       writeVariableValue("O_1", 0);
       writeVariableValue("O_2", 1);
-      /* priprava izhodov za pomik na zgornjo pozicijo */
+      priprava izhodov za pomik na zgornjo pozicijo 
       upPosPrep();
       usleep(delay_time);
       writeVariableValue("O_2", 0);
@@ -744,7 +794,7 @@ void diagnostics()
       break;
     }
     
-    case 8:  /* presa pomik na zgornjo pozicijo, gripper na spodnjo */
+    case 8:   presa pomik na zgornjo pozicijo, gripper na spodnjo 
       printf("STEP: %d\n", step);
       printf("pomik na zgornjo pozicijo\n");
       writeVariableValue("O_1_i03", 1);
@@ -763,17 +813,17 @@ void diagnostics()
       }
       break;   
     
-    case 10: /* odpiranje celjusti - dol*/
+    case 10: odpiranje celjusti - dol
       printf("STEP: %d\n", step);
       step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1, 11); 
       break;
 
-    case 11: /* odpiranje celjusti - gor*/
+    case 11:  odpiranje celjusti - gor
       printf("STEP: %d\n", step);
       step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 12);
       break;
    
-    case 12: /* pomik za eno dozo */
+    case 12:  pomik za eno dozo 
       printf("STEP: %d\n", step);
       printf("count_turns:%d\n", count_turns);
       if(readVariableValue("I_2_i04") == 0 && readVariableValue("I_4_i04") == 0)
@@ -791,7 +841,7 @@ void diagnostics()
       }
       break;
     
-    case 14: /* preverim ali je potrebno ponovno obrniti, ce ne, cilinder spuscanje celjusti*/
+    case 14: preverim ali je potrebno ponovno obrniti, ce ne, cilinder spuscanje celjusti
       printf("STEP: %d\n", step);
       printf("count_turns:%d\n", count_turns);
       printf("preverim ali je premik izveden I_13:%d\n", readVariableValue("I_13"));
@@ -803,7 +853,7 @@ void diagnostics()
       }
       else
       {
-	if(!readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+	if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
 	{
 	  step = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 15);
 	  writeVariableValue("O_1_i04", 0);
@@ -812,7 +862,7 @@ void diagnostics()
       }
       break;
 
-    case 15: /* cilinder zapiranje celjusti - gor*/ 
+    case 15: cilinder zapiranje celjusti - gor 
       printf("STEP: %d\n", step);
       printf("I_1i04:%d I_3_i04:%d\n", readVariableValue("I_1_i04"), readVariableValue("I_3_i04"));
       usleep(500000);
@@ -820,27 +870,27 @@ void diagnostics()
       usleep(500000);
       break;
  
-    case 16: /* cilinder dviganje celjusti */
+    case 16:  cilinder dviganje celjusti
       printf("STEP: %d\n", step);
       step = moveCylinder(2, "I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0, 17);
       break;
     
-    case 17: /* cilinder zapiranje celjusti - dol */
+    case 17: cilinder zapiranje celjusti - dol 
       printf("STEP: %d\n", step);
       step = moveCylinder(1, "I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 18);       
       break;
     
-    case 18: /* cilinder odpiranje celjusti - dol */
+    case 18:  cilinder odpiranje celjusti - dol 
       printf("STEP: %d\n", step);
       step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1, 19);
       break;
     
-    case 19: /* cilinder odpiranje celjusti - gor */
+    case 19:  cilinder odpiranje celjusti - gor 
       printf("STEP: %d\n", step);
       step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 20);
       break;
 
-    case 20: /* obrat mize ce je doza pod preso oziroma na vhodu in je ze bila enkrat obrnjena */
+    case 20:  obrat mize ce je doza pod preso oziroma na vhodu in je ze bila enkrat obrnjena 
       printf("STEP:%d\t", step);
       printf("I_2_i04:%d I_4_i04:%d count_turns:%d\n", readVariableValue("I_2_i04"), readVariableValue("I_4_i04"), count_turns);
       
@@ -865,12 +915,12 @@ void diagnostics()
       }
       break;
     
-    case 22: /* vkljucim trak, cilinder spuscanje celjusti, ce se ni bilo dveh obratov, ce ne, cilinder odpiranje celjusti*/
+    case 22: vkljucim trak, cilinder spuscanje celjusti, ce se ni bilo dveh obratov, ce ne, cilinder odpiranje celjusti
       printf("STEP:%d\t", step);
       if(count_turns < 2)
       { 
 	writeVariableValue("O_1_i04", 1);
-	if(!readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+	if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
 	{
           writeVariableValue("O_1_i04", 0);
 	  step = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 15);
@@ -880,45 +930,45 @@ void diagnostics()
       {
 	if(readVariableValue("I_2_i04"))
 	{
-	  step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1, 23);
-	  count_turns = 0;    
+          count_turns = 0;
+	  step = 23;    
 	}          
       }
       break;
-     
-    case 23: /* cilinder odpiranje celjusti - gor*/
-      printf("STEP:%d\t", step);
-      step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 24);
-      break;
    
-    case 24:
+    case 23:
       writeVariableValue("O_1_i03", 1);
       usleep(delay_time); 
       writeVariableValue("O_1_i03", 0);
-      step = 25;
+      step = 24;
       break;
 
-    case 25:  
+    case 24:  
       if(readVariableValue("I_12"))
       {
         upPosPrep();
-        step = 26;
+        step = 25;
       }
       break;
   
-    case 26: /* presa premik na spodnjo pozicijo */ 
+    case 25: presa premik na spodnjo pozicijo
       moveAKD("O_10");
-      step = 27;
+      step = 26;
       break;
     
-    case 27:
-      if(readVariableValue("I_13_i03")) /* quick stop */
+    case 26:
+      if(readVariableValue("I_13_i03")) uick stop
       {
-        step = 28;	
+        step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1, "O_8_i03", 1, 27);
       }
       break;
-   
-    case 28:  /* merjenje in posodabljanje pozicije */
+     
+    case 27:
+      printf("STEP:%d\t", step);
+      step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 28);
+      break;
+    
+    case 28:  merjenje in posodabljanje pozicije
       printf("STEP: %d\n", step);
       int w;
       int * read1 = (int*)(&readBuff[0]);
@@ -958,19 +1008,19 @@ void diagnostics()
       * writePosTen1 = transId;       
       sendModbus(s, writePosTenBuff, 53, writePosTenBuff_recv, 50, "position 10 parameter");
     
-      if(selectedCan == 0) /* mala */
+      if(selectedCan == 0) mala 
       {
 	* writePosDown9 = 2;    
       }
-      else if(selectedCan == 1) /* mala 2 */
+      else if(selectedCan == 1) mala 2
       {
 	* writePosDown9 = 4;    
       }
-      else if(selectedCan == 2) /* srednja */
+      else if(selectedCan == 2) srednja 
       {
 	* writePosDown9 = 6;       
       }
-      else if(selectedCan == 3) /* velika*/
+      else if(selectedCan == 3) velika
       {
 	* writePosDown9 = 8;       
       }
@@ -978,7 +1028,7 @@ void diagnostics()
       w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
       * writePosDown10 = htonl(w + press*1000);
       * writePosDown1 = transId;       
-      * writePosDown11 = htonl(2000000); /* set speed to 2000 */
+      * writePosDown11 = htonl(2000000);  set speed to 2000
      
       sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "position 10 parameter");
 
@@ -992,7 +1042,7 @@ void diagnostics()
       step = 29;
       break;
     
-    case 29:  /* presa premik v zgornjo pozicijo */
+    case 29:  presa premik v zgornjo pozicijo 
       printf("STEP: %d\n", step);
       printf("presa - pomik v zgornjo pozicijo\n");
       moveAKD("O_9");
@@ -1002,6 +1052,7 @@ void diagnostics()
     case 30:
       if(readVariableValue("I_11"))
       {
+        writeVariableValue("O_1_i04", 1); 
         step = 31;
       }
       break;
@@ -1016,23 +1067,32 @@ void diagnostics()
       else
       {
         skipPick = 1;
+        step = 33;
       }
       break;
 
     case 32:  //12 vrnem iz elseif 13
       if(!readVariableValue("I_14_i03"))
       {
-	step = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 33);
-	skipPick = 0;
+        if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+        {
+          step = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 33);
+	  skipPick = 0;	  writeVariableValue("O_1_i04", 0); 	 
+	  writeVariableValue("O_1_i04", 0); 	 
+        } 
       }
       else
       {
-	skipPick = 1;
-	step = 33;
+        if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+        {
+          writeVariableValue("O_1_i04", 0);
+	  skipPick = 1;
+	  step = 33;
+        }
       }
       break;
 
-    case 33: /* gripper pomik na spodnjo pozicijo */ //13 preverim ali je bil pomik izveden vrnem iz koncne
+    case 33:  gripper pomik na spodnjo pozicijo  //13 preverim ali je bil pomik izveden vrnem iz koncne
       printf("STEP: %d\n", step);
       printf("preverim ali je bil pomik izveden\n");
       if(readVariableValue("I_2_i04"))
@@ -1040,11 +1100,14 @@ void diagnostics()
         writeVariableValue("O_1", 1);
 	moveAKD("O_1_i03");
         step = 34;
-        
       }
       else if(readVariableValue("I_11") && readVariableValue("I_2_i04") == 0 && readVariableValue("I_4_i04"))
       {
-        step = moveCylinder(1, "I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 35);
+        if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+	{
+          writeVariableValue("O_1_i04", 0);
+          step = moveCylinder(1, "I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 35);
+        }
       }
       break;
  
@@ -1056,88 +1119,96 @@ void diagnostics()
       }
       break;
 
-    case 35: /* cilinder zapiranje celjusti - dol */
+    case 35: cilinder zapiranje celjusti - dol
       printf("STEP: %d\n", step);
       step = moveCylinder(1, "I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 36);
       break;
     
-    case 36: /* cilinder dviganje celjusti */
-     printf("STEP: %d\n", step);
-     if(!skipPick)
+    case 36: cilinder dviganje celjusti 
+      printf("STEP: %d\n", step);
+      if(!skipPick)
       {
         step = moveCylinder(2, "I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0, 37);
       }
+      else
+      {
+        step = 37;
+      }
       break;
     
-    case 37: /* obrat mize */
+    case 37:  brat mize 
       printf("STEP: %d\n", step);
       turnTable();
       step = 38;
       break;
 
     case 38:
-      if(readVariableValue("I_13")) /* premik izveden*/
-      {  
+      if(readVariableValue("I_13")) /premik izveden
+      {
+        writeVariableValue("O_1_i04", 1);  
         step = 32;
       }
       break;
 
-    case 39: /*cilinder odpiranje celjusti - dol*/
+    case 39: cilinder zapiranje celjusti - gor 
       printf("STEP: %d\n", step);
-      step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 40);
-      break;
-   
-    case 40: /* cilinder zapiranje celjusti - gor */
-      printf("STEP: %d\n", step);
-      step = moveCylinder(1, "I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 41); 
+      step = moveCylinder(1, "I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 40); 
       break;
 
-    case 41: /* presa premik na vmesno pozicijo */
+    case 40: presa premik na vmesno pozicijo
       printf("STEP: %d\n", step);
       moveAKD("O_14_i03");
-      step = 42;
+      step = 41;
       break;
     
-    case 42: 
+    case 41:  check 
       if(readVariableValue("I_11"))
       {
-        step = 43;
+        step = 42;
       }
       break;
 
-    case 43: /* presa premik na spodnjo pozicijo, ce je pokrovcek, ce ne pocakam oziroma javim napako */
+    case 42: presa premik na spodnjo pozicijo, ce je pokrovcek, ce ne pocakam oziroma javim napako 
       printf("STEP: %d\n", step);
-      if(readVariableValue("I_13_i03"))
-      {
-        moveAKD("O_10");
-        step = 44;
-      }
-      else
-      {
-        struct timespec start, stop;
-        double elapsedTime;  
-        int inWhile;
-        inWhile = 1;
-        clock_gettime(CLOCK_REALTIME, &start);
-        while(inWhile)
-        {
-          clock_gettime(CLOCK_REALTIME, &stop);
-	  elapsedTime = ( stop.tv_sec - start.tv_sec );
+      //if(readVariableValue("I_13_i03"))
+      //{
+        step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 43);
+      //}
+      break;
+
+    case 43: resa premik na spodnjo pozicijo, ce je pokrovcek, ce ne pocakam oziroma javim napako 
+      printf("STEP: %d\n", step);
+      //if(readVariableValue("I_13_i03"))
+      //{
+      moveAKD("O_10");
+      step = 44;
+      //}
+      //else
+      //{
+      //  struct timespec start, stop;
+      //  double elapsedTime;  
+      //  int inWhile;
+      //  inWhile = 1;
+      //  clock_gettime(CLOCK_REALTIME, &start);
+      //  while(inWhile)
+      //  {
+      //    clock_gettime(CLOCK_REALTIME, &stop);
+	//  elapsedTime = ( stop.tv_sec - start.tv_sec );
 	  
-	  if(elapsedTime > 1) /* NI POKROVCKA NA DOZI */
-	  {
-	    step = 0;
-	    errorNum = 12; 
-	    inWhile = 0;
-	    elapsedTime = 0;
-	  }
-          if(readVariableValue("I_13_i03"))
-          {
-            moveAKD("O_10");
-            step = 44;
-          }
-        }
-      }
+	 // if(elapsedTime > 1) NI POKROVCKA NA DOZI 
+	 // {
+	 //   step = 0;
+	 //   errorNum = 12; 
+	 //   inWhile = 0;
+	 //   elapsedTime = 0;
+	 // }
+        //  if(readVariableValue("I_13_i03"))
+        //  {
+         //   moveAKD("O_10");
+         //   step = 44;
+         // }
+       // }
+     // }
       break;
  
     case 44:
@@ -1147,7 +1218,7 @@ void diagnostics()
       }
       break;
 
-    case 45: /* presa in gripper pomik v zgornjo pozicijo */
+    case 45:  presa in gripper pomik v zgornjo pozicijo 
       printf("STEP: %d\n", step);
       writeVariableValue("O_1_i03", 1);
       writeVariableValue("O_2", 1);
@@ -1157,7 +1228,7 @@ void diagnostics()
       writeVariableValue("O_9", 0);
       writeVariableValue("O_2", 0);
       writeVariableValue("O_1_i03", 0);      
-    /* priprava izhodov za pomik v spodnjo pozicijo */   
+     priprava izhodov za pomik v spodnjo pozicijo  
       downPosPrep();
       step = 46;
       break;
@@ -1169,12 +1240,12 @@ void diagnostics()
       }
       break;
 
-    case 47: /* cilinder odpiranje celjusti - gor*/
+    case 47: cilinder odpiranje celjusti - gor
       printf("STEP: %d\n", step);
       step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 48);
       break;
  
-    case 48: /* cilinder dviganje celjusti, ce ni pokrovcka v celjusti*/ 
+    case 48:  cilinder dviganje celjusti, ce ni pokrovcka v celjusti
       printf("STEP: %d\n", step);
       printf("skipPick: %d\n", skipPick);
       
@@ -1188,12 +1259,12 @@ void diagnostics()
       } 
       break;
 
-    case 49:  /* cilinder zapiranje celjusti - dol */
+    case 49:  cilinder zapiranje celjusti - dol 
       printf("STEP: %d\n", step);
       step = moveCylinder(1, "I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 50);
       break;
  
-    case 50: /* obrat mize in izklop traka*/
+    case 50:  obrat mize in izklop traka
       printf("STEP: %d\n", step);
       turnTable();
       step = 51;
@@ -1207,15 +1278,15 @@ void diagnostics()
       }
       break;
   
-    case 52: /*ce je pokrovcek izklopim trak in cilinder spuscanje celjusti, ce ni pokrovcka v celjusti */
+    case 52: e je pokrovcek izklopim trak in cilinder spuscanje celjusti, ce ni pokrovcka v celjusti 
       printf("STEP: %d\n", step);
-      if(!readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+      if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
       {
 	writeVariableValue("O_1_i04", 0); 
-	if(!readVariableValue("I_14_i03"))
+	if(!readVariableValue("I_14_i03")) 
 	{
 	  step = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 33); 
-	  skipPick = 0;
+          skipPick = 0;
 	}
 	else
 	{
@@ -1226,7 +1297,7 @@ void diagnostics()
       break;
   }
 }
-
+*/
 void sendModbus(int socket_fd, char *send_buff, int send_buff_size, char *receive_buff, int receive_buff_size, char *print_text)
 {
   send(socket_fd, send_buff, send_buff_size, 0);
@@ -1299,32 +1370,16 @@ void detectRise(const char *var)
 
 int checkCylinder(const char* input1, int input1_val, const char* input2, int input2_val, int nextStep)
 {
-  struct timespec start, stop;
-  double elapsedTime;  
-  int inWhile = 0;
   printf("check Cylinder\n");
   printf("step:%d, %s:%d %s:%d\n", step, input1, readVariableValue(input1), input2, readVariableValue(input2));
- 
-  while(readVariableValue(input1) != input1_val && readVariableValue(input2) != input2_val)
-  {    
-    if(!inWhile)
-    {  
-      clock_gettime(CLOCK_REALTIME, &start);
-      inWhile = 1;
-    }
-    clock_gettime(CLOCK_REALTIME, &stop);
-    elapsedTime = ( stop.tv_sec - start.tv_sec );
-    //elapsedTime = ( stop.tv_sec - start.tv_sec ) + ( stop.tv_nsec - start.tv_nsec );// / THOUSAND;
-    
-    if(elapsedTime > 1)
-    {
-      step = 0;
-      errorNum = 2; /* cilinder ni prisel na mesto */
-      return step;  
-    }
-    printf("elapsedTime:%f\n", elapsedTime);
+  if(readVariableValue(input1) == input1_val && readVariableValue(input2) == input2_val)
+  {
+    return nextStep;
   }
-  return nextStep;
+  else
+  {
+    return 0;
+  }
 }
 
 void preCheckCylinder(const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val)
@@ -1388,7 +1443,7 @@ int moveCylinder(int id, const char *input1, int input1_val, const char* input2,
     printf("elapsedTime:%f\n", elapsedTime1);
   }
   writeVariableValue(output, output_val); 
-  step = nextStep;
+  //step = nextStep;
 
   printf("check Cylinder\n");
   printf("step:%d, %s:%d %s:%d\n", step, input1, readVariableValue(input1), input2, readVariableValue(input2));
@@ -1422,6 +1477,7 @@ int moveCylinder(int id, const char *input1, int input1_val, const char* input2,
           break;*/
       }
       step = 0;
+      printf("Error step:%d, %s:%d %s:%d\n", step, input1, readVariableValue(input1), input2, readVariableValue(input2));
       return step;  
     }
     printf("elapsedTime:%f\n", elapsedTime2);
@@ -1485,21 +1541,404 @@ void upPosPrep()
   } 
 } 
 
-void turnTable()
+void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int * moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* lastStateConveyor, int* currentStateConveyor)
+{
+  switch(*step)
+  {
+     case -1:
+       writeVariableValue("O_5_i03", 0);
+       writeVariableValue("O_7_i03", 0); 
+       writeVariableValue("O_8_i03", 0);
+       writeVariableValue("O_1_i04", 0); 
+       *lastStateConveyor = 0;
+       *currentStateConveyor = 0;
+       *turnTableDone = 0;
+       *moveGripperLowerDone = 0;
+       *moveGripperUpperDone = 0;
+       *movePressLowerDone = 0;
+       *movePressUpperDone = 0;
+       *movePressMiddleDone = 0;
+       *pickCapDone = 0;
+       *step = 0;
+      
+       break;
+     
+     case 0:
+       errorNum = 0;
+       break;
+     
+     case 1:
+       *turnTableDone = 0;
+       *moveGripperLowerDone = 0;
+       *moveGripperUpperDone = 0;
+       *movePressLowerDone = 0;
+       *movePressUpperDone = 0;
+       *movePressMiddleDone = 0;
+       conveyorBelt(&lastStateConveyor, &currentStateConveyor);
+       pickCap(&pickCapStep, &pickCapDone);
+       if(*pickCapDone)
+       {
+         *step = 2;
+       }
+       break;
+
+    case 2:
+       conveyorBelt(&lastStateConveyor, &currentStateConveyor);
+       turnTable(&turnTableStep, &turnTableDone);
+       if(*turnTableDone)
+       {
+         *pickCapDone = 0;
+         *step = 3;
+       }
+       break;
+
+     case 3:
+       conveyorBelt(&lastStateConveyor, &currentStateConveyor);
+       pickCap(&pickCapStep, &pickCapDone);
+       moveGripperLower(&moveGripperLowerStep, &moveGripperLowerDone);
+       if(*moveGripperLowerDone)
+       {
+         *step = 4;
+       }
+       break;
+
+     case 4:
+       conveyorBelt(&lastStateConveyor, &currentStateConveyor);
+       pickCap(&pickCapStep, &pickCapDone);
+       movePressMiddle(&movePressMiddleStep, &movePressMiddleDone);
+       if(*movePressMiddleDone)
+       {
+         *step = 5;
+       }
+       break;
+
+     case 5:
+      conveyorBelt(&lastStateConveyor, &currentStateConveyor);
+      pickCap(&pickCapStep, &pickCapDone);
+      if(readVariableValue("I_13_i03"))
+      { 
+        *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 6);  
+      }
+      else
+      {
+        *step = 8;
+      }
+      break;
+
+     case 6:
+       conveyorBelt(&lastStateConveyor, &currentStateConveyor);
+       pickCap(&pickCapStep, &pickCapDone);
+       movePressLower(&movePressLowerStep, &movePressLowerDone);
+       if(*movePressLowerDone)
+       {
+         *step = 7;
+       } 
+       break;
+    
+     case 7:
+       conveyorBelt(&lastStateConveyor, &currentStateConveyor);
+       pickCap(&pickCapStep, &pickCapDone);
+       *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 8);
+       break;
+   
+     case 8:
+       conveyorBelt(&lastStateConveyor, &currentStateConveyor);
+       pickCap(&pickCapStep, &pickCapDone);
+       movePressUpper(&movePressUpperStep, &movePressUpperDone); 
+       if(*movePressUpperDone)
+       {
+         *step = 9;
+       }      
+       break;
+
+     case 9:
+       conveyorBelt(&lastStateConveyor, &currentStateConveyor);
+       pickCap(&pickCapStep, &pickCapDone);
+       moveGripperUpper(&moveGripperUpperStep, &moveGripperUpperDone);
+       if(*moveGripperUpperDone)
+       {
+         *step = 1;
+       }
+      break;
+  }
+}
+
+void turnTable(int **turnTableStep, int **turnTableDone)
 {
   int cond;
-  
-  cond = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
-  cond = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
-  printf("turn table I_11_io3:%d, I_12_io3:%d, i_9_i03:%d, i_10_i03:%d\n", readVariableValue("I_11_i03"),readVariableValue("I_12_i03"),readVariableValue("I_9_i03"), readVariableValue("I_10_i03"));
-  if(cond)
+  printf("turnTableStep:%d, turnTableDone:%d\n", **turnTableStep, **turnTableDone);
+  if(!**turnTableDone)
+  { 
+    switch(**turnTableStep)
+    {
+      case 0:
+	if(readVariableValue("I_4_i04"))
+        {
+	  printf("case 0\n");
+	  cond = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
+	  cond = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
+	  //printf("turn table I_11_io3:%d, I_12_io3:%d, i_9_i03:%d, i_10_i03:%d\n", readVariableValue("I_11_i03"),readVariableValue("I_12_i03"),readVariableValue("I_9_i03"), readVariableValue("I_10_i03"));
+	  if(cond)
+	  {
+	    moveAKD("O_7");
+	    **turnTableStep = 1;
+	  }
+	  else
+	  {
+	    printf("cilinder ovira premik mize\n");
+	  }
+        }
+	break;
+
+      case 1:
+	printf("case 1\n");
+        if(readVariableValue("I_13"))
+	{
+	  printf("move completed\n");
+          **turnTableDone = 1;
+          **turnTableStep = 0;
+	}
+	break;
+    }
+  }
+}
+
+
+void turnTableFree(int **turnTableStep, int **turnTableDone)
+{
+  int cond;
+  printf("turnTableStep:%d, turnTableDone:%d\n", **turnTableStep, **turnTableDone);
+  if(!**turnTableDone)
+  { 
+    switch(**turnTableStep)
+    {
+      case 0:
+	printf("case 0\n");
+	cond = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
+	cond = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
+	//printf("turn table I_11_io3:%d, I_12_io3:%d, i_9_i03:%d, i_10_i03:%d\n", readVariableValue("I_11_i03"),readVariableValue("I_12_i03"),readVariableValue("I_9_i03"), readVariableValue("I_10_i03"));
+	if(cond)
+	{
+	  moveAKD("O_7");
+	  **turnTableStep = 1;
+	}
+	else
+	{
+	  printf("cilinder ovira premik mize\n");
+	}
+	break;
+
+      case 1:
+	printf("case 1\n");
+        if(readVariableValue("I_13"))
+	{
+	  printf("move completed\n");
+          **turnTableDone = 1;
+          **turnTableStep = 0;
+	}
+	break;
+    }
+  }
+}
+/*
+void movePressZeroPos(int ** movePressStep, int **movePressDone)
+{
+  switch(**movePressZeroPosStep)
   {
-    moveAKD("O_7");
+    case 0:
+      moveAKD("O_4_i03");
+      **movePressZeroPosStep = 1;
+    
+    case 1:
+      if(readVariableValue("I_12"))
+      {
+        **movePressZeroPosDone = 1;
+        **movePressZeroPosStep = 0;
+      }
+  }
+}
+*/
+void movePressLower(int ** movePressLowerStep, int **movePressLowerDone)
+{
+  if(!**movePressLowerDone)
+  {
+    switch(**movePressLowerStep)
+    {
+      case 0:
+	moveAKD("O_10_i03");
+	**movePressLowerStep = 1;
+        break;
+
+      case 1:
+	if(readVariableValue("I_11"))
+	{
+	  **movePressLowerDone = 1;
+	  **movePressLowerStep = 0;
+	}
+	break;
+    }
+  }
+}
+
+void movePressUpper(int ** movePressUpperStep, int **movePressUpperDone)
+{
+  if(!**movePressUpperDone)
+  {
+    switch(**movePressUpperStep)
+    {
+      case 0:
+	moveAKD("O_9");
+	**movePressUpperStep = 1;
+        break;
+
+      case 1:
+	if(readVariableValue("I_11"))
+	{
+	  **movePressUpperDone = 1;
+	  **movePressUpperStep = 0;
+	}
+	break;
+    }
+  }
+}
+
+void movePressMiddle(int ** movePressMiddleStep, int **movePressMiddleDone)
+{
+  if(!**movePressMiddleDone)
+  {
+    switch(**movePressMiddleStep)
+    {
+      case 0:
+	moveAKD("O_14_i03");
+	**movePressMiddleStep = 1;
+        break;
+    
+      case 1:
+	if(readVariableValue("I_11"))
+	{
+	  **movePressMiddleDone = 1;
+	  **movePressMiddleStep = 0;
+	}
+	break;
+    }
+  }
+}
+
+void moveGripperLower(int ** moveGripperLowerStep, int **moveGripperLowerDone)
+{
+  if(!**moveGripperLowerDone)
+  {
+    switch(**moveGripperLowerStep)
+    {
+      case 0:
+	downPosPrep();
+	usleep(delay_time);
+	moveAKD("O_1_i03");
+	**moveGripperLowerStep = 1;
+        break;
+
+      case 1:
+	if(readVariableValue("I_12"))
+	{
+	  **moveGripperLowerDone = 1;
+	  **moveGripperLowerStep = 0;
+	}
+        break;
+    }
+  }
+}
+
+void moveGripperUpper(int ** moveGripperUpperStep, int **moveGripperUpperDone)
+{
+  if(!**moveGripperUpperDone)
+  {
+    switch(**moveGripperUpperStep)
+    {
+      case 0:
+	upPosPrep();
+	usleep(delay_time);
+	moveAKD("O_1_i03");
+	**moveGripperUpperStep = 1;
+        break;    
+       
+      case 1:
+	if(readVariableValue("I_12"))
+	{
+	  **moveGripperUpperDone = 1;
+	  **moveGripperUpperStep = 0;
+	}
+        break;
+    }
+  }
+}
+
+void pickCap(int** pickCapStep, int** pickCapDone)
+{
+  if(!**pickCapDone)
+  {
+    switch(**pickCapStep)
+    {
+      case 0:
+        if(!readVariableValue("I_14_i03"))
+        {
+          **pickCapStep = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 1);
+        }
+        else
+        {
+          **pickCapStep = 4;
+        }
+        break;
+      
+      case 1:
+        if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+        {
+           usleep(100000);
+          **pickCapStep = moveCylinder(1, "I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 2);
+        }
+        break;
+      
+      case 2:
+       **pickCapStep = moveCylinder(2, "I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0, 3);
+        break;
+   
+      case 3:
+        **pickCapStep = moveCylinder(1, "I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 4);
+        break;
+
+      case 4:
+        **pickCapStep = 0; 
+        **pickCapDone = 1;
+        break;
+
+    }
+  }
+}
+
+
+void conveyorBelt(int** lastStateConveyor, int** currentStateConveyor)
+{
+  int temp;
+
+  temp = **currentStateConveyor;
+  **lastStateConveyor = temp; 
+ 
+  if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+  {
+    **currentStateConveyor = 0;
+    if(**lastStateConveyor != **currentStateConveyor)
+    {
+      usleep(100000);
+      writeVariableValue("O_1_i04", 0);  
+    }
   }
   else
   {
-    step = 0;  
-    /* go to error page*/
+    **currentStateConveyor = 1;
+    if(**lastStateConveyor != **currentStateConveyor)
+    {
+      writeVariableValue("O_1_i04", 1);
+      **currentStateConveyor = 1;
+    }
   }
 }
 
@@ -1510,3 +1949,186 @@ void moveAKD(const char* akd)
   writeVariableValue(akd, 0);
 }
 
+
+
+void measurement(int* measurementStep, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* turnTableStep,  int* turnTableDone, int* pickCapStep, int* pickCapDone, int* lastStateConveyor, int* currentStateConveyor)
+{
+  int * moveTask1 =  (int*)(&obufMT[0]); 
+  int * moveTask9 =  (int*)(&obufMT[13]);
+  int * moveTask1Next =  (int*)(&obufMTN[0]); 
+  int * moveTask9Next =  (int*)(&obufMTN[13]);
+  int * drvSave1 = (int*)(&obufDS[0]);
+  int * dinModeChange1 = (int*)(&obufDMC[0]);
+  int * dinModeChange9 = (int*)(&obufDMC[13]);
+  int * writePosUp1 = (int*)(&writePosUpBuff[0]);
+  int * writePosUp9 =  (int*)(&writePosUpBuff[16]);
+  int * writePosUp10 = (int*)(&writePosUpBuff[17]);
+  int * writePosDown1 = (int*)(&writePosDownBuff[0]);
+  int * writePosDown9 =  (int*)(&writePosDownBuff[16]);
+  int * writePosDown10 = (int*)(&writePosDownBuff[17]);  
+  int * writePosDown11 = (int*)(&writePosDownBuff[21]);
+  int w;
+  int * read1 = (int*)(&readBuff[0]);
+  int * read2 = (int*)(&readBuff[2]);
+  int * read3 = (int*)(&readBuff[4]);
+  int * read4 = (int*)(&readBuff[6]);
+  int * read5 = (int*)(&readBuff[7]);
+  int * read6 = (int*)(&readBuff[8]);
+  int * read7 = (int*)(&readBuff[10]);
+  int * writePosTen1 = (int*)(&writePosTenBuff[0]);
+  int * writePosTen9 =  (int*)(&writePosTenBuff[16]);
+  int * writePosTen10 = (int*)(&writePosTenBuff[17]);
+  
+  if(readVariableValue("I_2_i04") && *measurementStep == 0)
+  {
+    *measurementStep = 1;
+  }
+  
+  switch(*measurementStep)
+  {
+  
+    case 0:
+     printf("STEP: %d\n", step);
+      
+      * moveTask1 = transId;
+      if(selectedCan == 0)
+      {
+	* moveTask9 = htonl(1000);                
+	* moveTask9Next = htonl(2000);
+        * writePosUp9 = 1;       
+        * writePosUp10 = htonl((138)*1000); 
+        * writePosDown9 = 2;       
+        * writePosDown10 = htonl((175)*1000);
+      }
+      else if(selectedCan == 1)
+      {
+	* moveTask9 = htonl(3000);
+	* moveTask9Next = htonl(4000);
+        * writePosUp9 = 3;       
+        * writePosUp10 = htonl((138)*1000); 
+        * writePosDown9 = 4;       
+        * writePosDown10 = htonl((175)*1000); 
+      }
+      else if(selectedCan == 2)
+      {
+        * moveTask9 = htonl(5000);
+        * moveTask9Next = htonl(6000);     
+        * writePosUp9 = 5;       
+        * writePosUp10 = htonl((104)*1000); 
+        * writePosDown9 = 6;       
+        * writePosDown10 = htonl((140)*1000); 
+      }
+      else if(selectedCan == 3)
+      {
+	* moveTask9 = htonl(7000);
+	* moveTask9Next = htonl(8000); 
+        * writePosUp9 = 7;       
+        * writePosUp10 = htonl((0)*1000);
+        * writePosDown9 = 8;       
+        * writePosDown10 = htonl((35)*1000);
+      }
+
+      sendModbus(s, obufMT, 17, ibufMT, 50, "move task 1 - revert to original positions");
+      * moveTask1Next = transId;
+      sendModbus(s, obufMTN, 17, ibufMTN, 50, "move task 2 - revert to original positions");
+   
+      * writePosUp1 = transId;       
+      sendModbus(s, writePosUpBuff, 53, writePosUpBuff_recv, 50, "template position parameter saved");
+      * writePosDown1 = transId;       
+      * writePosDown11 = htonl(100000);  
+      sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "template position parameter saved");
+ 
+       * dinModeChange1 = transId;
+       * dinModeChange9 = htonl(15);
+      sendModbus(s, obufDMC, 17, ibufDMC, 50, "save to drive");
+ 
+      * drvSave1 = transId;
+      sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
+        
+      *measurementStep = 1;
+      break;
+   
+    case 1:
+      conveyorBelt(&lastStateConveyor, &currentStateConveyor);
+      pickCap(&pickCapStep, &pickCapDone);
+      turnTableFree(&turnTableStep, &turnTableDone);
+      if(*turnTableDone)
+      {
+        *pickCapDone = 0;
+      }
+      if(readVariableValue("I_2_i03"))
+      {
+        movePressLower(&movePressLowerStep, &movePressLowerDone);
+        if(*movePressLowerDone)
+        {
+          *measurementStep = 2;
+        }
+      } 
+      break;
+
+    case 2:
+     printf("STEP: %d\n", step);
+     printf("preberem podatek o trenutni poziciji in ga shranim v ustrezne motion taske");
+      
+      memset(readBuff, 0, 12);
+      * read2 = htons(0);
+      * read3 = htons(6);
+      * read4 = 1;
+      * read5 = 3;
+      * read6 = htons(2072);
+      * read7 = htons(2);
+      * writePosTen9 = 10;       
+      * read1 = transId;   
+      sendModbus(s, readBuff, 12, readBuff_recv, 50, "read feedback position");
+      w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
+      * writePosTen10 = htonl(w);
+      printf("POSITION FEEDBACK:%d\n", w);
+     
+      * writePosTen1 = transId;       
+      sendModbus(s, writePosTenBuff, 53, writePosTenBuff_recv, 50, "position 10 parameter");
+    
+      if(selectedCan == 0) 
+      {
+	* writePosDown9 = 2;    
+      }
+      else if(selectedCan == 1) 
+      {
+	* writePosDown9 = 4;    
+      }
+      else if(selectedCan == 2) 
+      {
+	* writePosDown9 = 6;       
+      }
+      else if(selectedCan == 3) 
+      {
+	* writePosDown9 = 8;       
+      }
+ 
+      w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
+      * writePosDown10 = htonl(w + press*1000);
+      * writePosDown1 = transId;       
+      * writePosDown11 = htonl(2000000);  
+     
+      sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "position 10 parameter");
+
+      * dinModeChange1 = transId;
+      * dinModeChange9 = htonl(0);
+      sendModbus(s, obufDMC, 17, ibufDMC, 50, "save to drive");
+      
+      * drvSave1 = transId;
+      sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
+      
+      *measurementStep = 3;
+      break;
+    
+    case 3:
+      movePressUpper(&movePressUpperStep, &movePressUpperDone); 
+      if(*movePressUpperDone)
+      {
+        *measurementStep = 0;
+      }      
+      break;
+  }
+
+
+}  

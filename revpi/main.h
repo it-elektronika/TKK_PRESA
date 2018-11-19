@@ -96,6 +96,17 @@ int checkCylinder(const char* input1, int input1_val, const char* input2, int in
 void preCheckCylinder(const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val);
 void upPosPrep();
 void downPosPrep();
-void turnTable();
+void turnTable(int** turnTableStep, int** turnTableDone);
+void turnTableFree(int** turnTableStep, int** turnTableDone);
+
 int moveCylinder(int id, const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val, int nextStep);
 void moveAkd(const char *akd);
+void coreLoop(int* step, int* turnTableStep, int*  turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* lastStateConveyor, int* currentStateConveyor);
+void moveGripperLower(int ** moveGripperLowerStep, int **moveGripperLowerDone);
+void moveGripperUpper(int ** moveGripperUpperStep, int **moveGripperUpperDone);
+void movePressLower(int ** movePressLowerStep, int **movePressLowerDone);
+void movePressUpper(int ** movePressUpperStep, int **movePressUpperDone);
+void movePressMiddle(int ** movePressMiddleStep, int **movePressMiddleDone);
+void conveyorBelt(int ** lastStateConveyor, int ** currentStateConveyor);
+void pickCap(int** pickCapStep, int** pickCapDone);
+void measurement(int* measurementStep, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone,int* turnTableStep,  int* turnTableDone, int* pickCapStep, int* pickCapDone, int* lastStateConveyor, int* currentStateConveyor);

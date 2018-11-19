@@ -42,7 +42,7 @@ int main()
   int pickCapDone = 0;
   int lastStateConveyor = 0;
   int currentStateConveyor = 0;
-
+  int countTurns = 0;
 
 
   initServer();
@@ -56,8 +56,8 @@ int main()
     printf("turnTableDone:%d\n", turnTableDone);
     //printf("moveGripperLowerDone:%d\n", moveGripperLowerDone);
     //printf("moevGripperUpperDone:%d\n", moveGripperUpperDone);
-   /* printf("movePressMiddleStep:%d\n", movePressMiddleStep);
-    printf("movePressMiddleDone:%d\n", movePressMiddleDone);*/
+    printf("movePressLowerStep:%d\n", movePressLowerStep);
+    printf("movePressLowerDone:%d\n", movePressLowerDone);
     printf("pickCapStep:%d\n", pickCapStep);
     printf("pickCapDone:%d\n", pickCapDone);
 
@@ -89,7 +89,7 @@ int main()
     sendMessage();
     //diagnostics();
     //turnTable(&step, &turnTableStep, &turnTableDone);  
-    coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &lastStateConveyor, &currentStateConveyor);
+    coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &lastStateConveyor, &currentStateConveyor, &countTurns);
     /*
     if(step != 0)
     {
@@ -1541,7 +1541,7 @@ void upPosPrep()
   } 
 } 
 
-void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int * moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* lastStateConveyor, int* currentStateConveyor)
+void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int * moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* lastStateConveyor, int* currentStateConveyor, int * countTurns)
 {
   switch(*step)
   {
@@ -1550,6 +1550,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        writeVariableValue("O_7_i03", 0); 
        writeVariableValue("O_8_i03", 0);
        writeVariableValue("O_1_i04", 0); 
+       *countTurns = 0;
        *lastStateConveyor = 0;
        *currentStateConveyor = 0;
        *turnTableDone = 0;
@@ -1566,8 +1567,133 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
      case 0:
        errorNum = 0;
        break;
-     
+ 
      case 1:
+       setup();
+       *step = 2;
+       break;
+
+     case 2:
+       *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 3);  
+       usleep(500000);
+       *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0,  "O_8_i03", 0, 3);  
+       break;
+   
+     case 3:  
+       turnTableFree(&turnTableStep, &turnTableDone);
+       if(*turnTableDone)
+       {
+         ++*countTurns;
+         *turnTableDone = 0;
+         *turnTableStep = 0;
+         
+         if(*countTurns == 2)
+         {
+           *step = 4;
+           *countTurns = 0;
+         }
+         else
+         {  
+           *step = 2;
+         }
+       }
+       break;
+
+     case 4:
+       *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 5);  
+        usleep(500000);
+       *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0,  "O_8_i03", 0, 5);  
+       break;
+
+     case 5:
+       conveyorBelt(&lastStateConveyor, &currentStateConveyor);
+       pickCap(&pickCapStep, &pickCapDone);
+       if(*pickCapDone)
+       {
+         *step = 6;
+         *pickCapDone = 0;
+       }
+       break;
+
+     case 6:
+       turnTableFree(&turnTableStep, &turnTableDone);
+       if(*turnTableDone)
+       {  
+         ++*countTurns;
+         *turnTableDone = 0;
+         *turnTableStep = 0;
+         
+         if(*countTurns == 2)
+         {   
+           *step = 7;
+         }
+         else
+         {
+           *step = 5;
+         }
+       }
+       break;
+
+     case 7:
+       /* odpri blokado */
+       turnTable(&turnTableStep, &turnTableDone);
+       if(*turnTableDone)
+       {
+         if(readVariableValue("I_2_i04"))
+         {
+           *step = 8;
+         }
+       }   
+     break;
+  
+     case 8:
+       moveGripperLower(&moveGripperLowerStep, &moveGripperLowerDone);
+       if(*moveGripperLowerDone)
+       {
+         *step = 9;
+       }
+       break;
+      
+     case 9:    
+       movePressLower(&movePressLowerStep, &movePressLowerDone); 
+       if(readVariableValue("I_13_i03"))
+       {
+         *movePressLowerDone = 0;
+         *movePressLowerStep = 0;
+         *step = 10;
+       }
+       break;
+
+     case 10:
+       measurement();
+       *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 11);  
+       break;
+
+     case 11:
+       movePressLower(&movePressLowerStep, &movePressLowerDone); 
+       if(*movePressLowerDone)
+       {
+         *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 12);
+       }
+       break;
+
+     case 12:
+       movePressUpper(&movePressUpperStep, &movePressUpperDone); 
+       if(*movePressUpperDone)
+       {
+         *step = 13;
+       }
+       break;
+
+     case 13:
+       moveGripperUpper(&moveGripperUpperStep, &moveGripperUpperDone);
+       if(*moveGripperUpperDone)
+       {
+         *step = 14;
+       }
+       break;
+
+     case 14:
        *turnTableDone = 0;
        *moveGripperLowerDone = 0;
        *moveGripperUpperDone = 0;
@@ -1578,86 +1704,86 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        pickCap(&pickCapStep, &pickCapDone);
        if(*pickCapDone)
        {
-         *step = 2;
+         *step = 15;
        }
        break;
 
-    case 2:
+    case 15:
        conveyorBelt(&lastStateConveyor, &currentStateConveyor);
        turnTable(&turnTableStep, &turnTableDone);
        if(*turnTableDone)
        {
          *pickCapDone = 0;
-         *step = 3;
+         *step = 16;
        }
        break;
 
-     case 3:
+     case 16:
        conveyorBelt(&lastStateConveyor, &currentStateConveyor);
        pickCap(&pickCapStep, &pickCapDone);
        moveGripperLower(&moveGripperLowerStep, &moveGripperLowerDone);
        if(*moveGripperLowerDone)
        {
-         *step = 4;
+         *step = 17;
        }
        break;
 
-     case 4:
+     case 17:
        conveyorBelt(&lastStateConveyor, &currentStateConveyor);
        pickCap(&pickCapStep, &pickCapDone);
        movePressMiddle(&movePressMiddleStep, &movePressMiddleDone);
        if(*movePressMiddleDone)
        {
-         *step = 5;
+         *step = 18;
        }
        break;
 
-     case 5:
+     case 18:
       conveyorBelt(&lastStateConveyor, &currentStateConveyor);
       pickCap(&pickCapStep, &pickCapDone);
       if(readVariableValue("I_13_i03"))
       { 
-        *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 6);  
+        *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 19);  
       }
       else
       {
-        *step = 8;
+        *step = 21;
       }
       break;
 
-     case 6:
+     case 19:
        conveyorBelt(&lastStateConveyor, &currentStateConveyor);
        pickCap(&pickCapStep, &pickCapDone);
        movePressLower(&movePressLowerStep, &movePressLowerDone);
        if(*movePressLowerDone)
        {
-         *step = 7;
+         *step = 20;
        } 
        break;
     
-     case 7:
+     case 20:
        conveyorBelt(&lastStateConveyor, &currentStateConveyor);
        pickCap(&pickCapStep, &pickCapDone);
-       *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 8);
+       *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 21);
        break;
    
-     case 8:
+     case 21:
        conveyorBelt(&lastStateConveyor, &currentStateConveyor);
        pickCap(&pickCapStep, &pickCapDone);
        movePressUpper(&movePressUpperStep, &movePressUpperDone); 
        if(*movePressUpperDone)
        {
-         *step = 9;
+         *step = 22;
        }      
        break;
 
-     case 9:
+     case 22:
        conveyorBelt(&lastStateConveyor, &currentStateConveyor);
        pickCap(&pickCapStep, &pickCapDone);
        moveGripperUpper(&moveGripperUpperStep, &moveGripperUpperDone);
        if(*moveGripperUpperDone)
        {
-         *step = 1;
+         *step = 14;
        }
       break;
   }
@@ -1765,7 +1891,7 @@ void movePressLower(int ** movePressLowerStep, int **movePressLowerDone)
     switch(**movePressLowerStep)
     {
       case 0:
-	moveAKD("O_10_i03");
+	moveAKD("O_10");
 	**movePressLowerStep = 1;
         break;
 
@@ -1892,7 +2018,7 @@ void pickCap(int** pickCapStep, int** pickCapDone)
       case 1:
         if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
         {
-           usleep(100000);
+           usleep(200000);
           **pickCapStep = moveCylinder(1, "I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 2);
         }
         break;
@@ -1951,7 +2077,80 @@ void moveAKD(const char* akd)
 
 
 
-void measurement(int* measurementStep, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* turnTableStep,  int* turnTableDone, int* pickCapStep, int* pickCapDone, int* lastStateConveyor, int* currentStateConveyor)
+void measurement()
+{
+  int w;
+  int * read1 = (int*)(&readBuff[0]);
+  int * read2 = (int*)(&readBuff[2]);
+  int * read3 = (int*)(&readBuff[4]);
+  int * read4 = (int*)(&readBuff[6]);
+  int * read5 = (int*)(&readBuff[7]);
+  int * read6 = (int*)(&readBuff[8]);
+  int * read7 = (int*)(&readBuff[10]);
+  int * writePosTen1 = (int*)(&writePosTenBuff[0]);
+  int * writePosTen9 =  (int*)(&writePosTenBuff[16]);
+  int * writePosTen10 = (int*)(&writePosTenBuff[17]);
+  int * writePosDown1 = (int*)(&writePosDownBuff[0]);
+  int * writePosDown9 =  (int*)(&writePosDownBuff[16]);
+  int * writePosDown10 = (int*)(&writePosDownBuff[17]);
+  int * writePosDown11 = (int*)(&writePosDownBuff[21]);
+  int * dinModeChange1 =  (int*)(&obufDMC[0]);
+  int * dinModeChange9 =  (int*)(&obufDMC[13]);
+  int * drvSave1 = (int*)(&obufDS[0]);
+  printf("STEP: %d\n", step);
+  printf("preberem podatek o trenutni poziciji in ga shranim v ustrezne motion taske");
+  
+  memset(readBuff, 0, 12);
+  * read2 = htons(0);
+  * read3 = htons(6);
+  * read4 = 1;
+  * read5 = 3;
+  * read6 = htons(2072);
+  * read7 = htons(2);
+  * writePosTen9 = 10;       
+  * read1 = transId;   
+  sendModbus(s, readBuff, 12, readBuff_recv, 50, "read feedback position");
+  w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
+  * writePosTen10 = htonl(w);
+  printf("POSITION FEEDBACK:%d\n", w);
+ 
+  * writePosTen1 = transId;       
+  sendModbus(s, writePosTenBuff, 53, writePosTenBuff_recv, 50, "position 10 parameter");
+
+  if(selectedCan == 0)  
+  {
+    * writePosDown9 = 2;    
+  }
+  else if(selectedCan == 1)
+  {
+    * writePosDown9 = 4;    
+  }
+  else if(selectedCan == 2)
+  {
+    * writePosDown9 = 6;       
+  }
+  else if(selectedCan == 3)
+  {
+    * writePosDown9 = 8;       
+  }
+
+  w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
+  * writePosDown10 = htonl(w + press*1000);
+  * writePosDown1 = transId;       
+  * writePosDown11 = htonl(2000000); 
+ 
+  sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "position 10 parameter");
+
+  * dinModeChange1 = transId;
+  * dinModeChange9 = htonl(0);
+  sendModbus(s, obufDMC, 17, ibufDMC, 50, "save to drive");
+  
+  * drvSave1 = transId;
+  sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
+}
+
+
+void setup()
 {
   int * moveTask1 =  (int*)(&obufMT[0]); 
   int * moveTask9 =  (int*)(&obufMT[13]);
@@ -1967,168 +2166,70 @@ void measurement(int* measurementStep, int* movePressLowerStep, int* movePressLo
   int * writePosDown9 =  (int*)(&writePosDownBuff[16]);
   int * writePosDown10 = (int*)(&writePosDownBuff[17]);  
   int * writePosDown11 = (int*)(&writePosDownBuff[21]);
-  int w;
-  int * read1 = (int*)(&readBuff[0]);
-  int * read2 = (int*)(&readBuff[2]);
-  int * read3 = (int*)(&readBuff[4]);
-  int * read4 = (int*)(&readBuff[6]);
-  int * read5 = (int*)(&readBuff[7]);
-  int * read6 = (int*)(&readBuff[8]);
-  int * read7 = (int*)(&readBuff[10]);
-  int * writePosTen1 = (int*)(&writePosTenBuff[0]);
-  int * writePosTen9 =  (int*)(&writePosTenBuff[16]);
-  int * writePosTen10 = (int*)(&writePosTenBuff[17]);
+  printf("STEP: %d\n", step);
   
-  if(readVariableValue("I_2_i04") && *measurementStep == 0)
+  * moveTask1 = transId;
+  if(selectedCan == 0)
   {
-    *measurementStep = 1;
+    * moveTask9 = htonl(1000);                
+    * moveTask9Next = htonl(2000);
+    * writePosUp9 = 1;       
+    * writePosUp10 = htonl((138)*1000); 
+    * writePosDown9 = 2;       
+    * writePosDown10 = htonl((175)*1000); 
   }
-  
-  switch(*measurementStep)
+  else if(selectedCan == 1)
   {
-  
-    case 0:
-     printf("STEP: %d\n", step);
-      
-      * moveTask1 = transId;
-      if(selectedCan == 0)
-      {
-	* moveTask9 = htonl(1000);                
-	* moveTask9Next = htonl(2000);
-        * writePosUp9 = 1;       
-        * writePosUp10 = htonl((138)*1000); 
-        * writePosDown9 = 2;       
-        * writePosDown10 = htonl((175)*1000);
-      }
-      else if(selectedCan == 1)
-      {
-	* moveTask9 = htonl(3000);
-	* moveTask9Next = htonl(4000);
-        * writePosUp9 = 3;       
-        * writePosUp10 = htonl((138)*1000); 
-        * writePosDown9 = 4;       
-        * writePosDown10 = htonl((175)*1000); 
-      }
-      else if(selectedCan == 2)
-      {
-        * moveTask9 = htonl(5000);
-        * moveTask9Next = htonl(6000);     
-        * writePosUp9 = 5;       
-        * writePosUp10 = htonl((104)*1000); 
-        * writePosDown9 = 6;       
-        * writePosDown10 = htonl((140)*1000); 
-      }
-      else if(selectedCan == 3)
-      {
-	* moveTask9 = htonl(7000);
-	* moveTask9Next = htonl(8000); 
-        * writePosUp9 = 7;       
-        * writePosUp10 = htonl((0)*1000);
-        * writePosDown9 = 8;       
-        * writePosDown10 = htonl((35)*1000);
-      }
-
-      sendModbus(s, obufMT, 17, ibufMT, 50, "move task 1 - revert to original positions");
-      * moveTask1Next = transId;
-      sendModbus(s, obufMTN, 17, ibufMTN, 50, "move task 2 - revert to original positions");
-   
-      * writePosUp1 = transId;       
-      sendModbus(s, writePosUpBuff, 53, writePosUpBuff_recv, 50, "template position parameter saved");
-      * writePosDown1 = transId;       
-      * writePosDown11 = htonl(100000);  
-      sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "template position parameter saved");
- 
-       * dinModeChange1 = transId;
-       * dinModeChange9 = htonl(15);
-      sendModbus(s, obufDMC, 17, ibufDMC, 50, "save to drive");
- 
-      * drvSave1 = transId;
-      sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
-        
-      *measurementStep = 1;
-      break;
-   
-    case 1:
-      conveyorBelt(&lastStateConveyor, &currentStateConveyor);
-      pickCap(&pickCapStep, &pickCapDone);
-      turnTableFree(&turnTableStep, &turnTableDone);
-      if(*turnTableDone)
-      {
-        *pickCapDone = 0;
-      }
-      if(readVariableValue("I_2_i03"))
-      {
-        movePressLower(&movePressLowerStep, &movePressLowerDone);
-        if(*movePressLowerDone)
-        {
-          *measurementStep = 2;
-        }
-      } 
-      break;
-
-    case 2:
-     printf("STEP: %d\n", step);
-     printf("preberem podatek o trenutni poziciji in ga shranim v ustrezne motion taske");
-      
-      memset(readBuff, 0, 12);
-      * read2 = htons(0);
-      * read3 = htons(6);
-      * read4 = 1;
-      * read5 = 3;
-      * read6 = htons(2072);
-      * read7 = htons(2);
-      * writePosTen9 = 10;       
-      * read1 = transId;   
-      sendModbus(s, readBuff, 12, readBuff_recv, 50, "read feedback position");
-      w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
-      * writePosTen10 = htonl(w);
-      printf("POSITION FEEDBACK:%d\n", w);
-     
-      * writePosTen1 = transId;       
-      sendModbus(s, writePosTenBuff, 53, writePosTenBuff_recv, 50, "position 10 parameter");
-    
-      if(selectedCan == 0) 
-      {
-	* writePosDown9 = 2;    
-      }
-      else if(selectedCan == 1) 
-      {
-	* writePosDown9 = 4;    
-      }
-      else if(selectedCan == 2) 
-      {
-	* writePosDown9 = 6;       
-      }
-      else if(selectedCan == 3) 
-      {
-	* writePosDown9 = 8;       
-      }
- 
-      w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
-      * writePosDown10 = htonl(w + press*1000);
-      * writePosDown1 = transId;       
-      * writePosDown11 = htonl(2000000);  
-     
-      sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "position 10 parameter");
-
-      * dinModeChange1 = transId;
-      * dinModeChange9 = htonl(0);
-      sendModbus(s, obufDMC, 17, ibufDMC, 50, "save to drive");
-      
-      * drvSave1 = transId;
-      sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
-      
-      *measurementStep = 3;
-      break;
-    
-    case 3:
-      movePressUpper(&movePressUpperStep, &movePressUpperDone); 
-      if(*movePressUpperDone)
-      {
-        *measurementStep = 0;
-      }      
-      break;
+    * moveTask9 = htonl(3000);
+    * moveTask9Next = htonl(4000);
+    * writePosUp9 = 3;       
+    * writePosUp10 = htonl((138)*1000); 
+    * writePosDown9 = 4;       
+    * writePosDown10 = htonl((175)*1000); 
+  }
+  else if(selectedCan == 2)
+  {
+    * moveTask9 = htonl(5000);
+    * moveTask9Next = htonl(6000);     
+    * writePosUp9 = 5;       
+    * writePosUp10 = htonl((104)*1000); 
+    * writePosDown9 = 6;       
+    * writePosDown10 = htonl((140)*1000); 
+  }
+  else if(selectedCan == 3)
+  {
+    * moveTask9 = htonl(7000);
+    * moveTask9Next = htonl(8000); 
+    * writePosUp9 = 7;       
+    * writePosUp10 = htonl((0)*1000);
+    * writePosDown9 = 8;       
+    * writePosDown10 = htonl((35)*1000);
   }
 
+  sendModbus(s, obufMT, 17, ibufMT, 50, "move task 1 - revert to original positions");
+  * moveTask1Next = transId;
+  sendModbus(s, obufMTN, 17, ibufMTN, 50, "move task 2 - revert to original positions");
 
-}  
+  * writePosUp1 = transId;       
+  sendModbus(s, writePosUpBuff, 53, writePosUpBuff_recv, 50, "template position parameter saved");
+  * writePosDown1 = transId;       
+  * writePosDown11 = htonl(100000);   
+  sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "template position parameter saved");
+
+   * dinModeChange1 = transId;
+   * dinModeChange9 = htonl(15);
+  sendModbus(s, obufDMC, 17, ibufDMC, 50, "save to drive");
+
+  * drvSave1 = transId;
+  sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
+
+  moveAKD("O_4_i03");
+  writeVariableValue("O_11", 1);
+  writeVariableValue("O_12", 1);
+  writeVariableValue("O_13", 1);
+  moveAKD("O_1_i03");
+  while(!readVariableValue("I_11") && !readVariableValue("I_12"))
+  {
+    ;
+  }    
+}

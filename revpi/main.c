@@ -1577,6 +1577,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 3);  
        usleep(500000);
        *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0,  "O_8_i03", 0, 3);  
+       usleep(500000);
        break;
    
      case 3:  
@@ -1603,6 +1604,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 5);  
         usleep(500000);
        *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0,  "O_8_i03", 0, 5);  
+       usleep(500000);
        break;
 
      case 5:
@@ -1744,6 +1746,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       if(readVariableValue("I_13_i03"))
       { 
         *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 19);  
+        writeVariableValue("O_1", 1);
       }
       else
       {
@@ -1773,6 +1776,8 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        movePressUpper(&movePressUpperStep, &movePressUpperDone); 
        if(*movePressUpperDone)
        {
+         writeVariableValue("O_1", 0);
+         writeVariableValue("O_2", 1);
          *step = 22;
        }      
        break;
@@ -1783,6 +1788,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        moveGripperUpper(&moveGripperUpperStep, &moveGripperUpperDone);
        if(*moveGripperUpperDone)
        {
+         writeVariableValue("O_2", 0);
          *step = 14;
        }
       break;

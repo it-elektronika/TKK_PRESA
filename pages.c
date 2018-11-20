@@ -504,7 +504,13 @@ void pageEight()  /* ERROR */
       case 14:
         renderText("- PREVERI DOTOK ZRAKA", regularText, blackColor);
         break;
-
+      case 15:
+        renderText("- potreben je ponoven vklop stroja", regularText, blackColor);
+        break;
+      case 16:  
+        renderText("- potreben je ponoven vklop stroja", regularText, blackColor);
+        break;
+      
       default:
         break;
 

@@ -252,11 +252,11 @@ void renderStatusBar()
       break;
 
     case 16:
-      renderText("NAPAKA -", regularText, blackColor);
+      renderText("NAPAKA - vrata odprta", regularText, blackColor);
       break;
 
     case 17:
-      renderText("NAPAKA -", regularText, blackColor);
+      renderText("NAPAKA - stop total", regularText, blackColor);
       break;
     
     case 18:
@@ -382,6 +382,12 @@ void renderContent()
           break;
         case 12:
           sbarText = 15;
+          break;
+        case 15:
+          sbarText = 16;
+          break;
+        case 16:
+          sbarText = 17;
           break;
    
         default:

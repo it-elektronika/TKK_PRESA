@@ -21,7 +21,7 @@ int main()
   /* connecting to DRIVES */
   while(connectiOn == 0)
   {
-    printf("Page:%d, page_stage:%d, sbarText:%d connectiOn:%d\n", page, page_stage, sbarText, connectiOn);
+    printf("Page:%d, page_stage:%d, sbarText:%d connectiOn:%d errorNum:%d\n", page, page_stage, sbarText, connectiOn, errorNum);
     renderBackground();
     renderStatusBar();
     renderContent();
@@ -45,7 +45,7 @@ int main()
   /* main program loop */
   while(program == 1)
   {
-    printf("Page:%d, page_stage:%d, sbarText:%d connectiOn:%d\n", page, page_stage, sbarText, connectiOn);
+    printf("Page:%d, page_stage:%d, sbarText:%d connectiOn:%d errorNum:%d\n", page, page_stage, sbarText, connectiOn, errorNum);
     if(step!=0)
     {
       inCycle = 1;
@@ -54,17 +54,11 @@ int main()
     {
       inCycle = 0;
     }
-    printf("0\n");
     sendMessage();
-    printf("1\n");
     receiveMessage();
-    printf("2\n");
     touchUpdate();
-    printf("3\n");
     renderBackground();
-    printf("4\n");
     renderStatusBar();
-    printf("5\n");
     renderContent();
     SDL_RenderPresent(renderer);
     cycle++;
@@ -135,11 +129,6 @@ void sendMessage()
   //tv.tv_usec = 0;
 
   //n = select(32, NULL, &fdsTCP, NULL, &tv); 
-  printf("sendMessage - presend\n");
-  for(i = 0; i < 256; i++)
-  {
-    printf("sendMessageBuff[%d]:%d\n", i, sendMessageBuff[i]);
-  }
   n = send(sockfd,sendMessageBuff, 8, 0); 
   printf("sendMessage - postsend\n");
   memset(sendMessageBuff, 0, 8);

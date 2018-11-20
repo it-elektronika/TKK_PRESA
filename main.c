@@ -681,9 +681,10 @@ void checkConn()
   else
   {
     page = 7;
-    page_stage = ENTER;
+    //page_stage = ENTER;
     connectiOn = 0;
   }
+  printf("Page:%d, page_stage:%d, sbarText:%d\n", page, page_stage, sbarText);
 }
 
 

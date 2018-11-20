@@ -7,9 +7,11 @@
 
 void pageZero()  /* LANDING PAGE */
 {
+  
   int i;
   if(page_stage == ENTER) /* loading page */
   {
+    printf("PAGE_ZERO - ENTER\n");
     #ifdef RPI   
     fp_can_size = fopen("/home/pi/TKK_PRESA/data/can_size.txt", "r");
     #endif
@@ -121,6 +123,7 @@ void pageZero()  /* LANDING PAGE */
   }
   else if(page_stage == ENABLE)
   {
+    printf("PAGE ZERO - ENABLE\n");
     if(!inCycle)
     {
       renderAdmin(1200, 0, 80, 80, 1);

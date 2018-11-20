@@ -44,9 +44,13 @@ int main()
   int currentStateConveyor = 0;
   int countTurns = 0;
 
-
+  
   initServer();
-  initCommAKDPress();
+  while(conn_AKD != 0)
+  {
+    initCommAKDPress();
+    sleep(1);
+  }
   initMain();
  
   while(program == 1)

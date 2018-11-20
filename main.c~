@@ -136,7 +136,7 @@ void sendMessage()
 
   //n = select(32, NULL, &fdsTCP, NULL, &tv); 
   printf("sendMessage - presend\n");
-  for(i = 0; i < 256; i++)
+  for(i = 0; i < 8; i++)
   {
     printf("sendMessageBuff[%d]:%d\n", i, sendMessageBuff[i]);
   }
@@ -191,8 +191,8 @@ void initMain()
 {
   int i;
   page_stage = ENTER;
-  conn_presa = -99;
-  conn_hmi = -99;
+  conn_presa = 0;
+  conn_hmi = 0;
   errorNumber = 0;
   backgroundColor = 1;
   page = 6;
@@ -205,8 +205,8 @@ void initMain()
   firstPosSmall = 0;
   firstPosMedium = 0;
   firstPosBig = 0;
-  outputButton1 = 0;
-  outputButton2 = 0;
+  outputButton1 = -1;
+  outputButton2 = -1;
   clearError = 0;
   year = 2018;
   month = 1;

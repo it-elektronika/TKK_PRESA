@@ -93,6 +93,7 @@ int main()
     sendMessage();
     //diagnostics();
     //turnTable(&step, &turnTableStep, &turnTableDone);  
+    checkOutputs(&step);
     coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &lastStateConveyor, &currentStateConveyor, &countTurns);
     /*
     if(step != 0)
@@ -2242,4 +2243,20 @@ void setup()
   {
     ;
   }    
+}
+
+
+void checkOutputs(int* step)
+{
+  if(readVariableValue("Output_Status") != 0)
+  {
+    printf("ODPRTA VRATA\n");
+    *step = 0;
+    errorNum = 15;
+  }
+  if(readVariableValue("Output_Status_i04") != 0)
+  {
+    *step = 0;
+    errorNum = 16;
+  }
 }

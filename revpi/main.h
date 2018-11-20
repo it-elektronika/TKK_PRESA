@@ -111,3 +111,4 @@ void conveyorBelt(int ** lastStateConveyor, int ** currentStateConveyor);
 void pickCap(int** pickCapStep, int** pickCapDone);
 void measurement();
 void setup();
+void checkOutputs(int* step);

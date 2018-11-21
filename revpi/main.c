@@ -40,6 +40,10 @@ int main()
   int movePressMiddleDone = 0;
   int pickCapStep = 0;
   int pickCapDone = 0;
+  int blockTableStep = 0;
+  int blockTableDone = 0;
+  int unblockTableStep = 0;
+  int unblockTableDone = 0;
   int lastStateConveyor = 0;
   int currentStateConveyor = 0;
   int countTurns = 0;
@@ -56,14 +60,15 @@ int main()
   while(program == 1)
   {
     printf("Step:%d\n", step);
-    printf("turnTableStep:%d\n", turnTableStep);
-    printf("turnTableDone:%d\n", turnTableDone);
+    printf("ErrorNum:%d\n", errorNum);
+    //printf("turnTableStep:%d\n", turnTableStep);
+    //printf("turnTableDone:%d\n", turnTableDone);
     //printf("moveGripperLowerDone:%d\n", moveGripperLowerDone);
     //printf("moevGripperUpperDone:%d\n", moveGripperUpperDone);
-    printf("movePressLowerStep:%d\n", movePressLowerStep);
-    printf("movePressLowerDone:%d\n", movePressLowerDone);
-    printf("pickCapStep:%d\n", pickCapStep);
-    printf("pickCapDone:%d\n", pickCapDone);
+    //printf("movePressLowerStep:%d\n", movePressLowerStep);
+    //printf("movePressLowerDone:%d\n", movePressLowerDone);
+    //printf("pickCapStep:%d\n", pickCapStep);
+    //printf("pickCapDone:%d\n", pickCapDone);
 
 
 
@@ -93,8 +98,9 @@ int main()
     sendMessage();
     //diagnostics();
     //turnTable(&step, &turnTableStep, &turnTableDone);  
+    
+    coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &lastStateConveyor, &currentStateConveyor, &countTurns, &blockTableStep, &blockTableDone, &unblockTableStep, &unblockTableDone);
     checkOutputs(&step);
-    coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &lastStateConveyor, &currentStateConveyor, &countTurns);
     /*
     if(step != 0)
     {
@@ -1546,7 +1552,7 @@ void upPosPrep()
   } 
 } 
 
-void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int * moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* lastStateConveyor, int* currentStateConveyor, int * countTurns)
+void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int * moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* lastStateConveyor, int* currentStateConveyor, int * countTurns, int* blockTableDone, int* blockTableStep, int* unblockTableStep, int* unblockTableDone)
 {
   switch(*step)
   {
@@ -1643,6 +1649,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
      case 7:
        /* odpri blokado */
+       writeVariableValue("O_12", 1);
        turnTable(&turnTableStep, &turnTableDone);
        if(*turnTableDone)
        {
@@ -1725,12 +1732,15 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        }
        break;
 
-     case 16:
+    case 16:
        conveyorBelt(&lastStateConveyor, &currentStateConveyor);
        pickCap(&pickCapStep, &pickCapDone);
        moveGripperLower(&moveGripperLowerStep, &moveGripperLowerDone);
-       if(*moveGripperLowerDone)
+       blockTable(&blockTableStep, &blockTableDone);
+      
+       if(*moveGripperLowerDone && *blockTableDone)
        {
+         *blockTableDone = 0;
          *step = 17;
        }
        break;
@@ -1791,8 +1801,10 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        conveyorBelt(&lastStateConveyor, &currentStateConveyor);
        pickCap(&pickCapStep, &pickCapDone);
        moveGripperUpper(&moveGripperUpperStep, &moveGripperUpperDone);
-       if(*moveGripperUpperDone)
+       unblockTable(&unblockTableStep, &unblockTableDone);
+       if(*moveGripperUpperDone && *unblockTableDone)
        {
+         *unblockTableDone = 0;
          writeVariableValue("O_2", 0);
          *step = 14;
        }
@@ -2258,5 +2270,56 @@ void checkOutputs(int* step)
   {
     *step = 0;
     errorNum = 16;
+  }
+  if(readVariableValue("I_14") == 0)
+  {
+    *step = 0;
+    errorNum = 17;
+  }
+}
+
+
+void blockTable(int** blockTableStep, int** blockTableDone)
+{
+  if(!**blockTableDone)
+  {
+    switch(**blockTableStep) 
+    { 
+      case 0:
+        writeVariableValue("O_11", 1);
+        ++**blockTableStep;
+        break;
+
+      case 1:
+        if(readVariableValue("I_11_i04"))
+        {
+          **blockTableStep = 0;
+          **blockTableDone = 1;        
+        }
+        break;
+    }
+  }
+}
+
+
+void unblockTable(int** unblockTableStep, int** unblockTableDone)
+{
+  if(!**unblockTableDone)
+  {
+    switch(**unblockTableStep) 
+    { 
+      case 0:
+        writeVariableValue("O_11", 0);
+        ++**unblockTableStep;
+        break;
+ 
+      case 1:
+        if(readVariableValue("I_12_i04"))
+        {
+          **unblockTableStep = 0;
+          **unblockTableDone = 1;        
+        }
+        break;
+    }
   }
 }

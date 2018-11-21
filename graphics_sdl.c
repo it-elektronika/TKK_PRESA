@@ -260,7 +260,7 @@ void renderStatusBar()
       break;
     
     case 18:
-      renderText("NAPAKA -", regularText, blackColor);
+      renderText("NAPAKA - tlacni senzor", regularText, blackColor);
       break;
 
     case 19:
@@ -389,7 +389,10 @@ void renderContent()
         case 16:
           sbarText = 17;
           break;
-   
+        case 17:
+          sbarText = 18;
+          break;
+
         default:
           break;
       }

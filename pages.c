@@ -1,4 +1,8 @@
-#include <stdio.h>
+#if(readVariableValue("Output_Status_i04") != 0)
+  {
+    *step = 0;
+    errorNum = 16;
+  }include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
@@ -509,6 +513,9 @@ void pageEight()  /* ERROR */
         break;
       case 16:  
         renderText("- potreben je ponoven vklop stroja", regularText, blackColor);
+        break; 
+      case 17:  
+        renderText("- preveri dotok zraka", regularText, blackColor);
         break;
       
       default:

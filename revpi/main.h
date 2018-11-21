@@ -111,6 +111,8 @@ void conveyorBelt(int ** lastStateConveyor, int ** currentStateConveyor);
 void pickCap(int** pickCapStep, int** pickCapDone);
 void blockTable(int **blockTableStep, int** blockTableDone);
 void unblockTable(int **unblockTableStep, int** unblockTableDone);
+void clearTable(int *step, int* turnTableStep, int* turnTableDone);
+void tableHome(int *step);
 void measurement();
 void setup();
 void checkOutputs(int* step);

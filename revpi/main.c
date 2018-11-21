@@ -98,7 +98,8 @@ int main()
     sendMessage();
     //diagnostics();
     //turnTable(&step, &turnTableStep, &turnTableDone);  
-    
+    tableHome(&step);
+    clearTable(&step, &turnTableStep, &turnTableDone);
     coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &lastStateConveyor, &currentStateConveyor, &countTurns, &blockTableStep, &blockTableDone, &unblockTableStep, &unblockTableDone);
     checkOutputs(&step);
     /*
@@ -1560,7 +1561,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        writeVariableValue("O_5_i03", 0);
        writeVariableValue("O_7_i03", 0); 
        writeVariableValue("O_8_i03", 0);
-       writeVariableValue("O_1_i04", 0); 
+       writeVariableValue("O_2_i03", 0); 
        *countTurns = 0;
        *lastStateConveyor = 0;
        *currentStateConveyor = 0;
@@ -1813,7 +1814,8 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
 void turnTable(int **turnTableStep, int **turnTableDone)
 {
-  int cond;
+  int cond1;
+  int cond2;
   printf("turnTableStep:%d, turnTableDone:%d\n", **turnTableStep, **turnTableDone);
   if(!**turnTableDone)
   { 
@@ -1823,10 +1825,10 @@ void turnTable(int **turnTableStep, int **turnTableDone)
 	if(readVariableValue("I_4_i04"))
         {
 	  printf("case 0\n");
-	  cond = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
-	  cond = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
+	  cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
+	  cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
 	  //printf("turn table I_11_io3:%d, I_12_io3:%d, i_9_i03:%d, i_10_i03:%d\n", readVariableValue("I_11_i03"),readVariableValue("I_12_i03"),readVariableValue("I_9_i03"), readVariableValue("I_10_i03"));
-	  if(cond)
+	  if(cond1 && cond2)
 	  {
 	    moveAKD("O_7");
 	    **turnTableStep = 1;
@@ -1854,7 +1856,8 @@ void turnTable(int **turnTableStep, int **turnTableDone)
 
 void turnTableFree(int **turnTableStep, int **turnTableDone)
 {
-  int cond;
+  int cond1;
+  int cond2;
   printf("turnTableStep:%d, turnTableDone:%d\n", **turnTableStep, **turnTableDone);
   if(!**turnTableDone)
   { 
@@ -1862,10 +1865,10 @@ void turnTableFree(int **turnTableStep, int **turnTableDone)
     {
       case 0:
 	printf("case 0\n");
-	cond = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
-	cond = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
+	cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
+	cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
 	//printf("turn table I_11_io3:%d, I_12_io3:%d, i_9_i03:%d, i_10_i03:%d\n", readVariableValue("I_11_i03"),readVariableValue("I_12_i03"),readVariableValue("I_9_i03"), readVariableValue("I_10_i03"));
-	if(cond)
+	if(cond1 && cond2)
 	{
 	  moveAKD("O_7");
 	  **turnTableStep = 1;
@@ -2076,7 +2079,7 @@ void conveyorBelt(int** lastStateConveyor, int** currentStateConveyor)
     if(**lastStateConveyor != **currentStateConveyor)
     {
       usleep(100000);
-      writeVariableValue("O_1_i04", 0);  
+      writeVariableValue("O_2_i03", 0);  
     }
   }
   else
@@ -2084,7 +2087,7 @@ void conveyorBelt(int** lastStateConveyor, int** currentStateConveyor)
     **currentStateConveyor = 1;
     if(**lastStateConveyor != **currentStateConveyor)
     {
-      writeVariableValue("O_1_i04", 1);
+      writeVariableValue("O_2_i03", 1);
       **currentStateConveyor = 1;
     }
   }
@@ -2319,6 +2322,41 @@ void unblockTable(int** unblockTableStep, int** unblockTableDone)
           **unblockTableDone = 1;        
         }
         break;
+    }
+  }
+}
+
+void clearTable(int * step, int* turnTableStep, int * turnTableDone)
+{
+  if(*step == 0)
+  {
+    if(readVariableValue("I_8_i04"))
+    {
+      turnTableFree(&turnTableStep, &turnTableDone);
+    }
+    if(*turnTableDone)
+    {
+      *turnTableDone = 0;
+    }
+  }
+}
+
+void tableHome(int * step)
+{
+  int cond1 = 0;
+  int cond2 = 0;
+  if(*step == 0)
+  {
+    if(readVariableValue("I_9_i04"))
+    {
+      cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
+      cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
+      if(cond1 && cond2)
+      {
+        writeVariableValue("O_8", 1);
+        usleep(delay_time);
+        writeVariableValue("O_8", 0);
+      }
     }
   }
 }

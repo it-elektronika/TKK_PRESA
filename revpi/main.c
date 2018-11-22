@@ -1671,8 +1671,11 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
   
      case 8: /* gripper - moving to low position */
        moveGripperLower(&moveGripperLowerStep, &moveGripperLowerDone);
-       if(*moveGripperLowerDone)
+       blockTable(&blockTableStep, &blockTableDone);
+      
+       if(*moveGripperLowerDone && *blockTableDone)
        {
+         *blockTableDone = 0;
          *step = 9;
        }
        break;
@@ -1710,8 +1713,10 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
      case 13: /* gripper - moving to up position */
        moveGripperUpper(&moveGripperUpperStep, &moveGripperUpperDone);
-       if(*moveGripperUpperDone)
+       unblockTable(&unblockTableStep, &unblockTableDone);
+       if(*moveGripperUpperDone && *unblockTableDone)
        {
+         *unblockTableDone = 0;
          *step = 14;
        }
        break;
@@ -1823,8 +1828,9 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
 void turnTable(int **turnTableStep, int **turnTableDone)
 {
-  int cond1;
-  int cond2;
+  int cond1 = 0;
+  int cond2 = 0;
+  int cond3 = 0;
   printf("turnTableStep:%d, turnTableDone:%d\n", **turnTableStep, **turnTableDone);
   if(!**turnTableDone)
   { 
@@ -1836,8 +1842,9 @@ void turnTable(int **turnTableStep, int **turnTableDone)
 	  printf("case 0\n");
 	  cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
 	  cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
+          cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
 	  //printf("turn table I_11_io3:%d, I_12_io3:%d, i_9_i03:%d, i_10_i03:%d\n", readVariableValue("I_11_i03"),readVariableValue("I_12_i03"),readVariableValue("I_9_i03"), readVariableValue("I_10_i03"));
-	  if(cond1 && cond2)
+	  if(cond1 && cond2 && cond3)
 	  {
 	    moveAKD("O_7");
 	    **turnTableStep = 1;
@@ -1865,8 +1872,9 @@ void turnTable(int **turnTableStep, int **turnTableDone)
 
 void turnTableFree(int **turnTableStep, int **turnTableDone)
 {
-  int cond1;
-  int cond2;
+  int cond1 = 0;
+  int cond2 = 0;
+  int cond3 = 0;
   printf("turnTableStep:%d, turnTableDone:%d\n", **turnTableStep, **turnTableDone);
   if(!**turnTableDone)
   { 
@@ -1876,8 +1884,9 @@ void turnTableFree(int **turnTableStep, int **turnTableDone)
 	printf("case 0\n");
 	cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
 	cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
-	//printf("turn table I_11_io3:%d, I_12_io3:%d, i_9_i03:%d, i_10_i03:%d\n", readVariableValue("I_11_i03"),readVariableValue("I_12_i03"),readVariableValue("I_9_i03"), readVariableValue("I_10_i03"));
-	if(cond1 && cond2)
+        cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
+     	//printf("turn table I_11_io3:%d, I_12_io3:%d, i_9_i03:%d, i_10_i03:%d\n", readVariableValue("I_11_i03"),readVariableValue("I_12_i03"),readVariableValue("I_9_i03"), readVariableValue("I_10_i03"));
+	if(cond1 && cond2 && cond3)
 	{
 	  moveAKD("O_7");
 	  **turnTableStep = 1;

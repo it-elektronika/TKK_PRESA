@@ -47,8 +47,9 @@ int main()
   int lastStateConveyor = 0;
   int currentStateConveyor = 0;
   int countTurns = 0;
-
-  
+  s = -99;
+  conn_AKD = 100;
+   
   initServer();
   while(conn_AKD != 0)
   {
@@ -56,7 +57,7 @@ int main()
     sleep(1);
   }
   initMain();
- 
+  
   while(program == 1)
   {
     printf("Step:%d\n", step);
@@ -69,10 +70,7 @@ int main()
     //printf("movePressLowerDone:%d\n", movePressLowerDone);
     //printf("pickCapStep:%d\n", pickCapStep);
     //printf("pickCapDone:%d\n", pickCapDone);
-
-
-
-
+  
    /* printf("Program:%d\n", program);
     printf("PageNum:%d\n", pageNum);
     */
@@ -141,8 +139,11 @@ void initServer()
   { 
     error("ERROR on binding");
   }
-
-  listen(sockfd,5);
+  if(listen(sockfd,5) < 0)
+  {
+    error("listen error\n");
+  }
+  
   puts("Waiting for incoming connection\n");
   clilen = sizeof(cli_addr);
   newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
@@ -155,9 +156,13 @@ void initServer()
 
 void initCommAKDPress() 
 {
+  printf("s before socket:%d\n", s);
   ip_adrs = "192.168.1.13";
-  s = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
-
+  if((s = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP))<0)
+  {
+    error("s socket error\n");
+  }
+ 
   AKD_server.sin_family = AF_INET;
   AKD_server.sin_port = htons(502);
   AKD_server.sin_addr.s_addr = inet_addr(ip_adrs);
@@ -655,7 +660,7 @@ void receiveMessage()
   }
 }
 
-/*void diagnostics()
+void diagnostics()
 {
   switch(step)
   {
@@ -670,7 +675,7 @@ void receiveMessage()
     case 0:
       errorNum = 0;
       break;
-   
+    /*  
     case 1:
       printf("STEP: %d\n", step);
       writeVariableValue("O_5_i03", 0);
@@ -720,8 +725,8 @@ void receiveMessage()
         step = 7;
       }     
       break;
-    
-    case 7:
+    */
+    case 1:
     { 
       int * moveTask1 =  (int*)(&obufMT[0]); 
       int * moveTask9 =  (int*)(&obufMT[13]);
@@ -745,27 +750,27 @@ void receiveMessage()
 	* moveTask9 = htonl(1000);                
 	* moveTask9Next = htonl(2000);
         * writePosUp9 = 1;       
-        * writePosUp10 = htonl((0)*1000); some value
+        * writePosUp10 = htonl((0)*1000); 
         * writePosDown9 = 2;       
-        * writePosDown10 = htonl((0)*1000); some value
+        * writePosDown10 = htonl((0)*1000); 
       }
       else if(selectedCan == 1)
       {
 	* moveTask9 = htonl(3000);
 	* moveTask9Next = htonl(4000);
         * writePosUp9 = 3;       
-        * writePosUp10 = htonl((0)*1000); some value
+        * writePosUp10 = htonl((0)*1000); 
         * writePosDown9 = 4;       
-        * writePosDown10 = htonl((0)*1000); some value
+        * writePosDown10 = htonl((0)*1000);
       }
       else if(selectedCan == 2)
       {
         * moveTask9 = htonl(5000);
         * moveTask9Next = htonl(6000);     
         * writePosUp9 = 5;       
-        * writePosUp10 = htonl((0)*1000); some value
+        * writePosUp10 = htonl((0)*1000); 
         * writePosDown9 = 6;       
-        * writePosDown10 = htonl((0)*1000); some value
+        * writePosDown10 = htonl((0)*1000); 
       }
       else if(selectedCan == 3)
       {
@@ -777,35 +782,35 @@ void receiveMessage()
         * writePosDown10 = htonl((35)*1000);
       }
 
-      sendModbus(s, obufMT, 17, ibufMT, 50, "move task 1 - revert to original positions");
+      //sendModbus(&s, obufMT, 17, ibufMT, 50, "move task 1 - revert to original positions");
       * moveTask1Next = transId;
-      sendModbus(s, obufMTN, 17, ibufMTN, 50, "move task 2 - revert to original positions");
+      //sendModbus(s, obufMTN, 17, ibufMTN, 50, "move task 2 - revert to original positions");
    
-      write template position values 
       * writePosUp1 = transId;       
-      sendModbus(s, writePosUpBuff, 53, writePosUpBuff_recv, 50, "template position parameter saved");
+      //sendModbus(s, writePosUpBuff, 53, writePosUpBuff_recv, 50, "template position parameter saved");
       * writePosDown1 = transId;       
-      * writePosDown11 = htonl(100000);  set speed to 20 
-      sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "template position parameter saved");
+      * writePosDown11 = htonl(100000);  
+      //sendModbus(&s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "template position parameter saved");
  
        * dinModeChange1 = transId;
        * dinModeChange9 = htonl(15);
-      sendModbus(s, obufDMC, 17, ibufDMC, 50, "save to drive");
+     // sendModbus(s, obufDMC, 17, ibufDMC, 50, "save to drive");
  
       * drvSave1 = transId;
-      sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
+      //sendModbus(&s, obufDS, 17, ibufDS, 50, "save to drive");
     
       writeVariableValue("O_1", 0);
       writeVariableValue("O_2", 1);
-      priprava izhodov za pomik na zgornjo pozicijo 
       upPosPrep();
       usleep(delay_time);
       writeVariableValue("O_2", 0);
  
-      step = 8;
+      step = -1;
       break;
     }
-    
+  }
+}
+    /*
     case 8:   presa pomik na zgornjo pozicijo, gripper na spodnjo 
       printf("STEP: %d\n", step);
       printf("pomik na zgornjo pozicijo\n");
@@ -1314,7 +1319,11 @@ void sendModbus(int socket_fd, char *send_buff, int send_buff_size, char *receiv
 {
   send(socket_fd, send_buff, send_buff_size, 0);
   printf("%s\n", print_text);
-  recv(socket_fd, receive_buff, receive_buff_size , 0);
+  
+  if(recv(socket_fd, receive_buff, receive_buff_size , 0) == -1)
+  {
+    error("receive modbus message\n");
+  }
   transId++;
 }
 
@@ -2252,13 +2261,13 @@ void setup()
   writeVariableValue("O_11", 1);
   writeVariableValue("O_12", 1);
   writeVariableValue("O_13", 1);
+  usleep(1000000);
   moveAKD("O_1_i03");
   while(!readVariableValue("I_11") && !readVariableValue("I_12"))
   {
     ;
   }    
 }
-
 
 void checkOutputs(int* step)
 {

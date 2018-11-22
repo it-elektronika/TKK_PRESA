@@ -32,8 +32,8 @@ struct timeval tv;
 int step;
 int pageNum;
 int counter;
-int s;
 int n;
+int s;
 int program;
 int transId;
 int conn_AKD;
@@ -71,7 +71,7 @@ char outputWriteBuff[256];
 
 
 char obufMT[21];
-char ibufMT[21];
+char ibufMT[50];
 
 char obufMTN[21];
 char ibufMTN[21];
@@ -116,3 +116,6 @@ void tableHome(int *step);
 void measurement();
 void setup();
 void checkOutputs(int* step);
+
+
+

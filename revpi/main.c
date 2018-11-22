@@ -1752,16 +1752,16 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        turnTable(&turnTableStep, &turnTableDone);
        if(*turnTableDone)
        {
-        // if(readVariableValue("I_2_i04")
-         // {
-         *pickCapDone = 0;
-         *step = 16;
-        // }
-        //else
-        //{
-        //  *step = 14;
-        //}
-    
+         if(readVariableValue("I_2_i04"))
+         {
+           *pickCapDone = 0;
+           *step = 16;
+         }
+         else
+         {
+          *pickCapDone = 0;
+          *step = 14;
+         }
        }
        break;
 

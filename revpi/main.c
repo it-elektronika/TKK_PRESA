@@ -2288,7 +2288,7 @@ void blockTable(int** blockTableStep, int** blockTableDone)
     switch(**blockTableStep) 
     { 
       case 0:
-        writeVariableValue("O_11", 1);
+        writeVariableValue("O_11_i03", 1);
         ++**blockTableStep;
         break;
 
@@ -2311,7 +2311,7 @@ void unblockTable(int** unblockTableStep, int** unblockTableDone)
     switch(**unblockTableStep) 
     { 
       case 0:
-        writeVariableValue("O_11", 0);
+        writeVariableValue("O_11_i03", 0);
         ++**unblockTableStep;
         break;
  

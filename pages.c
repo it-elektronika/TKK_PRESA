@@ -1,8 +1,4 @@
-#if(readVariableValue("Output_Status_i04") != 0)
-  {
-    *step = 0;
-    errorNum = 16;
-  }include <stdio.h>
+#include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>

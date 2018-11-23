@@ -59,8 +59,10 @@ int main()
   
   while(program == 1)
   {
+    printf("*************************************\n");
     printf("Step:%d\n", step);
     printf("ErrorNum:%d\n", errorNum);
+   
     //printf("turnTableStep:%d\n", turnTableStep);
     //printf("turnTableDone:%d\n", turnTableDone);
     //printf("moveGripperLowerDone:%d\n", moveGripperLowerDone);
@@ -1602,9 +1604,11 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        break;
    
      case 3: /* turn table twice */  
+       usleep(500000);
        turnTableFree(&turnTableStep, &turnTableDone);
        if(*turnTableDone)
        {
+         printf("count_turns:%d\n", count_turns);
          ++*countTurns;
          *turnTableDone = 0;
          *turnTableStep = 0;
@@ -1662,6 +1666,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
      case 7: /* letting in cans */
        conveyorBelt(&conveyorOff, &conveyorOn);
        writeVariableValue("O_12_i03", 0);
+       usleep(1000000);
        turnTable(&turnTableStep, &turnTableDone);
        if(*turnTableDone)
        {
@@ -1698,21 +1703,25 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
      case 10: /* measuring position & updating drive data */
        conveyorBelt(&conveyorOff, &conveyorOn);
        measurement();
-       *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 11);  
+       //*step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 11);  
+       *step = 12;
        break;
 
      case 11: /* pressing cap */
        conveyorBelt(&conveyorOff, &conveyorOn);
-       movePressLower(&movePressLowerStep, &movePressLowerDone); 
-       if(*movePressLowerDone)
-       {
+       usleep(2000000);
+       //movePressLower(&movePressLowerStep, &movePressLowerDone); 
+       //if(*movePressLowerDone)
+       //{
          *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 12);
-       }
+       //}
        break;
 
      case 12: /* press - moving to up position */
        conveyorBelt(&conveyorOff, &conveyorOn);
+       usleep(2000000);
        movePressUpper(&movePressUpperStep, &movePressUpperDone); 
+       usleep(2000000);
        if(*movePressUpperDone)
        {
          *step = 13;
@@ -1858,11 +1867,12 @@ void turnTable(int **turnTableStep, int **turnTableDone)
       case 0:
 	if(readVariableValue("I_4_i04"))
         {
-	  printf("case 0\n");
 	  cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
 	  cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
           cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
-	  //printf("turn table I_11_io3:%d, I_12_io3:%d, i_9_i03:%d, i_10_i03:%d\n", readVariableValue("I_11_i03"),readVariableValue("I_12_i03"),readVariableValue("I_9_i03"), readVariableValue("I_10_i03"));
+          printf("cond1:%d\n", cond1);
+          printf("cond2:%d\n", cond1);
+          printf("cond3:%d\n", cond1);
 	  if(cond1 && cond2 && cond3)
 	  {
 	    moveAKD("O_7");
@@ -1894,17 +1904,18 @@ void turnTableFree(int **turnTableStep, int **turnTableDone)
   int cond1 = 0;
   int cond2 = 0;
   int cond3 = 0;
-  printf("turnTableStep:%d, turnTableDone:%d\n", **turnTableStep, **turnTableDone);
+  printf("turnTableFreeStep:%d, turnTableFreeDone:%d\n", **turnTableStep, **turnTableDone);
   if(!**turnTableDone)
   { 
     switch(**turnTableStep)
     {
       case 0:
-	printf("case 0\n");
 	cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
 	cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
         cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
-     	//printf("turn table I_11_io3:%d, I_12_io3:%d, i_9_i03:%d, i_10_i03:%d\n", readVariableValue("I_11_i03"),readVariableValue("I_12_i03"),readVariableValue("I_9_i03"), readVariableValue("I_10_i03"));
+        printf("cond1:%d\n", cond1);
+        printf("cond2:%d\n", cond1);
+        printf("cond3:%d\n", cond1);
 	if(cond1 && cond2 && cond3)
 	{
 	  moveAKD("O_7");
@@ -1948,6 +1959,7 @@ void movePressZeroPos(int ** movePressStep, int **movePressDone)
 */
 void movePressLower(int ** movePressLowerStep, int **movePressLowerDone)
 {
+  printf("movePressLowerStep:%d, movePressLowerDone:%d\n", **movePressLowerStep, **movePressLowerDone);
   if(!**movePressLowerDone)
   {
     switch(**movePressLowerStep)
@@ -1970,6 +1982,7 @@ void movePressLower(int ** movePressLowerStep, int **movePressLowerDone)
 
 void movePressUpper(int ** movePressUpperStep, int **movePressUpperDone)
 {
+  printf("movePressUpperStep:%d, movePressUpperDone:%d\n", **movePressUpperStep, **movePressUpperDone);
   if(!**movePressUpperDone)
   {
     switch(**movePressUpperStep)
@@ -1992,6 +2005,7 @@ void movePressUpper(int ** movePressUpperStep, int **movePressUpperDone)
 
 void movePressMiddle(int ** movePressMiddleStep, int **movePressMiddleDone)
 {
+  printf("movePressMiddleStep:%d, movePressMiddleDone:%d\n", **movePressMiddleStep, **movePressMiddleDone);
   if(!**movePressMiddleDone)
   {
     switch(**movePressMiddleStep)
@@ -2014,6 +2028,7 @@ void movePressMiddle(int ** movePressMiddleStep, int **movePressMiddleDone)
 
 void moveGripperLower(int ** moveGripperLowerStep, int **moveGripperLowerDone)
 {
+  printf("moveGripperLowerStep:%d, moveGripperLowerDone:%d\n", **moveGripperLowerStep, **moveGripperLowerDone);
   if(!**moveGripperLowerDone)
   {
     switch(**moveGripperLowerStep)
@@ -2038,6 +2053,7 @@ void moveGripperLower(int ** moveGripperLowerStep, int **moveGripperLowerDone)
 
 void moveGripperUpper(int ** moveGripperUpperStep, int **moveGripperUpperDone)
 {
+  printf("moveGripperUpperStep:%d, moveGripperUpperDone:%d\n", **moveGripperUpperStep, **moveGripperUpperDone);
   if(!**moveGripperUpperDone)
   {
     switch(**moveGripperUpperStep)
@@ -2062,6 +2078,7 @@ void moveGripperUpper(int ** moveGripperUpperStep, int **moveGripperUpperDone)
 
 void pickCap(int** pickCapStep, int** pickCapDone)
 {
+  printf("pickCapStep:%d, pickCapDone:%d\n", **pickCapStep, **pickCapDone);
   if(!**pickCapDone)
   {
     switch(**pickCapStep)
@@ -2175,7 +2192,7 @@ void measurement()
   * read1 = transId;   
   sendModbus(s, readBuff, 12, readBuff_recv, 50, "read feedback position");
   w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
-  * writePosTen10 = htonl(w);
+  * writePosTen10 = htonl(w+2);
   printf("POSITION FEEDBACK:%d\n", w);
  
   * writePosTen1 = transId;       
@@ -2322,6 +2339,7 @@ void checkOutputs(int* step)
 
 void blockTable(int** blockTableStep, int** blockTableDone)
 {
+  printf("blockTableStep:%d, blockTableDone:%d\n", **blockTableStep, **blockTableDone);
   if(!**blockTableDone)
   {
     switch(**blockTableStep) 
@@ -2345,6 +2363,7 @@ void blockTable(int** blockTableStep, int** blockTableDone)
 
 void unblockTable(int** unblockTableStep, int** unblockTableDone)
 {
+  printf("unblockTableStep:%d, unblockTableDone:%d\n", **unblockTableStep, **unblockTableDone);
   if(!**unblockTableDone)
   {
     switch(**unblockTableStep) 
@@ -2367,6 +2386,7 @@ void unblockTable(int** unblockTableStep, int** unblockTableDone)
 
 void clearTable(int * step, int* turnTableStep, int * turnTableDone)
 {
+  //printf("clearTable turnTableStep:%d turnTableDone:%d\n", *turnTableStep, *turnTableDone);
   if(*step == 0)
   {
     if(readVariableValue("I_8_i04"))
@@ -2384,13 +2404,17 @@ void tableHome(int * step)
 {
   int cond1 = 0;
   int cond2 = 0;
+  int cond3 = 0;
+ 
   if(*step == 0)
   {
     if(readVariableValue("I_9_i04"))
     {
       cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
       cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
-      if(cond1 && cond2)
+      cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
+       
+      if(cond1 && cond2 && cond3)
       {
         writeVariableValue("O_8", 1);
         usleep(delay_time);

@@ -178,7 +178,6 @@ void initCommAKDPress()
   }
 }  
 
-
 void initMain()
 {  
   int * clear1 =  (int*)(&obufCl[0]);
@@ -242,7 +241,6 @@ void initMain()
   int * writePosDown17 = (int*)(&writePosDownBuff[48]);
   int * writePosDown18 = (int*)(&writePosDownBuff[52]);
  
-
   int * moveTask1 =  (int*)(&obufMT[0]);
   int * moveTask2 =  (int*)(&obufMT[2]);
   int * moveTask3 =  (int*)(&obufMT[4]);
@@ -402,8 +400,6 @@ void initMain()
   lastState = 0;
   currentState = 0;
 }
-
-
 
 void sendMessage()
 {
@@ -1443,7 +1439,7 @@ int moveCylinder(int id, const char *input1, int input1_val, const char* input2,
     
     if(elapsedTime1 > 1)
     {
-      step = 0;
+      step = -1;
       switch(id)
       {
         case 1:
@@ -1455,9 +1451,9 @@ int moveCylinder(int id, const char *input1, int input1_val, const char* input2,
         case 3: 
           errorNum = 5; 
           break;
-        /*case 4:
+        case 4:
           errorNum = 7;
-          break;*/
+          break;
       }
       return step;  
     }
@@ -1497,7 +1493,7 @@ int moveCylinder(int id, const char *input1, int input1_val, const char* input2,
           errorNum = 8;
           break;*/
       }
-      step = 0;
+      step = -1;
       printf("Error step:%d, %s:%d %s:%d\n", step, input1, readVariableValue(input1), input2, readVariableValue(input2));
       return step;  
     }
@@ -1571,6 +1567,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        writeVariableValue("O_7_i03", 0); 
        writeVariableValue("O_8_i03", 0);
        writeVariableValue("O_2_i03", 0); 
+       writeVariableValue("O_11_i03", 0);
        writeVariableValue("O_12_i03", 1);
        *countTurns = 0;
        *conveyorOff = 0;
@@ -1582,8 +1579,30 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        *movePressUpperDone = 0;
        *movePressMiddleDone = 0;
        *pickCapDone = 0;
-       *step = 0;
-      
+       *moveGripperLowerStep = 0;
+       *moveGripperUpperStep = 0;
+       *movePressLowerStep = 0;
+       *movePressUpperStep = 0;
+       *movePressMiddleStep = 0;
+       *pickCapStep = 0;
+       
+       *countTurns = 0;
+        
+        moveAKD("O_4_i03");
+        while(!readVariableValue("I_11"))
+        {
+          ;
+        }
+	writeVariableValue("O_11", 1);
+	writeVariableValue("O_12", 1);
+	writeVariableValue("O_13", 1);
+	usleep(1000000);
+	moveAKD("O_1_i03");
+	while(!readVariableValue("I_12"))
+	{
+	  ;
+	}
+        *step = 0;
        break;
      
      case 0: 
@@ -1701,26 +1720,26 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
      case 10: /* measuring position & updating drive data */
        conveyorBelt(&conveyorOff, &conveyorOn);
+       usleep(1000000);
        measurement();
-       //*step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 11);  
-       *step = 12;
+       *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 11);  
+       //*step = 12;
        break;
 
      case 11: /* pressing cap */
        conveyorBelt(&conveyorOff, &conveyorOn);
-       usleep(2000000);
-       //movePressLower(&movePressLowerStep, &movePressLowerDone); 
-       //if(*movePressLowerDone)
-       //{
+       usleep(1000000);
+       movePressLower(&movePressLowerStep, &movePressLowerDone); 
+       if(*movePressLowerDone)
+       {
          *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 12);
-       //}
+       }
        break;
 
      case 12: /* press - moving to up position */
        conveyorBelt(&conveyorOff, &conveyorOn);
-       usleep(2000000);
+       usleep(1000000);
        movePressUpper(&movePressUpperStep, &movePressUpperDone); 
-       usleep(2000000);
        if(*movePressUpperDone)
        {
          *step = 13;
@@ -1806,7 +1825,9 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       }
       else
       {
-        *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 20);
+        //*step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 20);
+        errorNum = 20;
+        *step = -1;
       }
       break;
 
@@ -1858,6 +1879,7 @@ void turnTable(int **turnTableStep, int **turnTableDone)
   int cond1 = 0;
   int cond2 = 0;
   int cond3 = 0;
+  int cond4 = 0;
   printf("turnTableStep:%d, turnTableDone:%d\n", **turnTableStep, **turnTableDone);
   if(!**turnTableDone)
   { 
@@ -1869,10 +1891,16 @@ void turnTable(int **turnTableStep, int **turnTableDone)
 	  cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
 	  cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
           cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
+          if(!readVariableValue("I_2_i04"))
+          {
+            cond4 = 1;
+          }    
           printf("cond1:%d\n", cond1);
           printf("cond2:%d\n", cond1);
           printf("cond3:%d\n", cond1);
-	  if(cond1 && cond2 && cond3)
+          printf("cond4:%d\n", cond1);
+	
+  	  if(cond1 && cond2 && cond3 && cond4)
 	  {
 	    moveAKD("O_7");
 	    **turnTableStep = 1;
@@ -1903,6 +1931,7 @@ void turnTableFree(int **turnTableStep, int **turnTableDone)
   int cond1 = 0;
   int cond2 = 0;
   int cond3 = 0;
+  int cond4 = 0;
   printf("turnTableFreeStep:%d, turnTableFreeDone:%d\n", **turnTableStep, **turnTableDone);
   if(!**turnTableDone)
   { 
@@ -1912,10 +1941,16 @@ void turnTableFree(int **turnTableStep, int **turnTableDone)
 	cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
 	cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
         cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
+        if(!readVariableValue("I_2_i04"))
+        {
+          cond4 = 1;
+        }         
         printf("cond1:%d\n", cond1);
-        printf("cond2:%d\n", cond1);
-        printf("cond3:%d\n", cond1);
-	if(cond1 && cond2 && cond3)
+        printf("cond2:%d\n", cond2);
+        printf("cond3:%d\n", cond3);
+	printf("cond4:%d\n", cond4);
+	
+        if(cond1 && cond2 && cond3 && cond4)
 	{
 	  moveAKD("O_7");
 	  **turnTableStep = 1;
@@ -2089,6 +2124,13 @@ void pickCap(int **step ,int** pickCapStep, int** pickCapDone)
           {
             **pickCapStep = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 1);
           }
+          else if(readVariableValue("I_1_i04") && !readVariableValue("I_3_i04"))
+          {
+            writeVariableValue("O_10_i03", 1);
+            usleep(200000);
+            writeVariableValue("O_10_i03", 0);
+            **pickCapStep = 6;
+          }
         }
         else
         {
@@ -2105,13 +2147,13 @@ void pickCap(int **step ,int** pickCapStep, int** pickCapDone)
         break;
 
       case 2:
-        if(!readVariableValue("I_14_i04"))
+        if(!readVariableValue("I_13_i04"))
         {
           **pickCapStep = 3;
         }
         else
         {
-          **step = 0;
+          **step = -1;
           errorNum = 19;
         }
         break;
@@ -2122,18 +2164,18 @@ void pickCap(int **step ,int** pickCapStep, int** pickCapDone)
         break;
 
       case 4:
-        if(!readVariableValue("I_13_i04"))
-        {
+        //if(!readVariableValue("I_3_i04"))
+        //{
           **pickCapStep = 5;
-        }   
-        else
-        {
-          errorNum = 18;
-        }
+        //}   
+        //else
+        //{
+        //  errorNum = 18;
+        //}
         break;
 
       case 5:
-        **pickCapStep = moveCylinder(1, "I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 4);
+        **pickCapStep = moveCylinder(1, "I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 6);
         break;
 
       case 6:
@@ -2150,7 +2192,7 @@ void conveyorBelt(int** conveyorOff, int** conveyorOn)
 {
   printf("conveyorOff:%d\n", **conveyorOff);
   printf("conveyorOn:%d\n", **conveyorOn);
-  if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
+  if(readVariableValue("I_1_i04"))
   {
     if(!**conveyorOff) 
     {
@@ -2347,17 +2389,17 @@ void checkOutputs(int* step)
   if(readVariableValue("Output_Status") != 0)
   {
     printf("ODPRTA VRATA\n");
-    *step = 0;
+    *step = -1;
     errorNum = 15;
   }
   if(readVariableValue("Output_Status_i04") != 0)
   {
-    *step = 0;
+    *step = -1;
     errorNum = 16;
   }
   if(readVariableValue("I_14") == 0)
   {
-    *step = 0;
+    *step = -1;
     errorNum = 17;
   }
 }

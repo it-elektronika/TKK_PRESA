@@ -520,7 +520,7 @@ void pageEight()  /* ERROR */
         renderText("- vstavi nov pokrovcek v celjust / odstrani pokrovcek iz senzorja", regularText, blackColor);
         break;
       case 20:
-        renderText("-  ", regularText, blackColor);
+        renderText("- pokrovcka ni bilo v celjusti  ", regularText, blackColor);
         break;
       
       default:

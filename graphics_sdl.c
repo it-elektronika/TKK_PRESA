@@ -272,7 +272,7 @@ void renderStatusBar()
       break;
 
     case 21:
-      renderText("NAPAKA -", regularText, blackColor);
+      renderText("NAPAKA - ni pokrovcka", regularText, blackColor);
       break;
    
     case 22:
@@ -397,6 +397,9 @@ void renderContent()
           break;
         case 19:
           sbarText = 20;
+          break;
+        case 20:
+          sbarText = 21;
           break;
 
         default:

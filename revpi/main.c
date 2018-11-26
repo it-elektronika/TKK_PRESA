@@ -2085,35 +2085,58 @@ void pickCap(int** pickCapStep, int** pickCapDone)
       case 0:
         if(!readVariableValue("I_14_i03"))
         {
-          if(readVariableValue("I_1_i04"))
+          if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
           {
             **pickCapStep = moveCylinder(2, "I_9_i03", 0, "I_10_i03", 1, "O_7_i03", 1, 1);
           }
         }
         else
         {
-          **pickCapStep = 4;
+          **pickCapStep = 6;
         }
         break;
       
       case 1:
-        if(readVariableValue("I_1_i04"))// && readVariableValue("I_3_i04"))
+        if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
         {
           usleep(200000);
           **pickCapStep = moveCylinder(1, "I_3_i03", 1, "I_4_i03", 0, "O_5_i03", 1, 2);
         }
         break;
-      
+
       case 2:
-        usleep(400000);
-        **pickCapStep = moveCylinder(2, "I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0, 3);
+        if(!readVariableValue("I_14_i04"))
+        {
+          **pickCapStep = 3;
+        }
+        else
+        {
+          **step = 0;
+          errorNum = 19;
+        }
         break;
-   
+
       case 3:
-        **pickCapStep = moveCylinder(1, "I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 4);
+        usleep(400000);
+        **pickCapStep = moveCylinder(2, "I_9_i03", 1, "I_10_i03", 0, "O_7_i03", 0, 4);
         break;
 
       case 4:
+        if(!readVariableValue("I_13_i04"))
+        {
+          **pickCapStep = 5;
+        }   
+        else
+        {
+          errorNum = 18;
+        }
+        break;
+
+      case 5:
+        **pickCapStep = moveCylinder(1, "I_3_i03", 0, "I_4_i03", 1, "O_5_i03", 0, 4);
+        break;
+
+      case 6:
         **pickCapStep = 0; 
         **pickCapDone = 1;
         break;
@@ -2127,7 +2150,7 @@ void conveyorBelt(int** conveyorOff, int** conveyorOn)
 {
   printf("conveyorOff:%d\n", **conveyorOff);
   printf("conveyorOn:%d\n", **conveyorOn);
-  if(readVariableValue("I_1_i04"))// && readVariableValue("I_3_i04"))
+  if(readVariableValue("I_1_i04") && readVariableValue("I_3_i04"))
   {
     if(!**conveyorOff) 
     {

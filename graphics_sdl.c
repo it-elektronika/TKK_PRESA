@@ -268,7 +268,7 @@ void renderStatusBar()
       break;
 
     case 20:
-      renderText("NAPAKA -", regularText, blackColor);
+      renderText("NAPAKA - celjust se ni zaprla", regularText, blackColor);
       break;
 
     case 21:
@@ -394,6 +394,9 @@ void renderContent()
           break;
         case 18:
           sbarText = 19;
+          break;
+        case 19:
+          sbarText = 20;
           break;
 
         default:

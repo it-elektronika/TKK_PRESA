@@ -17,7 +17,7 @@ int main()
   initMain();
   init();
 
-  /* connecting to DRIVES */
+  /** connecting to DRIVES */
   while(connectiOn == 0)
   {
     printf("Page:%d, page_stage:%d, sbarText:%d connectiOn:%d errorNum:%d errorNumber:%d\n", page, page_stage, sbarText, connectiOn, errorNum, errorNumber);

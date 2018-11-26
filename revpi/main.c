@@ -18,7 +18,6 @@ void moveAKD(const char* akd);
 void error(const char *msg)
 {
   perror(msg);
-  exit(1);
 }
 
 int main()
@@ -1652,7 +1651,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
          *turnTableDone = 0;
          *turnTableStep = 0;
          
-         if(*countTurns == 2)
+         if(*countTurns == 4)
          {   
            *step = 7;
          }
@@ -2192,7 +2191,7 @@ void measurement()
   * read1 = transId;   
   sendModbus(s, readBuff, 12, readBuff_recv, 50, "read feedback position");
   w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
-  * writePosTen10 = htonl(w+2);
+  * writePosTen10 = htonl(w+2000);
   printf("POSITION FEEDBACK:%d\n", w);
  
   * writePosTen1 = transId;       
@@ -2305,12 +2304,16 @@ void setup()
   sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
 
   moveAKD("O_4_i03");
+  while(!readVariableValue("I_11"))
+  {
+    ;
+  }
   writeVariableValue("O_11", 1);
   writeVariableValue("O_12", 1);
   writeVariableValue("O_13", 1);
   usleep(1000000);
   moveAKD("O_1_i03");
-  while(!readVariableValue("I_11") && !readVariableValue("I_12"))
+  while(!readVariableValue("I_12"))
   {
     ;
   }    

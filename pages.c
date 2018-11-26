@@ -513,6 +513,9 @@ void pageEight()  /* ERROR */
       case 17:  
         renderText("- preveri dotok zraka", regularText, blackColor);
         break;
+      case 18:  
+        renderText("- vstavi nov pokrovcek v celjust / odstrani pokrovcek iz senzorja", regularText, blackColor);
+        break;
       
       default:
         break;

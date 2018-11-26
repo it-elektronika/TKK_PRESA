@@ -264,7 +264,7 @@ void renderStatusBar()
       break;
 
     case 19:
-      renderText("NAPAKA -", regularText, blackColor);
+      renderText("NAPAKA - pokrovcek ni bil dvignjen iz traka", regularText, blackColor);
       break;
 
     case 20:
@@ -391,6 +391,9 @@ void renderContent()
           break;
         case 17:
           sbarText = 18;
+          break;
+        case 18:
+          sbarText = 19;
           break;
 
         default:

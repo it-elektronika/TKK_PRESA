@@ -522,7 +522,10 @@ void pageEight()  /* ERROR */
       case 20:
         renderText("- pokrovcka ni bilo v celjusti  ", regularText, blackColor);
         break;
-      
+      case 21:
+        renderText("- miza ni prazna  ", regularText, blackColor);
+        break;
+        
       default:
         break;
 

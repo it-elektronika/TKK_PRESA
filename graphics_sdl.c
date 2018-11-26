@@ -276,7 +276,7 @@ void renderStatusBar()
       break;
    
     case 22:
-      renderText("NAPAKA -", regularText, blackColor);
+      renderText("NAPAKA - doza pod gripperjem", regularText, blackColor);
       break;
   } 
   render(30, 10, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -401,7 +401,9 @@ void renderContent()
         case 20:
           sbarText = 21;
           break;
-
+        case 21:
+          sbarText = 22;
+          break;
         default:
           break;
       }

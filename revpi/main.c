@@ -1623,7 +1623,15 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
    
      case 3: /* turn table twice */  
        usleep(500000);
-       turnTableFree(&turnTableStep, &turnTableDone);
+       if(!readVariableValue("I_2_i04"))
+       {
+         turnTableFree(&turnTableStep, &turnTableDone);
+       }
+       else
+       {
+         errorNum = 21;
+         *step = -1;
+       }
        if(*turnTableDone)
        {
          printf("count_turns:%d\n", count_turns);
@@ -1879,7 +1887,6 @@ void turnTable(int **turnTableStep, int **turnTableDone)
   int cond1 = 0;
   int cond2 = 0;
   int cond3 = 0;
-  int cond4 = 0;
   printf("turnTableStep:%d, turnTableDone:%d\n", **turnTableStep, **turnTableDone);
   if(!**turnTableDone)
   { 
@@ -1891,16 +1898,11 @@ void turnTable(int **turnTableStep, int **turnTableDone)
 	  cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
 	  cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
           cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
-          if(!readVariableValue("I_2_i04"))
-          {
-            cond4 = 1;
-          }    
           printf("cond1:%d\n", cond1);
           printf("cond2:%d\n", cond1);
           printf("cond3:%d\n", cond1);
-          printf("cond4:%d\n", cond1);
 	
-  	  if(cond1 && cond2 && cond3 && cond4)
+  	  if(cond1 && cond2 && cond3)
 	  {
 	    moveAKD("O_7");
 	    **turnTableStep = 1;
@@ -1931,7 +1933,6 @@ void turnTableFree(int **turnTableStep, int **turnTableDone)
   int cond1 = 0;
   int cond2 = 0;
   int cond3 = 0;
-  int cond4 = 0;
   printf("turnTableFreeStep:%d, turnTableFreeDone:%d\n", **turnTableStep, **turnTableDone);
   if(!**turnTableDone)
   { 
@@ -1941,16 +1942,11 @@ void turnTableFree(int **turnTableStep, int **turnTableDone)
 	cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
 	cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
         cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
-        if(!readVariableValue("I_2_i04"))
-        {
-          cond4 = 1;
-        }         
         printf("cond1:%d\n", cond1);
         printf("cond2:%d\n", cond2);
         printf("cond3:%d\n", cond3);
-	printf("cond4:%d\n", cond4);
 	
-        if(cond1 && cond2 && cond3 && cond4)
+        if(cond1 && cond2 && cond3)
 	{
 	  moveAKD("O_7");
 	  **turnTableStep = 1;

@@ -14,7 +14,6 @@ int main()
 {
   int cycle;
   printf("MAIN\n");
-  /* initializing */
   initMain();
   init();
 

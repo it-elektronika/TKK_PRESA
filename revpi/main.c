@@ -1633,7 +1633,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
      case 5: /* pick up caps */
        conveyorBelt(&conveyorOff, &conveyorOn);
-       pickCap(&pickCapStep, &pickCapDone);
+       pickCap(&step, &pickCapStep, &pickCapDone);
        if(*pickCapDone)
        {
          *step = 6;
@@ -1748,7 +1748,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        *conveyorOff = 0;
        *conveyorOn = 0;
        conveyorBelt(&conveyorOff, &conveyorOn);
-       pickCap(&pickCapStep, &pickCapDone);
+       pickCap(&step, &pickCapStep, &pickCapDone);
        if(*pickCapDone)
        {
          *step = 15;
@@ -1775,7 +1775,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
     case 16: /* gripper - moving to low position && blocking table */
        conveyorBelt(&conveyorOff, &conveyorOn);
-       pickCap(&pickCapStep, &pickCapDone);
+       pickCap(&step, &pickCapStep, &pickCapDone);
        moveGripperLower(&moveGripperLowerStep, &moveGripperLowerDone);
        blockTable(&blockTableStep, &blockTableDone);
       
@@ -1788,7 +1788,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
      case 17: /* press - moving to middle position - checking if cap present */
        conveyorBelt(&conveyorOff, &conveyorOn);
-       pickCap(&pickCapStep, &pickCapDone);
+       pickCap(&step, &pickCapStep, &pickCapDone);
        movePressMiddle(&movePressMiddleStep, &movePressMiddleDone);
        if(*movePressMiddleDone)
        {
@@ -1798,7 +1798,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
      case 18: /* if cap present - release cap and start press measurement */
       conveyorBelt(&conveyorOff, &conveyorOn);
-      pickCap(&pickCapStep, &pickCapDone);
+      pickCap(&step, &pickCapStep, &pickCapDone);
       if(readVariableValue("I_13_i03"))
       { 
         *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 19);  
@@ -1812,7 +1812,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
      case 19: /* press - moving to low position - pressing cap*/
        conveyorBelt(&conveyorOff, &conveyorOn);
-       pickCap(&pickCapStep, &pickCapDone);
+       pickCap(&step, &pickCapStep, &pickCapDone);
        movePressLower(&movePressLowerStep, &movePressLowerDone);
        if(*movePressLowerDone)
        {
@@ -1822,13 +1822,13 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
     
      case 20: /* cap release cylinder to initial position*/
        conveyorBelt(&conveyorOff, &conveyorOn);
-       pickCap(&pickCapStep, &pickCapDone);
+       pickCap(&step, &pickCapStep, &pickCapDone);
        *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 21);
        break;
    
      case 21: /* press - moving to up position && stopping press measurement*/
        conveyorBelt(&conveyorOff, &conveyorOn);
-       pickCap(&pickCapStep, &pickCapDone);
+       pickCap(&step, &pickCapStep, &pickCapDone);
        movePressUpper(&movePressUpperStep, &movePressUpperDone); 
        if(*movePressUpperDone)
        {
@@ -1840,7 +1840,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
      case 22: /* gripper - moving to up position && unblocking table*/
        conveyorBelt(&conveyorOff, &conveyorOn);
-       pickCap(&pickCapStep, &pickCapDone);
+       pickCap(&step, &pickCapStep, &pickCapDone);
        moveGripperUpper(&moveGripperUpperStep, &moveGripperUpperDone);
        unblockTable(&unblockTableStep, &unblockTableDone);
        if(*moveGripperUpperDone && *unblockTableDone)
@@ -2075,7 +2075,7 @@ void moveGripperUpper(int ** moveGripperUpperStep, int **moveGripperUpperDone)
   }
 }
 
-void pickCap(int** pickCapStep, int** pickCapDone)
+void pickCap(int **step ,int** pickCapStep, int** pickCapDone)
 {
   printf("pickCapStep:%d, pickCapDone:%d\n", **pickCapStep, **pickCapDone);
   if(!**pickCapDone)

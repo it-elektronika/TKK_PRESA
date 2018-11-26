@@ -108,7 +108,7 @@ void movePressLower(int ** movePressLowerStep, int **movePressLowerDone);
 void movePressUpper(int ** movePressUpperStep, int **movePressUpperDone);
 void movePressMiddle(int ** movePressMiddleStep, int **movePressMiddleDone);
 void conveyorBelt(int ** conveyorOff, int ** conveyorOn);
-void pickCap(int** pickCapStep, int** pickCapDone);
+void pickCap(int**step, int** pickCapStep, int** pickCapDone);
 void blockTable(int **blockTableStep, int** blockTableDone);
 void unblockTable(int **unblockTableStep, int** unblockTableDone);
 void clearTable(int *step, int* turnTableStep, int* turnTableDone);

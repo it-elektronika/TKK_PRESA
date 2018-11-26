@@ -19,7 +19,7 @@ void error(const char *msg)
 {
   perror(msg);
 }
-
+/*PROGRAM*/
 int main()
 {
   int turnTableStep = 0;

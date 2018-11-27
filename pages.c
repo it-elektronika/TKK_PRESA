@@ -31,7 +31,8 @@ void pageZero()  /* LANDING PAGE */
           selected[0]=1;
           selected[1]=0;
           selected[2]=0;
-          selected[3]=0;     
+          selected[3]=0;  
+          selected[4]=0;   
         }
         else if(atoi(line) == 1)
         {
@@ -40,6 +41,7 @@ void pageZero()  /* LANDING PAGE */
           selected[1]=1;
           selected[2]=0;
           selected[3]=0;  
+          selected[4]=0;
         }
         else if(atoi(line) == 2)
         {
@@ -48,6 +50,7 @@ void pageZero()  /* LANDING PAGE */
           selected[1]=0;
           selected[2]=1;  
           selected[3]=0;
+          selected[4]=0;
         }
         else if(atoi(line) == 3)
         {
@@ -56,6 +59,16 @@ void pageZero()  /* LANDING PAGE */
           selected[1]=0;
           selected[2]=0;
           selected[3]=1;  
+          selected[4]=0;
+        }
+        else if(atoi(line) == 4)
+        {
+          selectedCan = 4;
+          selected[0]=0;
+          selected[1]=0;
+          selected[2]=0;
+          selected[3]=0;  
+          selected[4]=1;
         }
       }
     }
@@ -130,20 +143,24 @@ void pageZero()  /* LANDING PAGE */
     }
     if(selected[0])
     {
-      renderText("VELIKOST DOZE: MALA", regularText, blackColor);
+      renderText("TIP DOZE: 250/53", regularText, blackColor);
     }
     else if(selected[1])
     {   
-      renderText("VELIKOST DOZE: MALA2", regularText, blackColor);
+      renderText("TIP DOZE: 400/65", regularText, blackColor);
     }  
     else if(selected[2])
     {  
-      renderText("VELIKOST DOZE: SREDNJA", regularText, blackColor);
+      renderText("TIP DOZE: 500/65", regularText, blackColor);
     }
    
     else if(selected[3])
     {  
-      renderText("VELIKOST DOZE: VELIKA", regularText, blackColor);
+      renderText("TIP DOZE: 600/65", regularText, blackColor);
+    }
+    else if(selected[4])
+    {  
+      renderText("TIP DOZE: 750/65", regularText, blackColor);
     }
     render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
   }

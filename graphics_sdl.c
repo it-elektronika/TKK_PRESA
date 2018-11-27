@@ -543,6 +543,13 @@ void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD
       fprintf(fp_can_size, "%d\n", 3); 
       selectedCan = 3;            
     }
+    else if(selected[4])
+    {
+      * moveTask9 = htonl(9000);
+      * moveTask9Next = htonl(10000); 
+      fprintf(fp_can_size, "%d\n", 4); 
+      selectedCan = 4;            
+    }
 
     /*
     FD_ZERO(&fds);
@@ -781,6 +788,7 @@ void button(int x, int y, int w, int h, char *text, int id)
     selected[1] = 0;
     selected[2] = 0;
     selected[3] = 0;
+    selected[4] = 0;
     selected[id] = 1;
   }
 }

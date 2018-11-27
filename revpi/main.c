@@ -777,7 +777,15 @@ void diagnostics()
         * writePosDown9 = 8;       
         * writePosDown10 = htonl((35)*1000);
       }
-
+      else if(selectedCan == 4)
+      {
+	* moveTask9 = htonl(9000);
+	* moveTask9Next = htonl(10000); 
+        * writePosUp9 = 9;       
+        * writePosUp10 = htonl((0)*1000);
+        * writePosDown9 = 10;       
+        * writePosDown10 = htonl((35)*1000);
+      }
       //sendModbus(&s, obufMT, 17, ibufMT, 50, "move task 1 - revert to original positions");
       * moveTask1Next = transId;
       //sendModbus(s, obufMTN, 17, ibufMTN, 50, "move task 2 - revert to original positions");
@@ -1526,6 +1534,11 @@ void downPosPrep()
   {
     writeVariableValue("O_14", 1);
   }
+  else if(selectedCan == 4) /* velika */
+  {
+    writeVariableValue("O_14", 1);
+    writeVariableValue("O_12", 1);
+  }
 }
 
 
@@ -1556,6 +1569,11 @@ void upPosPrep()
     writeVariableValue("O_12", 1);
     writeVariableValue("O_13", 1);
   } 
+  else if(selectedCan == 4) /* velika*/
+  {
+    writeVariableValue("O_11", 1);
+    writeVariableValue("O_14", 1);
+  }
 } 
 
 void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int * moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* conveyorOff, int* conveyorOn , int * countTurns, int* blockTableDone, int* blockTableStep, int* unblockTableStep, int* unblockTableDone)
@@ -2122,10 +2140,10 @@ void pickCap(int **step ,int** pickCapStep, int** pickCapDone)
           }
           else if(readVariableValue("I_1_i04") && !readVariableValue("I_3_i04"))
           {
-            writeVariableValue("O_10_i03", 1);
+            writeVariableValue("O_9_i03", 1);
             usleep(200000);
-            writeVariableValue("O_10_i03", 0);
-            **pickCapStep = 6;
+            writeVariableValue("O_9_i03", 0);
+            **pickCapStep = 0;
           }
         }
         else
@@ -2248,7 +2266,7 @@ void measurement()
   * read5 = 3;
   * read6 = htons(2072);
   * read7 = htons(2);
-  * writePosTen9 = 10;       
+  * writePosTen9 = 11;       
   * read1 = transId;   
   sendModbus(s, readBuff, 12, readBuff_recv, 50, "read feedback position");
   w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
@@ -2256,7 +2274,7 @@ void measurement()
   printf("POSITION FEEDBACK:%d\n", w);
  
   * writePosTen1 = transId;       
-  sendModbus(s, writePosTenBuff, 53, writePosTenBuff_recv, 50, "position 10 parameter");
+  sendModbus(s, writePosTenBuff, 53, writePosTenBuff_recv, 50, "position 11 parameter");
 
   if(selectedCan == 0)  
   {
@@ -2274,13 +2292,16 @@ void measurement()
   {
     * writePosDown9 = 8;       
   }
-
+  else if(selectedCan == 4)
+  {
+    * writePosDown9 = 10;       
+  }
   w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
   * writePosDown10 = htonl(w + press*1000);
   * writePosDown1 = transId;       
   * writePosDown11 = htonl(2000000); 
  
-  sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "position 10 parameter");
+  sendModbus(s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "position 11 parameter");
 
   * dinModeChange1 = transId;
   * dinModeChange9 = htonl(0);
@@ -2324,9 +2345,9 @@ void setup()
     * moveTask9 = htonl(3000);
     * moveTask9Next = htonl(4000);
     * writePosUp9 = 3;       
-    * writePosUp10 = htonl((138)*1000); 
+    * writePosUp10 = htonl((104)*1000); 
     * writePosDown9 = 4;       
-    * writePosDown10 = htonl((175)*1000); 
+    * writePosDown10 = htonl((140)*1000); 
   }
   else if(selectedCan == 2)
   {
@@ -2344,6 +2365,15 @@ void setup()
     * writePosUp9 = 7;       
     * writePosUp10 = htonl((0)*1000);
     * writePosDown9 = 8;       
+    * writePosDown10 = htonl((35)*1000);
+  }
+  else if(selectedCan == 4)
+  {
+    * moveTask9 = htonl(9000);
+    * moveTask9Next = htonl(10000); 
+    * writePosUp9 = 9;       
+    * writePosUp10 = htonl((0)*1000);
+    * writePosDown9 = 10;       
     * writePosDown10 = htonl((35)*1000);
   }
 

@@ -198,10 +198,12 @@ void pageTwo() /* CAN SIZE SELECTION */
   if(page_stage == ENABLE)
   {
     renderAdmin(1200, 0, 80, 80, 1);
-    button(30, 150, 200, 100, "MALA", 0);
-    button(30, 300, 200, 100, "MALA2", 1);
-    button(30, 450, 200, 100, "SREDNJA", 2);
-    button(30, 600, 200, 100, "VELIKA", 3);
+    button(30, 150, 200, 100, "250/53", 0);
+    button(30, 300, 200, 100, "400/65", 1);
+    button(30, 450, 200, 100, "500/65", 2);
+    button(30, 600, 200, 100, "600/65", 3);
+    button(30, 750, 200, 100, "750/65", 4);
+
 
     //renderText("POPRAVEK:", smallText, blackColor);
     //render(400, 180, NULL, 0.0, NULL, SDL_FLIP_NONE);

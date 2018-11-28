@@ -2454,6 +2454,10 @@ void blockTable(int** blockTableStep, int** blockTableDone)
           **blockTableStep = 0;
           **blockTableDone = 1;        
         }
+        else
+        {
+          errorNum = 22;
+        }
         break;
     }
   }
@@ -2477,6 +2481,10 @@ void unblockTable(int** unblockTableStep, int** unblockTableDone)
         {
           **unblockTableStep = 0;
           **unblockTableDone = 1;        
+        }
+        else
+        {
+          errorNum = 22;
         }
         break;
     }

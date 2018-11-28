@@ -278,6 +278,9 @@ void renderStatusBar()
     case 22:
       renderText("NAPAKA - doza pod gripperjem", regularText, blackColor);
       break;
+    case 23:
+      renderText("NAPAKA - cilinder blokada mize", regularText, blackColor);
+      break;
   } 
   render(30, 10, NULL, 0.0, NULL, SDL_FLIP_NONE);
   clockButton(1050, 20, 50, 100, tmBuff); 
@@ -404,6 +407,9 @@ void renderContent()
         case 21:
           sbarText = 22;
           break;
+        case 22:
+          sbarText = 23;
+          break; 
         default:
           break;
       }

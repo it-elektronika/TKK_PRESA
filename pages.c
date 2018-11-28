@@ -542,9 +542,12 @@ void pageEight()  /* ERROR */
         renderText("- pokrovcka ni bilo v celjusti  ", regularText, blackColor);
         break;
       case 21:
-        renderText("- miza ni prazna  ", regularText, blackColor);
+        renderText("- miza ni prazna", regularText, blackColor);
         break;
-        
+      case 22:
+        renderText("- cilinder ni dosegel pozicije", regularText, blackColor);
+        break;
+  
       default:
         break;
 

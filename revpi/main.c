@@ -1626,7 +1626,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 	{
 	  ;
 	}
-        *step = 0;
+       *step = 0;
        break;
      
      case 0: 
@@ -1689,7 +1689,6 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        {
          *step = 6;
          *pickCapDone = 0;
-       
        }
        break;
 
@@ -2535,6 +2534,7 @@ void tableHome(int * step)
 
 void checkCanSize()
 {
+  printf("I_2_i04:%d, I_6_i04:%d, I_7_i04:%d, I_14_i04:%d, errorNum:%d\n", readVariableValue("I_2_i04"), readVariableValue("I_6_i04"), readVariableValue("I_7_i04"), readVariableValue("I_14_i04"), errorNum);
   if(readVariableValue("I_2_i04"))
   {
     switch(selectedCan)
@@ -2550,7 +2550,7 @@ void checkCanSize()
 	else
 	{
 	 errorNum = 23;
-	 step = 0; 
+	 step = -1; 
 	}
 	break;
    
@@ -2562,7 +2562,7 @@ void checkCanSize()
 	else
 	{
 	 errorNum = 23;
-	 step = 0; 
+	 step = -1; 
 	}
 	break;
 
@@ -2574,7 +2574,7 @@ void checkCanSize()
 	else
 	{
 	 errorNum = 23;
-	 step = 0; 
+	 step = -1; 
 	}
 	break;
 
@@ -2586,7 +2586,7 @@ void checkCanSize()
 	else
 	{
 	 errorNum = 23;
-	 step = 0; 
+	 step = -1; 
 	}
 	break;
     }

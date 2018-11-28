@@ -119,7 +119,9 @@ void render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_R
 int renderText(const char *text, TTF_Font *textFont,  SDL_Color textColor)  
 {
   SDL_Surface* textSurface;
-  textSurface = TTF_RenderText_Solid(textFont, text, textColor);
+  //textSurface = TTF_RenderText_Solid(textFont, text, textColor);
+  
+  textSurface = TTF_RenderUTF8_Blended(textFont, text, textColor);
   freeTexture();
 
   if(textSurface == NULL)
@@ -188,7 +190,7 @@ void renderStatusBar()
   switch(sbarText)
   {
     case 0:
-      renderText("STATUS", regularText, blackColor); 
+      renderText("TKK - PRESANJE POKROVCKOV", regularText, blackColor); 
       break;
 
     case 1:
@@ -287,7 +289,12 @@ void renderStatusBar()
       break;
   } 
   render(30, 10, NULL, 0.0, NULL, SDL_FLIP_NONE);
-  clockButton(1050, 20, 50, 100, tmBuff); 
+  sprintf(stepCounter, "KORAK:%d", step); 
+  renderText(stepCounter, regularText, blackColor);
+  render(1050, 20, NULL, 0.0, NULL, SDL_FLIP_NONE);
+
+
+  //clockButton(1050, 20, 50, 100, tmBuff); 
 }
 
 void renderContent()
@@ -296,7 +303,14 @@ void renderContent()
   {
     case 0:
       pageZero(); /* main - landing page */
-      backgroundColor = 1;
+      if(step == 0)
+      {
+        backgroundColor = 1;
+      }
+      else
+      {   
+        backgroundColor = 0;
+      }
       sbarText = 0;
       break;
     

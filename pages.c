@@ -483,53 +483,52 @@ void pageEight()  /* ERROR */
     renderAdmin(1200, 0, 80, 80, 0);
     switch(errorNumber)
     {  
-      sprintf(errorMessageBuff, "MALA:%d mm", step);
       case 1:
-        sprintf(errorMessageBuff, "KORAK_%d: cilinder zapiranje celjusti", step);
+        sprintf(errorMessageBuff, "- cilinder zapiranje celjusti");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 2:
-        sprintf(errorMessageBuff, "KORAK_%d: cilinder zapiranje celjusti", step);
+        sprintf(errorMessageBuff, "- cilinder zapiranje celjusti");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 3:
-        sprintf(errorMessageBuff, "KORAK_%d: cilinder spuscanje celjusti", step);
+        sprintf(errorMessageBuff, "- cilinder spuscanje celjusti");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 4:
-        sprintf(errorMessageBuff, "KORAK_%d: cilinder spuscanje celjusti", step);
+        sprintf(errorMessageBuff, "- cilinder spuscanje celjusti");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 5:
-        sprintf(errorMessageBuff, "KORAK_%d: cilinder odpiranje celjusti", step);
+        sprintf(errorMessageBuff, "- cilinder odpiranje celjusti");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 6:
-        sprintf(errorMessageBuff, "KORAK_%d: cilinder odpiranje celjusti", step);
+        sprintf(errorMessageBuff, "- cilinder odpiranje celjusti");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 7:
-        sprintf(errorMessageBuff, "KORAK_%d: cilinder -", step);
+        sprintf(errorMessageBuff, "- cilinder blokada mize");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 8:
-        sprintf(errorMessageBuff, "KORAK_%d: cilinder -", step);
+        sprintf(errorMessageBuff, "- cilinder blokada mize");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 9:
-        sprintf(errorMessageBuff, "KORAK_%d: cilinder -", step);
+        sprintf(errorMessageBuff, "- cilinder -");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 10:
-        sprintf(errorMessageBuff, "KORAK_%d: cilinder -", step);
+        sprintf(errorMessageBuff, "- cilinder -");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 11:
-        sprintf(errorMessageBuff, "KORAK_%d: cilinder -", step);
+        sprintf(errorMessageBuff, "- cilinder -");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 12:
-        sprintf(errorMessageBuff, "KORAK_%d: na dozi ni pokrovcka", step);
+        sprintf(errorMessageBuff, "- na dozi ni pokrovcka");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 13:
@@ -551,7 +550,7 @@ void pageEight()  /* ERROR */
         renderText("- preveri dotok zraka", regularText, blackColor);
         break;
       case 19:  
-        renderText("- vstavi nov pokrovcek v celjust / odstrani pokrovcek iz senzorja", regularText, blackColor);
+        renderText("- vstavi nov pokrovcek v celjust/odstrani pokrovcek iz senzorja", regularText, blackColor);
         break;
       case 20:
         renderText("- pokrovcka ni bilo v celjusti  ", regularText, blackColor);
@@ -563,7 +562,7 @@ void pageEight()  /* ERROR */
         renderText("- cilinder ni dosegel pozicije", regularText, blackColor);
         break;
       case 23:
-        renderText("- napacno izbrana velikost doze / napacna doza na vhodu", regularText, blackColor);
+        renderText("- napacno izbrana velikost doze/napacna doza na vhodu", regularText, blackColor);
         break;
   
 

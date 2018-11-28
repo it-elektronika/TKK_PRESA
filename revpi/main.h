@@ -117,5 +117,4 @@ void measurement();
 void setup();
 void checkOutputs(int* step);
 void checkCanSize();
-
-
+void doorLock(int * doorLockOff, int * doorLockOn);

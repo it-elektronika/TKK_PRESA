@@ -2535,7 +2535,7 @@ void tableHome(int * step)
 void checkCanSize()
 {
   printf("I_2_i04:%d, I_6_i04:%d, I_7_i04:%d, I_14_i04:%d, errorNum:%d\n", readVariableValue("I_2_i04"), readVariableValue("I_6_i04"), readVariableValue("I_7_i04"), readVariableValue("I_14_i04"), errorNum);
-  if(readVariableValue("I_2_i04"))
+  if(readVariableValue("I_4_i04"))
   {
     switch(selectedCan)
     {

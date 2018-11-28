@@ -96,6 +96,7 @@ int main()
     sendMessage();
     //diagnostics();
     //turnTable(&step, &turnTableStep, &turnTableDone);  
+    checkCanSize();
     tableHome(&step);
     clearTable(&step, &turnTableStep, &turnTableDone);
     coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &conveyorOff, &conveyorOn, &countTurns, &blockTableStep, &blockTableDone, &unblockTableStep, &unblockTableDone);
@@ -2527,6 +2528,67 @@ void tableHome(int * step)
         usleep(delay_time);
         writeVariableValue("O_8", 0);
       }
+    }
+  }
+}
+
+
+void checkCanSize()
+{
+  if(readVariableValue("I_2_i04"))
+  {
+    switch(selectedCan)
+    {
+      case 0:
+	break;
+      
+      case 1:
+	if(!readVariableValue("I_6_i04") && !readVariableValue("I_7_i04") && !readVariableValue("I_14_i04"))
+	{
+	  ;
+	}
+	else
+	{
+	 errorNum = 23;
+	 step = 0; 
+	}
+	break;
+   
+      case 2:
+	if(!readVariableValue("I_6_i04") && !readVariableValue("I_7_i04") && readVariableValue("I_14_i04"))
+	{
+	  ;
+	}
+	else
+	{
+	 errorNum = 23;
+	 step = 0; 
+	}
+	break;
+
+      case 3:
+	if(!readVariableValue("I_6_i04") && readVariableValue("I_7_i04") && readVariableValue("I_14_i04"))
+	{
+	  ;
+	}
+	else
+	{
+	 errorNum = 23;
+	 step = 0; 
+	}
+	break;
+
+      case 4:
+	if(readVariableValue("I_6_i04") && !readVariableValue("I_7_i04") && readVariableValue("I_14_i04"))
+	{
+	  ;
+	}
+	else
+	{
+	 errorNum = 23;
+	 step = 0; 
+	}
+	break;
     }
   }
 }

@@ -116,6 +116,6 @@ void tableHome(int *step);
 void measurement();
 void setup();
 void checkOutputs(int* step);
-
+void checkCanSize();
 
 

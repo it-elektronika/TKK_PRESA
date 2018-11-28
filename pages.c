@@ -162,7 +162,9 @@ void pageZero()  /* LANDING PAGE */
     {  
       renderText("TIP DOZE: 750/65", regularText, blackColor);
     }
-    
+ 
+    render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);   
+
     sprintf(pressBuff, "STISK:%d mm", press);
     renderText(pressBuff, smallText, blackColor);
     render(950, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -172,12 +174,10 @@ void pageZero()  /* LANDING PAGE */
  
     sprintf(stepCounter, "KORAK:%d", step); 
     renderText(stepCounter, regularText, blackColor);
-    render(430, 230, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(950, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
+    savePos(950, 200, 200, 50);
 
-    savePos(30, 720, 200, 50);
-
-    render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
   }
   else if(page_stage == EXIT)
   {

@@ -2448,7 +2448,7 @@ void blockTable(int** blockTableStep, int** blockTableDone)
     switch(**blockTableStep) 
     { 
       case 0:
-        //**blockTableStep = moveCylinder(4, "I_11_i04", 0, "I_12_i04", 1,  "O_11_i03", 1, 1);
+        **blockTableStep = moveCylinder(4, "I_11_i04", 0, "I_12_i04", 1,  "O_11_i03", 1, 1);
         break;
 
       case 1:
@@ -2468,7 +2468,7 @@ void unblockTable(int** unblockTableStep, int** unblockTableDone)
     switch(**unblockTableStep) 
     { 
       case 0:
-        //**blockTableStep = moveCylinder(4, "I_11_i04", 1, "I_12_i04", 0,  "O_11_i03", 0, 1);
+        **unblockTableStep = moveCylinder(4, "I_11_i04", 1, "I_12_i04", 0,  "O_11_i03", 0, 1);
         break;
  
       case 1:

@@ -1587,6 +1587,11 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
        writeVariableValue("O_2_i03", 0); 
        writeVariableValue("O_11_i03", 0);
        writeVariableValue("O_12_i03", 1);
+       writeVariableValue("O_11", 0);
+       writeVariableValue("O_12", 0);
+       writeVariableValue("O_13", 0);
+       writeVariableValue("O_14", 0);
+  
        *countTurns = 0;
        *conveyorOff = 0;
        *conveyorOn = 0;
@@ -1611,9 +1616,9 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
         {
           ;
         }
-	writeVariableValue("O_11", 1);
-	writeVariableValue("O_12", 1);
-	writeVariableValue("O_13", 1);
+        usleep(1000000);
+        writeVariableValue("O_11", 1);
+	writeVariableValue("O_14", 1);
 	usleep(1000000);
 	moveAKD("O_1_i03");
 	while(!readVariableValue("I_12"))

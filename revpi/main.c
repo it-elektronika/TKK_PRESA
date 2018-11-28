@@ -755,27 +755,27 @@ void diagnostics()
 	* moveTask9 = htonl(3000);
 	* moveTask9Next = htonl(4000);
         * writePosUp9 = 3;       
-        * writePosUp10 = htonl((0)*1000); 
+        * writePosUp10 = htonl((138)*1000); 
         * writePosDown9 = 4;       
-        * writePosDown10 = htonl((0)*1000);
+        * writePosDown10 = htonl((175)*1000);
       }
       else if(selectedCan == 2)
       {
         * moveTask9 = htonl(5000);
         * moveTask9Next = htonl(6000);     
         * writePosUp9 = 5;       
-        * writePosUp10 = htonl((0)*1000); 
+        * writePosUp10 = htonl((104)*1000); 
         * writePosDown9 = 6;       
-        * writePosDown10 = htonl((0)*1000); 
+        * writePosDown10 = htonl((140)*1000); 
       }
       else if(selectedCan == 3)
       {
 	* moveTask9 = htonl(7000);
 	* moveTask9Next = htonl(8000); 
         * writePosUp9 = 7;       
-        * writePosUp10 = htonl((0)*1000);
+        * writePosUp10 = htonl((60)*1000);
         * writePosDown9 = 8;       
-        * writePosDown10 = htonl((35)*1000);
+        * writePosDown10 = htonl((90)*1000);
       }
       else if(selectedCan == 4)
       {
@@ -793,7 +793,7 @@ void diagnostics()
       * writePosUp1 = transId;       
       //sendModbus(s, writePosUpBuff, 53, writePosUpBuff_recv, 50, "template position parameter saved");
       * writePosDown1 = transId;       
-      * writePosDown11 = htonl(100000);  
+      * writePosDown11 = htonl(110000);  
       //sendModbus(&s, writePosDownBuff, 53, writePosDownBuff_recv, 50, "template position parameter saved");
  
        * dinModeChange1 = transId;
@@ -1517,24 +1517,24 @@ void downPosPrep()
   writeVariableValue("O_13", 0);
   writeVariableValue("O_14", 0);
   /* priprava izhodov za pomik v spodnjo pozicijo */   
-  if(selectedCan == 0) /* mala */
+  if(selectedCan == 0) /* 2 */
   {
     writeVariableValue("O_12", 1);
   }
-  else if(selectedCan == 1) /* mala 2 */
+  else if(selectedCan == 1) /* 4 */
   {
     writeVariableValue("O_13", 1);
   }
-  else if(selectedCan == 2) /* srednja */
+  else if(selectedCan == 2) /* 6 */
   {
     writeVariableValue("O_12", 1);
     writeVariableValue("O_13", 1);
   }
-  else if(selectedCan == 3) /* velika */
+  else if(selectedCan == 3) /* 8 */
   {
     writeVariableValue("O_14", 1);
   }
-  else if(selectedCan == 4) /* velika */
+  else if(selectedCan == 4) /* 10 */
   {
     writeVariableValue("O_14", 1);
     writeVariableValue("O_12", 1);
@@ -1549,27 +1549,27 @@ void upPosPrep()
   writeVariableValue("O_13", 0);
   writeVariableValue("O_14", 0);
   /* priprava izhodov za pomik na zgornjo pozicijo */  
-  if(selectedCan == 0) /* mala */
+  if(selectedCan == 0) /* 1 */
   {
     writeVariableValue("O_11", 1);
   }
-  else if(selectedCan == 1) /* mala 2 */
+  else if(selectedCan == 1) /* 3 */
   {
     writeVariableValue("O_11", 1);
     writeVariableValue("O_12", 1);
   }
-  else if(selectedCan == 2) /* srednja */
+  else if(selectedCan == 2) /* 5 */
   {
     writeVariableValue("O_11", 1);
     writeVariableValue("O_13", 1);
   }
-  else if(selectedCan == 3) /* velika*/
+  else if(selectedCan == 3) /* 7 */
   {
     writeVariableValue("O_11", 1);
     writeVariableValue("O_12", 1);
     writeVariableValue("O_13", 1);
   } 
-  else if(selectedCan == 4) /* velika*/
+  else if(selectedCan == 4) /* 9 */
   {
     writeVariableValue("O_11", 1);
     writeVariableValue("O_14", 1);
@@ -2336,18 +2336,18 @@ void setup()
     * moveTask9 = htonl(1000);                
     * moveTask9Next = htonl(2000);
     * writePosUp9 = 1;       
-    * writePosUp10 = htonl((138)*1000); 
+    * writePosUp10 = htonl((0)*1000); 
     * writePosDown9 = 2;       
-    * writePosDown10 = htonl((175)*1000); 
+    * writePosDown10 = htonl((0)*1000); 
   }
   else if(selectedCan == 1)
   {
     * moveTask9 = htonl(3000);
     * moveTask9Next = htonl(4000);
     * writePosUp9 = 3;       
-    * writePosUp10 = htonl((104)*1000); 
+    * writePosUp10 = htonl((138)*1000); 
     * writePosDown9 = 4;       
-    * writePosDown10 = htonl((140)*1000); 
+    * writePosDown10 = htonl((175)*1000); 
   }
   else if(selectedCan == 2)
   {
@@ -2363,9 +2363,9 @@ void setup()
     * moveTask9 = htonl(7000);
     * moveTask9Next = htonl(8000); 
     * writePosUp9 = 7;       
-    * writePosUp10 = htonl((0)*1000);
+    * writePosUp10 = htonl((60)*1000);
     * writePosDown9 = 8;       
-    * writePosDown10 = htonl((35)*1000);
+    * writePosDown10 = htonl((90)*1000);
   }
   else if(selectedCan == 4)
   {

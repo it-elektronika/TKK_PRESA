@@ -2619,7 +2619,7 @@ int checkCanSize(int nextStep)
         return nextStep;
         
         case 3:
-          while(!readVariableValue("I_14_i04") && readVariableValue("I_7_i04"))
+          while(!readVariableValue("I_14_i04") && !readVariableValue("I_7_i04"))
           {
             if(!inWhile)
             {  
@@ -2644,7 +2644,7 @@ int checkCanSize(int nextStep)
           return nextStep;
         
         case 4:
-          while(!readVariableValue("I_14_i04") && readVariableValue("I_7_i04") && readVariableValue("I_6_i04"))
+          while(!readVariableValue("I_14_i04") && !readVariableValue("I_7_i04") && !readVariableValue("I_6_i04"))
           {
             if(!inWhile)
             {  

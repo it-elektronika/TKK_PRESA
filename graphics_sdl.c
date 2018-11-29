@@ -1131,7 +1131,7 @@ void savePos(int x, int y, int w, int h)
     fprintf(fp_press, "%d\n", press);
     fclose(fp_press);
   }
-  renderText("SAVE", smallText,  blackColor);
+  renderText("SHRANI", smallText,  blackColor);
   render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
 }
 

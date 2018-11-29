@@ -1732,7 +1732,10 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       }
       else
       {
-        *step = 7;
+        if(*step != -1)
+        {
+          *step = 7;
+        }
       }
       break;
     
@@ -1835,7 +1838,10 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       }   
       else
       {
-        *step = 16;
+        if(*step != -1)
+        {
+          *step = 16;
+        }
       }
       break;
 
@@ -2578,7 +2584,9 @@ int checkCanSize(int nextStep)
   struct timespec start, stop;
   double elapsedTime;  
   int inWhile = 0;
-  
+  int cond = 0;
+
+  printf("selectedCan:%d, I_4_i04:%d, i_6_i04:%d, i_7_i04:%d, i_14_i04:%d\n", selectedCan, readVariableValue("I_4_i04"), readVariableValue("I_6_i04"), readVariableValue("I_7_i04"), readVariableValue("I_14_i04"));
   if(readVariableValue("I_4_i04"))
   {
     switch(selectedCan)
@@ -2598,8 +2606,17 @@ int checkCanSize(int nextStep)
         }
         
       case 2:
-        while(!readVariableValue("I_14_i04"))
-        {
+        while(!cond)
+        { 
+          if(readVariableValue("I_14_i04"))
+          {
+            cond = 1;  
+          }
+          else
+          {
+            cond = 0;
+          }
+         
           if(!inWhile)
           {  
             clock_gettime(CLOCK_REALTIME, &start);
@@ -2623,8 +2640,17 @@ int checkCanSize(int nextStep)
         return nextStep;
         
         case 3:
-          while(!readVariableValue("I_14_i04") && !readVariableValue("I_7_i04"))
+          while(!cond)
           {
+            if(readVariableValue("I_14_i04") && readVariableValue("I_7_i04"))
+            {
+              cond = 1;  
+            }
+            else
+            {
+              cond = 0;
+            }
+          
             if(!inWhile)
             {  
               clock_gettime(CLOCK_REALTIME, &start);
@@ -2648,8 +2674,17 @@ int checkCanSize(int nextStep)
           return nextStep;
         
         case 4:
-          while(!readVariableValue("I_14_i04") && !readVariableValue("I_7_i04") && !readVariableValue("I_6_i04"))
+          while(!cond)
           {
+            if(readVariableValue("I_14_i04") && readVariableValue("I_7_i04") && readVariableValue("I_6_i04"))
+            {
+              cond = 1;  
+            }
+            else
+            {
+              cond = 0;
+            }
+            printf("inWhile - selectedCan:%d, I_4_i04:%d, i_6_i04:%d, i_7_i04:%d, i_14_i04:%d\n", selectedCan, readVariableValue("I_4_i04"), readVariableValue("I_6_i04"), readVariableValue("I_7_i04"), readVariableValue("I_14_i04"));
             if(!inWhile)
             {  
               clock_gettime(CLOCK_REALTIME, &start);

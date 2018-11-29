@@ -172,11 +172,11 @@ void pageZero()  /* LANDING PAGE */
     down_button(1200, 140, &press, 1, 0);
  
  
-    sprintf(stepCounter, "KORAK:%d", step); 
-    renderText(stepCounter, regularText, blackColor);
-    render(950, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    //sprintf(stepCounter, "KORAK:%d", step); 
+    //renderText(stepCounter, regularText, blackColor);
+    //render(950, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
-    savePos(950, 200, 200, 50);
+    //savePos(950, 200, 200, 50);
 
   }
   else if(page_stage == EXIT)

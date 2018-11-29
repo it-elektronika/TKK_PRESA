@@ -2523,61 +2523,59 @@ void tableHome(int * step)
 void checkCanSize()
 {
   printf("selectedCan:%d, I_4_i04:%d, I_6_i04:%d, I_7_i04:%d, I_14_i04:%d, errorNum:%d\n", readVariableValue("I_4_i04"), readVariableValue("I_6_i04"), readVariableValue("I_7_i04"), readVariableValue("I_14_i04"), errorNum, selectedCan);
-  if(readVariableValue("I_4_i04"))
+  
+  switch(selectedCan)
   {
-    switch(selectedCan)
-    {
-      case 0:
-	break;
-      
-      case 1:
-	if(!readVariableValue("I_6_i04") && !readVariableValue("I_7_i04") && !readVariableValue("I_14_i04"))
-	{
-	  ;
-	}
-	else
-	{
-	 errorNum = 23;
-	 step = -1; 
-	}
-	break;
-   
-      case 2:
-	if(!readVariableValue("I_6_i04") && !readVariableValue("I_7_i04") && readVariableValue("I_14_i04"))
-	{
-	  ;
-	}
-	else
-	{
-	 errorNum = 23;
-	 step = -1; 
-	}
-	break;
+    case 0:
+      break;
+    
+    case 1:
+      if(!readVariableValue("I_6_i04") && !readVariableValue("I_7_i04") && !readVariableValue("I_14_i04") && readVariableValue("I_4_i04"))
+      {
+	;
+      }
+      else
+      {
+       errorNum = 23;
+       step = -1; 
+      }
+      break;
+ 
+    case 2:
+      if(!readVariableValue("I_6_i04") && !readVariableValue("I_7_i04") && readVariableValue("I_14_i04") && readVariableValue("I_4_i04"))
+      {
+	;
+      }
+      else
+      {
+       errorNum = 23;
+       step = -1; 
+      }
+      break;
 
-      case 3:
-	if(!readVariableValue("I_6_i04") && readVariableValue("I_7_i04") && readVariableValue("I_14_i04"))
-	{
-	  ;
-	}
-	else
-	{
-	 errorNum = 23;
-	 step = -1; 
-	}
-	break;
+    case 3:
+      if(!readVariableValue("I_6_i04") && readVariableValue("I_7_i04") && readVariableValue("I_14_i04") && readVariableValue("I_4_i04"))
+      {
+	;
+      }
+      else
+      {
+       errorNum = 23;
+       step = -1; 
+      }
+      break;
 
-      case 4:
-	if(readVariableValue("I_6_i04") && readVariableValue("I_7_i04") && readVariableValue("I_14_i04"))
-	{
-	  ;
-	}
-	else
-	{
-	 errorNum = 23;
-	 step = -1; 
-	}
-	break;
-    }
+    case 4:
+      if(readVariableValue("I_6_i04") && readVariableValue("I_7_i04") && readVariableValue("I_14_i04") && readVariableValue("I_4_i04"))
+      {
+	;
+      }
+      else
+      {
+       errorNum = 23;
+       step = -1; 
+      }
+      break;
   }
 }
 

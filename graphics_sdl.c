@@ -291,7 +291,7 @@ void renderStatusBar()
   render(30, 10, NULL, 0.0, NULL, SDL_FLIP_NONE);
   sprintf(stepCounter, "KORAK:%d", step); 
   renderText(stepCounter, regularText, blackColor);
-  render(1050, 20, NULL, 0.0, NULL, SDL_FLIP_NONE);
+  render(1000, 20, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
 
   //clockButton(1050, 20, 50, 100, tmBuff); 

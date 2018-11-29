@@ -176,7 +176,7 @@ void pageZero()  /* LANDING PAGE */
     //renderText(stepCounter, regularText, blackColor);
     //render(950, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
-    //savePos(950, 200, 200, 50);
+    savePos(950, 200, 200, 50);
 
   }
   else if(page_stage == EXIT)

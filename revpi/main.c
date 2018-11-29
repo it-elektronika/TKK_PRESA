@@ -407,6 +407,7 @@ void initMain()
 
 void sendMessage()
 {
+  int i;
   int * sendMessagePtr0 = (int*)(&sendMessageBuff[0]);
   int * sendMessagePtr1 = (int*)(&sendMessageBuff[1]);
   int * sendMessagePtr2 = (int*)(&sendMessageBuff[2]);
@@ -587,6 +588,11 @@ void sendMessage()
   //tv.tv_usec = 0;
 
   //n = select(32, NULL, &fdsTCP, NULL, &tv); */
+  for(i = 0; i < 86; i++)
+  {
+    printf("sendMessageBuff[%d]:%d\n", i, sendMessageBuff[i]);
+  }
+ 
   n = send(newsockfd, sendMessageBuff, 86, 0);
   memset(sendMessageBuff, 0, 86);
 }

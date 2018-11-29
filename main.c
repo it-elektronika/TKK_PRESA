@@ -156,6 +156,10 @@ void receiveMessage()
       //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
     step = receiveMessageBuff[84];
+    if(step == 255)
+    {
+      step = -1;
+    }
     errorNum = receiveMessageBuff[85];
     if(errorNum != 0)
     {

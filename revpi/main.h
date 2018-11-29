@@ -116,5 +116,5 @@ void tableHome(int *step);
 void measurement();
 void setup();
 void checkOutputs(int* step);
-void checkCanSize();
+int checkCanSize(int nextStep);
 void doorLock(int * doorLockOff, int * doorLockOn);

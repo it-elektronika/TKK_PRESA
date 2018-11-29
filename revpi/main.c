@@ -47,6 +47,7 @@ int main()
   int doorLockOff = 0;
   int doorLockOn = 0;
   int countTurns = 0;
+
   s = -99;
   conn_AKD = 100;
    
@@ -99,7 +100,6 @@ int main()
     //diagnostics();
     //turnTable(&step, &turnTableStep, &turnTableDone);  
     doorLock(&doorLockOff, &doorLockOn);
-    checkCanSize();
     tableHome(&step);
     clearTable(&step, &turnTableStep, &turnTableDone);
     coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &conveyorOff, &conveyorOn, &countTurns, &blockTableStep, &blockTableDone, &unblockTableStep, &unblockTableDone);
@@ -1707,6 +1707,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
          
         if(*countTurns == 4)
         {   
+          writeVariableValue("O_12_i03", 0);
           *step = 7;
         }
         else
@@ -1718,19 +1719,30 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 
     case 7: /* letting in cans */
       conveyorBelt(&conveyorOff, &conveyorOn);
-      writeVariableValue("O_12_i03", 0);
       usleep(1000000);
+      *step = checkCanSize(8);
+      if(*step != 99)
+      {
+        ;
+      }
+      else
+      {
+        *step = 7;
+      }
+      break;
+    
+    case 8:
       turnTable(&turnTableStep, &turnTableDone);
       if(*turnTableDone)
       {
         if(readVariableValue("I_2_i04"))
         {
-          *step = 8;
+          *step = 9;
         }
       }   
       break;
   
-    case 8: /* gripper - moving to low position */
+    case 9: /* gripper - moving to low position */
       conveyorBelt(&conveyorOff, &conveyorOn);
       moveGripperLower(&moveGripperLowerStep, &moveGripperLowerDone);
       blockTable(&blockTableStep, &blockTableDone);
@@ -1738,61 +1750,61 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       if(*moveGripperLowerDone && *blockTableDone)
       {
         *blockTableDone = 0;
-        *step = 9;
+        *step = 10;
       }
       break;
       
-    case 9:  /* press - moving to low position */  
+    case 10:  /* press - moving to low position */  
       conveyorBelt(&conveyorOff, &conveyorOn);
       movePressLower(&movePressLowerStep, &movePressLowerDone); 
       if(readVariableValue("I_13_i03"))
       {
         *movePressLowerDone = 0;
         *movePressLowerStep = 0;
-        *step = 10;
+        *step = 11;
       }
       break;
 
-    case 10: /* measuring position & updating drive data */
+    case 11: /* measuring position & updating drive data */
       conveyorBelt(&conveyorOff, &conveyorOn);
       usleep(1000000);
       measurement();
-      *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 11);  
+      *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 12);  
       //*step = 12;
       break;
 
-    case 11: /* pressing cap */
+    case 12: /* pressing cap */
       conveyorBelt(&conveyorOff, &conveyorOn);
       usleep(1000000);
       movePressLower(&movePressLowerStep, &movePressLowerDone); 
       if(*movePressLowerDone)
       {
-        *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 12);
+        *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 13);
       }
       break;
 
-    case 12: /* press - moving to up position */
+    case 13: /* press - moving to up position */
       conveyorBelt(&conveyorOff, &conveyorOn);
       usleep(1000000);
       movePressUpper(&movePressUpperStep, &movePressUpperDone); 
       if(*movePressUpperDone)
       {
-        *step = 13;
+        *step = 14;
       }
       break;
 
-    case 13: /* gripper - moving to up position */
+    case 14: /* gripper - moving to up position */
       conveyorBelt(&conveyorOff, &conveyorOn);
       moveGripperUpper(&moveGripperUpperStep, &moveGripperUpperDone);
       unblockTable(&unblockTableStep, &unblockTableDone);
       if(*moveGripperUpperDone && *unblockTableDone)
       {
         *unblockTableDone = 0;
-        *step = 14;
+        *step = 15;
       }
       break;
 
-    case 14: /* reseting values - pressing loop */
+    case 15: /* reseting values - pressing loop */
       *turnTableDone = 0;
       *moveGripperLowerDone = 0;
       *moveGripperUpperDone = 0;
@@ -1805,11 +1817,24 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       pickCap(&step, &pickCapStep, &pickCapDone);
       if(*pickCapDone)
       {
-        *step = 15;
+        *step = 16;
       }
       break;
 
-    case 15: /* turn table */
+    case 16:
+      conveyorBelt(&conveyorOff, &conveyorOn);
+      *step = checkCanSize(17);
+      if(*step != 99)
+      {  
+        ;
+      }   
+      else
+      {
+        *step = 16;
+      }
+      break;
+
+    case 17: /* turn table */
       conveyorBelt(&conveyorOff, &conveyorOn);
       turnTable(&turnTableStep, &turnTableDone);
       if(*turnTableDone)
@@ -1817,17 +1842,17 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
         if(readVariableValue("I_2_i04"))
         {
           *pickCapDone = 0;
-          *step = 16;
+          *step = 18;
         }
         else
         {
          *pickCapDone = 0;
-         *step = 14;
+         *step = 15;
         }
       }
       break;
 
-    case 16: /* gripper - moving to low position && blocking table */
+    case 18: /* gripper - moving to low position && blocking table */
       conveyorBelt(&conveyorOff, &conveyorOn);
       pickCap(&step, &pickCapStep, &pickCapDone);
       moveGripperLower(&moveGripperLowerStep, &moveGripperLowerDone);
@@ -1836,26 +1861,26 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       if(*moveGripperLowerDone && *blockTableDone)
       {
         *blockTableDone = 0;
-        *step = 17;
+        *step = 19;
       }
       break;
 
-    case 17: /* press - moving to middle position - checking if cap present */
+    case 19: /* press - moving to middle position - checking if cap present */
       conveyorBelt(&conveyorOff, &conveyorOn);
       pickCap(&step, &pickCapStep, &pickCapDone);
       movePressMiddle(&movePressMiddleStep, &movePressMiddleDone);
       if(*movePressMiddleDone)
       {
-        *step = 18;
+        *step = 20;
       }
       break;
 
-    case 18: /* if cap present - release cap and start press measurement */
+    case 20: /* if cap present - release cap and start press measurement */
       conveyorBelt(&conveyorOff, &conveyorOn);
       pickCap(&step, &pickCapStep, &pickCapDone);
       if(readVariableValue("I_13_i03"))
       { 
-        *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 19);  
+        *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 21);  
         writeVariableValue("O_1", 1);
       }
       else
@@ -1866,23 +1891,23 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       }
       break;
 
-    case 19: /* press - moving to low position - pressing cap*/
+    case 21: /* press - moving to low position - pressing cap*/
       conveyorBelt(&conveyorOff, &conveyorOn);
       pickCap(&step, &pickCapStep, &pickCapDone);
       movePressLower(&movePressLowerStep, &movePressLowerDone);
       if(*movePressLowerDone)
       {
-        *step = 20;
+        *step = 22;
       } 
       break;
     
-    case 20: /* cap release cylinder to initial position*/
+    case 22: /* cap release cylinder to initial position*/
       conveyorBelt(&conveyorOff, &conveyorOn);
       pickCap(&step, &pickCapStep, &pickCapDone);
-      *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 21);
+      *step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 23);
       break;
    
-    case 21: /* press - moving to up position && stopping press measurement*/
+    case 23: /* press - moving to up position && stopping press measurement*/
       conveyorBelt(&conveyorOff, &conveyorOn);
       pickCap(&step, &pickCapStep, &pickCapDone);
       movePressUpper(&movePressUpperStep, &movePressUpperDone); 
@@ -1890,11 +1915,11 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       {
         writeVariableValue("O_1", 0);
         writeVariableValue("O_2", 1);
-        *step = 22;
+        *step = 24;
       }      
       break;
 
-    case 22: /* gripper - moving to up position && unblocking table*/
+    case 24: /* gripper - moving to up position && unblocking table*/
       conveyorBelt(&conveyorOff, &conveyorOn);
       pickCap(&step, &pickCapStep, &pickCapDone);
       moveGripperUpper(&moveGripperUpperStep, &moveGripperUpperDone);
@@ -1903,7 +1928,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       {
         *unblockTableDone = 0;
         writeVariableValue("O_2", 0);
-        *step = 14;
+        *step = 15;
       }
       break;
   }
@@ -2519,66 +2544,6 @@ void tableHome(int * step)
   }
 }
 
-
-void checkCanSize()
-{
-  printf("selectedCan:%d, I_4_i04:%d, I_6_i04:%d, I_7_i04:%d, I_14_i04:%d, errorNum:%d\n", readVariableValue("I_4_i04"), readVariableValue("I_6_i04"), readVariableValue("I_7_i04"), readVariableValue("I_14_i04"), errorNum, selectedCan);
-  
-  switch(selectedCan)
-  {
-    case 0:
-      break;
-    
-    case 1:
-      if(!readVariableValue("I_6_i04") && !readVariableValue("I_7_i04") && !readVariableValue("I_14_i04") && readVariableValue("I_4_i04"))
-      {
-	;
-      }
-      else
-      {
-       errorNum = 23;
-       step = -1; 
-      }
-      break;
- 
-    case 2:
-      if(!readVariableValue("I_6_i04") && !readVariableValue("I_7_i04") && readVariableValue("I_14_i04") && readVariableValue("I_4_i04"))
-      {
-	;
-      }
-      else
-      {
-       errorNum = 23;
-       step = -1; 
-      }
-      break;
-
-    case 3:
-      if(!readVariableValue("I_6_i04") && readVariableValue("I_7_i04") && readVariableValue("I_14_i04") && readVariableValue("I_4_i04"))
-      {
-	;
-      }
-      else
-      {
-       errorNum = 23;
-       step = -1; 
-      }
-      break;
-
-    case 4:
-      if(readVariableValue("I_6_i04") && readVariableValue("I_7_i04") && readVariableValue("I_14_i04") && readVariableValue("I_4_i04"))
-      {
-	;
-      }
-      else
-      {
-       errorNum = 23;
-       step = -1; 
-      }
-      break;
-  }
-}
-
 void doorLock(int* doorLockOff, int* doorLockOn)
 {
   printf("doorLockOff:%d\n", *doorLockOff);
@@ -2603,3 +2568,109 @@ void doorLock(int* doorLockOff, int* doorLockOn)
     }
   }
 }
+
+int checkCanSize(int nextStep)  
+{  
+  struct timespec start, stop;
+  double elapsedTime;  
+  int inWhile = 0;
+  
+  if(readVariableValue("I_4_i04"))
+  {
+    switch(selectedCan)
+    {
+      case 0:
+        return -1;
+
+      case 1:
+        if(!readVariableValue("I_6_i04") && !readVariableValue("I_7_i04") && !readVariableValue("I_14_i04"))
+        {
+          return nextStep;
+        }
+        else
+        {
+          errorNum = 23;
+          return -1;
+        }
+        
+      case 2:
+        while(!readVariableValue("I_14_i04"))
+        {
+          if(!inWhile)
+          {  
+            clock_gettime(CLOCK_REALTIME, &start);
+            inWhile = 1;
+          }
+  
+          clock_gettime(CLOCK_REALTIME, &stop);
+          elapsedTime = ( stop.tv_sec - start.tv_sec );
+
+          if(readVariableValue("I_6_i04") || readVariableValue("I_7_i04"))
+          {
+            errorNum = 23;
+            return -1;
+          } 
+          else if(elapsedTime > 1)
+          {
+            errorNum = 23;
+            return -1;
+          }
+        }
+        return nextStep;
+        
+        case 3:
+          while(!readVariableValue("I_14_i04") && readVariableValue("I_7_i04"))
+          {
+            if(!inWhile)
+            {  
+              clock_gettime(CLOCK_REALTIME, &start);
+              inWhile = 1;
+            }
+  
+            clock_gettime(CLOCK_REALTIME, &stop);
+            elapsedTime = ( stop.tv_sec - start.tv_sec );
+
+            if(readVariableValue("I_6_i04"))
+            {
+              errorNum = 23;
+              return -1;
+            } 
+            else if(elapsedTime > 1)
+            {
+              errorNum = 23;
+              return -1;
+            }
+          }
+          return nextStep;
+        
+        case 4:
+          while(!readVariableValue("I_14_i04") && readVariableValue("I_7_i04") && readVariableValue("I_6_i04"))
+          {
+            if(!inWhile)
+            {  
+              clock_gettime(CLOCK_REALTIME, &start);
+              inWhile = 1;
+            }
+  
+            clock_gettime(CLOCK_REALTIME, &stop);
+            elapsedTime = ( stop.tv_sec - start.tv_sec );
+
+            if(elapsedTime > 1)
+            {
+              errorNum = 23;
+              return -1;
+            }
+          }
+          return nextStep;
+     
+        default:
+          return -1;
+    }
+  }
+  else
+  {
+    return 99;
+  }
+}
+
+

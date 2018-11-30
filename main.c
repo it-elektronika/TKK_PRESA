@@ -13,6 +13,7 @@ void error(const char *msg);
 int main()
 {
   int cycle;
+  selectedMeasure[0] = 1;
   printf("MAIN\n");
   initMain();
   init();

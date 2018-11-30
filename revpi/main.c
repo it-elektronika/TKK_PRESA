@@ -1867,7 +1867,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       }      
       break;
 
-    case 20: /* gripper - moving to up position && unblocking table*/
+    case 19: /* gripper - moving to up position && unblocking table*/
       conveyorBelt(&conveyorOff, &conveyorOn);
       pickCap(&step, &pickCapStep, &pickCapDone);
       moveGripperUpper(&moveGripperUpperStep, &moveGripperUpperDone);

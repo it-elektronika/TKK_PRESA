@@ -201,7 +201,6 @@ void pageOne() /* MAIN MENU */
     renderAdmin(1200, 0, 80, 80, 0);
     goToButton(30, 200, 350, 100, "IZBIRA DOZE", 2);
     goToButton(30, 350, 500, 100, "ROCNO NASTAVLJANJE", 10);
-    goToButton(30, 500, 350, 100, "DIAGNOSTIKA", 4);
   }
   else if(page_stage == EXIT)
   {
@@ -282,8 +281,8 @@ void pageThree()  /* I/O STATUS */
       y = y + 70;
     }
     
-    up_button(1220, 120, &modY, 100, 0);
-    down_button(1220, 720, &modY, 100, -2200);
+    up_button(1190, 90, &modY, 100, 0);
+    down_button(1200, 710, &modY, 100, -2200);
   }
   else if(page_stage == EXIT)
   {
@@ -684,8 +683,6 @@ void pageTen()
   else if(page_stage == ENABLE)
   {
     renderAdmin(1200, 0, 80, 80, 1);
-    goToButton(30, 200, 500, 100, "NASTAVITVE POZICIJ", 9); 
-    goToButton(30, 400, 350, 100, "DRIVE ROCNO", 11);
     goToButton(30, 600, 350, 100, "I / O ", 3);
     
   }

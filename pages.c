@@ -174,6 +174,12 @@ void pageZero()  /* LANDING PAGE */
       down_button(950, 250, &press, 1, 0);
       savePos(950, 400, 200, 50);
     }
+    renderText("CIKEL Z MERJENJEM:", regularText, blackColor);
+    render(30, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    measureButton(30, 600, 200, 100, "VKLOPLJEN", 0);
+    measureButton(300, 600, 200, 100, "IZKLOPLJEN", 1);
+
+
     //sprintf(stepCounter, "KORAK:%d", step); 
     //renderText(stepCounter, regularText, blackColor);
     //render(950, 400, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -660,13 +666,8 @@ void pageNine()
  
     savePos(30, 720, 200, 50);
 
-    
-    renderText("CIKEL Z MERJENJEM:", regularText, blackColor);
-    render(300, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    measureButton(600, 500, 200, 100, "VKLOPLJEN", 0);
-    measureButton(600, 500, 200, 100, "IKLOPLJEN", 1);
-
-
+   
+  
  }
   else if(page_stage == EXIT)
   {

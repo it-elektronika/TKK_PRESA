@@ -105,7 +105,6 @@ void initCommTCP()
 
 void sendMessage()
 {
-  int i;
   int * sendMessagePtr0 = (int*)(&sendMessageBuff[0]);
   int * sendMessagePtr1 = (int*)(&sendMessageBuff[1]);
   int * sendMessagePtr2 = (int*)(&sendMessageBuff[2]);
@@ -114,7 +113,16 @@ void sendMessage()
   int * sendMessagePtr5 = (int*)(&sendMessageBuff[5]);
   int * sendMessagePtr6 = (int*)(&sendMessageBuff[6]);
   int * sendMessagePtr7 = (int*)(&sendMessageBuff[7]);
+  int * sendMessagePtr8 = (int*)(&sendMessageBuff[8]);
 
+  if(selectedMeasure[0])
+  {
+    doMeasurement = 1;
+  }
+  else
+  {
+    doMeasurement = 0;
+  }
   * sendMessagePtr0 = outputButton1;
   * sendMessagePtr1 = outputButton2;  
   * sendMessagePtr2 = startButton1;
@@ -123,14 +131,15 @@ void sendMessage()
   * sendMessagePtr5 = press;  
   * sendMessagePtr6 = selectedCan;
   * sendMessagePtr7 = page;  
+  * sendMessagePtr8 = doMeasurement;
   //FD_ZERO(&fdsTCP);
   //tv.tv_sec = 0;
   //tv.tv_usec = 0;
 
   //n = select(32, NULL, &fdsTCP, NULL, &tv); 
-  n = send(sockfd,sendMessageBuff, 8, 0); 
+  n = send(sockfd,sendMessageBuff, 9, 0); 
   printf("sendMessage - postsend\n");
-  memset(sendMessageBuff, 0, 8);
+  memset(sendMessageBuff, 0, 9);
 }
 
 void receiveMessage()

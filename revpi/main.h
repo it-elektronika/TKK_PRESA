@@ -37,7 +37,7 @@ int s;
 int program;
 int transId;
 int conn_AKD;
-
+int doMeasurement;
 int inCycle;
 int selectedCan;
 int rise_detected;
@@ -101,7 +101,7 @@ void turnTableFree(int** turnTableStep, int** turnTableDone);
 
 int moveCylinder(int id, const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val, int nextStep);
 void moveAkd(const char *akd);
-void coreLoop(int* step, int* turnTableStep, int*  turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* conveyorOff, int* conveyorOn, int* countTurns, int* blockTableStep, int* blockTableDone, int* unblockTableStep, int* unblockTableDone, int* doMeasurement, int* measurementDone);
+void coreLoop(int* step, int* turnTableStep, int*  turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* conveyorOff, int* conveyorOn, int* countTurns, int* blockTableStep, int* blockTableDone, int* unblockTableStep, int* unblockTableDone);
 void coreLoop2(int* step, int* turnTableStep, int*  turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* conveyorOff, int* conveyorOn, int* countTurns, int* blockTableStep, int* blockTableDone, int* unblockTableStep, int* unblockTableDone);
 
 

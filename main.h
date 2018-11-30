@@ -37,7 +37,7 @@ int conn_presa;
 int conn_hmi;
 int s;
 int errorNumber;
-
+int doMeasurement;
 int moveTask;
 int transId;
 int posCounter;

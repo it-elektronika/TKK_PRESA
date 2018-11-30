@@ -44,10 +44,6 @@ int main()
   int unblockTableDone = 0;
   int clearTableStep = 0;
   int clearTableDone = 0;
-
-  int doMeasurement = 1;
-  int measurementDone = 0;
-
   int conveyorOff = 0;
   int conveyorOn = 0;
   int doorLockOff = 0;
@@ -111,7 +107,7 @@ int main()
 
     if(doMeasurement)
     {
-      coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &conveyorOff, &conveyorOn, &countTurns, &blockTableStep, &blockTableDone, &unblockTableStep, &unblockTableDone, &doMeasurement, &measurementDone);
+      coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &conveyorOff, &conveyorOn, &countTurns, &blockTableStep, &blockTableDone, &unblockTableStep, &unblockTableDone);
     }
     else
     {
@@ -624,7 +620,7 @@ void receiveMessage()
   select(newsockfd+1, &fdsTCP, NULL, NULL, &timeout);  
   if(FD_ISSET(newsockfd, &fdsTCP))
   {
-    recv(newsockfd, receiveMessageBuff, 8, 0);
+    recv(newsockfd, receiveMessageBuff, 9, 0);
     currentState = receiveMessageBuff[1];
     currentOutput = receiveMessageBuff[0];
     if(receiveMessageBuff[0] != -1)
@@ -668,6 +664,7 @@ void receiveMessage()
     press = receiveMessageBuff[5];
     selectedCan = receiveMessageBuff[6];
     pageNum = receiveMessageBuff[7];
+    doMeasurement = receiveMessageBuff[8];
     /*
     for(i = 0; i < 8; i++)
     {
@@ -1600,7 +1597,7 @@ void upPosPrep()
   }
 } 
 
-void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int * moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* conveyorOff, int* conveyorOn , int * countTurns, int* blockTableDone, int* blockTableStep, int* unblockTableStep, int* unblockTableDone, int* doMeasurement, int* measurementDone)
+void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int * moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* conveyorOff, int* conveyorOn , int * countTurns, int* blockTableDone, int* blockTableStep, int* unblockTableStep, int* unblockTableDone)
 {
   printf("CORE LOOP\n");
   switch(*step)
@@ -1616,11 +1613,6 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       writeVariableValue("O_12", 0);
       writeVariableValue("O_13", 0);
       writeVariableValue("O_14", 0);
-      if(*measurementDone)
-      {
-        *doMeasurement = 0;        
-        *measurementDone = 0;
-      }
       *countTurns = 0;
       *conveyorOff = 0;
       *conveyorOn = 0;
@@ -1796,7 +1788,6 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       conveyorBelt(&conveyorOff, &conveyorOn);
       usleep(1000000);
       measurement();
-      *measurementDone = 1;
       *step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 12);  
       //*step = 12;
       break;

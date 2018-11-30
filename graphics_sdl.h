@@ -47,7 +47,7 @@ int cycleCheck;
 int pageNumber;
 
 int selected[9];
-
+int selectedMeasure[2];
 int init();
 void freeTexture();
 void renderBackground();
@@ -75,6 +75,7 @@ void posButton(int x, int y, int w, int h, char *text, int firstPos);
 void enableButton(int x, int y, int w, int h);
 void disableButton(int x, int y, int w, int h);
 void startButton(int x, int y, int w, int h);
+void measureButton(int x, int y, int w, int h, char *text, int id);
 
 void pageZero();
 void pageOne();

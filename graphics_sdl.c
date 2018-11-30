@@ -632,10 +632,10 @@ void up_button(int x,  int y, int *incrementee, int incrementor, int max)
   SDL_Surface *imageSurface;
   freeTexture();
   #ifdef RPI
-  imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/down_black_100.png");
+  imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/down_100_black.png");
   #endif
   #ifdef LUKA
-  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/down_black_100.png");
+  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/down_100_black.png");
   #endif
   if(imageSurface == NULL)
   {
@@ -672,10 +672,10 @@ void down_button(int x, int y, int *decrementee, int decrementor, int min)
   SDL_Surface *imageSurface;
   freeTexture();
   #ifdef RPI
-  imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/up_black_100.png");
+  imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/up_100_black.png");
   #endif
   #ifdef LUKA
-  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/up_black_100.png");
+  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/up_100_black.png");
   #endif
   if(imageSurface == NULL)
   {
@@ -1285,8 +1285,36 @@ void startButton(int x, int y, int w, int h)
   }
 }
 
-
-
-
-
-
+void measureButton(int x, int y, int w, int h, char *text, int id)  
+{
+  int i;
+  if(selectedMeasure[id]==0)
+  {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+    SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+    SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+    SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+    renderText(text, smallText,  blackColor);
+    render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
+  }
+  else if(selectedMeasure[id]==1)
+  {
+    for(i = 0; i < 10; ++i)
+    {
+      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+      SDL_RenderDrawLine(renderer, x, y+i, (x+w), y+i);
+      SDL_RenderDrawLine(renderer, (x+w+i), y, (x+w+i), (y+h)); 
+      SDL_RenderDrawLine(renderer, (x+w), (y+h-i), x, (y+h-i));
+      SDL_RenderDrawLine(renderer, x+i, (y+h), x+i, y);
+    }
+    renderText(text, smallText,  blackColor);
+    render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE);
+  }
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp && selected[id] == 0)
+  {
+    selectedMeasure[0] = 0;
+    selectedMeasure[1] = 0;
+    selectedMeasure[id] = 1;
+  }
+}

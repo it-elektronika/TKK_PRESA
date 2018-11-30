@@ -166,13 +166,13 @@ void pageZero()  /* LANDING PAGE */
     render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);   
 
     sprintf(pressBuff, "STISK:%d mm", press);
-    renderText(pressBuff, smallText, blackColor);
+    renderText(pressBuff, regularText, blackColor);
     render(950, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
     if(!inCycle)
     {
-      up_button(1200, 140, &press, 1, 10);
-      down_button(1150, 140, &press, 1, 0);
-      savePos(950, 300, 200, 50);
+      up_button(1100, 250, &press, 1, 10);
+      down_button(950, 250, &press, 1, 0);
+      savePos(950, 400, 200, 50);
     }
     //sprintf(stepCounter, "KORAK:%d", step); 
     //renderText(stepCounter, regularText, blackColor);
@@ -217,8 +217,7 @@ void pageTwo() /* CAN SIZE SELECTION */
     button(30, 300, 200, 100, "500/65", 2);
     button(30, 450, 200, 100, "600/65", 3);
     button(30, 600, 200, 100, "750/65", 4);
-
-
+   
     //renderText("POPRAVEK:", smallText, blackColor);
     //render(400, 180, NULL, 0.0, NULL, SDL_FLIP_NONE);
    
@@ -228,7 +227,6 @@ void pageTwo() /* CAN SIZE SELECTION */
     
     //up_button(800,180, &modifier, 1, 5);
     //down_button(900, 180, &modifier, 1, -5);
-
     saveButton(600, 600, 200, 100, "SHRANI");
   }
   if(page_stage == EXIT)
@@ -654,13 +652,21 @@ void pageNine()
     renderText("SPODAJ", smallText, blackColor);
     render(800, 650, NULL, 0.0, NULL, SDL_FLIP_NONE);
     */
-    sprintf(pressBuff, "STISK:%d mm", press);
+    sprintf(pressBuff, "STISKANJE:%d mm", press);
     renderText(pressBuff, smallText, blackColor);
     render(950, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
     up_button(1150, 140, &press, 1, 10);
     down_button(1200, 140, &press, 1, 0);
  
     savePos(30, 720, 200, 50);
+
+    
+    renderText("CIKEL Z MERJENJEM:", regularText, blackColor);
+    render(300, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    measureButton(600, 500, 200, 100, "VKLOPLJEN", 0);
+    measureButton(600, 500, 200, 100, "IKLOPLJEN", 1);
+
+
  }
   else if(page_stage == EXIT)
   {

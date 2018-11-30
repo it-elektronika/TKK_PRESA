@@ -24,6 +24,10 @@ int main()
 {
   safetyDoorLastState = 0;
   safetyDoorCurrentState = 0;
+  stopTotalLastState = 0;
+  stopTotalCurrentState = 0;
+ 
+
   int turnTableStep = 0;
   int turnTableDone = 0;
   int movePressZeroPosStep = 0;
@@ -2972,6 +2976,22 @@ void checkSafetyDoor()
   if(safetyDoorLastState != safetyDoorCurrentState)
   {
     if(safetyDoorCurrentState == 0)
+    {
+      writeVariableValue("O_1_i04", 1);
+      usleep(500000);
+      writeVariableValue("O_1_i04", 0);
+    }
+  }
+}
+
+void checkStopTotal()
+{
+  stopTotalLastState = stopTotalCurrentState;
+  stopTotalCurrentState = readVariableValue("Output_Status_i04");
+
+  if(stopTotalLastState != stopTotalCurrentState)
+  {
+    if(stopTotalCurrentState == 0)
     {
       writeVariableValue("O_1_i04", 1);
       usleep(500000);

@@ -9,6 +9,9 @@ struct timespec start1, stop1;
 double elapsedTime1;
 double target1;
  
+int safetyDoorLastState;
+int safetyDoorCurrentState;
+
 int count_turns;
 int cylCond;
 int errorNum;
@@ -122,3 +125,5 @@ int checkCanSize(int nextStep);
 void doorLock(int * doorLockOff, int * doorLockOn);
 
 void clearTable(int* step, int* turnTableStep, int* turnTableDone, int* clearTableStep, int* clearTableDone, int* pickCapStep, int* pickCapDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressMiddleStep, int* movePressMiddleDone, int* movePressUpperStep, int* movePressUpperDone, int* unblockTableStep, int* unbockTableDone, int* blockTableStep, int* blockTableDone, int* conveyorOff, int* conveyorOn);
+
+void checkSafetyDoor();

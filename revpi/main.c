@@ -22,6 +22,8 @@ void error(const char *msg)
 /*PROGRAM*/
 int main()
 {
+  safetyDoorLastState = 0;
+  safetyDoorCurrentState = 0;
   int turnTableStep = 0;
   int turnTableDone = 0;
   int movePressZeroPosStep = 0;
@@ -101,6 +103,7 @@ int main()
     sendMessage();
     //diagnostics();
     //turnTable(&step, &turnTableStep, &turnTableDone);  
+    //checkSafetyDoor();
     doorLock(&doorLockOff, &doorLockOn);
     tableHome(&step);
     clearTable(&step, &turnTableStep, &turnTableDone, &clearTableStep, &clearTableDone, &pickCapStep, &pickCapDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressMiddleStep, &movePressMiddleDone, &movePressUpperStep, &movePressUpperDone, &unblockTableStep, &unblockTableDone, &blockTableStep, &blockTableDone, &conveyorOff, &conveyorOn);   
@@ -2957,5 +2960,22 @@ void coreLoop2(int* step, int * turnTableStep, int * turnTableDone, int* moveGri
         *step = 1;
       }
       break;
+  }
+}
+
+
+void checkSafetyDoor()
+{
+  safetyDoorLastState = safetyDoorCurrentState;
+  safetyDoorCurrentState = readVariableValue("Output_Status");
+
+  if(safetyDoorLastState != safetyDoorCurrentState)
+  {
+    if(safetyDoorCurrentState == 0)
+    {
+      writeVariableValue("O_1_i04", 1);
+      usleep(500000);
+      writeVariableValue("O_1_i04", 0);
+    }
   }
 }

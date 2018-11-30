@@ -541,10 +541,10 @@ void pageEight()  /* ERROR */
         renderText("- PREVERI DOTOK ZRAKA", regularText, blackColor);
         break;
       case 15:
-        renderText("- potreben je ponoven vklop stroja", regularText, blackColor);
+        renderText("", regularText, blackColor);
         break;
       case 16:  
-        renderText("- potreben je ponoven vklop stroja", regularText, blackColor);
+        renderText("", regularText, blackColor);
         break; 
       case 17:  
         renderText("- preveri dotok zraka", regularText, blackColor);

@@ -561,7 +561,7 @@ void pageEight()  /* ERROR */
         renderText("- cilinder ni dosegel pozicije", regularText, blackColor);
         break;
       case 23:
-        renderText("- napacno izbrana velikost doze/napacna doza na vhodu", regularText, blackColor);
+        renderText("- napacno izbrana velikost doze", regularText, blackColor);
         break;
   
 

@@ -103,7 +103,7 @@ int main()
     sendMessage();
     //diagnostics();
     //turnTable(&step, &turnTableStep, &turnTableDone);  
-    //checkSafetyDoor();
+    checkSafetyDoor();
     doorLock(&doorLockOff, &doorLockOn);
     tableHome(&step);
     clearTable(&step, &turnTableStep, &turnTableDone, &clearTableStep, &clearTableDone, &pickCapStep, &pickCapDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressMiddleStep, &movePressMiddleDone, &movePressUpperStep, &movePressUpperDone, &unblockTableStep, &unblockTableDone, &blockTableStep, &blockTableDone, &conveyorOff, &conveyorOn);   

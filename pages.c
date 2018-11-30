@@ -170,8 +170,8 @@ void pageZero()  /* LANDING PAGE */
     render(950, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);
     if(!inCycle)
     {
-      up_button(1150, 140, &press, 1, 10);
-      down_button(1200, 140, &press, 1, 0);
+      up_button(1200, 140, &press, 1, 10);
+      down_button(1150, 140, &press, 1, 0);
       savePos(950, 300, 200, 50);
     }
     //sprintf(stepCounter, "KORAK:%d", step); 

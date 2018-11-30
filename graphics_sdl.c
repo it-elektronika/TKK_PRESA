@@ -632,10 +632,10 @@ void up_button(int x,  int y, int *incrementee, int incrementor, int max)
   SDL_Surface *imageSurface;
   freeTexture();
   #ifdef RPI
-  imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/up_black.png");
+  imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/down_black_100.png");
   #endif
   #ifdef LUKA
-  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/up_black.png");
+  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/down_black_100.png");
   #endif
   if(imageSurface == NULL)
   {
@@ -672,10 +672,10 @@ void down_button(int x, int y, int *decrementee, int decrementor, int min)
   SDL_Surface *imageSurface;
   freeTexture();
   #ifdef RPI
-  imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/down_black.png");
+  imageSurface = IMG_Load("/home/pi/TKK_PRESA/images/up_black_100.png");
   #endif
   #ifdef LUKA
-  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/down_black.png");
+  imageSurface = IMG_Load("/home/luka/TKK_PRESA_/images/up_black_100.png");
   #endif
   if(imageSurface == NULL)
   {

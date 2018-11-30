@@ -101,7 +101,10 @@ void turnTableFree(int** turnTableStep, int** turnTableDone);
 
 int moveCylinder(int id, const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val, int nextStep);
 void moveAkd(const char *akd);
-void coreLoop(int* step, int* turnTableStep, int*  turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* conveyorOff, int* conveyorOn, int* countTurns, int* blockTableStep, int* blockTableDone, int* unblockTableStep, int* unblockTableDone);
+void coreLoop(int* step, int* turnTableStep, int*  turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* conveyorOff, int* conveyorOn, int* countTurns, int* blockTableStep, int* blockTableDone, int* unblockTableStep, int* unblockTableDone, int* doMeasurement, int* measurementDone);
+void coreLoop2(int* step, int* turnTableStep, int*  turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* conveyorOff, int* conveyorOn, int* countTurns, int* blockTableStep, int* blockTableDone, int* unblockTableStep, int* unblockTableDone);
+
+
 void moveGripperLower(int ** moveGripperLowerStep, int **moveGripperLowerDone);
 void moveGripperUpper(int ** moveGripperUpperStep, int **moveGripperUpperDone);
 void movePressLower(int ** movePressLowerStep, int **movePressLowerDone);
@@ -111,10 +114,11 @@ void conveyorBelt(int ** conveyorOff, int ** conveyorOn);
 void pickCap(int**step, int** pickCapStep, int** pickCapDone);
 void blockTable(int **blockTableStep, int** blockTableDone);
 void unblockTable(int **unblockTableStep, int** unblockTableDone);
-void clearTable(int *step, int* turnTableStep, int* turnTableDone);
 void tableHome(int *step);
 void measurement();
 void setup();
 void checkOutputs(int* step);
 int checkCanSize(int nextStep);
 void doorLock(int * doorLockOff, int * doorLockOn);
+
+void clearTable(int* step, int* turnTableStep, int* turnTableDone, int* clearTableStep, int* clearTableDone, int* pickCapStep, int* pickCapDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressMiddleStep, int* movePressMiddleDone, int* movePressUpperStep, int* movePressUpperDone, int* unblockTableStep, int* unbockTableDone, int* blockTableStep, int* blockTableDone, int* conveyorOff, int* conveyorOn);

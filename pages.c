@@ -566,7 +566,11 @@ void pageEight()  /* ERROR */
       case 23:
         renderText("- napacno izbrana velikost doze", regularText, blackColor);
         break;
+      case 24:
+        renderText("- vklopi krmilno napetost", regularText, blackColor);
+        break;
   
+
 
       default:
         break;

@@ -285,8 +285,11 @@ void renderStatusBar()
       break;
     case 24:
       renderText("NAPAKA - velikost doze", regularText, blackColor);
-     
       break;
+    case 25:
+      renderText("NAPAKA - krmilna napetost", regularText, blackColor);
+      break;
+  
   } 
   render(30, 10, NULL, 0.0, NULL, SDL_FLIP_NONE);
   sprintf(stepCounter, "KORAK:%d", step); 
@@ -430,6 +433,10 @@ void renderContent()
           break; 
         case 23:
           sbarText = 24;
+          break;
+        case 24:
+          sbarText = 25;   
+          break;
         default:
           break;
       }

@@ -1638,22 +1638,29 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       *pickCapStep = 0;
      
       *countTurns = 0;
+      if(!readVariableValue("I_10"))
+      {
+	moveAKD("O_4_i03");
+	while(!readVariableValue("I_11"))
+	{
+	  ;
+	}
+	usleep(1000000);
+	writeVariableValue("O_11", 1);
+	writeVariableValue("O_14", 1);
+	usleep(1000000);
+	moveAKD("O_1_i03");
+	while(!readVariableValue("I_12"))
+	{
+	  ;
+	}
+        *step = 0;
+      }
+      else
+      {
+        errorNum = 24;
+      }
       
-      moveAKD("O_4_i03");
-      while(!readVariableValue("I_11"))
-      {
-	;
-      }
-      usleep(1000000);
-      writeVariableValue("O_11", 1);
-      writeVariableValue("O_14", 1);
-      usleep(1000000);
-      moveAKD("O_1_i03");
-      while(!readVariableValue("I_12"))
-      {
-	;
-      }
-      *step = 0;
       break;
       
     case 0: 

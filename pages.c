@@ -174,10 +174,10 @@ void pageZero()  /* LANDING PAGE */
       down_button(950, 250, &press, 1, 0);
       savePos(950, 400, 200, 50);
     }
-    renderText("CIKEL Z MERJENJEM:", regularText, blackColor);
+    renderText("UMERJANJE VISINE PRESANJA:", regularText, blackColor);
     render(30, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
-    measureButton(30, 600, 200, 100, "VKLOPLJEN", 0);
-    measureButton(300, 600, 200, 100, "IZKLOPLJEN", 1);
+    measureButton(30, 600, 200, 100, "AKTIVNO", 0);
+    measureButton(300, 600, 200, 100, "NEAKTIVNO", 1);
 
 
     //sprintf(stepCounter, "KORAK:%d", step); 

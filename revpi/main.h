@@ -46,6 +46,7 @@ int program;
 int transId;
 int conn_AKD;
 int doMeasurement;
+//int doSetup;
 int inCycle;
 int selectedCan;
 int rise_detected;

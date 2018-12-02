@@ -55,7 +55,8 @@ int main()
   int doorLockOff = 0;
   int doorLockOn = 0;
   int countTurns = 0;
-
+  doMeasurement = 1;
+  //doSetup = 1;
   s = -99;
   conn_AKD = 100;
    
@@ -114,6 +115,7 @@ int main()
 
     if(doMeasurement)
     {
+      //doSetup = 1;
       coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &conveyorOff, &conveyorOn, &countTurns, &blockTableStep, &blockTableDone, &unblockTableStep, &unblockTableDone);
     }
     else
@@ -1638,7 +1640,7 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
       *pickCapStep = 0;
      
       *countTurns = 0;
-      if(!readVariableValue("I_10"))
+      if(readVariableValue("I_10")) /*ce je napaka je 0*/
       {
 	moveAKD("O_4_i03");
 	while(!readVariableValue("I_11"))
@@ -1647,15 +1649,15 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 	}
 	usleep(1000000);
 	writeVariableValue("O_11", 1);
-	writeVariableValue("O_14", 1);
+	writeVariableValue("O_14", 1); 
 	usleep(1000000);
 	moveAKD("O_1_i03");
 	while(!readVariableValue("I_12"))
 	{
 	  ;
 	}
-        *step = 0;
-      }
+	*step = 0;
+	}
       else
       {
         errorNum = 24;
@@ -2395,14 +2397,14 @@ void setup()
     ;
   }
   writeVariableValue("O_11", 1);
-  writeVariableValue("O_12", 1);
-  writeVariableValue("O_13", 1);
+  writeVariableValue("O_14", 1);
   usleep(1000000);
   moveAKD("O_1_i03");
   while(!readVariableValue("I_12"))
   {
     ;
-  }    
+  }
+  //doSetup = 0;    
 }
 
 void checkOutputs(int* step)
@@ -2415,8 +2417,11 @@ void checkOutputs(int* step)
   }
   if(readVariableValue("Output_Status_i04") != 0)
   {
-    *step = -1;
-    errorNum = 16;
+    if(*step != 0 || *step !=-1)
+    { 
+      *step = -1;
+      errorNum = 16; 
+    }
   }
   if(readVariableValue("I_14") == 0)
   {
@@ -2603,7 +2608,7 @@ void tableHome(int * step)
   int cond1 = 0;
   int cond2 = 0;
   int cond3 = 0;
- 
+  int cond4 = 0;
   if(*step == 0)
   {
     if(readVariableValue("I_9_i04"))
@@ -2611,8 +2616,12 @@ void tableHome(int * step)
       cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
       cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
       cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
-       
-      if(cond1 && cond2 && cond3)
+      if(!readVariableValue("I_2_i04") && !readVariableValue("I_4_i04"))
+      {
+        cond4 = 1;
+      }
+ 
+      if(cond1 && cond2 && cond3 && cond4)
       {
         writeVariableValue("O_8", 1);
         usleep(delay_time);
@@ -2818,20 +2827,22 @@ void coreLoop2(int* step, int * turnTableStep, int * turnTableDone, int* moveGri
       *pickCapStep = 0;
      
       *countTurns = 0;
-      
-      moveAKD("O_4_i03");
-      while(!readVariableValue("I_11"))
+      if(readVariableValue("I_2_i04"))
       {
-	;
-      }
-      usleep(1000000);
-      writeVariableValue("O_11", 1);
-      writeVariableValue("O_14", 1);
-      usleep(1000000);
-      moveAKD("O_1_i03");
-      while(!readVariableValue("I_12"))
-      {
-	;
+        moveAKD("O_4_i03");
+        while(!readVariableValue("I_11"))
+        {
+          ;
+        }
+        usleep(1000000);
+        writeVariableValue("O_11", 1);
+        writeVariableValue("O_14", 1);
+        usleep(1000000);
+        moveAKD("O_1_i03");
+        while(!readVariableValue("I_12"))
+        {
+	  ;
+        }
       }
       *step = 0;
       break;

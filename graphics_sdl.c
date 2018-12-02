@@ -1320,8 +1320,11 @@ void measureButton(int x, int y, int w, int h, char *text, int id)
   }
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp && selected[id] == 0)
   {
-    selectedMeasure[0] = 0;
-    selectedMeasure[1] = 0;
-    selectedMeasure[id] = 1;
+    if(!inCycle)
+    {  
+      selectedMeasure[0] = 0;
+      selectedMeasure[1] = 0;
+      selectedMeasure[id] = 1;
+    }    
   }
 }

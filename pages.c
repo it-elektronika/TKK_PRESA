@@ -174,7 +174,7 @@ void pageZero()  /* LANDING PAGE */
       down_button(950, 250, &press, 1, 0);
       savePos(950, 400, 200, 50);
     }
-    renderText("UMERJANJE VISINE PRESANJA:", regularText, blackColor);
+    renderText("UMERJANJE PRESANJA:", regularText, blackColor);
     render(30, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
     measureButton(30, 600, 200, 100, "AKTIVNO", 0);
     measureButton(300, 600, 200, 100, "NEAKTIVNO", 1);

@@ -170,7 +170,7 @@ void clearTable();
 void resetSafetyDoor();
 void resetStopTotal();
 void resetPower();
-void noPressing();
+void noPress();
 void checkStartStop();
 void moveUpper();
 void checkInCycle();

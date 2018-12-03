@@ -62,7 +62,7 @@ int main()
     }
     else
     {
-      noPressing();
+      noPress();
     }
     checkOutputs();
     resetPower();
@@ -1176,48 +1176,22 @@ void turnTableFree()
   }
 }
 
-void noPressing()
-{
-  int cond1 = 0;
-  int cond2 = 0;
-  int cond3 = 0;
-  printf("turnTableFreeStep:%d, turnTableFreeDone:%d\n", turnTableStep, turnTableDone);
-  if(!turnTableDone)
-  { 
-    switch(turnTableStep)
-    {
-      case 0:
-	cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
-	cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
-        cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
-        printf("cond1:%d\n", cond1);
-        printf("cond2:%d\n", cond2);
-        printf("cond3:%d\n", cond3);
-	
-        if(cond1 && cond2 && cond3)
-	{
-          if(readVariableValue("I_4_i04"))
-          {
-	    moveAKD("O_7");
-	    turnTableStep = 1;
-          }
-	}
-	else
-	{
-	  printf("cilinder ovira premik mize\n");
-	}
-	break;
 
-      case 1:
-	printf("case 1\n");
-        if(readVariableValue("I_13"))
-	{
-	  printf("move completed\n");
-          turnTableDone = 1;
-          turnTableStep = 0;
-	}
-	break;
-    }
+void noPress()
+{
+  switch(step)
+  {
+    case 1:
+      writeVariableValue("O_12_i03", 0);
+      step = 2;
+
+    case 2:
+      turnTable();
+      if(turnTableDone)
+      {
+        turnTableDone = 0;
+        step = 2;
+      }
   }
 }
 

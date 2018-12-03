@@ -178,6 +178,12 @@ void pageZero()  /* LANDING PAGE */
     render(30, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
     measureButton(30, 600, 200, 100, "AKTIVNO", 0);
     measureButton(300, 600, 200, 100, "NEAKTIVNO", 1);
+    
+    renderText("PRESANJE:", regularText, blackColor);
+    render(700, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    measureButton(700, 600, 200, 100, "AKTIVNO", 0);
+    measureButton(1000, 600, 200, 100, "NEAKTIVNO", 1);
+
 
 
     //sprintf(stepCounter, "KORAK:%d", step); 

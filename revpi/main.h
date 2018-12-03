@@ -139,3 +139,7 @@ void clearTable(int* step, int* turnTableStep, int* turnTableDone, int* clearTab
 void checkSafetyDoor();
 void checkStopTotal();
 void checkPower();
+
+void noPressing(int* turnTableStep, int* turnTableDone);
+
+

@@ -14,6 +14,7 @@ int main()
 {
   int cycle;
   selectedMeasure[0] = 1;
+  selectedPressing[0] = 1;
   printf("MAIN\n");
   initMain();
   init();
@@ -115,7 +116,7 @@ void sendMessage()
   int * sendMessagePtr6 = (int*)(&sendMessageBuff[6]);
   int * sendMessagePtr7 = (int*)(&sendMessageBuff[7]);
   int * sendMessagePtr8 = (int*)(&sendMessageBuff[8]);
-
+  int * sendMessagePtr9 = (int*)(&sendMessageBuff[9]);
   if(selectedMeasure[0])
   {
     doMeasurement = 1;
@@ -124,6 +125,8 @@ void sendMessage()
   {
     doMeasurement = 0;
   }
+
+
   * sendMessagePtr0 = outputButton1;
   * sendMessagePtr1 = outputButton2;  
   * sendMessagePtr2 = startButton1;
@@ -133,14 +136,15 @@ void sendMessage()
   * sendMessagePtr6 = selectedCan;
   * sendMessagePtr7 = page;  
   * sendMessagePtr8 = doMeasurement;
+  * sendMessagePtr9 = selectedPressing[0];
   //FD_ZERO(&fdsTCP);
   //tv.tv_sec = 0;
   //tv.tv_usec = 0;
 
   //n = select(32, NULL, &fdsTCP, NULL, &tv); 
-  n = send(sockfd,sendMessageBuff, 9, 0); 
+  n = send(sockfd,sendMessageBuff, 10, 0); 
   printf("sendMessage - postsend\n");
-  memset(sendMessageBuff, 0, 9);
+  memset(sendMessageBuff, 0, 10);
 }
 
 void receiveMessage()

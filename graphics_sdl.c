@@ -1330,3 +1330,40 @@ void measureButton(int x, int y, int w, int h, char *text, int id)
     }    
   }
 }
+
+void pressingButton(int x, int y, int w, int h, char *text, int id)  
+{
+  int i;
+  if(selectedPressing[id]==0)
+  {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+    SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+    SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+    SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+    renderText(text, smallText,  blackColor);
+    render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
+  }
+  else if(selectedPressing[id]==1)
+  {
+    for(i = 0; i < 10; ++i)
+    {
+      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+      SDL_RenderDrawLine(renderer, x, y+i, (x+w), y+i);
+      SDL_RenderDrawLine(renderer, (x+w+i), y, (x+w+i), (y+h)); 
+      SDL_RenderDrawLine(renderer, (x+w), (y+h-i), x, (y+h-i));
+      SDL_RenderDrawLine(renderer, x+i, (y+h), x+i, y);
+    }
+    renderText(text, smallText,  blackColor);
+    render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE);
+  }
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp && selected[id] == 0)
+  {
+    if(!inCycle)
+    {  
+      selectedPressing[0] = 0;
+      selectedPressing[1] = 0;
+      selectedPressing[id] = 1;
+    }    
+  }
+}

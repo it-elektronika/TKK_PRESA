@@ -371,6 +371,8 @@ void renderContent()
       backgroundColor = 2;
       switch(errorNumber)
       {     
+        case 0
+          break;
         case 1:
           sbarText = 13;
           break;

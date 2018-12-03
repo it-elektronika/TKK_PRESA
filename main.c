@@ -179,7 +179,6 @@ void receiveMessage()
     else if(erroNum == 0)
     {
       errorNumber = 0;
-      page_stage = ENTER;
     } 
     /*
     for(i = 0; i < 86; i++)

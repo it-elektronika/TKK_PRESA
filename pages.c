@@ -484,7 +484,11 @@ void pageEight()  /* ERROR */
   {
     renderAdmin(1200, 0, 80, 80, 0);
     switch(errorNumber)
-    {  
+    {
+      case 0:
+        sprintf(errorMessageBuff, "- napaka odpravljena");
+        renderText(errorMessageBuff, regularText, blackColor);
+  
       case 1:
         sprintf(errorMessageBuff, "- cilinder zapiranje celjusti");
         renderText(errorMessageBuff, regularText, blackColor);

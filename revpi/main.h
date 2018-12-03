@@ -14,7 +14,10 @@ int safetyDoorCurrentState;
 
 int stopTotalLastState;
 int stopTotalCurrentState;
+int pressing;
 
+int powerLastState;
+int powerCurrentState;
 
 
 int count_turns;
@@ -134,3 +137,4 @@ void clearTable(int* step, int* turnTableStep, int* turnTableDone, int* clearTab
 
 void checkSafetyDoor();
 void checkStopTotal();
+void checkPower();

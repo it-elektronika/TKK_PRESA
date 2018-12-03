@@ -22,12 +22,6 @@ void error(const char *msg)
 /*PROGRAM*/
 int main()
 {
-  safetyDoorLastState = 0;
-  safetyDoorCurrentState = 0;
-  stopTotalLastState = 0;
-  stopTotalCurrentState = 0;
- 
-
   int turnTableStep = 0;
   int turnTableDone = 0;
   int movePressZeroPosStep = 0;
@@ -55,7 +49,15 @@ int main()
   int doorLockOff = 0;
   int doorLockOn = 0;
   int countTurns = 0;
+  safetyDoorLastState = 0;
+  safetyDoorCurrentState = 0;
+  stopTotalLastState = 0;
+  stopTotalCurrentState = 0;
+  powerLastState = 0;
+  powerCurrentState = 0;
+
   doMeasurement = 1;
+  pressing = 1;
   //doSetup = 1;
   s = -99;
   conn_AKD = 100;
@@ -67,7 +69,7 @@ int main()
     sleep(1);
   }
   initMain();
-  
+  usleep(3000000);
   while(program == 1)
   {
     printf("*************************************\n");
@@ -109,22 +111,30 @@ int main()
     //diagnostics();
     //turnTable(&step, &turnTableStep, &turnTableDone);  
     checkSafetyDoor();
+    checkStopTotal(); 
     doorLock(&doorLockOff, &doorLockOn);
     tableHome(&step);
     clearTable(&step, &turnTableStep, &turnTableDone, &clearTableStep, &clearTableDone, &pickCapStep, &pickCapDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressMiddleStep, &movePressMiddleDone, &movePressUpperStep, &movePressUpperDone, &unblockTableStep, &unblockTableDone, &blockTableStep, &blockTableDone, &conveyorOff, &conveyorOn);   
 
-    if(doMeasurement)
+    if(pressing)
     {
-      //doSetup = 1;
-      coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &conveyorOff, &conveyorOn, &countTurns, &blockTableStep, &blockTableDone, &unblockTableStep, &unblockTableDone);
+      if(doMeasurement)
+      {
+	//doSetup = 1;
+	coreLoop(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &conveyorOff, &conveyorOn, &countTurns, &blockTableStep, &blockTableDone, &unblockTableStep, &unblockTableDone);
+      }
+      else
+      {
+	coreLoop2(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &conveyorOff, &conveyorOn, &countTurns, &blockTableStep, &blockTableDone, &unblockTableStep, &unblockTableDone);
+      }
     }
     else
     {
-      coreLoop2(&step, &turnTableStep, &turnTableDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressUpperStep, &movePressUpperDone, &movePressMiddleStep, &movePressMiddleDone, &pickCapStep, &pickCapDone, &conveyorOff, &conveyorOn, &countTurns, &blockTableStep, &blockTableDone, &unblockTableStep, &unblockTableDone);
+      //turnTable(&turnTableStep, &turnTableDone);
     }
-
     checkOutputs(&step);
-    /*
+    checkPower();
+   /*
     if(step != 0)
     {
       lastStateConveyor = currentStateConveyor;
@@ -2413,11 +2423,14 @@ void checkOutputs(int* step)
   {
     printf("ODPRTA VRATA\n");
     *step = -1;
-    errorNum = 15;
+    if(*step != 0 && *step != -1)
+    {
+      errorNum = 15;
+    }
   }
   if(readVariableValue("Output_Status_i04") != 0)
   {
-    if(*step != 0 || *step !=-1)
+    if(*step != 0 && *step !=-1)
     { 
       *step = -1;
       errorNum = 16; 
@@ -3017,3 +3030,21 @@ void checkStopTotal()
     }
   }
 }
+
+void checkPower()
+{
+  powerLastState = powerCurrentState;
+  powerCurrentState = readVariableValue("I_9");
+
+  if(powerLastState != powerCurrentState)
+  {
+    if(powerCurrentState == 1)
+    {
+      usleep(5000000);
+      writeVariableValue("O_1_i04", 1);
+      usleep(500000);
+      writeVariableValue("O_1_i04", 0);
+    }
+  }
+}
+

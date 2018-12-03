@@ -1748,6 +1748,7 @@ void clearTable()
       else
       {
 	clearTableStep = 0;
+        clearTableDone = 1;
       }
       break;
 

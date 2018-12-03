@@ -488,7 +488,7 @@ void pageEight()  /* ERROR */
       case 0:
         sprintf(errorMessageBuff, "- napaka odpravljena");
         renderText(errorMessageBuff, regularText, blackColor);
-  
+        break;
       case 1:
         sprintf(errorMessageBuff, "- cilinder zapiranje celjusti");
         renderText(errorMessageBuff, regularText, blackColor);

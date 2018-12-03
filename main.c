@@ -47,7 +47,7 @@ int main()
   while(program == 1)
   {
     printf("Page:%d, page_stage:%d, sbarText:%d connectiOn:%d errorNum:%d errorNumber:%d\n", page, page_stage, sbarText, connectiOn, errorNum, errorNumber);
-    if(step >=0)
+    if(step >0)
     {
       inCycle = 1;
     }

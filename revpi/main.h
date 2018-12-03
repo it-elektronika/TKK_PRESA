@@ -175,3 +175,4 @@ void checkStartStop();
 void moveUpper();
 void checkInCycle();
 void initVars();
+void prepareSteps();

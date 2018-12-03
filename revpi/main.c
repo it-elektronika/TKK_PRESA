@@ -48,6 +48,7 @@ int main()
     resetSafetyDoor();
     resetStopTotal(); 
     doorLock();
+    prepareSteps();
     if(pressing)
     {
       if(doMeasurement)
@@ -858,7 +859,6 @@ void upPosPrep()
 
 void coreLoop()
 {
-  printf("CORE LOOP\n");
   switch(step)
   {
     case 1: /* prepare drive for measurement step */

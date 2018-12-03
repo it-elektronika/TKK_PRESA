@@ -1856,15 +1856,12 @@ void tableHomeFree()
 
   if(cond1 && cond2 && cond3 && cond4)
   {
-    if(readVariableValue("I_4_i04"))
+    writeVariableValue("O_8", 1);
+    usleep(delay_time);
+    writeVariableValue("O_8", 0);
+    while(!readVariableValue("I_5_i04"))
     {
-      writeVariableValue("O_8", 1);
-      usleep(delay_time);
-      writeVariableValue("O_8", 0);
-      while(!readVariableValue("I_5_i04"))
-      {
-	;
-      }
+      ;
     }
   }
 }

@@ -308,11 +308,11 @@ void renderContent()
       pageZero(); /* main - landing page */
       if(step > 0)
       {
-        backgroundColor = 1;
+        backgroundColor = 0;
       }
       else
       {   
-        backgroundColor = 0;
+        backgroundColor = 1;
       }
       sbarText = 0;
       break;
@@ -321,11 +321,11 @@ void renderContent()
       pageOne(); /* menu */
       if(step > 0)
       {
-        backgroundColor = 1;
+        backgroundColor = 0;
       }
       else
       {   
-        backgroundColor = 0;
+        backgroundColor = 1;
       }    
       sbarText = 1;
       break;

@@ -1612,27 +1612,30 @@ void setup()
 
 void checkOutputs()
 {
-  if(readVariableValue("Output_Status") != 0)
+  if(inCycle)
   {
-    printf("ODPRTA VRATA\n");
-    step = -2;
-    if(step != 0 && step != -2)
+    if(readVariableValue("Output_Status") != 0)
     {
-      errorNum = 15;
-    }
-  }
-  if(readVariableValue("Output_Status_i04") != 0)
-  {
-    if(step != 0 && step !=-2)
-    { 
+      printf("ODPRTA VRATA\n");
       step = -2;
-      errorNum = 16; 
+      if(step != 0 && step != -2)
+      {
+	errorNum = 15;
+      }
     }
-  }
-  if(readVariableValue("I_14") == 0)
-  {
-    step = -2;
-    errorNum = 17;
+    if(readVariableValue("Output_Status_i04") != 0)
+    {
+      if(step != 0 && step !=-2)
+      { 
+	step = -2;
+	errorNum = 16; 
+      }
+    }
+    if(readVariableValue("I_14") == 0)
+    {
+      step = -2;
+      errorNum = 17;
+    }
   }
 }
 
@@ -2253,7 +2256,6 @@ void prepareSteps()
        {
 	 errorNum = 24;
        }
-   
        break;
 
     case -2: /* reset to zero */

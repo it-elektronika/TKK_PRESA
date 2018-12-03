@@ -176,7 +176,7 @@ void receiveMessage()
       errorNumber = errorNum;
       page = 8;
     }  
-    else if(erroNum == 0)
+    else
     {
       errorNumber = 0;
     } 

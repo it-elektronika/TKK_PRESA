@@ -22,15 +22,16 @@ void error(const char *msg)
 /*PROGRAM*/
 int main()
 {
-  
+  initVars();
+  initMain();
+
   initServer();
   while(conn_AKD != 0)
   {
     initCommAKDPress();
     sleep(1);
   }
-  initMain();
-  initVars();
+  
   usleep(3000000);
 
 
@@ -1518,7 +1519,7 @@ void setup()
   int * writePosDown9 =  (int*)(&writePosDownBuff[16]);
   int * writePosDown10 = (int*)(&writePosDownBuff[17]);  
   int * writePosDown11 = (int*)(&writePosDownBuff[21]);
-  printf("STEP: %d\n", step);
+  printf("SETUP - STEP: %d\n", step);
   
   * moveTask1 = transId;
   if(selectedCan == 0)
@@ -2004,7 +2005,7 @@ int checkCanSize(int nextStep)
 
 void coreLoop2()
 {
-  printf("CORE LOOP\n");
+  printf("CORE LOOP2\n");
   switch(step)
   {
     case 1:
@@ -2013,6 +2014,7 @@ void coreLoop2()
         moveUpper();
         step = 2;
       }
+      step = 2;
       break;
 
     case 2: /* reseting values - pressing loop */
@@ -2268,6 +2270,7 @@ void prepareSteps()
       movePressMiddleStep = 0;
       pickCapStep = 0;
       countTurns = 0;
+      moveUpper();
       step = 0;
       break;
 

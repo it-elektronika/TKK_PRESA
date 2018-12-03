@@ -825,6 +825,7 @@ void button(int x, int y, int w, int h, char *text, int id)
     selected[3] = 0;
     selected[4] = 0;
     selected[id] = 1;
+    selectedMeasure[0] = 1;
   }
 }
 

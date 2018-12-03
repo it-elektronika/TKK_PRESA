@@ -113,7 +113,7 @@ int main()
     checkSafetyDoor();
     checkStopTotal(); 
     doorLock(&doorLockOff, &doorLockOn);
-    tableHome(&step);
+    tableHome();
     clearTable(&step, &turnTableStep, &turnTableDone, &clearTableStep, &clearTableDone, &pickCapStep, &pickCapDone, &moveGripperLowerStep, &moveGripperLowerDone, &moveGripperUpperStep, &moveGripperUpperDone, &movePressLowerStep, &movePressLowerDone, &movePressMiddleStep, &movePressMiddleDone, &movePressUpperStep, &movePressUpperDone, &unblockTableStep, &unblockTableDone, &blockTableStep, &blockTableDone, &conveyorOff, &conveyorOn);   
 
     if(pressing)
@@ -1666,8 +1666,9 @@ void coreLoop(int* step, int * turnTableStep, int * turnTableDone, int* moveGrip
 	{
 	  ;
 	}
+        tableHomeFree();
 	*step = 0;
-	}
+      }  
       else
       {
         errorNum = 24;
@@ -2616,13 +2617,13 @@ void clearTable(int* step, int* turnTableStep, int* turnTableDone, int* clearTab
   }
 }
 
-void tableHome(int * step)
+void tableHome()
 {
   int cond1 = 0;
   int cond2 = 0;
   int cond3 = 0;
   int cond4 = 0;
-  if(*step == 0)
+  if(step == 0)
   {
     if(readVariableValue("I_9_i04"))
     {
@@ -2639,10 +2640,44 @@ void tableHome(int * step)
         writeVariableValue("O_8", 1);
         usleep(delay_time);
         writeVariableValue("O_8", 0);
+        while(!readVariableValue("I_13"))
+        {
+          ;
+        }
       }
     }
   }
 }
+
+void tableHomeFree()
+{
+  int cond1 = 0;
+  int cond2 = 0;
+  int cond3 = 0;
+  int cond4 = 0;
+  if(step == -1)
+  {
+    cond1 = checkCylinder("I_11_i03", 0, "I_12_i03", 1, 1);
+    cond2 = checkCylinder("I_9_i03", 0, "I_10_i03", 1, 1);
+    cond3 = checkCylinder("I_11_i04", 0, "I_12_i04", 1, 1);
+    if(!readVariableValue("I_2_i04") && !readVariableValue("I_4_i04"))
+    {
+      cond4 = 1;
+    }
+
+    if(cond1 && cond2 && cond3 && cond4)
+    {
+      writeVariableValue("O_8", 1);
+      usleep(delay_time);
+      writeVariableValue("O_8", 0);
+      while(!readVariableValue("I_5_i04"))
+      {
+	;
+      }
+    }
+  }
+}
+
 
 void doorLock(int* doorLockOff, int* doorLockOn)
 {

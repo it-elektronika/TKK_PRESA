@@ -862,6 +862,7 @@ void coreLoop()
   switch(step)
   {
     case 1: /* prepare drive for measurement step */
+      moveUpper();
       setup();
       step = 2;
       break;
@@ -1183,6 +1184,7 @@ void noPress()
   {
     case 1:
       writeVariableValue("O_12_i03", 0);
+      moveUpper();
       step = 2;
 
     case 2:
@@ -2005,7 +2007,15 @@ void coreLoop2()
   printf("CORE LOOP\n");
   switch(step)
   {
-    case 1: /* reseting values - pressing loop */
+    case 1:
+      if(readVariableValue("I_2_i04"))
+      {
+        moveUpper();
+        step = 2;
+      }
+      break;
+
+    case 2: /* reseting values - pressing loop */
       turnTableDone = 0;
       moveGripperLowerDone = 0;
       moveGripperUpperDone = 0;
@@ -2019,13 +2029,13 @@ void coreLoop2()
       pickCap();
       if(pickCapDone)
       {
-        step = 2;
+        step = 3;
       }
       break;
 
-    case 2:
+    case 3:
       conveyorBelt();
-      step = checkCanSize(3);
+      step = checkCanSize(4);
       if(step != 99)
       {  
         ;
@@ -2034,12 +2044,12 @@ void coreLoop2()
       {
         if(step != -1)
         {
-          step = 2;
+          step = 3;
         }
       }
       break;
 
-    case 3: /* turn table */
+    case 4: /* turn table */
       conveyorBelt();
       turnTable();
       if(turnTableDone)
@@ -2047,17 +2057,17 @@ void coreLoop2()
         if(readVariableValue("I_2_i04"))
         {
           pickCapDone = 0;
-          step = 4;
+          step = 5;
         }
         else
         {
          pickCapDone = 0;
-         step = 1;
+         step = 2;
         }
       }
       break;
 
-    case 4: /* gripper - moving to low position && blocking table */
+    case 5: /* gripper - moving to low position && blocking table */
       conveyorBelt();
       pickCap();
       moveGripperLower();
@@ -2066,26 +2076,26 @@ void coreLoop2()
       if(moveGripperLowerDone && blockTableDone)
       {
         blockTableDone = 0;
-        step = 5;
+        step = 6;
       }
       break;
 
-    case 5: /* press - moving to middle position - checking if cap present */
+    case 6: /* press - moving to middle position - checking if cap present */
       conveyorBelt();
       pickCap();
       movePressMiddle();
       if(movePressMiddleDone)
       {
-        step = 6;
+        step = 7;
       }
       break;
 
-    case 6: /* if cap present - release cap and start press measurement */
+    case 7: /* if cap present - release cap and start press measurement */
       conveyorBelt();
       pickCap();
       if(readVariableValue("I_13_i03"))
       { 
-        step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 7);  
+        step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 8);  
         writeVariableValue("O_1", 1);
       }
       else
@@ -2095,23 +2105,23 @@ void coreLoop2()
       }
       break;
 
-    case 7: /* press - moving to low position - pressing cap*/
+    case 8: /* press - moving to low position - pressing cap*/
       conveyorBelt();
       pickCap();
       movePressLower();
       if(movePressLowerDone)
       {
-        step = 8;
+        step = 9;
       } 
       break;
     
-    case 8: /* cap release cylinder to initial position*/
+    case 9: /* cap release cylinder to initial position*/
       conveyorBelt();
       pickCap();
-      step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 9);
+      step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 10);
       break;
    
-    case 9: /* press - moving to up position && stopping press measurement*/
+    case 10: /* press - moving to up position && stopping press measurement*/
       conveyorBelt();
       pickCap();
       movePressUpper(); 
@@ -2119,11 +2129,11 @@ void coreLoop2()
       {
         writeVariableValue("O_1", 0);
         writeVariableValue("O_2", 1);
-        step = 10;
+        step = 11;
       }      
       break;
 
-    case 10: /* gripper - moving to up position && unblocking table*/
+    case 11: /* gripper - moving to up position && unblocking table*/
       conveyorBelt();
       pickCap();
       moveGripperUpper();
@@ -2132,7 +2142,7 @@ void coreLoop2()
       {
         unblockTableDone = 0;
         writeVariableValue("O_2", 0);
-        step = 1;
+        step = 2;
       }
       break;
   }

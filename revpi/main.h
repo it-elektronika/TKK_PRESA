@@ -20,6 +20,39 @@ int powerLastState;
 int powerCurrentState;
 
 
+
+
+
+int turnTableStep;
+int turnTableDone;
+int movePressZeroPosStep;
+int movePressZeroPosDone;
+int moveGripperLowerStep;
+int moveGripperLowerDone;
+int moveGripperUpperStep;
+int moveGripperUpperDone;
+int movePressLowerStep;
+int movePressLowerDone;
+int movePressUpperStep;
+int movePressUpperDone;
+int movePressMiddleStep;
+int movePressMiddleDone;
+int pickCapStep;
+int pickCapDone;
+int blockTableStep;
+int blockTableDone;
+int unblockTableStep;
+int unblockTableDone;
+int clearTableStep;
+int clearTableDone;
+int conveyorOff;
+int conveyorOn;
+int doorLockOff;
+int doorLockOn;
+int countTurns;
+
+
+
 int count_turns;
 int cylCond;
 int errorNum;
@@ -108,38 +141,37 @@ int checkCylinder(const char* input1, int input1_val, const char* input2, int in
 void preCheckCylinder(const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val);
 void upPosPrep();
 void downPosPrep();
-void turnTable(int** turnTableStep, int** turnTableDone);
-void turnTableFree(int** turnTableStep, int** turnTableDone);
+void turnTable();
+void turnTableFree();
 
 int moveCylinder(int id, const char *input1, int input1_val, const char* input2, int input2_val, const char* output, int output_val, int nextStep);
 void moveAkd(const char *akd);
-void coreLoop(int* step, int* turnTableStep, int*  turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* conveyorOff, int* conveyorOn, int* countTurns, int* blockTableStep, int* blockTableDone, int* unblockTableStep, int* unblockTableDone);
-void coreLoop2(int* step, int* turnTableStep, int*  turnTableDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressUpperStep, int* movePressUpperDone, int* movePressMiddleStep, int* movePressMiddleDone, int* pickCapStep, int* pickCapDone, int* conveyorOff, int* conveyorOn, int* countTurns, int* blockTableStep, int* blockTableDone, int* unblockTableStep, int* unblockTableDone);
+void coreLoop();
+void coreLoop2();
 
 
-void moveGripperLower(int ** moveGripperLowerStep, int **moveGripperLowerDone);
-void moveGripperUpper(int ** moveGripperUpperStep, int **moveGripperUpperDone);
-void movePressLower(int ** movePressLowerStep, int **movePressLowerDone);
-void movePressUpper(int ** movePressUpperStep, int **movePressUpperDone);
-void movePressMiddle(int ** movePressMiddleStep, int **movePressMiddleDone);
-void conveyorBelt(int ** conveyorOff, int ** conveyorOn);
-void pickCap(int**step, int** pickCapStep, int** pickCapDone);
-void blockTable(int **blockTableStep, int** blockTableDone);
-void unblockTable(int **unblockTableStep, int** unblockTableDone);
+void moveGripperLower();
+void moveGripperUpper();
+void movePressLower();
+void movePressUpper();
+void movePressMiddle();
+void conveyorBelt();
+void pickCap();
+void blockTable();
+void unblockTable();
 void tableHome();
 void tableHomeFree();
 void measurement();
 void setup();
-void checkOutputs(int* step);
+void checkOutputs();
 int checkCanSize(int nextStep);
-void doorLock(int * doorLockOff, int * doorLockOn);
-
-void clearTable(int* step, int* turnTableStep, int* turnTableDone, int* clearTableStep, int* clearTableDone, int* pickCapStep, int* pickCapDone, int* moveGripperLowerStep, int* moveGripperLowerDone, int* moveGripperUpperStep, int* moveGripperUpperDone, int* movePressLowerStep, int* movePressLowerDone, int* movePressMiddleStep, int* movePressMiddleDone, int* movePressUpperStep, int* movePressUpperDone, int* unblockTableStep, int* unbockTableDone, int* blockTableStep, int* blockTableDone, int* conveyorOff, int* conveyorOn);
-
-void checkSafetyDoor();
-void checkStopTotal();
-void checkPower();
-
-void noPressing(int* turnTableStep, int* turnTableDone);
-
-
+void doorLock();
+void clearTable();
+void resetSafetyDoor();
+void resetStopTotal();
+void resetPower();
+void noPressing();
+void checkStartStop();
+void moveUpper();
+void checkInCycle();
+void initVars();

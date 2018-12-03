@@ -306,7 +306,7 @@ void renderContent()
   {
     case 0:
       pageZero(); /* main - landing page */
-      if(step == 0)
+      if(step > 0)
       {
         backgroundColor = 1;
       }
@@ -319,7 +319,7 @@ void renderContent()
     
     case 1:
       pageOne(); /* menu */
-      if(step == 0)
+      if(step > 0)
       {
         backgroundColor = 1;
       }

@@ -47,7 +47,7 @@ int main()
   while(program == 1)
   {
     printf("Page:%d, page_stage:%d, sbarText:%d connectiOn:%d errorNum:%d errorNumber:%d\n", page, page_stage, sbarText, connectiOn, errorNum, errorNumber);
-    if(step!=0)
+    if(step >=0)
     {
       inCycle = 1;
     }
@@ -170,7 +170,15 @@ void receiveMessage()
       //printf("OUTPUTSs:%d: %d\n", i, recvReadBuff[i+14]);
     }
     step = receiveMessageBuff[84];
-    if(step == 255)
+    if(step == 253)
+    {
+      step = -3;
+    }
+    else if(step == 254)
+    {
+      step = -2;
+    }
+    else if(step == 255)
     {
       step = -1;
     }

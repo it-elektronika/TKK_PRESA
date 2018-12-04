@@ -1563,7 +1563,7 @@ void setup()
     * moveTask9 = htonl(9000);
     * moveTask9Next = htonl(10000); 
     * writePosUp9 = 9;       
-    * writePosUp10 = htonl((-5)*1000);
+    * writePosUp10 = htonl((0)*1000);
     * writePosDown9 = 10;       
     * writePosDown10 = htonl((35)*1000);
   }
@@ -2309,7 +2309,7 @@ void prepareSteps()
       errorNum = 0;
       tableHome();
       clearTable();
-      step = checkCanSize(0);
+      //step = checkCanSize(0);
       break;
   }
 }
@@ -2336,7 +2336,14 @@ void checkStartStop()
 {
   if(readVariableValue("I_1_i03") && !inCycle)
   {
-    step = 1;
+    if(!readVariableValue("I_2_i04") && !readVariableValue("I_4_i04"))
+    {
+      step = 1;
+    }
+    else
+    {
+      errorNum = 21;
+    }
   }
   else if(readVariableValue("I_2_i03") && inCycle)
   {

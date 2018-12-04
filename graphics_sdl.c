@@ -274,7 +274,7 @@ void renderStatusBar()
       break;
 
     case 21:
-      renderText("NAPAKA - ni pokrovcka", regularText, blackColor);
+      renderText("NAPAKA - miza ni prazna", regularText, blackColor);
       break;
    
     case 22:

@@ -1810,7 +1810,7 @@ void tableHome()
       writeVariableValue("O_8", 1);
       usleep(delay_time);
       writeVariableValue("O_8", 0);
-      while(!readVariableValue("I_13"))
+      while(!readVariableValue("I_5_i04"))
       {
 	;
       }

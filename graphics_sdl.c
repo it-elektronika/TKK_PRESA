@@ -190,7 +190,7 @@ void renderStatusBar()
   switch(sbarText)
   {
     case 0:
-      renderText("TKK - PRESANJE POKROVCKOV", regularText, blackColor); 
+      renderText("TKK - PREÅANJE POKROVCKOV", regularText, blackColor); 
       break;
 
     case 1:

@@ -172,7 +172,7 @@ void pageZero()  /* LANDING PAGE */
     {
       up_button(1100, 250, &press, 1, 10);
       down_button(950, 250, &press, 1, 0);
-      savePos(950, 400, 200, 50);
+      savePos(950, 400, 250, 50);
     }
     renderText("UMERJANJE PRESANJA:", regularText, blackColor);
     render(30, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
@@ -180,7 +180,7 @@ void pageZero()  /* LANDING PAGE */
     measureButton(300, 600, 200, 100, "NEAKTIVNO", 1);
     
     renderText("PRESANJE:", regularText, blackColor);
-    render(700, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
+    render(650, 500, NULL, 0.0, NULL, SDL_FLIP_NONE);
     pressingButton(650, 600, 200, 100, "AKTIVNO", 0);
     pressingButton(950, 600, 200, 100, "NEAKTIVNO", 1);
 

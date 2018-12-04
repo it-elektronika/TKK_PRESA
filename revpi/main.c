@@ -32,7 +32,7 @@ int main()
     sleep(1);
   }
   
-  usleep(3000000);
+  usleep(7000000);
 
 
   while(program == 1)

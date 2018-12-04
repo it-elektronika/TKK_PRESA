@@ -18,8 +18,6 @@ void pageZero()  /* LANDING PAGE */
     #ifdef LUKA
     fp_can_size = fopen("/home/luka/TKK_PRESA_/data/can_size.txt", "r");
     #endif
-    clearError = 0;
-
     for(i = 0; i < 1; ++i)
     {
       getline(&line, &len, fp_can_size);

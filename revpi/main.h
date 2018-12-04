@@ -3,7 +3,6 @@
 #define delay_time2 100000
 #define THOUSAND 1000000L
 
-int skipPick;
 int timer1;
 struct timespec start1, stop1;
 double elapsedTime1;
@@ -49,12 +48,9 @@ int conveyorOff;
 int conveyorOn;
 int doorLockOff;
 int doorLockOn;
-int countTurns;
 
 
 
-int count_turns;
-int cylCond;
 int errorNum;
 int sockfd, newsockfd;
 socklen_t clilen;
@@ -82,7 +78,6 @@ int program;
 int transId;
 int conn_AKD;
 int doMeasurement;
-//int doSetup;
 int inCycle;
 int selectedCan;
 int rise_detected;

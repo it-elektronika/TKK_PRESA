@@ -2259,7 +2259,6 @@ void prepareSteps()
       writeVariableValue("O_12", 0);
       writeVariableValue("O_13", 0);
       writeVariableValue("O_14", 0);
-      countTurns = 0;
       conveyorOff = 0;
       conveyorOn = 0;
       turnTableDone = 0;
@@ -2275,7 +2274,6 @@ void prepareSteps()
       movePressUpperStep = 0;
       movePressMiddleStep = 0;
       pickCapStep = 0;
-      countTurns = 0;
       moveUpper();
       step = 0;
       break;
@@ -2291,7 +2289,6 @@ void prepareSteps()
       writeVariableValue("O_12", 0);
       writeVariableValue("O_13", 0);
       writeVariableValue("O_14", 0);
-      countTurns = 0;
       conveyorOff = 0;
       conveyorOn = 0;
       turnTableDone = 0;
@@ -2307,7 +2304,6 @@ void prepareSteps()
       movePressUpperStep = 0;
       movePressMiddleStep = 0;
       pickCapStep = 0;
-      countTurns = 0;
       step = 1;
       break;
       
@@ -2399,7 +2395,6 @@ void initVars()
   conveyorOn = 0;
   doorLockOff = 0;
   doorLockOn = 0;
-  countTurns = 0;
   safetyDoorLastState = 0;
   safetyDoorCurrentState = 0;
   stopTotalLastState = 0;
@@ -2411,7 +2406,6 @@ void initVars()
   s = -99;
   conn_AKD = 100;
   n = 0;
-  count_turns = 0;
   pageNum = 2;
   program = 1;
   PiControlHandle_g = -1; 

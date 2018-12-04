@@ -30,7 +30,6 @@ enum page_stage_t {ENTER, ENABLE, EXIT};
 enum page_stage_t page_stage;
   
 struct timeval tv;
-int clearError;
 int selectedCan;
 int errorNum;
 int connectiOn;

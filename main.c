@@ -226,7 +226,6 @@ void initMain()
   firstPosBig = 0;
   outputButton1 = 0;
   outputButton2 = 0;
-  clearError = 0;
   year = 2018;
   month = 1;
   day = 1;

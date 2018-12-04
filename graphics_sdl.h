@@ -36,7 +36,6 @@ int timestamp;
 int oldtimestamp;
 int cycleCounter;
 int cycleCheck;
-int pageNumber;
 int selected[9];
 int selectedMeasure[2];
 int selectedPressing[2];

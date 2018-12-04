@@ -209,6 +209,7 @@ void receiveMessage()
 void initMain()
 {
   int i;
+  tableClear = 0;
   page_stage = ENTER;
   conn_presa = -99;
   conn_hmi = -99;

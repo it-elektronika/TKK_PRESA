@@ -40,7 +40,7 @@ int main()
     printf("*************************************\n");
     printf("Step:%d\n", step);
     printf("ErrorNum:%d\n", errorNum);
-   
+    checkTableClear();
     checkStartStop();
     checkInCycle();  
 
@@ -432,6 +432,8 @@ void sendMessage()
   int * sendMessagePtr83 = (int*)(&sendMessageBuff[83]);
   int * sendMessagePtr84 = (int*)(&sendMessageBuff[84]);
   int * sendMessagePtr85 = (int*)(&sendMessageBuff[85]);
+  int * sendMessagePtr86 = (int*)(&sendMessageBuff[86]);
+
 
   * sendMessagePtr0 = readVariableValue("I_1");
   * sendMessagePtr1 = readVariableValue("I_2");
@@ -521,7 +523,9 @@ void sendMessage()
   
   * sendMessagePtr84 = step;
   * sendMessagePtr85 = errorNum;
-  /*//FD_ZERO(&fdsTCP);
+  * sendMessagePtr86 = tableClear;
+
+ /*//FD_ZERO(&fdsTCP);
   //tv.tv_sec = 0;
   //tv.tv_usec = 0;
 
@@ -1187,6 +1191,7 @@ void noPress()
       writeVariableValue("O_12_i03", 0);
       moveUpper();
       step = 2;
+      break;
 
     case 2:
       turnTable();
@@ -1195,6 +1200,7 @@ void noPress()
         turnTableDone = 0;
         step = 2;
       }
+      break;
   }
 }
 
@@ -2336,7 +2342,7 @@ void checkStartStop()
 {
   if(readVariableValue("I_1_i03") && !inCycle)
   {
-    if(!readVariableValue("I_2_i04") && !readVariableValue("I_4_i04"))
+    if(tableClear)
     {
       step = 1;
     }
@@ -2366,6 +2372,7 @@ void checkInCycle()
 
 void initVars()
 {
+  tableClear = 0;
   turnTableStep = 0;
   turnTableDone = 0;
   movePressZeroPosStep = 0;
@@ -2414,3 +2421,10 @@ void initVars()
   currentState = 0;
 }
  
+void checkTableClear()
+{
+  if(!readVariableValue("I_2_i04") && !readVariableValue("I_4_i04"))
+  {
+    tableClear = 1;
+  }
+}

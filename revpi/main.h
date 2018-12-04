@@ -18,7 +18,7 @@ int pressing;
 
 int powerLastState;
 int powerCurrentState;
-
+int tableClear;
 
 
 
@@ -176,3 +176,4 @@ void moveUpper();
 void checkInCycle();
 void initVars();
 void prepareSteps();
+void checkTableClear();

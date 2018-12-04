@@ -158,7 +158,7 @@ void receiveMessage()
   n = select(sockfd+1, &fdsTCP, NULL, NULL, &timeout);   
   if(FD_ISSET(sockfd, &fdsTCP))
   {
-    recv(sockfd, receiveMessageBuff, 86, 0);
+    recv(sockfd, receiveMessageBuff, 87, 0);
     for(i=0; i < ioPins; ++i)
     {
       sprintf(inputs[i], "%d\0\n", receiveMessageBuff[i]);
@@ -192,6 +192,7 @@ void receiveMessage()
     {
       errorNumber = 0;
     } 
+    tableClear = receiveMessageBuff[86];
     /*
     for(i = 0; i < 86; i++)
     {

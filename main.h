@@ -23,6 +23,8 @@ char *ip_adrs;
 fd_set fds;
 fd_set fdsTCP;
 int inCycle;
+int tableClear;
+
 
 enum page_stage_t {ENTER, ENABLE, EXIT};  
 enum page_stage_t page_stage;

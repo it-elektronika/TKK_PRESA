@@ -879,7 +879,7 @@ void coreLoop()
       }
       else
       {
-        if(step != -1)
+        if(step != -2)
         {
           step = 2;
         }
@@ -984,7 +984,7 @@ void coreLoop()
       }   
       else
       {
-        if(step != -1)
+        if(step != -2)
         {
           step = 11;
         }
@@ -1563,7 +1563,7 @@ void setup()
     * moveTask9 = htonl(9000);
     * moveTask9Next = htonl(10000); 
     * writePosUp9 = 9;       
-    * writePosUp10 = htonl((0)*1000);
+    * writePosUp10 = htonl((-5)*1000);
     * writePosDown9 = 10;       
     * writePosDown10 = htonl((35)*1000);
   }
@@ -1883,7 +1883,7 @@ int checkCanSize(int nextStep)
     switch(selectedCan)
     {
       case 0:
-        return -1;
+        return -2;
 
       case 1:
         if(!readVariableValue("I_6_i04") && !readVariableValue("I_7_i04") && !readVariableValue("I_14_i04"))
@@ -1893,7 +1893,7 @@ int checkCanSize(int nextStep)
         else
         {
           errorNum = 23;
-          return -1;
+          return -2;
         }
         
       case 2:
@@ -1920,12 +1920,12 @@ int checkCanSize(int nextStep)
           if(readVariableValue("I_6_i04") || readVariableValue("I_7_i04"))
           {
             errorNum = 23;
-            return -1;
+            return -2;
           } 
           else if(elapsedTime > 1)
           {
             errorNum = 23;
-            return -1;
+            return -2;
           }
         }
         return nextStep;
@@ -1954,12 +1954,12 @@ int checkCanSize(int nextStep)
             if(readVariableValue("I_6_i04"))
             {
               errorNum = 23;
-              return -1;
+              return -2;
             } 
             else if(elapsedTime > 1)
             {
               errorNum = 23;
-              return -1;
+              return -2;
             }
           }
           return nextStep;
@@ -1988,13 +1988,13 @@ int checkCanSize(int nextStep)
             if(elapsedTime > 1)
             {
               errorNum = 23;
-              return -1;
+              return -2;
             }
           }
           return nextStep;
      
         default:
-          return -1;
+          return -2;
     }
   }
   else
@@ -2044,7 +2044,7 @@ void coreLoop2()
       }   
       else
       {
-        if(step != -1)
+        if(step != -2)
         {
           step = 3;
         }

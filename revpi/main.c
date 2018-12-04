@@ -2309,6 +2309,7 @@ void prepareSteps()
       errorNum = 0;
       tableHome();
       clearTable();
+      step = checkCanSize(0);
       break;
   }
 }

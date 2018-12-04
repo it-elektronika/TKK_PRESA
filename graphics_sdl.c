@@ -513,105 +513,108 @@ void touchUpdate()   /* handling touch events */
 
 void saveButton(int x, int y, int w, int h, char *text) /* sending values to AKD drive */
 {
-  int i;
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-  SDL_RenderDrawLine(renderer, x, y, (x+w), y);
-  SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
-  SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
-  SDL_RenderDrawLine(renderer, x, (y+h), x, y);
-  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
+  if(tableClear)
   {
-    for(i = 0; i < 10; ++i)
+    int i;
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderDrawLine(renderer, x, y, (x+w), y);
+    SDL_RenderDrawLine(renderer, (x+w), y, (x+w), (y+h)); 
+    SDL_RenderDrawLine(renderer, (x+w), (y+h), x, (y+h));
+    SDL_RenderDrawLine(renderer, x, (y+h), x, y);
+    if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp)
     {
-      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-      SDL_RenderDrawLine(renderer, x, y+i, (x+w), y+i);
-      SDL_RenderDrawLine(renderer, (x+w+i), y, (x+w+i), (y+h)); 
-      SDL_RenderDrawLine(renderer, (x+w), (y+h-i), x, (y+h-i));
-      SDL_RenderDrawLine(renderer, x+i, (y+h), x+i, y);
-    }
+      for(i = 0; i < 10; ++i)
+      {
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	SDL_RenderDrawLine(renderer, x, y+i, (x+w), y+i);
+	SDL_RenderDrawLine(renderer, (x+w+i), y, (x+w+i), (y+h)); 
+	SDL_RenderDrawLine(renderer, (x+w), (y+h-i), x, (y+h-i));
+	SDL_RenderDrawLine(renderer, x+i, (y+h), x+i, y);
+      }
 
-    #ifdef RPI   
-    fp_can_size = fopen("/home/pi/TKK_PRESA/data/can_size.txt", "w");
-    #endif
-    #ifdef LUKA
-    fp_can_size = fopen("/home/luka/TKK_PRESA_/data/can_size.txt", "w");
-    #endif
-    
-    posCounter = 0;
-    //int * clear1 =  (int*)(&obufCl[0]);
-    //int * clear9 =  (int*)(&obufCl[16]);
-    //int * posOneB1 = (int*)(&obufOneB[0]);
-    //int * posOneB9 =  (int*)(&obufOneB[16]);
-    //int * posOneB10 = (int*)(&obufOneB[17]);
-    int * moveTask1 =  (int*)(&obufMT[0]); 
-    int * moveTask9 =  (int*)(&obufMT[13]);
-    int * moveTask1Next =  (int*)(&obufMTN[0]); 
-    int * moveTask9Next =  (int*)(&obufMTN[13]);
-    int * drvSave1 = (int*)(&obufDS[0]);
- 
-    * moveTask1 = transId;
-    if(selected[0])
-    {
-      * moveTask9 = htonl(1000);                
-      * moveTask9Next = htonl(2000);
-      fprintf(fp_can_size, "%d\n", 0);   
-      selectedCan = 0;
-    }
-    else if(selected[1])
-    {
-      * moveTask9 = htonl(3000);
-      * moveTask9Next = htonl(4000);
-      fprintf(fp_can_size, "%d\n", 1);
-      selectedCan = 1;
-    }
-    else if(selected[2])
-    {
-     * moveTask9 = htonl(5000);
-     * moveTask9Next = htonl(6000);     
-     fprintf(fp_can_size, "%d\n", 2); 
-     selectedCan = 2;               
-    }
-    else if(selected[3])
-    {
-      * moveTask9 = htonl(7000);
-      * moveTask9Next = htonl(8000); 
-      fprintf(fp_can_size, "%d\n", 3); 
-      selectedCan = 3;            
-    }
-    else if(selected[4])
-    {
-      * moveTask9 = htonl(9000);
-      * moveTask9Next = htonl(10000); 
-      fprintf(fp_can_size, "%d\n", 4); 
-      selectedCan = 4;            
-    }
-
-    /*
-    FD_ZERO(&fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-  
-    conn_presa = select(32, NULL, &fds, NULL, &tv);
-    conn_presa = send(s, obufMT, 17, 0);
-    printf("Message Sent! - motion task 1 - press\n");
-    FD_SET(s, &fds);
-    conn_presa = select(32, &fds, NULL, NULL, &tv);
-    conn_presa = recv(s, ibufMT, 50 , 0);
-    transId++;
-    */
-
-    sendModbus(s, obufMT, 17, ibufMT, 50, "motion task 1 - press");
-    * moveTask1Next = transId;
+      #ifdef RPI   
+      fp_can_size = fopen("/home/pi/TKK_PRESA/data/can_size.txt", "w");
+      #endif
+      #ifdef LUKA
+      fp_can_size = fopen("/home/luka/TKK_PRESA_/data/can_size.txt", "w");
+      #endif
+      
+      posCounter = 0;
+      //int * clear1 =  (int*)(&obufCl[0]);
+      //int * clear9 =  (int*)(&obufCl[16]);
+      //int * posOneB1 = (int*)(&obufOneB[0]);
+      //int * posOneB9 =  (int*)(&obufOneB[16]);
+      //int * posOneB10 = (int*)(&obufOneB[17]);
+      int * moveTask1 =  (int*)(&obufMT[0]); 
+      int * moveTask9 =  (int*)(&obufMT[13]);
+      int * moveTask1Next =  (int*)(&obufMTN[0]); 
+      int * moveTask9Next =  (int*)(&obufMTN[13]);
+      int * drvSave1 = (int*)(&obufDS[0]);
    
-    sendModbus(s, obufMTN, 17, ibufMTN, 50, "motion task - press");    
-    * drvSave1 = transId;
-    
-    sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
+      * moveTask1 = transId;
+      if(selected[0])
+      {
+	* moveTask9 = htonl(1000);                
+	* moveTask9Next = htonl(2000);
+	fprintf(fp_can_size, "%d\n", 0);   
+	selectedCan = 0;
+      }
+      else if(selected[1])
+      {
+	* moveTask9 = htonl(3000);
+	* moveTask9Next = htonl(4000);
+	fprintf(fp_can_size, "%d\n", 1);
+	selectedCan = 1;
+      }
+      else if(selected[2])
+      {
+       * moveTask9 = htonl(5000);
+       * moveTask9Next = htonl(6000);     
+       fprintf(fp_can_size, "%d\n", 2); 
+       selectedCan = 2;               
+      }
+      else if(selected[3])
+      {
+	* moveTask9 = htonl(7000);
+	* moveTask9Next = htonl(8000); 
+	fprintf(fp_can_size, "%d\n", 3); 
+	selectedCan = 3;            
+      }
+      else if(selected[4])
+      {
+	* moveTask9 = htonl(9000);
+	* moveTask9Next = htonl(10000); 
+	fprintf(fp_can_size, "%d\n", 4); 
+	selectedCan = 4;            
+      }
 
-    fclose(fp_can_size);
+      /*
+      FD_ZERO(&fds);
+      tv.tv_sec = 0;
+      tv.tv_usec = 0;
+    
+      conn_presa = select(32, NULL, &fds, NULL, &tv);
+      conn_presa = send(s, obufMT, 17, 0);
+      printf("Message Sent! - motion task 1 - press\n");
+      FD_SET(s, &fds);
+      conn_presa = select(32, &fds, NULL, NULL, &tv);
+      conn_presa = recv(s, ibufMT, 50 , 0);
+      transId++;
+      */
+
+      sendModbus(s, obufMT, 17, ibufMT, 50, "motion task 1 - press");
+      * moveTask1Next = transId;
+     
+      sendModbus(s, obufMTN, 17, ibufMTN, 50, "motion task - press");    
+      * drvSave1 = transId;
+      
+      sendModbus(s, obufDS, 17, ibufDS, 50, "save to drive");
+
+      fclose(fp_can_size);
+    }
+    renderText(text, smallText,  blackColor);
+    render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
   }
-  renderText(text, smallText,  blackColor);
-  render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE); 
 }
 
 void renderAdmin(int x, int y, int w, int h, int gotoNum) 
@@ -819,21 +822,14 @@ void button(int x, int y, int w, int h, char *text, int id)
   }
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp && selected[id] == 0)
   {
-    if(tableClear)
-    {
-      selected[0] = 0;
-      selected[1] = 0;
-      selected[2] = 0;
-      selected[3] = 0;
-      selected[4] = 0;
-      selected[id] = 1;
-      selectedMeasure[1] = 0;
-      selectedMeasure[0] = 1;
-    }
-    else
-    {
-      errorNumber = 21;
-    }
+    selected[0] = 0;
+    selected[1] = 0;
+    selected[2] = 0;
+    selected[3] = 0;
+    selected[4] = 0;
+    selected[id] = 1;
+    selectedMeasure[1] = 0;
+    selectedMeasure[0] = 1;
   }
 }
 

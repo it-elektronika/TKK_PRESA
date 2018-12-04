@@ -168,6 +168,7 @@ void resetPower();
 void noPress();
 void checkStartStop();
 void moveUpper();
+void moveMaxUpper();
 void checkInCycle();
 void initVars();
 void prepareSteps();

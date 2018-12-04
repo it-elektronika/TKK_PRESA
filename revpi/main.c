@@ -1189,7 +1189,7 @@ void noPress()
   {
     case 1:
       writeVariableValue("O_12_i03", 0);
-      moveUpper();
+      moveMaxUpper();
       step = 2;
       break;
 
@@ -1569,7 +1569,7 @@ void setup()
     * moveTask9 = htonl(9000);
     * moveTask9Next = htonl(10000); 
     * writePosUp9 = 9;       
-    * writePosUp10 = htonl((0)*1000);
+    * writePosUp10 = htonl((-2)*1000);
     * writePosDown9 = 10;       
     * writePosDown10 = htonl((35)*1000);
   }
@@ -2332,7 +2332,24 @@ void moveUpper()
   {
     ;
   }
-} 
+}
+
+void moveMaxUpper()
+{   
+  moveAKD("O_4_i03");
+  while(!readVariableValue("I_11"))
+  {
+    ;
+  }
+  writeVariableValue("O_13", 1);
+  writeVariableValue("O_14", 1);
+  usleep(1000000);
+  moveAKD("O_1_i03");
+  while(!readVariableValue("I_12"))
+  {
+    ;
+  }
+}
 
 void checkStartStop()
 {

@@ -819,14 +819,21 @@ void button(int x, int y, int w, int h, char *text, int id)
   }
   if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp && selected[id] == 0)
   {
-    selected[0] = 0;
-    selected[1] = 0;
-    selected[2] = 0;
-    selected[3] = 0;
-    selected[4] = 0;
-    selected[id] = 1;
-    selectedMeasure[1] = 0;
-    selectedMeasure[0] = 1;
+    if(tableClear)
+    {
+      selected[0] = 0;
+      selected[1] = 0;
+      selected[2] = 0;
+      selected[3] = 0;
+      selected[4] = 0;
+      selected[id] = 1;
+      selectedMeasure[1] = 0;
+      selectedMeasure[0] = 1;
+    }
+    else
+    {
+      errorNumber = 21;
+    }
   }
 }
 

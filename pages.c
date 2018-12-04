@@ -490,7 +490,7 @@ void pageEight()  /* ERROR */
     switch(errorNumber)
     {
       case 0:
-        sprintf(errorMessageBuff, "- napaka odpravljena");
+        sprintf(errorMessageBuff, "");
         renderText(errorMessageBuff, regularText, blackColor);
         break;
       case 1:

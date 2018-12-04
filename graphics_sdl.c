@@ -274,18 +274,21 @@ void renderStatusBar()
       break;
 
     case 21:
-      renderText("NAPAKA - miza ni prazna", regularText, blackColor);
+      renderText("NAPAKA - ni pokrovcka", regularText, blackColor);
       break;
    
     case 22:
-      renderText("NAPAKA - doza pod gripperjem", regularText, blackColor);
+      renderText("NAPAKA - miza ni prazna", regularText, blackColor);
       break;
+
     case 23:
       renderText("NAPAKA - cilinder blokada mize", regularText, blackColor);
       break;
+
     case 24:
       renderText("NAPAKA - velikost doze", regularText, blackColor);
       break;
+
     case 25:
       renderText("NAPAKA - krmilna napetost", regularText, blackColor);
       break;

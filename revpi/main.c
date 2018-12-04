@@ -535,8 +535,8 @@ void sendMessage()
   //  printf("sendMessageBuff[%d]:%d\n", i, sendMessageBuff[i]);
  /// }
  
-  n = send(newsockfd, sendMessageBuff, 86, 0);
-  memset(sendMessageBuff, 0, 86);
+  n = send(newsockfd, sendMessageBuff, 87, 0);
+  memset(sendMessageBuff, 0, 87);
 }
 
 void receiveMessage()
@@ -2438,4 +2438,9 @@ void checkTableClear()
   {
     tableClear = 1;
   }
+  else
+  {
+    tableClear = 0;
+  }
+  printf("TABLE CLEAR:%d\n", tableClear);
 }

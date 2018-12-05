@@ -1361,7 +1361,9 @@ void pickCap()
         }
         else
         {
-          pickCapStep = 6;
+          pickCapStep = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 6);
+          usleep(400000);
+          pickCapStep = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 6);
         }
         break;
       

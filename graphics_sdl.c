@@ -254,7 +254,8 @@ void renderStatusBar()
       break;
 
     case 16:
-      renderText("NAPAKA - vrata odprta", regularText, blackColor);
+      renderText("OPOZORILO - vrata odprta", regularText, blackColor);
+      backgroundColor = 1;
       break;
 
     case 17:
@@ -278,7 +279,8 @@ void renderStatusBar()
       break;
    
     case 22:
-      renderText("NAPAKA - miza ni prazna", regularText, blackColor);
+      renderText("OPOZORILO - miza ni prazna", regularText, blackColor);
+      backgroundColor = 1;
       break;
 
     case 23:

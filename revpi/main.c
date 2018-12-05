@@ -926,7 +926,11 @@ void coreLoop()
     case 6:  /* press - moving to low position */  
       conveyorBelt();
       usleep(1000000);
-      movePressLower(); 
+      moveAKD("O_10");
+      while(!readVariableValue("I_11") && !readVariableValue("I_13_i03"))
+      {
+        ;
+      }
       if(readVariableValue("I_13_i03"))
       {
         movePressLowerDone = 0;

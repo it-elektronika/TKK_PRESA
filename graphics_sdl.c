@@ -279,8 +279,7 @@ void renderStatusBar()
       break;
    
     case 22:
-      renderText("OPOZORILO - miza ni prazna", regularText, blackColor);
-      backgroundColor = 1;
+      renderText("NAPAKA - miza ni prazna", regularText, blackColor);
       break;
 
     case 23:
@@ -292,7 +291,8 @@ void renderStatusBar()
       break;
 
     case 25:
-      renderText("NAPAKA - krmilna napetost", regularText, blackColor);
+      renderText("OPOZORILO - krmilna napetost", regularText, blackColor);
+      backgroundColor = 1;
       break;
   
   } 

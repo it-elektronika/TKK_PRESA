@@ -193,7 +193,7 @@ void receiveMessage()
     //  errorNumber = 0;
     //} 
     tableClear = receiveMessageBuff[86];
-    w = receiveMessageBuff[87];
+    w =htonl(receiveMessageBuff[87]);
     /*
     for(i = 0; i < 86; i++)
     {

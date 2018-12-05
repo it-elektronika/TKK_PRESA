@@ -1479,6 +1479,7 @@ void measurement()
   * writePosTen9 = 11;       
   * read1 = transId;   
   sendModbus(s, readBuff, 12, readBuff_recv, 50, "read feedback position");
+  
   w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
   * writePosTen10 = htonl(w+2000);
   printf("POSITION FEEDBACK:%d\n", w);
@@ -1506,7 +1507,6 @@ void measurement()
   {
     * writePosDown9 = 10;       
   }
-  w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
   * writePosDown10 = htonl(w + press*1000);
   * writePosDown1 = transId;       
   * writePosDown11 = htonl(2000000); 
@@ -1614,7 +1614,7 @@ void checkOutputs()
     {
       printf("ODPRTA VRATA\n");
       step = -2;
-      if(step != 0 && step != -2)
+      if(step != -2)
       {
 	errorNum = 15;
       }

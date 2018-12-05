@@ -1062,10 +1062,13 @@ void coreLoop()
       }
       else
       {
-        step  = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 18);
-        usleep(400000);
-        step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 18);
-        //errorNum = 20;
+        releaseCap(15);
+        if(readVariableValue("I_1_i03"))
+        {
+          step = 18;
+          releaseCapDone = 0;
+        }
+        errorNum = 20;
       }
       break;
 
@@ -2130,10 +2133,13 @@ void coreLoop2()
       }
       else
       {
-        step  = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 10);
-        usleep(400000);
-        step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 10);
-        errorNum = 20;
+        releaseCap(7);
+        if(readVariableValue("I_1_i03"))
+        {
+          step = 10;
+          releaseCapDone = 0;
+        }
+        errorNum = 20; 
       }
       break;
 
@@ -2422,6 +2428,7 @@ void checkInCycle()
 
 void initVars()
 {
+  releaseCapDone = 0;
   w = 0;
   tableClear = 0;
   turnTableStep = 0;
@@ -2481,4 +2488,16 @@ void checkTableClear()
     tableClear = 0;
   }
   printf("TABLE CLEAR:%d\n", tableClear);
+}
+
+
+void releaseCap(int nextStep)
+{
+  if(!releaseCapDone)
+  {
+    step  = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, nextStep);
+    usleep(400000);
+    step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, nextStep);
+    releaseCapDone = 1;
+  }
 }

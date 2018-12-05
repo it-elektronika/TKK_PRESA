@@ -20,7 +20,7 @@ int powerCurrentState;
 int tableClear;
 
 int w;
-
+int releaseCapDone;
 
 int turnTableStep;
 int turnTableDone;
@@ -173,3 +173,4 @@ void checkInCycle();
 void initVars();
 void prepareSteps();
 void checkTableClear();
+void releaseCap(int nextStep);

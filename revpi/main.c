@@ -2292,7 +2292,7 @@ void prepareSteps()
       movePressUpperStep = 0;
       movePressMiddleStep = 0;
       pickCapStep = 0;
-      if(!pressing)
+      if(pressing)
       {
         moveUpper();
       }
@@ -2395,7 +2395,7 @@ void checkStartStop()
       errorNum = 21;
     }
   }
-  else if(readVariableValue("I_2_i03") && inCycle)
+  else if(readVariableValue("I_2_i03"))
   {
     step = -2;
   }

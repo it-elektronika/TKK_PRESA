@@ -1062,8 +1062,10 @@ void coreLoop()
       }
       else
       {
+        step  = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, -2);
+        usleep(400000);
+        step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, -2);
         errorNum = 20;
-        step = -2;
       }
       break;
 

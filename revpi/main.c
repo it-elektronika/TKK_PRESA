@@ -1561,7 +1561,7 @@ void setup()
     * writePosUp9 = 3;       
     * writePosUp10 = htonl((138)*1000); 
     * writePosDown9 = 4;       
-    * writePosDown10 = htonl((175)*1000); 
+    * writePosDown10 = htonl((173)*1000); 
   }
   else if(selectedCan == 2)
   {
@@ -1570,7 +1570,7 @@ void setup()
     * writePosUp9 = 5;       
     * writePosUp10 = htonl((104)*1000); 
     * writePosDown9 = 6;       
-    * writePosDown10 = htonl((139)*1000); 
+    * writePosDown10 = htonl((135)*1000); 
   }
   else if(selectedCan == 3)
   {
@@ -1588,7 +1588,7 @@ void setup()
     * writePosUp9 = 9;       
     * writePosUp10 = htonl((-2)*1000);
     * writePosDown9 = 10;       
-    * writePosDown10 = htonl((35)*1000);
+    * writePosDown10 = htonl((33)*1000);
   }
 
   sendModbus(s, obufMT, 17, ibufMT, 50, "move task 1 - revert to original positions");

@@ -1328,7 +1328,7 @@ void measureButton(int x, int y, int w, int h, char *text, int id)
     renderText(text, smallText,  blackColor);
     render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE);
   }
-  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp && selected[id] == 0)
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp && selectedMeasure[id] == 0)
   {
     if(!inCycle)
     {  
@@ -1365,7 +1365,7 @@ void pressingButton(int x, int y, int w, int h, char *text, int id)
     renderText(text, smallText,  blackColor);
     render(x+((w/2)-(textureWidth/2)), y + ((h/2)-(textureHeight/2)), NULL, 0.0, NULL, SDL_FLIP_NONE);
   }
-  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp && selected[id] == 0)
+  if(touchLocation.x > x && touchLocation.x < x+w && touchLocation.y > y && touchLocation.y < y + h && timestamp > oldtimestamp && selectedPressing[id] == 0)
   {
     if(!inCycle)
     {  

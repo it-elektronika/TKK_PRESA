@@ -1632,7 +1632,7 @@ void checkOutputs()
       step = -2;
       errorNum = 17;
     }
-    if(readVariableValue("I_10"))
+    if(!readVariableValue("I_10"))
     {
       step = -2;
       errorNum = 25;

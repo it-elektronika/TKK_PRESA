@@ -1566,7 +1566,7 @@ void setup()
     * writePosUp9 = 5;       
     * writePosUp10 = htonl((104)*1000); 
     * writePosDown9 = 6;       
-    * writePosDown10 = htonl((140)*1000); 
+    * writePosDown10 = htonl((139)*1000); 
   }
   else if(selectedCan == 3)
   {

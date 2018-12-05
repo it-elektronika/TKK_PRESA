@@ -163,10 +163,6 @@ void pageZero()  /* LANDING PAGE */
  
     render(30, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);   
     
-    sprintf(measureBuff, "MERITEV POKROVCKA:%d mm", w);
-    renderText(measureBuff, regularText, blackColor);
-    render(30, 250, NULL, 0.0, NULL, SDL_FLIP_NONE);
-   
     sprintf(pressBuff, "STISK:%d mm", press);
     renderText(pressBuff, regularText, blackColor);
     render(950, 150, NULL, 0.0, NULL, SDL_FLIP_NONE);

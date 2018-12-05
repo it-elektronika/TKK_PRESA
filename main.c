@@ -188,10 +188,10 @@ void receiveMessage()
       errorNumber = errorNum;
       page = 8;
     }  
-    else
-    {
-      errorNumber = 0;
-    } 
+    //else
+    //{
+    //  errorNumber = 0;
+    //} 
     tableClear = receiveMessageBuff[86];
     /*
     for(i = 0; i < 86; i++)

@@ -1632,6 +1632,11 @@ void checkOutputs()
       step = -2;
       errorNum = 17;
     }
+    if(readVariableValue("I_10"))
+    {
+      step = -2;
+      errorNum = 25;
+    }
   }
 }
 
@@ -2287,7 +2292,10 @@ void prepareSteps()
       movePressUpperStep = 0;
       movePressMiddleStep = 0;
       pickCapStep = 0;
-      moveUpper();
+      if(!pressing)
+      {
+        moveUpper();
+      }
       step = 0;
       break;
 

@@ -295,6 +295,9 @@ void renderStatusBar()
       backgroundColor = 1;
       break;
   
+    case 25:
+      renderText("NAPAKA - servo driver", regularText, blackColor);
+      break;
   } 
   render(30, 10, NULL, 0.0, NULL, SDL_FLIP_NONE);
   sprintf(stepCounter, "KORAK:%d", step); 
@@ -444,6 +447,10 @@ void renderContent()
         case 24:
           sbarText = 25;   
           break;
+        case 25:
+          sbarText = 26;
+          break;
+
         default:
           break;
       }

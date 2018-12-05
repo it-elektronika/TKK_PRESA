@@ -577,7 +577,11 @@ void pageEight()  /* ERROR */
       case 24:
         renderText("- vklopi krmilno napetost", regularText, blackColor);
         break;
+      case 25:
+        renderText("- ponovno vklopi krmilno napetost", regularText, blackColor);
+        break;
   
+
 
 
       default:

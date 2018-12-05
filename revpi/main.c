@@ -1481,7 +1481,7 @@ void measurement()
   sendModbus(s, readBuff, 12, readBuff_recv, 50, "read feedback position");
   
   w = ((readBuff_recv[10]<<16) + (readBuff_recv[11]<<8) + readBuff_recv[12]);     
-  * writePosTen10 = htonl(w+2000);
+  * writePosTen10 = htonl(w);
   printf("POSITION FEEDBACK:%d\n", w);
  
   * writePosTen1 = transId;       

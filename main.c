@@ -158,7 +158,7 @@ void receiveMessage()
   n = select(sockfd+1, &fdsTCP, NULL, NULL, &timeout);   
   if(FD_ISSET(sockfd, &fdsTCP))
   {
-    recv(sockfd, receiveMessageBuff, 87, 0);
+    recv(sockfd, receiveMessageBuff, 88, 0);
     for(i=0; i < ioPins; ++i)
     {
       sprintf(inputs[i], "%d\0\n", receiveMessageBuff[i]);
@@ -193,6 +193,7 @@ void receiveMessage()
     //  errorNumber = 0;
     //} 
     tableClear = receiveMessageBuff[86];
+    w = receiveMessageBuff[87];
     /*
     for(i = 0; i < 86; i++)
     {
@@ -209,6 +210,7 @@ void receiveMessage()
 void initMain()
 {
   int i;
+  w = 0;
   tableClear = 0;
   page_stage = ENTER;
   conn_presa = -99;

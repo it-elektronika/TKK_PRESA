@@ -30,6 +30,7 @@ enum page_stage_t {ENTER, ENABLE, EXIT};
 enum page_stage_t page_stage;
   
 struct timeval tv;
+int w;
 int selectedCan;
 int errorNum;
 int connectiOn;
@@ -72,6 +73,8 @@ int posDown;
 
 int press;
 char pressBuff[20];
+char measureBuff[20];
+
 
 char AKD_smallBuff[20];
 char AKD_small2Buff[20];

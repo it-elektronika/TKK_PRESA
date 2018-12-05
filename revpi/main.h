@@ -19,7 +19,7 @@ int powerLastState;
 int powerCurrentState;
 int tableClear;
 
-
+int w;
 
 
 int turnTableStep;

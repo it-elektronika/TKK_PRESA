@@ -433,6 +433,8 @@ void sendMessage()
   int * sendMessagePtr84 = (int*)(&sendMessageBuff[84]);
   int * sendMessagePtr85 = (int*)(&sendMessageBuff[85]);
   int * sendMessagePtr86 = (int*)(&sendMessageBuff[86]);
+  int * sendMessagePtr87 = (int*)(&sendMessageBuff[87]);
+
 
 
   * sendMessagePtr0 = readVariableValue("I_1");
@@ -524,6 +526,8 @@ void sendMessage()
   * sendMessagePtr84 = step;
   * sendMessagePtr85 = errorNum;
   * sendMessagePtr86 = tableClear;
+  * sendMessagePtr87 = w;
+
 
  /*//FD_ZERO(&fdsTCP);
   //tv.tv_sec = 0;
@@ -535,8 +539,8 @@ void sendMessage()
   //  printf("sendMessageBuff[%d]:%d\n", i, sendMessageBuff[i]);
  /// }
  
-  n = send(newsockfd, sendMessageBuff, 87, 0);
-  memset(sendMessageBuff, 0, 87);
+  n = send(newsockfd, sendMessageBuff, 88, 0);
+  memset(sendMessageBuff, 0, 88);
 }
 
 void receiveMessage()
@@ -1441,7 +1445,6 @@ void moveAKD(const char* akd)
 
 void measurement()
 {
-  int w;
   int * read1 = (int*)(&readBuff[0]);
   int * read2 = (int*)(&readBuff[2]);
   int * read3 = (int*)(&readBuff[4]);
@@ -2391,6 +2394,7 @@ void checkInCycle()
 
 void initVars()
 {
+  w = 0;
   tableClear = 0;
   turnTableStep = 0;
   turnTableDone = 0;

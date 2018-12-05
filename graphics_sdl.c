@@ -295,7 +295,7 @@ void renderStatusBar()
       backgroundColor = 1;
       break;
   
-    case 25:
+    case 26:
       renderText("NAPAKA - servo driver", regularText, blackColor);
       break;
   } 

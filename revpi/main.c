@@ -2332,6 +2332,11 @@ void prepareSteps()
 
 void moveUpper()
 {   
+  writeVariableValue("O_11", 0);
+  writeVariableValue("O_12", 0);
+  writeVariableValue("O_13", 0);
+  writeVariableValue("O_14", 0);
+ 
   moveAKD("O_4_i03");
   while(!readVariableValue("I_11"))
   {
@@ -2349,6 +2354,11 @@ void moveUpper()
 
 void moveMaxUpper()
 {   
+  writeVariableValue("O_11", 0);
+  writeVariableValue("O_12", 0);
+  writeVariableValue("O_13", 0);
+  writeVariableValue("O_14", 0);
+ 
   moveAKD("O_4_i03");
   while(!readVariableValue("I_11"))
   {

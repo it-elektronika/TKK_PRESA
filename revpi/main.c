@@ -32,7 +32,7 @@ int main()
     sleep(1);
   }
   
-  usleep(7000000);
+  usleep(10000000);
 
 
   while(program == 1)
@@ -912,26 +912,32 @@ void coreLoop()
         step = 5;
       }
       break;
-      
-    case 5:  /* press - moving to low position */  
+  
+    case 5: /* measuring position & updating drive data */
       conveyorBelt();
+      usleep(1000000);
+      step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 6);      
+      break;
+    
+    case 6:  /* press - moving to low position */  
+      conveyorBelt();
+      usleep(1000000);
       movePressLower(); 
       if(readVariableValue("I_13_i03"))
       {
         movePressLowerDone = 0;
         movePressLowerStep = 0;
-        step = 6;
+        step = 7;
+      }
+      else
+      {
+        errorNum = 20;
+        step = -2;
       }
       break;
 
-    case 6: /* measuring position & updating drive data */
-      conveyorBelt();
-      usleep(1000000);
-      measurement();
-      step = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 7);  
-      break;
-
     case 7: /* pressing cap */
+      measurement();
       conveyorBelt();
       usleep(1000000);
       movePressLower(); 

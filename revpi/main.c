@@ -938,9 +938,11 @@ void coreLoop()
         step = 7;
       }
       else
-      {
+      { 
+        step  = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, -2);
+        usleep(400000);
+        step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, -2);
         errorNum = 20;
-        step = -2;
       }
       break;
 
@@ -1361,9 +1363,7 @@ void pickCap()
         }
         else
         {
-          pickCapStep = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, 6);
-          usleep(400000);
-          pickCapStep = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, 6);
+          pickCapStep = 6;
         }
         break;
       
@@ -2128,8 +2128,10 @@ void coreLoop2()
       }
       else
       {
+        step  = moveCylinder(3, "I_11_i03", 0, "I_12_i03", 1,  "O_8_i03", 1, -2);
+        usleep(400000);
+        step = moveCylinder(3, "I_11_i03", 1, "I_12_i03", 0, "O_8_i03", 0, -2);
         errorNum = 20;
-        step = -2;
       }
       break;
 

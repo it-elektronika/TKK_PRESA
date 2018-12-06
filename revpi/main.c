@@ -985,8 +985,8 @@ void coreLoop()
       movePressLowerDone = 0;
       movePressUpperDone = 0;
       movePressMiddleDone = 0;
-      conveyorOff = 0;
-      conveyorOn = 0;
+      //conveyorOff = 0;
+      //conveyorOn = 0;
       conveyorBelt();
       pickCap();
       if(pickCapDone)
@@ -1078,7 +1078,6 @@ void coreLoop()
       {
         errorNum = 0;
         alarmReset = 1; 
-        page = 0;
       }
       conveyorBelt();
       pickCap();
@@ -2062,8 +2061,8 @@ void coreLoop2()
       movePressLowerDone = 0;
       movePressUpperDone = 0;
       movePressMiddleDone = 0;
-      conveyorOff = 0;
-      conveyorOn = 0;
+      //conveyorOff = 0;
+      //conveyorOn = 0;
       writeVariableValue("O_12_i03", 0);
       conveyorBelt();
       pickCap();
@@ -2151,6 +2150,11 @@ void coreLoop2()
       break;
 
     case 8: /* press - moving to low position - pressing cap*/
+      if(!alarmReset)
+      {
+        errorNum = 0;
+        alarmReset = 1; 
+      }
       conveyorBelt();
       pickCap();
       movePressLower();

@@ -564,7 +564,7 @@ void pageEight()  /* ERROR */
         break;
       case 20:
         renderText("- pokrovcka ni bilo v celjusti  ", regularText, blackColor);
-        if(errorNum = 0)
+        if(errorNum == 0)
         {
           page_stage = EXIT;
         }

@@ -564,6 +564,10 @@ void pageEight()  /* ERROR */
         break;
       case 20:
         renderText("- pokrovcka ni bilo v celjusti  ", regularText, blackColor);
+        if(errorNum = 0)
+        {
+          page_stage = EXIT;
+        }
         break;
       case 21:
         renderText("- izprazni mizo", regularText, blackColor);
@@ -581,9 +585,6 @@ void pageEight()  /* ERROR */
         renderText("- ponovno vklopi krmilno napetost", regularText, blackColor);
         break;
   
-
-
-
       default:
         break;
 

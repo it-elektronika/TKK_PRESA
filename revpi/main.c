@@ -1062,6 +1062,7 @@ void coreLoop()
       }
       else
       {
+        alarmReset = 0;
         releaseCap(15);
         if(readVariableValue("I_1_i03"))
         {
@@ -1073,6 +1074,12 @@ void coreLoop()
       break;
 
     case 16: /* press - moving to low position - pressing cap*/
+      if(!alarmReset)
+      {
+        errorNum = 0;
+        alarmReset = 1; 
+        page = 0;
+      }
       conveyorBelt();
       pickCap();
       movePressLower();
@@ -2428,6 +2435,7 @@ void checkInCycle()
 
 void initVars()
 {
+  alarmReset = 1;
   releaseCapDone = 0;
   w = 0;
   tableClear = 0;

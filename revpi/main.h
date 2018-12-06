@@ -21,7 +21,7 @@ int tableClear;
 
 int w;
 int releaseCapDone;
-
+int alarmReset;
 int turnTableStep;
 int turnTableDone;
 int movePressZeroPosStep;
